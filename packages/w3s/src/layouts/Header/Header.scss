@@ -12,7 +12,36 @@
     gap: 30px;
 
     &__link {
+      position: relative;
       color: $secondary-color;
+
+      &:active,
+      &:focus,
+      &:hover {
+        outline: 0;
+      }
+
+      &::before {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 3px;
+        transition: all 0.4s cubic-bezier(0.35, 1, 0.33, 1);
+        content: "";
+      }
+
+      &:hover {
+        &::before {
+          width: 100%;
+        }
+      }
+
+      &.underscore {
+        &::before {
+          background: $accent-color;
+        }
+      }
     }
 
     @media (max-width: $lg) {

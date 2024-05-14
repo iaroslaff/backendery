@@ -25,18 +25,18 @@ const Header: FC = () => {
           ? (
             <React.Fragment>
               <div className={"header__nav"}>
-                <a className={"header__nav__link"} href={"#"}>We do!</a>
-                <a className={"header__nav__link"} href={"#"}>Cases</a>
-                <a className={"header__nav__link"} href={"#"}>Steps</a>
-                <a className={"header__nav__link"} href={"#"}>About</a>
-                <a className={"header__nav__link"} href={"#"}>Contacts</a>
+                <a className={"header__nav__link underscore"} href={"#"}>We do!</a>
+                <a className={"header__nav__link underscore"} href={"#"}>Cases</a>
+                <a className={"header__nav__link underscore"} href={"#"}>Steps</a>
+                <a className={"header__nav__link underscore"} href={"#"}>About</a>
+                <a className={"header__nav__link underscore"} href={"#"}>Contacts</a>
               </div>
             </React.Fragment>
           )
           : (
             <React.Fragment>
               <SvgIcon
-                className={`header__touchable-menu`}
+                className={"header__touchable-menu"}
                 name={"burger"}
                 onClick={() => setDrawerVisibility(true)}
               />

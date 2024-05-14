@@ -1,7 +1,9 @@
-import React, { FC } from "react"
+import { FC } from "react"
+
+import NotFound from "../containers/NotFound/NotFound"
 
 const NotFoundPage: FC = () => {
-  return <React.Fragment>NotFoundPage</React.Fragment>
+  return <NotFound />
 }
 
 export default NotFoundPage

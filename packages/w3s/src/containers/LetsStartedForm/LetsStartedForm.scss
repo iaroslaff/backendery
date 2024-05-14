@@ -1,0 +1,203 @@
+@import "@styles/variables";
+@import "@styles/mixin";
+
+.lets-started-form {
+  &__body {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: $primary-color;
+  }
+
+  &__close-btn {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    width: 60px;
+    height: 60px;
+
+    svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    @media (max-width: $lg) {
+      top: 20px;
+      right: 50%;
+      transform: translate(50%, 0);
+      mix-blend-mode: difference;
+    }
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 20px;
+
+    @media (max-width: $lg) {
+      height: 100%;
+      padding-top: 100px;
+      overflow: auto;
+    }
+  }
+
+  &__title {
+    @include adaptive-value("font-size", 100, 65, 1);
+
+    margin-bottom: 20px;
+    color: $secondary-color;
+    font-weight: 800;
+    line-height: 120%;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &__description {
+    @include adaptive-value("font-size", 20, 16, 1);
+    @include adaptive-value("margin-bottom", 100, 70, 1);
+
+    align-self: center;
+    color: $secondary-color;
+    font-weight: 500;
+    line-height: 150%;
+    text-align: center;
+    text-transform: uppercase;
+
+    @media (max-width: $md) {
+      max-width: 350px;
+    }
+  }
+
+  &__form-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 40px;
+    row-gap: 59px;
+
+    @media (max-width: $lg) {
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: $lg) {
+      @include adaptive-value("padding-left", 84, 20, 1);
+      @include adaptive-value("padding-right", 84, 20, 1);
+    }
+  }
+
+  &__submit-btn {
+    @include adaptive-value("font-size", 18, 18, 1);
+
+    display: flex;
+    grid-column: 1/3;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 70px;
+    padding: 22px;
+    color: $primary-color;
+    font-weight: 500;
+    line-height: 150%;
+    background-color: $accent-color;
+    border-radius: 67px;
+
+    @media (max-width: $lg) {
+      grid-column: 1/2;
+    }
+  }
+}
+
+.lets-started-form-input {
+  position: relative;
+  height: 45px;
+  border-bottom: 1px solid rgba(254, 254, 255, 0.05);
+
+  &--big {
+    @media (min-width: $lg) {
+      grid-column: 1/3;
+    }
+  }
+
+  &--slider {
+    min-height: 100px;
+    border-bottom: none;
+
+    .lets-started-form-input__label {
+      position: static;
+      display: block;
+      margin-bottom: 40px;
+    }
+  }
+
+  &__field {
+    width: 100%;
+    height: 100%;
+    padding: 1px 1px 17px;
+    color: $secondary-color;
+    text-align: left;
+    background-color: $primary-color;
+
+    &:focus {
+      + .lets-started-form-input__label {
+        @include adaptive-value("font-size", 12, 12, 1);
+
+        bottom: 47px;
+        color: rgba(226, 226, 226, 0.5);
+        line-height: 150%;
+        transition: all 0.3s;
+      }
+    }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:focus {
+      transition: background-color 0s 600000s !important;
+      -webkit-text-fill-color: $secondary-color !important;
+
+      + .lets-started-form-input__label {
+        @include adaptive-value("font-size", 12, 12, 1);
+
+        bottom: 47px;
+        color: rgba(226, 226, 226, 0.5);
+        line-height: 150%;
+        transition: all 0.3s;
+      }
+    }
+  }
+
+  &__label {
+    @include adaptive-value("font-size", 18, 18, 1);
+
+    position: absolute;
+    bottom: 17px;
+    left: 0;
+    color: $secondary-color;
+    line-height: 150%;
+    transition: all 0.3s;
+
+    &.label-top {
+      @include adaptive-value("font-size", 12, 12, 1);
+
+      bottom: 47px;
+      color: rgba(226, 226, 226, 0.5);
+      line-height: 150%;
+      transition: all 0.3s;
+    }
+  }
+
+  &__error {
+    padding-top: 10px;
+    color: red;
+  }
+}

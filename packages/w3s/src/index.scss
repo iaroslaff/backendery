@@ -3,9 +3,15 @@
 
 body {
   width: 100%;
-  min-width: $sm;
   height: 100%;
   min-height: 100%;
+  overflow-x: hidden;
+  color: $secondary-color;
+  font-weight: 400;
+  font-size: 16px;
+  font-family: "Red Hat Display", sans-serif;
+  line-height: 150%;
+  background-color: $primary-color;
   text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;

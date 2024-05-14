@@ -1,0 +1,72 @@
+@import "@styles/variables";
+
+.touchable-menu {
+  display: none;
+
+  &.visible {
+    position: fixed;
+    z-index: 100;
+    display: grid;
+    grid-template-rows: auto 1fr auto auto;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    width: 100vw;
+    height: 100dvh;
+    padding: 20px;
+    background-color: $accent-color;
+  }
+
+  &__close-btn {
+    width: fit-content;
+    margin-top: 10px;
+    background-color: transparent;
+  }
+
+  &__start-project-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    min-height: 120px;
+    margin-bottom: 40px;
+    color: $accent-color;
+    font-weight: 600;
+    font-size: 16px;
+    background-color: $primary-color;
+    border-radius: 100px;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 46px;
+    align-self: center;
+
+    &__link {
+      color: $primary-color;
+      font-weight: 500;
+      font-size: 30px;
+      text-align: center;
+    }
+  }
+
+  &__social-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+
+    &__item {
+      display: flex;
+      align-items: center;
+
+      &--link {
+        margin-right: 6px;
+        color: $primary-color;
+        font-weight: 700;
+        font-size: 16px;
+      }
+    }
+  }
+}

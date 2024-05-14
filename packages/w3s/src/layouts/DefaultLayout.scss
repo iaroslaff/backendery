@@ -1,13 +1,12 @@
 @import "@styles/variables";
+@import "@styles/mixin";
 
-.header {
-  color: rgb(0, 0, 0);
-}
+.container {
+  @include adaptive-value("padding-right", 60, 20, 1);
+  @include adaptive-value("padding-left", 60, 20, 1);
 
-.main {
-  color: rgb(0, 0, 0);
-}
-
-.footer {
-  color: rgb(0, 0, 0);
+  width: 100%;
+  max-width: $container;
+  margin-right: auto;
+  margin-left: auto;
 }

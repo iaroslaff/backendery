@@ -1,0 +1,31 @@
+@import "@styles/variables";
+@import "@styles/mixin";
+
+.wedo {
+  @include adaptive-value("margin-bottom", 300, 100, 1);
+  @include adaptive-value("gap", 30, 20, 1);
+
+  display: grid;
+  grid-auto-rows: 320px;
+  grid-template-columns: repeat(3, 1fr);
+
+  &__title {
+    @include adaptive-value("font-size", 110, 70, 1);
+
+    font-weight: 900;
+    line-height: 90%;
+
+    @media (width <= $md) {
+      margin-bottom: 40px;
+    }
+  }
+
+  @media (width <= $lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (width <= $md) {
+    grid-template-rows: auto;
+    grid-template-columns: 1fr;
+  }
+}

@@ -6,13 +6,21 @@
  *
  * @param {string} $property - The CSS property to apply adaptive styles to.
  * @param {number} $fromValue - The initial size of the property.
- * @param {number} $minValue - The minimum size of the property.
+ * @param {number} $toValue - The minimum size of the property.
  * @param {number} $type - The type of adaptation: 1 for smaller than container, 2 for larger than container, else for always.
  */
-@mixin adaptive-value ($property, $fromValue, $minValue, $type) {
-  $appendableValue: $fromValue - $minValue;
+@mixin adaptive-value($property, $fromValue, $toValue, $type) {
+  $appendableValue: $fromValue - $toValue;
   $containerWithoutUnit: remove-unit(#{$container});
   $minBpWithoutUnit: remove-unit(#{$xs});
+
+  @if not $containerMaxWidth or not $containerMinWidth or not $container {
+    @error "no value is given for '$containerMaxWidth', '$containerMinWidth' or '$container'";
+  }
+
+  @if $containerMaxWidth < $containerMinWidth {
+    @error "the value for '$containerMaxWidth' must not be less than '$containerMinWidth'";
+  }
 
   // Apply styles only if smaller than container
   @if $type==1 {
@@ -20,7 +28,7 @@
 
     @media (max-width: #{$container}) {
       #{$property}: calc(
-        #{$minValue + px} + #{$appendableValue} * ((100vw - $xs) / (#{$containerWithoutUnit} - #{$minBpWithoutUnit}))
+        #{$toValue + px} + #{$appendableValue} * ((100vw - $xs) / (#{$containerWithoutUnit} - #{$minBpWithoutUnit}))
       );
     }
     // Apply styles only if larger than container
@@ -28,10 +36,14 @@
     #{$property}: $fromValue + px;
 
     @media (min-width: #{$container}) {
-      #{$property}: calc(#{$minValue + px} + #{$appendableValue} * ((100vw - $xs) / #{$maxWidth - $minWidth}));
+      #{$property}: calc(
+        #{$toValue + px} + #{$appendableValue} * ((100vw - $xs) / #{$containerMaxWidth - $containerMinWidth})
+      );
     }
   } @else {
     // Apply styles always
-    #{$property}: calc(#{$minValue + px} + #{$appendableValue} * ((100vw - $xs) / #{$maxWidth - $minWidth}));
+    #{$property}: calc(
+      #{$toValue + px} + #{$appendableValue} * ((100vw - $xs) / #{$containerMaxWidth - $containerMinWidth})
+    );
   }
 }

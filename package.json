@@ -41,13 +41,13 @@
       "url": "https://github.com/beardeddudes"
     }
   ],
-  "name": "nodejs-project-templates-light",
+  "name": "backendery",
   "packageManager": "yarn@3.6.1",
   "prettier": "@beardeddudes/prettier-config",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/beardeddudes/nodejs-project-templates-light.git"
+    "url": "git+https://github.com/iaroslaff/backendery.git"
   },
   "scripts": {
     "stylelint": "npx stylelint",
@@ -57,8 +57,8 @@
     "fix": "echo \"Running Prettier...\" && yarn prettier --write packages/*/src && echo \"Running ESLint...\" && yarn eslint packages/*/src --fix && echo \"Running Stylelint...\" && yarn stylelint packages/*/src/**/*.(sass|scss|css) --fix",
     "lint": "echo \"Running Prettier...\" && yarn prettier --check packages/*/src && echo \"Running ESLint...\" && yarn eslint packages/*/src && echo \"Running Stylelint...\" && yarn stylelint packages/*/src/**/*.(sass|scss|css)",
     "build": "yarn workspaces foreach --exclude=root --parallel run build",
-    "test:w3s": "yarn workspace @nodejs-project-templates-light/w3s run tests",
-    "serve:w3s": "yarn workspace @nodejs-project-templates-light/w3s run serve"
+    "test:w3s": "yarn workspace @backendery/w3s run tests",
+    "serve:w3s": "yarn workspace @backendery/w3s run serve"
   },
   "stylelint": {
     "extends": "@beardeddudes/stylelint-config"

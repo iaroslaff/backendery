@@ -1,0 +1,55 @@
+@import "@styles/variables";
+@import "@styles/mixin";
+
+.weuse {
+  @include adaptive-value("margin-bottom", 300, 100, 1);
+  @include adaptive-value("gap", 60, 20, 1);
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  &__heading {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    padding-right: 100px;
+
+    &__title {
+      @include adaptive-value("font-size", 110, 70, 1);
+
+      font-weight: 900;
+      line-height: 90%;
+
+      @media (width <= $md) {
+        margin-bottom: 40px;
+      }
+    }
+
+    &__description {
+      align-self: center;
+      max-width: 520px;
+      font-weight: 300;
+      font-size: 30px;
+      line-height: 130%;
+
+      &--highly-styled {
+        opacity: 0.5;
+      }
+
+      @media (width <= $lg) {
+        display: none;
+      }
+    }
+  }
+
+  &__content {
+    @include adaptive-value("gap", 80, 30, 1);
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (width <= $md) {
+    grid-template-rows: auto;
+    grid-template-columns: 1fr;
+  }
+}

@@ -5,7 +5,7 @@
  * @return {number} - The numeric part of the value without the unit.
  * @throws {error} - Throws an error if no unit is found or if the unit is not in the list of units.
 */
-@function remove-unit ($value) {
+@function remove-unit($value) {
   $units: ("px", "rem", "em", "vh", "vw", "vmin", "vmax", "ch", "%");
   $unitFound: false;
 
@@ -21,11 +21,11 @@
 
   // If no unit is found, throw an error
   @if not $unitFound {
-    @error "No unit found in value: #{$value}.";
+    @error "no unit found in value: #{$value}.";
   }
 
   // If the unit is not in the list of units, throw an error
-  @error "Unsupported unit found in value: #{$value}.";
+  @error "unsupported unit found in value: #{$value}.";
 }
 
 /**
@@ -35,7 +35,7 @@
  * @param {number} $from - The value relative to which the conversion is made.
  * @return {number} - The converted value as a percentage.
 */
-@function to-percent ($px, $from) {
+@function to-percent($px, $from) {
   $result: calc(($px / $from) * 100%); // Calculate the percentage value
 
   @return $result;

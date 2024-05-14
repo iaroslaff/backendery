@@ -1,0 +1,130 @@
+@import "@styles/variables";
+@import "@styles/mixin";
+
+.budget-slider {
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+  }
+
+  &__min-limit-budget,
+  &__max-limit-budget {
+    flex: 0 0 auto;
+    color: $secondary-color;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 150%;
+  }
+
+  &__min-limit-budget {
+    padding-right: 30px;
+  }
+
+  &__max-limit-budget {
+    padding-left: 30px;
+  }
+
+  &__wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  &__double-slider {
+    position: relative;
+    z-index: 1;
+    height: 10px;
+    margin: 0 15px;
+  }
+
+  &__track {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    margin: -14px -26px;
+    background-color: rgba(226, 226, 226, 0.08);
+    border-radius: 50px;
+  }
+
+  &__range {
+    position: absolute;
+    inset: 0 25%;
+    z-index: 2;
+    margin: -9px -20px;
+    background-color: $secondary-color;
+    border-radius: 29px;
+  }
+
+  &__values {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    display: flex;
+    min-width: 130px;
+    color: rgb(222, 226, 230);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 150%;
+    transform: translate(-50%, 0);
+  }
+
+  &__left-value {
+    padding-right: 16px;
+  }
+
+  &__right-value {
+    padding-left: 16px;
+  }
+
+  &__thumb {
+    position: absolute;
+    z-index: 3;
+    width: 20px;
+    height: 20px;
+    background-color: $primary-color;
+    border-radius: 50%;
+
+    &--left {
+      left: 25%;
+      transform: translate(-15px, -5px);
+    }
+
+    &--right {
+      right: 25%;
+      transform: translate(15px, -5px);
+    }
+  }
+}
+
+input[type="range"] {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 100%;
+  height: 28px;
+  transform: translate(0, -50%);
+  opacity: 0;
+  appearance: none;
+  pointer-events: none;
+
+  &::-webkit-slider-thumb {
+    width: 25px;
+    height: 25px;
+    background: red;
+    border: none;
+    border: 0 none;
+    border-radius: 50%;
+    opacity: 1;
+    appearance: none;
+    pointer-events: all;
+  }
+
+  &::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: goldenrod;
+    border: none;
+    border-radius: 50%;
+  }
+}

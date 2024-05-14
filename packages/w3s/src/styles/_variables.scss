@@ -1,5 +1,9 @@
-$container: 1440px;
+// Container sizes
+$containerMaxWidth: 1920px;
+$containerMinWidth: 320px;
+$container: 1920px;
 
+// Breakpoints
 $base: 0;
 $xs: 360px;
 $sm: 480px;
@@ -7,3 +11,8 @@ $md: 768px;
 $lg: 992px;
 $xl: 1280px;
 $xxl: 1536px;
+
+// Theme colors
+$primary-color: rgb(21, 45, 57);
+$secondary-color: rgb(254, 254, 255);
+$accent-color: rgb(247, 173, 25);

@@ -9,15 +9,13 @@ import "./DefaultLayout.scss"
 const DefaultLayout: FC = () => {
   return (
     <React.Fragment>
-      <header className={"header"}>
+      <div className={"container"}>
         <Header />
-      </header>
-      <main className={"main"}>
-        <Outlet />
-      </main>
-      <footer className={"footer"}>
-        <Footer />
-      </footer>
+        <main>
+          <Outlet />
+        </main>
+      </div>
+      <Footer />
     </React.Fragment>
   )
 }

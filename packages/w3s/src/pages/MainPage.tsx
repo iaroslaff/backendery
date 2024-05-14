@@ -1,32 +1,21 @@
 import React, { FC } from "react"
 
-import { SvgIcon } from "../components/Icon"
+import Hero from "../containers/Hero/Hero"
+import LetsStartedForm from "../containers/LetsStartedForm/LetsStartedForm"
+import WeDo from "../containers/WeDo/WeDo"
+import WeUse from "../containers/WeUse/WeUse"
+
+import { useApp } from "../contexts/App"
 
 const MainPage: FC = () => {
+  const { isLetsStartedFormVisible } = useApp()
+
   return (
     <React.Fragment>
-      <div
-        style={{
-          alignItems: "center",
-          display: "flex",
-          flexDirection: "column",
-          fontSize: "28px",
-          height: "100vh",
-          justifyContent: "center",
-        }}
-      >
-        Hey from Bearded Dudes!
-        <div
-          style={{
-            height: "164px",
-            margin: "10px",
-            padding: "10px",
-            width: "164px",
-          }}
-        >
-          <SvgIcon type={"react"} />
-        </div>
-      </div>
+      <Hero />
+      <WeDo />
+      <WeUse />
+      {isLetsStartedFormVisible && <LetsStartedForm />}
     </React.Fragment>
   )
 }

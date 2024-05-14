@@ -11,30 +11,8 @@
 </div>
 <!-- markdownlint-restore -->
 
-# Brand New App
+# Backendery
+Landing page for **Backendery** digital agency.
 
-## Table of contents
-
-- [Brand New App](#brand-new-app)
-  - [Table of contents](#table-of-contents)
-  - [Development | Staging rollout](#development--staging-rollout)
-  - [Documentation \& References](#documentation--references)
-
-## Development | Staging rollout
-
-After setting up **_all_**(!) required secrets(`Vault` or `.env`), perform these actions:
-
-1. Clone this repository to kickstart new project
-
-2. After that open code editor of your choice and replace all occurrences of `"nodejs-project-templates"` in all `package.json` files with the name of your project and run `yarn install` from project root
-
-3. Profit 😊
-
-## Documentation & References
-
-- [React Documentation](https://react.dev/reference/react)
-- [GitHub Actions](https://docs.github.com/en/actions)
-
-That's all and have a good coding.
 
 Best wishes,<br>**Bearded Dudes** team!

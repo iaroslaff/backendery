@@ -20,28 +20,28 @@ export interface ICardWeDoProps {
 
 const CardWeDo: FC<ICardWeDoProps> = ({ headingDecoration = CardWeDoHeadingDecoration.Icon, ...props }) => {
   return (
-    <React.Fragment>
-      <div className={"card-wedo"}>
-        <div
-          className={`card-wedo__heading-decoration ${headingDecoration === CardWeDoHeadingDecoration.Text ? "card-wedo__heading-decoration--text" : ""}`}
-        >
-          {headingDecoration === CardWeDoHeadingDecoration.Icon && props.iconName && <SvgIcon name={props.iconName} />}
-          {headingDecoration === CardWeDoHeadingDecoration.Text && props.tags && (
-            <React.Fragment>
-              <p>For</p>
-              {props.tags.map((tag, key) => (
-                <span key={key} className={"card-wedo__heading-decoration__tag"}>
-                  {tag}
-                </span>
-              ))}
-              <p>and others</p>
-            </React.Fragment>
-          )}
-        </div>
-        <h4 className={"card-wedo__title"}>{props.title}</h4>
-        <p className={"card-wedo__description"}>{props.description}</p>
+    <div className={"card-wedo"}>
+      <div
+        className={`card-wedo__heading-decoration ${
+          headingDecoration === CardWeDoHeadingDecoration.Text ? "card-wedo__heading-decoration--text" : ""
+        }`}
+      >
+        {headingDecoration === CardWeDoHeadingDecoration.Icon && props.iconName && <SvgIcon name={props.iconName} />}
+        {headingDecoration === CardWeDoHeadingDecoration.Text && props.tags && (
+          <React.Fragment>
+            <p>For</p>
+            {props.tags.map((tag, key) => (
+              <span key={key} className={"card-wedo__tag"}>
+                {tag}
+              </span>
+            ))}
+            <p>and others</p>
+          </React.Fragment>
+        )}
       </div>
-    </React.Fragment>
+      <h4 className={"card-wedo__title"}>{props.title}</h4>
+      <p className={"card-wedo__description"}>{props.description}</p>
+    </div>
   )
 }
 

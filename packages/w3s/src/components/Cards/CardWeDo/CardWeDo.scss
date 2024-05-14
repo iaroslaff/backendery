@@ -12,9 +12,10 @@
   border-radius: 30px;
 
   &__heading-decoration {
-    width: 50%;
     height: 50px;
     margin-bottom: auto;
+    display: flex;
+    flex-wrap: wrap;
 
     &--text {
       display: flex;
@@ -24,22 +25,21 @@
       color: $accent-color;
       line-height: 120%;
     }
+  }
+  &__tag {
+    padding: 10px 12px;
+    color: $primary-color;
+    font-weight: 500;
+    font-size: 13px;
+    background-color: $accent-color;
+    border-radius: 30px;
 
-    &__tag {
-      padding: 10px 12px;
-      color: $primary-color;
-      font-weight: 500;
-      font-size: 13px;
-      background-color: $accent-color;
-      border-radius: 30px;
+    &:nth-child(2) {
+      margin-left: 6px;
+    }
 
-      &:nth-child(2) {
-        margin-left: 6px;
-      }
-
-      &:nth-child(4) {
-        margin-right: 6px;
-      }
+    &:nth-child(4) {
+      margin-right: 6px;
     }
   }
 

@@ -18,10 +18,10 @@ const TileWeUse: FC<ITileWeUseProps> = props => {
         <h3 className={"we-use__title"}>{props.title}</h3>
         <p className={"we-use__description"}>{props.description}</p>
         <div className={"we-use__tools"}>
-          <p className={"we-use__tools__title"}>Tools</p>
+          <p className={"we-use__tools-title"}>Tools</p>
           {props.iconName &&
             props.iconName.map((iconName, key) => (
-              <div key={key} className={"we-use__tools__particular-tool"}>
+              <div key={key} className={"we-use__tools-particular-tool"}>
                 <SvgIcon name={iconName} />
               </div>
             ))}

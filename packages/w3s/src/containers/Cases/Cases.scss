@@ -1,0 +1,52 @@
+@import "@styles/mixin";
+@import "@styles/variables";
+.cases {
+  &__section {
+    max-width: $container;
+    margin: 0 auto;
+    padding-right: 20px;
+    padding-left: 20px;
+    @include adaptive-value("margin-bottom", 300, 100, 1);
+  }
+  &__heading {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 150px 1fr 150px;
+    @include adaptive-value("margin-bottom", 100, 40, 1);
+    @media (max-width: $lg) {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+    }
+  }
+  &__note {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    @media (max-width: $lg) {
+      grid-row: 2/3;
+      span {
+        max-width: 90px;
+      }
+    }
+  }
+  &__title {
+    text-align: center;
+    font-weight: 900;
+    @include adaptive-value("font-size", 110, 55, 1);
+    line-height: 90%;
+    @media (max-width: $lg) {
+      text-align: left;
+      grid-row: 1/2;
+      margin-bottom: 30px;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    @media (max-width: $xl) {
+      grid-template-columns: 1fr;
+    }
+  }
+}

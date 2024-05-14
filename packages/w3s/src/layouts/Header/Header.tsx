@@ -16,20 +16,21 @@ const Header: FC = () => {
   return (
     <React.Fragment>
       <header className={"header"}>
-        <a href={"/"}>
-          <SvgIcon name={"logo"} />
-        </a>
-        {
-          //prettier-ignore
-          isLG
+        <div className={"header__container"}>
+          <a href={"/"}>
+            <SvgIcon name={"logo"} />
+          </a>
+          {
+            //prettier-ignore
+            isLG
           ? (
             <React.Fragment>
               <div className={"header__nav"}>
-                <a className={"header__nav__link underscore"} href={"#"}>We do!</a>
-                <a className={"header__nav__link underscore"} href={"#"}>Cases</a>
-                <a className={"header__nav__link underscore"} href={"#"}>Steps</a>
-                <a className={"header__nav__link underscore"} href={"#"}>About</a>
-                <a className={"header__nav__link underscore"} href={"#"}>Contacts</a>
+                <a className={"header__nav-link underscore"} href={"#"}>We do!</a>
+                <a className={"header__nav-link underscore"} href={"#"}>Cases</a>
+                <a className={"header__nav-link underscore"} href={"#"}>Steps</a>
+                <a className={"header__nav-link underscore"} href={"#"}>About</a>
+                <a className={"header__nav-link underscore"} href={"#"}>Contacts</a>
               </div>
             </React.Fragment>
           )
@@ -43,7 +44,8 @@ const Header: FC = () => {
               <TouchableMenu />
             </React.Fragment>
           )
-        }
+          }
+        </div>
       </header>
     </React.Fragment>
   )

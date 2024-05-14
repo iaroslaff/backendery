@@ -1,15 +1,26 @@
 @import "@styles/variables";
+@import "@styles/mixin";
 
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  position: absolute;
+  z-index: 10;
+
   width: 100%;
-  height: 80px;
+  @include adaptive-value("padding-top", 40, 30, 1);
+  @include adaptive-value("padding-bottom", 40, 30, 1);
+  &__container {
+    max-width: $container;
+    margin: 0 auto;
+    padding: 0px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
   &__nav {
     display: flex;
-    gap: 30px;
+    gap: 40px;
 
     &__link {
       position: relative;
@@ -47,6 +58,9 @@
     @media (max-width: $lg) {
       display: none;
     }
+  }
+  &__nav-link {
+    color: $secondary-color;
   }
 
   &__touchable-menu {

@@ -10,26 +10,26 @@ const TouchableMenu: FC = () => {
 
   return (
     <React.Fragment>
-      <div className={`touchable-menu ${isDrawerVisible ? "visible" : ""}`}>
+      <div className={`touchable-menu ${isDrawerVisible ? "_visible" : ""}`}>
         <button className={"touchable-menu__close-btn"} onClick={() => setDrawerVisibility(false)}>
           <SvgIcon name={"touchable-menu-close"} />
         </button>
         <nav className={"touchable-menu__nav"}>
-          <a className={"touchable-menu__nav__link"} onClick={() => setDrawerVisibility(false)}>
+          <button className={"touchable-menu__link"} onClick={() => setDrawerVisibility(false)}>
             We do!
-          </a>
-          <a className={"touchable-menu__nav__link"} onClick={() => setDrawerVisibility(false)}>
+          </button>
+          <button className={"touchable-menu__link"} onClick={() => setDrawerVisibility(false)}>
             Cases
-          </a>
-          <a className={"touchable-menu__nav__link"} onClick={() => setDrawerVisibility(false)}>
+          </button>
+          <button className={"touchable-menu__link"} onClick={() => setDrawerVisibility(false)}>
             Steps
-          </a>
-          <a className={"touchable-menu__nav__link"} onClick={() => setDrawerVisibility(false)}>
+          </button>
+          <button className={"touchable-menu__link"} onClick={() => setDrawerVisibility(false)}>
             About
-          </a>
-          <a className={"touchable-menu__nav__link"} onClick={() => setDrawerVisibility(false)}>
+          </button>
+          <button className={"touchable-menu__link"} onClick={() => setDrawerVisibility(false)}>
             Contacts
-          </a>
+          </button>
         </nav>
         <button
           className={"touchable-menu__start-project-btn"}
@@ -38,26 +38,22 @@ const TouchableMenu: FC = () => {
             setLetsStartedFormVisibility(true)
           }}
         >
-          Start
-          <br />a project
+          <span>
+            Start
+            <br />a project
+          </span>
         </button>
         <div className={"touchable-menu__social-links"}>
-          <div className={"touchable-menu__social-links__item"}>
-            <a className={"touchable-menu__social-links__item--link"} href={"#"}>
-              Telegram
-            </a>
+          <div className={"touchable-menu__social-link"}>
+            <a href={"#"}>Telegram</a>
             <SvgIcon name={"arrow-href-dark"} />
           </div>
-          <div className={"touchable-menu__social-links__item"}>
-            <a className={"touchable-menu__social-links__item--link"} href={"#"}>
-              LinkedIn
-            </a>
+          <div className={"touchable-menu__social-link"}>
+            <a href={"#"}>LinkedIn</a>
             <SvgIcon name={"arrow-href-dark"} />
           </div>
-          <div className={"touchable-menu__social-links__item"}>
-            <a className={"touchable-menu__social-links__item--link"} href={"#"}>
-              Facebook
-            </a>
+          <div className={"touchable-menu__social-link"}>
+            <a href={"#"}>Facebook</a>
             <SvgIcon name={"arrow-href-dark"} />
           </div>
         </div>

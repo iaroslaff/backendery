@@ -1,0 +1,154 @@
+@import "@styles/mixin";
+@import "@styles/variables";
+.about-me {
+  &__container {
+    max-width: $container;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    @include adaptive-value("margin-bottom", 300, 100, 1);
+  }
+  &__heading-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: start;
+
+    @include adaptive-value("margin-bottom", 200, 90, 1);
+  }
+  &__title-section {
+    @include adaptive-value("font-size", 200, 120, 1);
+    padding-right: 80px;
+
+    flex: 1 1 auto;
+    font-weight: 900;
+    line-height: 90%;
+    max-width: 750px;
+    text-align: right;
+    color: $secondary-color;
+    span {
+      position: relative;
+      top: -60px;
+      @include adaptive-value("font-size", 100, 60, 1);
+    }
+  }
+  &__description-section {
+    max-width: 860px;
+    flex: 0 0 60%;
+    text-align-last: left;
+    color: $secondary-color;
+    line-height: 150%;
+    @include adaptive-value("font-size", 46, 30, 1);
+    p {
+      &:not(:last-child) {
+        margin-bottom: 20px;
+      }
+    }
+    span {
+      opacity: 0.5;
+    }
+  }
+  &__body {
+    display: flex;
+    @include adaptive-value("margin-bottom", 160, 90, 1);
+    @media (max-width: $xl) {
+      flex-direction: column-reverse;
+    }
+  }
+  &__list {
+    flex: 0 1 400px;
+    display: flex;
+    flex-direction: column;
+    @include adaptive-value("gap", 120, 60, 1);
+  }
+  &__item-list {
+  }
+  &__item-title {
+    @include adaptive-value("font-size", 60, 36, 1);
+    line-height: 120%;
+    font-weight: 900;
+    margin-bottom: 20px;
+  }
+  &__item-description {
+    opacity: 0.5;
+    line-height: 150%;
+    font-style: 16px;
+  }
+  &__title-wrapper {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+  }
+  &__decoration-title {
+    line-height: 90%;
+    @include adaptive-value("font-size", 110, 50, 1);
+    font-weight: 900;
+    max-width: 620px;
+    position: relative;
+    z-index: 10;
+    @include adaptive-value("padding-left", 100, 60, 1);
+    @media (max-width: $xl) {
+      margin-bottom: 80px;
+    }
+    span {
+      position: relative;
+      z-index: 10;
+    }
+    svg {
+      position: absolute;
+      z-index: 9;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: translate(-50%, -50%) scale(1.3);
+    }
+  }
+}
+
+.me-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__image {
+    flex: 0 0 160px;
+    height: 160px;
+    width: 160px;
+    border-radius: 50px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 20px;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &__name {
+    font-style: 24px;
+    font-weight: 900;
+    line-height: 150%;
+    margin-bottom: 5px;
+  }
+  &__position {
+    font-weight: 600;
+    line-height: 150%;
+    opacity: 0.5;
+    @include adaptive-value("margin-bottom", 60, 30, 1);
+  }
+  &__quote {
+    max-width: 1290px;
+    @include adaptive-value("font-size", 60, 30, 1);
+    line-height: 120%;
+    text-align: center;
+    span {
+      color: $accent-color;
+    }
+  }
+}

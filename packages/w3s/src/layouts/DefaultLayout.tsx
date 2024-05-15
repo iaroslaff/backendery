@@ -9,12 +9,10 @@ import "./DefaultLayout.scss"
 const DefaultLayout: FC = () => {
   return (
     <React.Fragment>
-      <div className={"container"}>
-        <Header />
-        <main>
-          <Outlet />
-        </main>
-      </div>
+      <Header />
+      <main>
+        <Outlet />
+      </main>
       <Footer />
     </React.Fragment>
   )

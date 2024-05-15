@@ -1,12 +1,1 @@
 @import "@styles/variables";
-@import "@styles/mixin";
-
-.container {
-  @include adaptive-value("padding-right", 60, 20, 1);
-  @include adaptive-value("padding-left", 60, 20, 1);
-
-  width: 100%;
-  max-width: $container;
-  margin-right: auto;
-  margin-left: auto;
-}

@@ -55,7 +55,7 @@
     }
   }
 
-  &__step {
+  &__card {
     position: relative;
     align-self: start;
     padding-left: 30px;
@@ -154,27 +154,7 @@
     }
   }
 
-  &__text {
-    @include adaptive-value("font-size", 70, 70, 1);
-
-    grid-row: 2/4;
-    grid-column: 1/3;
-    align-self: center;
-    max-width: 700px;
-    line-height: 110%;
-
-    span {
-      opacity: 0.5;
-    }
-
-    @media (max-width: $md) {
-      display: none;
-    }
-  }
-}
-
-.tile-step {
-  &__title {
+  &__card-title {
     @include adaptive-value("font-size", 60, 32, 1);
 
     position: relative;
@@ -192,7 +172,25 @@
     }
   }
 
-  &__description {
+  &__card-description {
     max-width: auto;
+  }
+
+  &__text {
+    @include adaptive-value("font-size", 70, 70, 1);
+
+    grid-row: 2/4;
+    grid-column: 1/3;
+    align-self: center;
+    max-width: 700px;
+    line-height: 110%;
+
+    span {
+      opacity: 0.5;
+    }
+
+    @media (max-width: $md) {
+      display: none;
+    }
   }
 }

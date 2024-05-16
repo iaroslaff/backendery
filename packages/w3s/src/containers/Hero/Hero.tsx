@@ -1,15 +1,23 @@
 import { FC } from "react"
 
 import { SvgIcon } from "../../components/elements/Icon"
+import { useApp } from "../../contexts/App"
 
 import "./Hero.scss"
 
 const Hero: FC = () => {
+  const { setLetsStartedFormVisibility } = useApp()
+
   return (
     <section className={"hero__section"}>
       <div className={"hero__offer"}>
         <div className={"hero__description-wrapper"}>
-          <button className={"hero__call-to-action-btn"}>
+          <button
+            className={"hero__start-project-btn"}
+            onClick={() => {
+              setLetsStartedFormVisibility(true)
+            }}
+          >
             Start
             <br />a project
           </button>

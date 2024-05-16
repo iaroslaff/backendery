@@ -30,7 +30,7 @@
     align-items: center;
   }
 
-  &__call-to-action-btn {
+  &__start-project-btn {
     @include adaptive-value("flex-basis", 120, 100, 1);
     @include adaptive-value("height", 120, 100, 1);
     @include adaptive-value("width", 120, 100, 1);

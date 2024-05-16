@@ -1,65 +1,136 @@
-import React, { FC } from "react"
+import { FC } from "react"
 
-import noImage from "./../../assets/images/no-image-placeholder.png"
-import CardCase, { ICardCase } from "./../../components/Cards/CardCase/CardCase"
-import { SvgIcon } from "./../../components/elements/Icon"
+import { SvgIcon } from "../../components/elements/Icon"
+
+import {
+  default as noImage1,
+  default as noImage2,
+  default as noImage3,
+  default as noImage4,
+} from "../../assets/images/no-image-placeholder.png"
+
 import "./Cases.scss"
-
-export const casesList: ICardCase[] = [
-  {
-    title: "22vyroby.com",
-    description: "Database and sales management system for an online store of metal product",
-    tools: ["", "", ""],
-    image: noImage,
-  },
-  {
-    title: "Trading system",
-    description:
-      "As a digital designer and art director I help companies and organisations around the world connect with their audience and grow their ",
-    tools: ["", "", ""],
-    image: noImage,
-  },
-  {
-    title: "File controller",
-    description:
-      "A developed system for the American financial structure that allows you to create and control long-term tasks in the form of running processes bat files and track the results of tasks",
-    tools: ["", "", "", ""],
-    image: noImage,
-  },
-  {
-    title: "MSG",
-    description:
-      "An event monitoring system developed for a gaming company based on created rules and rule parsing using AST",
-    tools: ["", "", "", "", ""],
-
-    image: noImage,
-  },
-]
 
 const Cases: FC = () => {
   return (
-    <section className='cases__section'>
-      <div className='cases__heading'>
-        <div className='cases__note'>
-          <SvgIcon name='decoration-asterisk' />
+    <section className={"cases__section"}>
+      <div className={"cases__heading"}>
+        <div className={"cases__note"}>
+          <SvgIcon name={"decoration-asterisk"} />
           <span>Some latest our works</span>
         </div>
-        <h2 className='cases__title'>Cases</h2>
+        <h2 className={"cases__title"}>Cases</h2>
       </div>
-      <div className='cases__grid'>
-        {casesList.map((el, key) => {
-          const isEven = key % 3 === 0
-          return (
-            <CardCase
-              key={key}
-              description={el.description}
-              title={el.title}
-              image={el.image}
-              tools={el.tools}
-              theme={isEven ? "dark" : "light"}
-            />
-          )
-        })}
+      <div className={"cases__grid"}>
+        <article className={"card-case _dark-theme"}>
+          <div className={"card-case__content"}>
+            <h3 className={"card-case__title"}>Parquet converter</h3>
+            <p className={"card-case__description"}>
+              Database and sales management system for an online store of metal product
+            </p>
+            <div className={"card-case__tools"}>
+              <div className={"card-case__tools-heading"}>Used tools</div>
+              <div className={"card-case__tools-items"}>
+                <div className={"card-case__tools-item"}>
+                  <SvgIcon name={"language-python"} />
+                </div>
+                <div className={"card-case__tools-item"}>
+                  <SvgIcon name={"language-rust"} />
+                </div>
+                <div className={"card-case__tools-item"}>
+                  <SvgIcon name={"language-python"} />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={"card-case__image"}>
+            <img src={noImage1} />
+          </div>
+        </article>
+        <article className={"card-case _light-theme"}>
+          <div className={"card-case__content"}>
+            <h3 className={"card-case__title"}>Trading system</h3>
+            <p className={"card-case__description"}>
+              As a digital designer and art director I help companies and organisations around the world connect with
+              their audience and grow their
+            </p>
+            <div className={"card-case__tools"}>
+              <div className={"card-case__tools-heading"}>Used tools</div>
+              <div className={"card-case__tools-items"}>
+                <div className={"card-case__tools-item"}>
+                  <SvgIcon name={"language-python"} />
+                </div>
+                <div className={"card-case__tools-item"}>
+                  <SvgIcon name={"language-rust"} />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={"card-case__image"}>
+            <img src={noImage2} />
+          </div>
+        </article>
+        <article className={"card-case _light-theme"}>
+          <div className={"card-case__content"}>
+            <h3 className={"card-case__title"}>File controller</h3>
+            <p className={"card-case__description"}>
+              As a digital designer and art director I help companies and organisations around the world connect with
+              their audience and grow their
+            </p>
+            <div className={"card-case__tools"}>
+              <div className={"card-case__tools-heading"}>Used tools</div>
+              <div className={"card-case__tools-items"}>
+                <div className={"card-case__tools-item"}>
+                  <SvgIcon name={"language-python"} />
+                </div>
+                <div className={"card-case__tools-item"}>
+                  <SvgIcon name={"language-rust"} />
+                </div>
+                <div className={"card-case__tools-item"}>
+                  <SvgIcon name={"language-python"} />
+                </div>
+                <div className={"card-case__tools-item"}>
+                  <SvgIcon name={"language-rust"} />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={"card-case__image"}>
+            <img src={noImage3} />
+          </div>
+        </article>
+        <article className={"card-case _dark-theme"}>
+          <div className={"card-case__content"}>
+            <h3 className={"card-case__title"}>Msg</h3>
+            <p className={"card-case__description"}>
+              As a digital designer and art director I help companies and organisations around the world connect with
+              their audience and grow their
+            </p>
+            <div className={"card-case__tools"}>
+              <div className={"card-case__tools-heading"}>Used tools</div>
+              <div className={"card-case__tools-items"}>
+                <div className={"card-case__tools-item"}>
+                  <SvgIcon name={"language-python"} />
+                </div>
+                <div className={"card-case__tools-item"}>
+                  <SvgIcon name={"language-rust"} />
+                </div>
+                <div className={"card-case__tools-item"}>
+                  <SvgIcon name={"language-python"} />
+                </div>
+                <div className={"card-case__tools-item"}>
+                  <SvgIcon name={"language-rust"} />
+                </div>
+                <div className={"card-case__tools-item"}>
+                  <SvgIcon name={"language-python"} />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={"card-case__image"}>
+            <img src={noImage4} />
+          </div>
+        </article>
       </div>
     </section>
   )

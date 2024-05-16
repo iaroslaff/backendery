@@ -1,73 +1,139 @@
-import React, { FC } from "react"
+import { FC } from "react"
 
-import TileWeUse, { ITileWeUseProps } from "../../components/Tiles/TileWeUse/TileWeUse"
+import { SvgIcon } from "../../components/elements/Icon"
 
 import "./WeUse.scss"
 
-const tileWeUseData: ITileWeUseProps[] = [
-  {
-    title: "Language",
-    description:
-      "As a digital designer and art director I help companies and organisations around the world connect with their audience and grow their business",
-    iconName: ["language-python", "language-rust"],
-  },
-  {
-    title: "Framework",
-    description:
-      "As a digital designer and art director I help companies and organisations around the world connect with their audience and grow their business",
-    iconName: ["language-python", "language-rust"],
-  },
-  {
-    title: "Database",
-    description:
-      "As a digital designer and art director I help companies and organisations around the world connect with their audience and grow their business",
-    iconName: ["language-python", "language-rust"],
-  },
-  {
-    title: "Message Queue",
-    description:
-      "As a digital designer and art director I help companies and organisations around the world connect with their audience and grow their business",
-    iconName: ["language-python", "language-rust"],
-  },
-  {
-    title: "Documentation",
-    description:
-      "As a digital designer and art director I help companies and organisations around the world connect with their audience and grow their business",
-    iconName: ["language-python", "language-rust"],
-  },
-  {
-    title: "Containerization",
-    description:
-      "As a digital designer and art director I help companies and organisations around the world connect with their audience and grow their business",
-    iconName: ["language-python", "language-rust"],
-  },
-  {
-    title: "Testing",
-    description:
-      "As a digital designer and art director I help companies and organisations around the world connect with their audience and grow their business",
-    iconName: ["language-python", "language-rust"],
-  },
-] as const
-
 const WeUse: FC = () => {
   return (
-    <React.Fragment>
-      <section className={"weuse"}>
-        <div className={"weuse__heading"}>
-          <h2 className={"weuse__heading-title"}>We use</h2>
-          <p className={"weuse__heading-description"}>
-            We cover the full range of services for analysis,{" "}
-            <span>development and support of your online business</span>
+    <section className={"we-use__section"}>
+      <div className={"we-use__heading"}>
+        <h2 className={"we-use__heading-title"}>We use</h2>
+        <p className={"we-use__heading-description"}>
+          We cover the full range of services for analysis, <span>development and support of your online business</span>
+        </p>
+      </div>
+      <div className={"we-use__content"}>
+        <div className={"we-use__card"}>
+          <h3 className={"we-use__card-title"}>Language</h3>
+          <p className={"we-use__card-description"}>
+            As a digital designer and art director I help companies and organisations around the world connect with
+            their audience and grow their business
           </p>
+          <div className={"we-use__card-tools"}>
+            <p className={"we-use__card-tools-title"}>Tools</p>
+            <div className={"we-use__card-tools-particular"}>
+              <SvgIcon name={"language-python"} />
+            </div>
+            <div className={"we-use__card-tools-particular"}>
+              <SvgIcon name={"language-rust"} />
+            </div>
+          </div>
         </div>
-        <div className={"weuse__content"}>
-          {tileWeUseData &&
-            tileWeUseData.map((data, key) => (
-              <TileWeUse title={data.title} description={data.description} iconName={data.iconName} key={key} />
-            ))}
+
+        <div className={"we-use__card"}>
+          <h3 className={"we-use__card-title"}>Framework</h3>
+          <p className={"we-use__card-description"}>
+            As a digital designer and art director I help companies and organisations around the world connect with
+            their audience and grow their business
+          </p>
+          <div className={"we-use__card-tools"}>
+            <p className={"we-use__card-tools-title"}>Tools</p>
+            <div className={"we-use__card-tools-particular"}>
+              <SvgIcon name={"language-python"} />
+            </div>
+            <div className={"we-use__card-tools-particular"}>
+              <SvgIcon name={"language-rust"} />
+            </div>
+          </div>
         </div>
-      </section>
-    </React.Fragment>
+
+        <div className={"we-use__card"}>
+          <h3 className={"we-use__card-title"}>Database</h3>
+          <p className={"we-use__card-description"}>
+            As a digital designer and art director I help companies and organisations around the world connect with
+            their audience and grow their business
+          </p>
+          <div className={"we-use__card-tools"}>
+            <p className={"we-use__card-tools-title"}>Tools</p>
+            <div className={"we-use__card-tools-particular"}>
+              <SvgIcon name={"language-python"} />
+            </div>
+            <div className={"we-use__card-tools-particular"}>
+              <SvgIcon name={"language-rust"} />
+            </div>
+          </div>
+        </div>
+
+        <div className={"we-use__card"}>
+          <h3 className={"we-use__card-title"}>Message Queue</h3>
+          <p className={"we-use__card-description"}>
+            As a digital designer and art director I help companies and organisations around the world connect with
+            their audience and grow their business
+          </p>
+          <div className={"we-use__card-tools"}>
+            <p className={"we-use__card-tools-title"}>Tools</p>
+            <div className={"we-use__card-tools-particular"}>
+              <SvgIcon name={"language-python"} />
+            </div>
+            <div className={"we-use__card-tools-particular"}>
+              <SvgIcon name={"language-rust"} />
+            </div>
+          </div>
+        </div>
+
+        <div className={"we-use__card"}>
+          <h3 className={"we-use__card-title"}>Testing</h3>
+          <p className={"we-use__card-description"}>
+            As a digital designer and art director I help companies and organisations around the world connect with
+            their audience and grow their business
+          </p>
+          <div className={"we-use__card-tools"}>
+            <p className={"we-use__card-tools-title"}>Tools</p>
+            <div className={"we-use__card-tools-particular"}>
+              <SvgIcon name={"language-python"} />
+            </div>
+            <div className={"we-use__card-tools-particular"}>
+              <SvgIcon name={"language-rust"} />
+            </div>
+          </div>
+        </div>
+
+        <div className={"we-use__card"}>
+          <h3 className={"we-use__card-title"}>Documentation</h3>
+          <p className={"we-use__card-description"}>
+            As a digital designer and art director I help companies and organisations around the world connect with
+            their audience and grow their business
+          </p>
+          <div className={"we-use__card-tools"}>
+            <p className={"we-use__card-tools-title"}>Tools</p>
+            <div className={"we-use__card-tools-particular"}>
+              <SvgIcon name={"language-python"} />
+            </div>
+            <div className={"we-use__card-tools-particular"}>
+              <SvgIcon name={"language-rust"} />
+            </div>
+          </div>
+        </div>
+
+        <div className={"we-use__card"}>
+          <h3 className={"we-use__card-title"}>Containerization</h3>
+          <p className={"we-use__card-description"}>
+            As a digital designer and art director I help companies and organisations around the world connect with
+            their audience and grow their business
+          </p>
+          <div className={"we-use__card-tools"}>
+            <p className={"we-use__card-tools-title"}>Tools</p>
+            <div className={"we-use__card-tools-particular"}>
+              <SvgIcon name={"language-python"} />
+            </div>
+            <div className={"we-use__card-tools-particular"}>
+              <SvgIcon name={"language-rust"} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 

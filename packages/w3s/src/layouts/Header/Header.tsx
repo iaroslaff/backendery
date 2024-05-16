@@ -14,25 +14,22 @@ const Header: FC = () => {
   const isLG = useMediaQuery({ minWidth: sizes.LG })
 
   return (
-    <React.Fragment>
-      <header className={"header"}>
-        <div className={"header__container"}>
-          <a href={"/"}>
-            <SvgIcon name={"logo"} />
-          </a>
-          {
-            //prettier-ignore
-            isLG
+    <header className={"header"}>
+      <div className={"header__container"}>
+        <a href={"/"}>
+          <SvgIcon name={"logo"} />
+        </a>
+        {
+          //prettier-ignore
+          isLG
           ? (
-            <React.Fragment>
-              <div className={"header__nav"}>
-                <a className={"header__nav-link underscore"} href={"#"}>We do!</a>
-                <a className={"header__nav-link underscore"} href={"#"}>Cases</a>
-                <a className={"header__nav-link underscore"} href={"#"}>Steps</a>
-                <a className={"header__nav-link underscore"} href={"#"}>About</a>
-                <a className={"header__nav-link underscore"} href={"#"}>Contacts</a>
-              </div>
-            </React.Fragment>
+            <div className={"header__nav"}>
+              <a className={"header__nav-link _underscore"} href={"#"}>We do!</a>
+              <a className={"header__nav-link _underscore"} href={"#"}>Cases</a>
+              <a className={"header__nav-link _underscore"} href={"#"}>Steps</a>
+              <a className={"header__nav-link _underscore"} href={"#"}>About Us</a>
+              <a className={"header__nav-link _underscore"} href={"#"}>Contacts</a>
+            </div>
           )
           : (
             <React.Fragment>
@@ -44,10 +41,9 @@ const Header: FC = () => {
               <TouchableMenu />
             </React.Fragment>
           )
-          }
-        </div>
-      </header>
-    </React.Fragment>
+        }
+      </div>
+    </header>
   )
 }
 

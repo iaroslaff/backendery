@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import { FC } from "react"
 
 import { SvgIcon } from "../../components/elements/Icon"
 
@@ -6,24 +6,28 @@ import "./Hero.scss"
 
 const Hero: FC = () => {
   return (
-    <section className={"hero"}>
+    <section className={"hero__section"}>
       <div className={"hero__offer"}>
         <div className={"hero__description-wrapper"}>
-          <button className={"hero__btn-call-to-action"}>
+          <button className={"hero__call-to-action-btn"}>
             Start
             <br />a project
           </button>
-          <p className={"hero__description"}>Sed vestibulum tincidunt tellus, ut pulvinar sapien</p>
+          <p className={"hero__description"}>
+            These words don&apos;t just describe our approach, they are the foundation of it. We strive to create
+            software that not only works seamlessly and adapts to different needs, but is also easy for our users to
+            understand and use
+          </p>
         </div>
         <div className={"hero__title-wrapper"}>
-          <h2 className={"hero__title-word"}>
-            Fastlw<span>.</span>
-          </h2>
           <h2 className={"hero__title-word"}>
             Robust<span>.</span>
           </h2>
           <h2 className={"hero__title-word"}>
             Flexible<span>.</span>
+          </h2>
+          <h2 className={"hero__title-word"}>
+            Intuitive<span>.</span>
           </h2>
         </div>
       </div>

@@ -1,110 +1,134 @@
-@import "@styles/mixin";
 @import "@styles/variables";
-.about-me {
+@import "@styles/mixin";
+
+.about-us {
   &__container {
+    @include adaptive-value("margin-bottom", 300, 100, 1);
+    @include adaptive-value("padding-left", 100, 20, 1);
+    @include adaptive-value("padding-right", 100, 20, 1);
+
     max-width: $container;
     margin: 0 auto;
-    padding-left: 20px;
-    padding-right: 20px;
-
-    @include adaptive-value("margin-bottom", 300, 100, 1);
   }
+
   &__heading-section {
+    @include adaptive-value("margin-bottom", 200, 90, 1);
+
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     align-items: start;
-
-    @include adaptive-value("margin-bottom", 200, 90, 1);
+    justify-content: space-between;
   }
+
   &__title-section {
     @include adaptive-value("font-size", 200, 120, 1);
-    padding-right: 80px;
 
     flex: 1 1 auto;
+    max-width: 750px;
+    padding-right: 80px;
+    color: $secondary-color;
     font-weight: 900;
     line-height: 90%;
-    max-width: 750px;
     text-align: right;
-    color: $secondary-color;
+
     span {
+      @include adaptive-value("font-size", 100, 60, 1);
+
       position: relative;
       top: -60px;
-      @include adaptive-value("font-size", 100, 60, 1);
     }
   }
+
   &__description-section {
-    max-width: 860px;
+    @include adaptive-value("font-size", 46, 30, 1);
+
     flex: 0 0 60%;
-    text-align-last: left;
+    max-width: 860px;
     color: $secondary-color;
     line-height: 150%;
-    @include adaptive-value("font-size", 46, 30, 1);
+    text-align-last: left;
+
     p {
       &:not(:last-child) {
         margin-bottom: 20px;
       }
     }
+
     span {
       opacity: 0.5;
     }
   }
+
   &__body {
-    display: flex;
     @include adaptive-value("margin-bottom", 160, 90, 1);
+
+    display: flex;
+
     @media (max-width: $xl) {
       flex-direction: column-reverse;
     }
   }
+
   &__list {
-    flex: 0 1 400px;
-    display: flex;
-    flex-direction: column;
     @include adaptive-value("gap", 120, 60, 1);
+
+    display: flex;
+    flex: 0 1 400px;
+    flex-direction: column;
   }
+
   &__item-list {
   }
+
   &__item-title {
     @include adaptive-value("font-size", 60, 36, 1);
-    line-height: 120%;
-    font-weight: 900;
+
     margin-bottom: 20px;
-  }
-  &__item-description {
-    opacity: 0.5;
-    line-height: 150%;
-    font-style: 16px;
-  }
-  &__title-wrapper {
-    flex: 1 1 auto;
-    display: flex;
-    justify-content: center;
-    align-items: start;
-  }
-  &__decoration-title {
-    line-height: 90%;
-    @include adaptive-value("font-size", 110, 50, 1);
     font-weight: 900;
-    max-width: 620px;
+    line-height: 120%;
+  }
+
+  &__item-description {
+    font-style: 16px;
+    line-height: 150%;
+    opacity: 0.5;
+  }
+
+  &__title-wrapper {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: start;
+    justify-content: center;
+  }
+
+  &__decoration-title {
+    @include adaptive-value("font-size", 110, 50, 1);
+    @include adaptive-value("padding-left", 100, 60, 1);
+
     position: relative;
     z-index: 10;
-    @include adaptive-value("padding-left", 100, 60, 1);
-    @media (max-width: $xl) {
-      margin-bottom: 80px;
-    }
+    max-width: 620px;
+    font-weight: 900;
+    line-height: 90%;
+
     span {
       position: relative;
       z-index: 10;
     }
+
     svg {
       position: absolute;
-      z-index: 9;
       top: 50%;
       left: 50%;
+      z-index: 9;
       width: 100%;
       height: 100%;
       object-fit: cover;
       transform: translate(-50%, -50%) scale(1.3);
+    }
+
+    @media (max-width: $xl) {
+      margin-bottom: 80px;
     }
   }
 }
@@ -113,14 +137,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
   &__image {
-    flex: 0 0 160px;
-    height: 160px;
-    width: 160px;
-    border-radius: 50px;
-    overflow: hidden;
     position: relative;
+    flex: 0 0 160px;
+    width: 160px;
+    height: 160px;
     margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 50px;
+
     img {
       position: absolute;
       top: 0;
@@ -130,23 +156,29 @@
       object-fit: cover;
     }
   }
+
   &__name {
-    font-style: 24px;
-    font-weight: 900;
-    line-height: 150%;
     margin-bottom: 5px;
+    font-weight: 900;
+    font-style: 24px;
+    line-height: 150%;
   }
+
   &__position {
+    @include adaptive-value("margin-bottom", 60, 30, 1);
+
     font-weight: 600;
     line-height: 150%;
     opacity: 0.5;
-    @include adaptive-value("margin-bottom", 60, 30, 1);
   }
+
   &__quote {
-    max-width: 1290px;
     @include adaptive-value("font-size", 60, 30, 1);
+
+    max-width: 1290px;
     line-height: 120%;
     text-align: center;
+
     span {
       color: $accent-color;
     }

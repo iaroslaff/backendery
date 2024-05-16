@@ -1,64 +1,71 @@
-import React, { FC } from "react"
+import { FC } from "react"
 
-import CardWeDo, { CardWeDoHeadingDecoration, ICardWeDoProps } from "../../components/Cards/CardWeDo/CardWeDo"
+import { SvgIcon } from "../../components/elements/Icon"
 
 import "./WeDo.scss"
 
-const cardWeDoData: ICardWeDoProps[] = [
-  {
-    headingDecoration: CardWeDoHeadingDecoration.Icon,
-    title: "Server Applications",
-    description: "Sed vestibulum tincidunt tellus, ut pulvinar sapien venenatis vitae. Maecenas sodale",
-    iconName: "server-applications",
-  },
-  {
-    headingDecoration: CardWeDoHeadingDecoration.Icon,
-    title: "Service Integrations",
-    description: "Sed vestibulum tincidunt tellus, ut pulvinar sapien venenatis vitae. Maecenas sodale",
-    iconName: "services-integration",
-  },
-  {
-    headingDecoration: CardWeDoHeadingDecoration.Icon,
-    title: "API",
-    description: "Sed vestibulum tincidunt tellus, ut pulvinar sapien venenatis vitae. Maecenas sodale",
-    iconName: "api",
-  },
-  {
-    headingDecoration: CardWeDoHeadingDecoration.Icon,
-    title: "Automation Tools",
-    description: "Sed vestibulum tincidunt tellus, ut pulvinar sapien venenatis vitae. Maecenas sodale",
-    iconName: "automation-tools",
-  },
-  {
-    headingDecoration: CardWeDoHeadingDecoration.Text,
-    title: "Bots",
-    description: "Sed vestibulum tincidunt tellus, ut pulvinar sapien venenatis vitae. Maecenas sodale",
-    tags: ["messengers", "chats", "news"],
-  },
-] as const
-
 const WeDo: FC = () => {
   return (
-    <React.Fragment>
-      <section className={"wedo"}>
-        <h2 className={"wedo__title"}>
-          What
-          <br />
-          we do
-        </h2>
-        {cardWeDoData &&
-          cardWeDoData.map((data, key) => (
-            <CardWeDo
-              headingDecoration={data.headingDecoration}
-              title={data.title}
-              description={data.description}
-              iconName={data.iconName}
-              tags={data.tags}
-              key={key}
-            />
-          ))}
-      </section>
-    </React.Fragment>
+    <section className={"we-do__section"}>
+      <h2 className={"we-do__title"}>
+        What
+        <br />
+        we do
+      </h2>
+      <div className={"we-do__card"}>
+        <div className={"we-do__card-heading-decoration"}>
+          <SvgIcon name={"server-applications"} />
+        </div>
+        <h4 className={"we-do__card-title"}>Server Applications</h4>
+        <p className={"we-do__card-description"}>
+          Sed vestibulum tincidunt tellus, ut pulvinar sapien venenatis vitae. Maecenas sodale
+        </p>
+      </div>
+
+      <div className={"we-do__card"}>
+        <div className={"we-do__card-heading-decoration"}>
+          <SvgIcon name={"api"} />
+        </div>
+        <h4 className={"we-do__card-title"}>API&apos;s</h4>
+        <p className={"we-do__card-description"}>
+          Sed vestibulum tincidunt tellus, ut pulvinar sapien venenatis vitae. Maecenas sodale
+        </p>
+      </div>
+
+      <div className={"we-do__card"}>
+        <div className={"we-do__card-heading-decoration"}>
+          <SvgIcon name={"services-integration"} />
+        </div>
+        <h4 className={"we-do__card-title"}>Service Integrations</h4>
+        <p className={"we-do__card-description"}>
+          Sed vestibulum tincidunt tellus, ut pulvinar sapien venenatis vitae. Maecenas sodale
+        </p>
+      </div>
+
+      <div className={"we-do__card"}>
+        <div className={"we-do__card-heading-decoration"}>
+          <SvgIcon name={"automation-tools"} />
+        </div>
+        <h4 className={"we-do__card-title"}>Automation Tools</h4>
+        <p className={"we-do__card-description"}>
+          Sed vestibulum tincidunt tellus, ut pulvinar sapien venenatis vitae. Maecenas sodale
+        </p>
+      </div>
+
+      <div className={"we-do__card"}>
+        <div className={"we-do__card-heading-decoration we-do__card-heading-decoration--text"}>
+          <p>For</p>
+          <span className={"we-do__card-tag"}>messengers</span>
+          <span className={"we-do__card-tag"}>chats</span>
+          <span className={"we-do__card-tag"}>news</span>
+          <p>and others</p>
+        </div>
+        <h4 className={"we-do__card-title"}>Bots</h4>
+        <p className={"we-do__card-description"}>
+          Sed vestibulum tincidunt tellus, ut pulvinar sapien venenatis vitae. Maecenas sodale
+        </p>
+      </div>
+    </section>
   )
 }
 

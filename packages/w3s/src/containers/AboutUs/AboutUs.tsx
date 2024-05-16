@@ -1,19 +1,22 @@
-import React, { FC } from "react"
-import noImage from "./../../assets/images/no-image-placeholder.png"
-import { SvgIcon } from "./../../components/elements/Icon"
-import "./AboutMe.scss"
+import { FC } from "react"
 
-const AboutMe: FC = () => {
+import { SvgIcon } from "../../components/elements/Icon"
+
+import noImage from "./../../assets/images/no-image-placeholder.png"
+
+import "./AboutUs.scss"
+
+const AboutUs: FC = () => {
   return (
-    <section className={"about-me__container"}>
-      <div className='about-me__content'>
-        <div className='about-me__heading-section'>
-          <h2 className='about-me__title-section'>
+    <section className={"about-us__container"}>
+      <div className={"about-us__content"}>
+        <div className={"about-us__heading-section"}>
+          <h2 className={"about-us__title-section"}>
             About
             <br />
             <span>us</span>
           </h2>
-          <div className='about-me__description-section'>
+          <div className={"about-us__description-section"}>
             <p>
               <span>
                 Pellentesque euismod dapibus efficitur. Etiam est massa, viverra sed porta nec, porta quis felis.
@@ -23,39 +26,39 @@ const AboutMe: FC = () => {
             <p>Curabitur justo massa, porttitor eget mauris quis, tempor pharetra lorem</p>
           </div>
         </div>
-        <div className='about-me__body'>
-          <ul className='about-me__list'>
-            <li className='about-me__item-list'>
-              <div className='about-me__item-title'>Experience</div>
-              <div className='about-me__item-description'>
+        <div className={"about-us__body"}>
+          <ul className={"about-us__list"}>
+            <li className={"about-us__item-list"}>
+              <div className={"about-us__item-title"}>Experience</div>
+              <div className={"about-us__item-description"}>
                 Etiam tortor elit, condimentum et suscipit non, sollicitudin quis quam. Donec in risus consectetur,
                 tempor tortor id
               </div>
             </li>
-            <li className='about-me__item-list'>
-              <div className='about-me__item-title'>Time</div>
-              <div className='about-me__item-description'>
+            <li className={"about-us__item-list"}>
+              <div className={"about-us__item-title"}>Time</div>
+              <div className={"about-us__item-description"}>
                 Etiam tortor elit, condimentum et suscipit non, sollicitudin quis quam. Donec in risus consectetur,
                 tempor tortor id
               </div>
             </li>
-            <li className='about-me__item-list'>
-              <div className='about-me__item-title'>Quality</div>
-              <div className='about-me__item-description'>
+            <li className={"about-us__item-list"}>
+              <div className={"about-us__item-title"}>Quality</div>
+              <div className={"about-us__item-description"}>
                 Etiam tortor elit, condimentum et suscipit non, sollicitudin quis quam. Donec in risus consectetur,
                 tempor tortor id
               </div>
             </li>
-            <li className='about-me__item-list'>
-              <div className='about-me__item-title'>Quality</div>
-              <div className='about-me__item-description'>
+            <li className={"about-us__item-list"}>
+              <div className={"about-us__item-title"}>Quality</div>
+              <div className={"about-us__item-description"}>
                 Etiam tortor elit, condimentum et suscipit non, sollicitudin quis quam. Donec in risus consectetur,
                 tempor tortor id
               </div>
             </li>
           </ul>
-          <div className='about-me__title-wrapper'>
-            <div className='about-me__decoration-title'>
+          <div className={"about-us__title-wrapper"}>
+            <div className={"about-us__decoration-title"}>
               <span>
                 What <br />
                 do clients value in our work
@@ -64,13 +67,13 @@ const AboutMe: FC = () => {
             </div>
           </div>
         </div>
-        <div className='about-me__profile me-profile'>
-          <div className='me-profile__image'>
-            <img src={noImage} alt='' />
+        <div className={"about-us__profile me-profile"}>
+          <div className={"me-profile__image"}>
+            <img src={noImage} alt={""} />
           </div>
-          <div className='me-profile__name'>Jaroslav Kirichok </div>
-          <div className='me-profile__position'>Founder</div>
-          <div className='me-profile__quote'>
+          <div className={"me-profile__name"}>Jaroslav Kirichok</div>
+          <div className={"me-profile__position"}>Founder, Principal Software Developer</div>
+          <div className={"me-profile__quote"}>
             <span>“</span>
             Maecenas sed cursus felis, id consequat odio. Pellentesque id tortor nec ipsum efficitur viverra vel vel
             neque. Cras euismod massa velit, sed hendrerit turpis<span>”</span>
@@ -81,4 +84,4 @@ const AboutMe: FC = () => {
   )
 }
 
-export default AboutMe
+export default AboutUs

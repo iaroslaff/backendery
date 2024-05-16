@@ -2,28 +2,26 @@
 @import "@styles/mixin";
 
 .hero {
-  max-width: $container;
-  margin: 0 auto;
-  padding-right: 20px;
-  padding-left: 20px;
+  &__section {
+    @include adaptive-value("margin-bottom", 300, 100, 1);
+    @include adaptive-value("padding-left", 100, 20, 1);
+    @include adaptive-value("padding-right", 100, 20, 1);
+    @include adaptive-value("padding-top", 107, 87, 1);
+    @include adaptive-value("padding-bottom", 50, 20, 1);
 
-  @include adaptive-value("padding-top", 107, 87, 1);
-
-  @include adaptive-value("margin-bottom", 300, 100, 1);
-  @include adaptive-value("padding-bottom", 50, 20, 1);
-  width: 100%;
-  display: flex;
-  height: 100dvh;
-  @media (max-width: $xl) {
-    flex-direction: column-reverse;
+    display: flex;
+    width: 100%;
+    max-width: $container;
+    height: 100dvh;
+    margin: 0 auto;
   }
 
   &__offer {
     display: flex;
+    flex-direction: column;
     gap: 30px;
     justify-content: end;
     height: 100%;
-    flex-direction: column;
   }
 
   &__description-wrapper {
@@ -31,14 +29,15 @@
     gap: 20px;
     align-items: center;
   }
-  &__btn-call-to-action {
-    flex-grow: 0;
-    flex-shrink: 0;
+
+  &__call-to-action-btn {
     @include adaptive-value("flex-basis", 120, 100, 1);
     @include adaptive-value("height", 120, 100, 1);
     @include adaptive-value("width", 120, 100, 1);
 
     display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
     color: $primary-color;
@@ -50,7 +49,7 @@
   }
 
   &__description {
-    max-width: 200px;
+    max-width: 450px;
     font-size: 16px;
     line-height: 150%;
   }
@@ -60,100 +59,119 @@
     flex-direction: column;
     gap: 16px;
   }
+
   &__title-word {
     @include adaptive-value("font-size", 200, 70, 1);
 
     font-weight: 900;
     line-height: 80%;
     white-space: nowrap;
+
     span {
       color: $accent-color;
     }
   }
+
   &__code-container {
-    flex: 1 1 auto;
-    height: 100%;
     display: flex;
+    flex: 1 1 auto;
     flex-direction: column;
+    height: 100%;
   }
+
   &__code-wrapper {
     @include adaptive-value("padding-top", 115, 40, 1);
 
-    flex: 1 1 auto;
+    position: relative;
     display: flex;
+    flex: 1 1 auto;
     flex-direction: column;
 
-    position: relative;
     @media (max-width: $xl) {
       align-items: center;
     }
   }
+
   &__lets-watch {
     display: flex;
+    gap: 9px;
     align-items: center;
     justify-content: end;
-    gap: 9px;
 
     @media (max-width: $xl) {
       display: none;
     }
   }
+
   &__code {
-    @media (max-width: $xl) {
-      margin-bottom: 100px;
-    }
     p {
       max-width: 400px;
-      line-height: 150%;
       color: rgba(255, 255, 255, 0.8);
+      line-height: 150%;
     }
+
     &--1 {
       position: relative;
-      padding: 0px 30px;
+      padding: 0 30px;
+
       &::after {
-        position: absolute;
-        content: "";
-        left: 0;
-        top: 0;
         @include adaptive-value("height", 600, 300, 1);
+
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 3px;
         background: linear-gradient(to bottom, rgb(254, 254, 255), rgb(21, 45, 57));
         opacity: 0.06;
+        content: "";
+
         @media (max-width: $xl) {
           height: 200px;
         }
       }
     }
+
     &--2 {
       position: absolute;
       top: 50%;
       left: 50%;
+      padding: 0 30px;
       transform: translate(-50%, -50%);
-      padding: 0px 30px;
+
       &::after {
-        position: absolute;
-        content: "";
-        left: 0;
-        top: 0;
         @include adaptive-value("height", 400, 200, 1);
+
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 2px;
         background: linear-gradient(to bottom, rgb(254, 254, 255), rgb(21, 45, 57));
         opacity: 0.06;
+        content: "";
       }
+
       @media (max-width: $xl) {
         display: none;
       }
     }
+
+    @media (max-width: $xl) {
+      margin-bottom: 100px;
+    }
   }
 
   &__lets-watch-circle {
-    background-color: $primary-color;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 48px;
     height: 48px;
+    background-color: $primary-color;
     border: 1px solid $secondary-color;
     border-radius: 100px;
+  }
+
+  @media (max-width: $xl) {
+    flex-direction: column-reverse;
   }
 }

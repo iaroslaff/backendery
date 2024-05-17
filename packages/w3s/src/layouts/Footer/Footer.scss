@@ -86,7 +86,7 @@
     }
   }
 
-  &__contacts-mail {
+  &__contacts-email {
     @include adaptive-value("font-size", 36, 30, 1);
 
     font-weight: 800;

@@ -18,6 +18,9 @@
     flex-wrap: wrap;
     align-items: start;
     justify-content: space-between;
+    @media (max-width: $xxl) {
+      flex-direction: column;
+    }
   }
 
   &__title-section {

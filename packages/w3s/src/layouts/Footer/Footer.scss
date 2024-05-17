@@ -1,2 +1,145 @@
 @import "@styles/variables";
 @import "@styles/mixin";
+
+.footer {
+  background-color: $accent-color;
+  &__container {
+    @include adaptive-value("padding-left", 100, 20, 1);
+    @include adaptive-value("padding-right", 100, 20, 1);
+
+    max-width: $container;
+    margin: 0 auto;
+  }
+  &__body {
+    @include adaptive-value("padding-top", 168, 100, 1);
+    @include adaptive-value("padding-bottom", 175, 60, 1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
+
+    color: $primary-color;
+    @media (max-width: 1000px) {
+      flex-direction: column;
+    }
+  }
+  &__title {
+    @include adaptive-value("font-size", 160, 55, 1);
+    line-height: 90%;
+    font-weight: 900;
+    @media (min-width: $xl) {
+      flex-grow: 0;
+      flex-shrink: 0;
+
+      @include adaptive-value("max-width", 860, 360, 1);
+      @include adaptive-value("flex-basis", 860, 360, 1);
+    }
+    @media (max-width: 1000px) {
+      text-align: center;
+    }
+    span {
+      display: inline-block;
+      @include adaptive-value("width", 290, 110, 1);
+
+      @include adaptive-value("height", 90, 20, 1);
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translate(0px, -50%);
+        width: 100%;
+        @include adaptive-value("height", 20, 12, 1);
+        background-color: $primary-color;
+      }
+    }
+    svg {
+      position: relative;
+      @include adaptive-value("height", 74, 34, 1);
+      @include adaptive-value("width", 90, 36, 1);
+      @include adaptive-value("right", 20, 5, 1);
+    }
+  }
+  &__contacts {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    @include adaptive-value("gap", 53, 20, 1);
+    @media (max-width: 1350px) {
+      flex-direction: column;
+    }
+  }
+  &__contacts-mail {
+    font-weight: 800;
+    line-height: 150%;
+    @include adaptive-value("font-size", 36, 30, 1);
+  }
+  &__contacts-start-project-btn {
+    font-weight: 700;
+    line-height: 150%;
+    font-style: 18px;
+
+    flex: 0 0 250px;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: $primary-color;
+    color: $accent-color;
+  }
+}
+.bottom-footer {
+  border-top: 1px solid $primary-color;
+  @include adaptive-value("padding-top", 20, 10, 1);
+  @include adaptive-value("padding-bottom", 20, 10, 1);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  @media (max-width: $lg) {
+    flex-direction: column-reverse;
+  }
+  &__policy {
+    color: $primary-color;
+    line-height: 150%;
+    font-size: 16px;
+  }
+  &__footer-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    @media (max-width: $md) {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+  &__footer-link {
+    position: relative;
+    padding: 10px 15px 10px 0px;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 10px;
+      height: 14px;
+      background: url("./../../components/elements//Icon/icons//arrow-href-dark.svg") no-repeat center;
+      transform: translate(0px, -50%);
+    }
+    a {
+      @include adaptive-value("font-size", 16, 20, 1);
+      line-height: 150%;
+      font-weight: 500;
+      color: $primary-color;
+    }
+    &:hover {
+      color: $primary-color;
+      opacity: 0.7;
+    }
+  }
+}

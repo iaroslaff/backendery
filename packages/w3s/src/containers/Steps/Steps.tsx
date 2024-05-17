@@ -1,8 +1,8 @@
-import { useGSAP } from "@gsap/react"
-import gsap from "gsap"
+// import { useGSAP } from "@gsap/react"
+// import gsap from "gsap"
 import { FC, useRef } from "react"
 
-import { useBreakpoints } from "../../hooks/useBreakpoints"
+// import { useBreakpoints } from "../../hooks/useBreakpoints"
 
 import "./Steps.scss"
 
@@ -10,19 +10,19 @@ const Steps: FC = () => {
   const textRef = useRef<HTMLDivElement>(null)
   const spanRef = useRef<HTMLDivElement>(null)
 
-  const { isTablet } = useBreakpoints()
+  // const { isTablet } = useBreakpoints()
 
-  useGSAP(
-    () => {
-      spanRef.current &&
-        gsap.fromTo(
-          textRef.current,
-          { x: -spanRef.current.clientWidth + "px" },
-          { x: 0, duration: isTablet ? 5 : 10, repeat: -1, ease: "none" }
-        )
-    },
-    { scope: textRef }
-  )
+  // useGSAP(
+  //   () => {
+  //     spanRef.current &&
+  //       gsap.fromTo(
+  //         textRef.current,
+  //         { x: -spanRef.current.clientWidth + "px" },
+  //         { x: 0, duration: isTablet ? 5 : 10, repeat: -1, ease: "none" }
+  //       )
+  //   },
+  //   { scope: textRef }
+  // )
 
   return (
     <section className={"steps__section"}>

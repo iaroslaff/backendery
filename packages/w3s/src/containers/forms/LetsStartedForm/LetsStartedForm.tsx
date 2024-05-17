@@ -2,10 +2,10 @@ import { Field, Form, Formik, FormikHelpers } from "formik"
 import { FC } from "react"
 import * as Yup from "yup"
 
-import BudgetSlider from "../../components/BudgetSlider/BudgetSlider"
-import { SvgIcon } from "../../components/elements/Icon"
-import { useApp } from "../../contexts/App"
-import { useScrollLock } from "../../hooks/useScrollLock"
+import BudgetSlider from "../../../components/BudgetSlider/BudgetSlider"
+import { SvgIcon } from "../../../components/elements/Icon"
+import { useApp } from "../../../contexts/App"
+import { useScrollLock } from "../../../hooks/useScrollLock"
 
 import "./LetsStartedForm.scss"
 

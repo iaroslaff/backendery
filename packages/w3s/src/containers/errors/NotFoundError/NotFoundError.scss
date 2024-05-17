@@ -1,0 +1,67 @@
+@import "@styles/variables";
+@import "@styles/funcs";
+@import "@styles/mixin";
+
+.not-found {
+  @include adaptive-value("gap", 60, 20, 1);
+
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 0 20px;
+
+  &__status-code {
+    @include adaptive-value("font-size", 300, 120, 1);
+
+    color: $accent-color;
+    line-height: 100%;
+    text-align: center;
+  }
+
+  &__emulator-of-console-text {
+    @include adaptive-value("font-size", 40, 16, 1);
+    @include adaptive-value("max-width", remove-unit(#{$lg}), remove-unit(#{$xs}), 1);
+    @include adaptive-value("padding", 20, 10, 1);
+
+    align-self: center;
+    width: 100%;
+    color: $secondary-color;
+    font-family: "Source Code Pro", sans-serif;
+    line-height: 120%;
+    background-color: rgba(254, 254, 255, 0.02);
+    border-left: 3px solid rgba($secondary-color, 0.07);
+    border-radius: 0 10px 10px 0;
+  }
+
+  &__emulator-of-console-cursor {
+    animation: pulse-cursor 1s infinite normal linear;
+
+    @keyframes pulse-cursor {
+      0% {
+        opacity: 1;
+      }
+
+      25% {
+        opacity: 0;
+      }
+
+      50% {
+        opacity: 0;
+      }
+
+      75% {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__what-next {
+    @include adaptive-value("font-size", 40, 16, 1);
+
+    color: $accent-color;
+    line-height: 120%;
+    text-align: center;
+  }
+}

@@ -44,7 +44,10 @@ export default configure(
     fonts: {
       google: {
         display: "auto",
-        families: [{ name: "Red Hat Display", styles: "wght@400;500;600;700;800;900" }],
+        families: [
+          { name: "Red Hat Display", styles: "wght@400;500;600;700;800;900" },
+          { name: "Source Code Pro", styles: "wght@400;500;600;700;800;900" },
+        ],
         preconnect: true,
       },
     },

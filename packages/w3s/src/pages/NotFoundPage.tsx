@@ -1,9 +1,13 @@
-import { FC } from "react"
+import React, { FC } from "react"
 
-import NotFound from "../containers/NotFound/NotFound"
+import NotFoundError from "../containers/errors/NotFoundError/NotFoundError"
 
 const NotFoundPage: FC = () => {
-  return <NotFound />
+  return (
+    <React.Fragment>
+      <NotFoundError />
+    </React.Fragment>
+  )
 }
 
 export default NotFoundPage

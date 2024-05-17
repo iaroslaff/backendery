@@ -3,7 +3,7 @@
 
 .about-us {
   &__container {
-    @include adaptive-value("margin-bottom", 300, 100, 1);
+    @include adaptive-value("padding-bottom", 300, 100, 1);
     @include adaptive-value("padding-left", 100, 20, 1);
     @include adaptive-value("padding-right", 100, 20, 1);
 

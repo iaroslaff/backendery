@@ -14,7 +14,12 @@
     grid-template-columns: repeat(3, 1fr);
     max-width: $container;
     margin: 0 auto;
-    @media (max-width: $lg) {
+
+    @media (max-width: $xl) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: $md) {
       grid-template-columns: 1fr;
     }
   }
@@ -39,6 +44,10 @@
     padding: 40px;
     background-color: rgba(254, 254, 255, 0.02);
     border-radius: 30px;
+
+    &:hover {
+      background-color: rgba(254, 254, 255, 0.06);
+    }
   }
 
   &__card-heading-decoration {

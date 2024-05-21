@@ -18,7 +18,7 @@ const WeDo: FC = () => {
         </div>
         <h4 className={"we-do__card-title"}>Server Applications</h4>
         <p className={"we-do__card-description"}>
-          Sed vestibulum tincidunt tellus, ut pulvinar sapien venenatis vitae. Maecenas sodale
+          Development and optimization of server applications for high performance and reliability
         </p>
       </div>
 
@@ -28,7 +28,7 @@ const WeDo: FC = () => {
         </div>
         <h4 className={"we-do__card-title"}>API&apos;s</h4>
         <p className={"we-do__card-description"}>
-          Sed vestibulum tincidunt tellus, ut pulvinar sapien venenatis vitae. Maecenas sodale
+          Create reliable and scalable API&apos;s for your applications and provide secure and fast integration
         </p>
       </div>
 
@@ -38,7 +38,7 @@ const WeDo: FC = () => {
         </div>
         <h4 className={"we-do__card-title"}>Service Integrations</h4>
         <p className={"we-do__card-description"}>
-          Sed vestibulum tincidunt tellus, ut pulvinar sapien venenatis vitae. Maecenas sodale
+          Integration of various services to improve business processes and increase operational efficiency
         </p>
       </div>
 
@@ -48,7 +48,7 @@ const WeDo: FC = () => {
         </div>
         <h4 className={"we-do__card-title"}>Automation Tools</h4>
         <p className={"we-do__card-description"}>
-          Sed vestibulum tincidunt tellus, ut pulvinar sapien venenatis vitae. Maecenas sodale
+          Development automation tools to improve efficiency and reduce time costs
         </p>
       </div>
 
@@ -57,12 +57,11 @@ const WeDo: FC = () => {
           <p>For</p>
           <span className={"we-do__card-tag"}>messengers</span>
           <span className={"we-do__card-tag"}>chats</span>
-          <span className={"we-do__card-tag"}>news</span>
           <p>and others</p>
         </div>
         <h4 className={"we-do__card-title"}>Bots</h4>
         <p className={"we-do__card-description"}>
-          Sed vestibulum tincidunt tellus, ut pulvinar sapien venenatis vitae. Maecenas sodale
+          Development bots for chat, news and other tasks, providing automation and ease of interaction
         </p>
       </div>
     </section>

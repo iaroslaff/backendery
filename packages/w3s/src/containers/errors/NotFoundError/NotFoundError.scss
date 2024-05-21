@@ -21,47 +21,41 @@
   }
 
   &__emulator-of-console-text {
-    @include adaptive-value("font-size", 40, 16, 1);
+    @include adaptive-value("font-size", 24, 14, 1);
     @include adaptive-value("max-width", remove-unit(#{$lg}), remove-unit(#{$xs}), 1);
     @include adaptive-value("padding", 20, 10, 1);
 
     align-self: center;
     width: 100%;
     color: $secondary-color;
-    font-family: "Source Code Pro", sans-serif;
-    line-height: 120%;
-    background-color: rgba(254, 254, 255, 0.02);
-    border-left: 3px solid rgba($secondary-color, 0.07);
-    border-radius: 0 10px 10px 0;
-  }
+    font-family: "Space Mono", sans-serif;
+    line-height: 140%;
 
-  &__emulator-of-console-cursor {
-    animation: pulse-cursor 1s infinite normal linear;
+    &--console-border {
+      position: relative;
+      top: 0;
+      left: 0;
+      padding: 0 30px;
 
-    @keyframes pulse-cursor {
-      0% {
-        opacity: 1;
-      }
+      &::after {
+        @include adaptive-value("height", 150, 100, 1);
 
-      25% {
-        opacity: 0;
-      }
-
-      50% {
-        opacity: 0;
-      }
-
-      75% {
-        opacity: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1px;
+        background: linear-gradient(to bottom, rgb(254, 254, 255), rgb(21, 45, 57));
+        opacity: 0.06;
+        content: "";
       }
     }
   }
 
   &__what-next {
-    @include adaptive-value("font-size", 40, 16, 1);
+    @include adaptive-value("font-size", 24, 14, 1);
 
     color: $accent-color;
-    line-height: 120%;
+    line-height: 140%;
     text-align: center;
   }
 }

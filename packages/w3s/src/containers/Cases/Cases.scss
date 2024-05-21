@@ -28,6 +28,8 @@
     display: flex;
     gap: 10px;
     align-items: center;
+    line-height: 130%;
+    transform: translateY(5px);
 
     @media (max-width: $lg) {
       grid-row: 2/3;
@@ -131,6 +133,14 @@
     height: 50px;
     background-color: rgba(21, 45, 57, 0.05);
     border-radius: 12px;
+
+    &--invert-color {
+      svg {
+        path {
+          fill: $primary-color;
+        }
+      }
+    }
   }
 
   &__image {

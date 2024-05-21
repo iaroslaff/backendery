@@ -12,12 +12,13 @@
   }
 
   &__heading-section {
-    @include adaptive-value("margin-bottom", 200, 90, 1);
+    @include adaptive-value("margin-bottom", 400, 90, 1);
 
     display: flex;
     flex-wrap: wrap;
     align-items: start;
     justify-content: space-between;
+
     @media (max-width: $xxl) {
       flex-direction: column;
     }
@@ -26,7 +27,7 @@
   &__title-section {
     @include adaptive-value("font-size", 200, 120, 1);
 
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     max-width: 750px;
     padding-right: 80px;
     color: $secondary-color;
@@ -38,7 +39,7 @@
       @include adaptive-value("font-size", 100, 60, 1);
 
       position: relative;
-      top: -60px;
+      top: -90px;
     }
   }
 
@@ -53,6 +54,7 @@
 
     p {
       &:not(:last-child) {
+        margin-top: 250px;
         margin-bottom: 20px;
       }
     }
@@ -148,7 +150,7 @@
     height: 160px;
     margin-bottom: 20px;
     overflow: hidden;
-    border-radius: 50px;
+    border-radius: 50%;
 
     img {
       position: absolute;

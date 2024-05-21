@@ -17,7 +17,11 @@ const Cases: FC = () => {
       <div className={"cases__heading"}>
         <div className={"cases__note"}>
           <SvgIcon name={"decoration-asterisk"} />
-          <span>Some latest our works</span>
+          <span>
+            Some latest
+            <br />
+            our works
+          </span>
         </div>
         <h2 className={"cases__title"}>Cases</h2>
       </div>
@@ -57,10 +61,10 @@ const Cases: FC = () => {
             <div className={"card-case__tools"}>
               <div className={"card-case__tools-heading"}>Used tools</div>
               <div className={"card-case__tools-items"}>
-                <div className={"card-case__tools-item"}>
+                <div className={"card-case__tools-item card-case__tools-item--invert-color"}>
                   <SvgIcon name={"language-python"} />
                 </div>
-                <div className={"card-case__tools-item"}>
+                <div className={"card-case__tools-item card-case__tools-item--invert-color"}>
                   <SvgIcon name={"language-rust"} />
                 </div>
               </div>
@@ -80,16 +84,16 @@ const Cases: FC = () => {
             <div className={"card-case__tools"}>
               <div className={"card-case__tools-heading"}>Used tools</div>
               <div className={"card-case__tools-items"}>
-                <div className={"card-case__tools-item"}>
+                <div className={"card-case__tools-item card-case__tools-item--invert-color"}>
                   <SvgIcon name={"language-python"} />
                 </div>
-                <div className={"card-case__tools-item"}>
+                <div className={"card-case__tools-item card-case__tools-item--invert-color"}>
                   <SvgIcon name={"language-rust"} />
                 </div>
-                <div className={"card-case__tools-item"}>
+                <div className={"card-case__tools-item card-case__tools-item--invert-color"}>
                   <SvgIcon name={"language-python"} />
                 </div>
-                <div className={"card-case__tools-item"}>
+                <div className={"card-case__tools-item card-case__tools-item--invert-color"}>
                   <SvgIcon name={"language-rust"} />
                 </div>
               </div>

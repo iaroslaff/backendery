@@ -21,6 +21,7 @@
     right: 40px;
     width: 60px;
     height: 60px;
+    background-color: transparent;
 
     svg {
       position: absolute;
@@ -55,26 +56,24 @@
   }
 
   &__title {
-    @include adaptive-value("font-size", 100, 65, 1);
+    @include adaptive-value("font-size", 140, 65, 1);
 
     margin-bottom: 20px;
     color: $secondary-color;
     font-weight: 800;
     line-height: 120%;
     text-align: center;
-    text-transform: uppercase;
   }
 
   &__description {
-    @include adaptive-value("font-size", 20, 16, 1);
+    @include adaptive-value("font-size", 28, 16, 1);
     @include adaptive-value("margin-bottom", 100, 70, 1);
 
     align-self: center;
-    color: $secondary-color;
+    color: rgba($secondary-color, 0.5);
     font-weight: 500;
     line-height: 150%;
     text-align: center;
-    text-transform: uppercase;
 
     @media (max-width: $md) {
       max-width: 350px;

@@ -5,13 +5,12 @@
   &__section {
     @include adaptive-value("padding-left", 100, 20, 1);
     @include adaptive-value("padding-right", 100, 20, 1);
-    @include adaptive-value("padding-top", 107, 87, 1);
     @include adaptive-value("padding-bottom", 50, 20, 1);
 
     display: flex;
     width: 100%;
     max-width: $container;
-    height: 100dvh;
+    height: calc(100dvh - 80px);
     margin: 0 auto;
 
     @media (max-width: $xl) {
@@ -24,6 +23,7 @@
     flex-direction: column;
     gap: 30px;
     justify-content: end;
+    width: 50%;
     height: 100%;
   }
 
@@ -44,7 +44,8 @@
     align-items: center;
     justify-content: center;
     color: $primary-color;
-    font-weight: 700;
+    font-weight: 500;
+    font-size: 16px;
     line-height: 120%;
     text-align: center;
     background-color: $accent-color;
@@ -52,7 +53,7 @@
   }
 
   &__description {
-    max-width: 450px;
+    max-width: 250px;
     font-size: 16px;
     line-height: 150%;
   }
@@ -76,78 +77,66 @@
   }
 
   &__code-container {
+    @include adaptive-value("padding-top", 107, 87, 1);
+
     display: flex;
-    flex: 1 1 auto;
     flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
     height: 100%;
   }
 
-  &__code-wrapper {
+  &__code {
     @include adaptive-value("padding-top", 115, 40, 1);
 
     position: relative;
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
+    height: 250px;
 
-    @media (max-width: $xl) {
-      align-items: center;
-    }
-  }
-
-  &__lets-watch {
-    display: flex;
-    gap: 9px;
-    align-items: center;
-    justify-content: end;
-
-    @media (max-width: $xl) {
-      display: none;
-    }
-  }
-
-  &__code {
-    p {
-      max-width: 400px;
-      color: rgba(255, 255, 255, 0.8);
-      line-height: 150%;
+    pre {
+      code {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        color: rgba($secondary-color, 0.3);
+        font-size: 13px;
+        font-family: "Space Mono", sans-serif;
+        background: $primary-color;
+      }
     }
 
-    &--1 {
-      position: relative;
-      padding: 0 30px;
+    &--python {
+      padding: 0 20px;
+      line-height: 140%;
 
       &::after {
-        @include adaptive-value("height", 600, 300, 1);
+        @include adaptive-value("height", 300, 100, 1);
 
         position: absolute;
         top: 0;
         left: 0;
-        width: 3px;
+        width: 1px;
         background: linear-gradient(to bottom, rgb(254, 254, 255), rgb(21, 45, 57));
         opacity: 0.06;
         content: "";
 
         @media (max-width: $xl) {
-          height: 200px;
+          height: 300px;
         }
       }
     }
 
-    &--2 {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      padding: 0 30px;
-      transform: translate(-50%, -50%);
+    &--rust {
+      margin-left: 25%;
+      padding: 0 20px;
+      line-height: 140%;
 
       &::after {
-        @include adaptive-value("height", 400, 200, 1);
+        @include adaptive-value("height", 450, 100, 1);
 
         position: absolute;
         top: 0;
         left: 0;
-        width: 2px;
+        width: 1px;
         background: linear-gradient(to bottom, rgb(254, 254, 255), rgb(21, 45, 57));
         opacity: 0.06;
         content: "";
@@ -160,6 +149,34 @@
 
     @media (max-width: $xl) {
       margin-bottom: 100px;
+    }
+  }
+
+  &__lets-watch {
+    display: flex;
+    gap: 9px;
+    align-items: center;
+    justify-content: end;
+
+    &:hover {
+      svg {
+        animation: finger 1s infinite;
+      }
+    }
+
+    @keyframes finger {
+      0% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(10px);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: $xl) {
+      display: none;
     }
   }
 

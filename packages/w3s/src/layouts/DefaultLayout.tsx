@@ -8,13 +8,13 @@ import "./DefaultLayout.scss"
 
 const DefaultLayout: FC = () => {
   return (
-    <React.Fragment>
+    <div data-scroll-container>
       <Header />
       <main>
         <Outlet />
       </main>
       <Footer />
-    </React.Fragment>
+    </div>
   )
 }
 

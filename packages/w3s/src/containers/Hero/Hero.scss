@@ -38,17 +38,19 @@
     @include adaptive-value("height", 120, 100, 1);
     @include adaptive-value("width", 120, 100, 1);
 
+    z-index: 15;
     display: flex;
     flex-grow: 0;
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    color: $primary-color;
+    color: $accent-color;
     font-weight: 500;
     font-size: 16px;
     line-height: 120%;
     text-align: center;
-    background-color: $accent-color;
+    background-color: $primary-color;
+    border: 3px solid $accent-color;
     border-radius: 50%;
   }
 
@@ -70,13 +72,9 @@
     font-weight: 900;
     line-height: 80%;
     white-space: nowrap;
-
-    span {
-      color: $accent-color;
-    }
   }
 
-  &__code-container {
+  &__code-wrapper {
     @include adaptive-value("padding-top", 107, 87, 1);
 
     display: flex;
@@ -94,11 +92,12 @@
 
     pre {
       code {
+        @include adaptive-value("font-size", 13, 11, 1);
+
         margin: 0;
         padding: 0;
         overflow: hidden;
         color: rgba($secondary-color, 0.3);
-        font-size: 13px;
         font-family: "Space Mono", sans-serif;
         background: $primary-color;
       }
@@ -131,7 +130,7 @@
       line-height: 140%;
 
       &::after {
-        @include adaptive-value("height", 450, 100, 1);
+        @include adaptive-value("height", 350, 100, 1);
 
         position: absolute;
         top: 0;
@@ -158,29 +157,13 @@
     align-items: center;
     justify-content: end;
 
-    &:hover {
-      svg {
-        animation: finger 1s infinite;
-      }
-    }
-
-    @keyframes finger {
-      0% {
-        opacity: 1;
-      }
-
-      100% {
-        transform: translateY(10px);
-        opacity: 0;
-      }
-    }
-
     @media (max-width: $xl) {
       display: none;
     }
   }
 
   &__lets-watch-circle {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;

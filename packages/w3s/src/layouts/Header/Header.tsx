@@ -4,7 +4,7 @@ import { useMediaQuery } from "react-responsive"
 import { SvgIcon } from "../../components/elements/Icon"
 import { useApp } from "../../contexts/App"
 import { useBreakpoints } from "../../hooks/useBreakpoints"
-import TouchableMenu from "./Drawers/TouchableMenu"
+import DrawerMenu from "./Drawers/DrawerMenu"
 
 import "./Header.scss"
 
@@ -34,11 +34,11 @@ const Header: FC = () => {
           : (
             <React.Fragment>
               <SvgIcon
-                className={"header__touchable-menu"}
-                name={"burger"}
+                className={"header__drawer-menu"}
+                name={"drawer-open"}
                 onClick={() => setDrawerVisibility(true)}
               />
-              <TouchableMenu />
+              <DrawerMenu />
             </React.Fragment>
           )
         }

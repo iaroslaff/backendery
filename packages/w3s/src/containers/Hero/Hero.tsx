@@ -90,10 +90,9 @@ fn internal_error<E>(err: E) -&gt; (StatusCode, String)
 const Hero: FC = () => {
   const { setLetsStartedFormVisibility } = useApp()
 
-  const heroRef = useRef<HTMLDivElement>(null)
-  const pyCodesRef = useRef<HTMLElement>(null)
-  const rsCodesRef = useRef<HTMLElement>(null)
-  const startProjectRef = useRef<HTMLButtonElement>(null)
+  const pythonCodeRef = useRef<HTMLElement>(null)
+  const rustCodeRef = useRef<HTMLElement>(null)
+  const startProjectBtnRef = useRef<HTMLButtonElement>(null)
 
   // prettier-ignore
   const typedOptions = {
@@ -101,7 +100,7 @@ const Hero: FC = () => {
   }
 
   useEffect(() => {
-    const typed = new Typed(pyCodesRef.current, {
+    const typed = new Typed(pythonCodeRef.current, {
       ...typedOptions,
       strings: [...pythonCodes],
       typeSpeed: 15,
@@ -113,7 +112,7 @@ const Hero: FC = () => {
   }, [])
 
   useEffect(() => {
-    const typed = new Typed(rsCodesRef.current, {
+    const typed = new Typed(rustCodeRef.current, {
       ...typedOptions,
       strings: [...rustCodes],
       typeSpeed: 45,
@@ -124,114 +123,121 @@ const Hero: FC = () => {
     }
   }, [])
 
-  useGSAP(
-    () => {
-      gsap
-        .timeline({
-          delay: 0.25,
-        })
-        .from(".hero__title-word", {
-          duration: 0.85,
-          ease: "power4.out",
-          opacity: 0,
-          stagger: 0.1,
-          y: 40,
-        })
+  useGSAP(() => {
+    const tl = gsap.timeline()
 
-      gsap.from(".hero__code", {
-        delay: 0.55,
+    tl.from(
+      ".hero__title-word",
+      {
         duration: 0.85,
         ease: "power4.out",
         opacity: 0,
-        y: 25,
-      })
-
-      gsap.from(".hero__start-project-btn", {
-        delay: 0.95,
-        duration: 0.5,
-        ease: "power1",
-        opacity: 0,
-      })
-
-      gsap
-        .timeline({ delay: 1.5 })
-        .from(".hero__start-project-btn span", {
+        stagger: 0.1,
+        y: 40,
+      },
+      "+=0.25"
+    )
+      .from(
+        ".hero__code",
+        {
+          duration: 0.85,
+          ease: "power4.out",
+          opacity: 0,
+          y: 25,
+        },
+        "<0.55"
+      )
+      .from(
+        ".hero__start-project-btn",
+        {
+          duration: 0.5,
+          ease: "power1",
+          opacity: 0,
+        },
+        ">"
+      )
+      .from(
+        ".hero__start-project-btn span",
+        {
           duration: 0.35,
           ease: "power2.inOut",
           opacity: 0,
-        })
-        .from(".hero__description", {
+        },
+        ">"
+      )
+      .from(
+        ".hero__description",
+        {
           duration: 0.85,
           ease: "expo.out",
           opacity: 0,
           y: -25,
-        })
+        },
+        ">"
+      )
+      .from(
+        ".hero__lets-watch",
+        {
+          duration: 0.85,
+          ease: "power4.out",
+          opacity: 0,
+          y: 40,
+        },
+        "+=0.15"
+      )
+  })
 
-      gsap.from(".hero__lets-watch", {
-        delay: 3.0,
-        duration: 0.85,
-        ease: "power4.out",
-        opacity: 0,
-        y: 40,
+  useGSAP((_, contextSafe) => {
+    const onMouseMove =
+      contextSafe &&
+      contextSafe((event: MouseEvent) => {
+        const elt = event.currentTarget as HTMLElement
+        const bounding = elt.getBoundingClientRect() as DOMRect
+
+        gsap.to(elt, {
+          x: ((event.clientX - bounding.left) / elt.offsetWidth - 0.5) * 50,
+          y: ((event.clientY - bounding.top) / elt.offsetHeight - 0.5) * 50,
+          ease: "power4.out",
+        })
       })
-    },
-    { scope: heroRef }
-  )
 
-  useGSAP(
-    (context, contextSafe) => {
-      const magneticBtns = [startProjectRef.current]
+    const onMouseOut =
+      contextSafe &&
+      contextSafe((event: MouseEvent) => {
+        const elt = event.currentTarget as HTMLElement
 
-      const onMouseMove =
-        contextSafe &&
-        contextSafe((event: MouseEvent) => {
-          const elt = event.currentTarget as HTMLElement
-          const bounding = elt.getBoundingClientRect()
-
-          gsap.to(elt, {
-            x: ((event.clientX - bounding.left) / elt.offsetWidth - 0.5) * 50,
-            y: ((event.clientY - bounding.top) / elt.offsetHeight - 0.5) * 50,
-            ease: "power4.out",
-          })
+        gsap.to(elt, {
+          x: 0,
+          y: 0,
+          ease: "power4.out",
         })
+      })
 
-      const onMouseOut =
-        contextSafe &&
-        contextSafe(() => {
-          gsap.to(startProjectRef.current, { x: 0, y: 0, ease: "power4.out", scale: 1.0 })
-        })
+    // prettier-ignore
+    if (
+         startProjectBtnRef.current
+      && onMouseMove
+      && onMouseOut
+    ) {
+      startProjectBtnRef.current.addEventListener("mousemove", onMouseMove);
+      startProjectBtnRef.current.addEventListener("mouseout", onMouseOut);
+    }
 
+    return () => {
       // prettier-ignore
-      magneticBtns.map(btn => {
-        if (
-             btn
-          && onMouseMove
-          && onMouseOut
-        ) {
-          btn.addEventListener("mousemove", onMouseMove);
-          btn.addEventListener("mouseout", onMouseOut);
-        }
-      })
-
-      return () => {
-        // prettier-ignore
-        magneticBtns.map(btn => {
-          if (
-               btn
-            && onMouseMove
-            && onMouseOut
-          ) {
-            btn.removeEventListener("mousemove", onMouseMove);
-            btn.removeEventListener("mouseout", onMouseOut);
-          }
-        })
+      if (
+           startProjectBtnRef.current
+        && onMouseMove
+        && onMouseOut
+      ) {
+        startProjectBtnRef.current.removeEventListener("mousemove", onMouseMove);
+        startProjectBtnRef.current.removeEventListener("mouseout", onMouseOut);
       }
-    },
-    { scope: heroRef }
-  )
+    }
+  })
 
   return (
-    <section className={"hero__section"} ref={heroRef}>
+    <section className={"hero__section"}>
       <div className={"hero__offer"}>
         <div className={"hero__description-wrapper"}>
           <button
@@ -239,7 +245,7 @@ const Hero: FC = () => {
             onClick={() => {
               setLetsStartedFormVisibility(true)
             }}
-            ref={startProjectRef}
+            ref={startProjectBtnRef}
           >
             <span>
               Start <br /> a project
@@ -258,18 +264,18 @@ const Hero: FC = () => {
       <div className={"hero__code-wrapper"}>
         <div className={"hero__code hero__code--python"}>
           <pre>
-            <code ref={pyCodesRef} className={"language-python"}></code>
+            <code className={"language-python"} ref={pythonCodeRef}></code>
           </pre>
         </div>
         <div className={"hero__code hero__code--rust"}>
           <pre>
-            <code ref={rsCodesRef} className={"language-rust"}></code>
+            <code className={"language-rust"} ref={rustCodeRef}></code>
           </pre>
         </div>
         <div className={"hero__lets-watch"}>
           <span>Let&apos;s watch</span>
           <button className={"hero__lets-watch-circle"}>
-            <SvgIcon name={"arrow-watch-white"} />
+            <SvgIcon name={"arrow-decoration-bw"} />
           </button>
         </div>
       </div>

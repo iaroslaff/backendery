@@ -146,7 +146,8 @@
       right: 0;
       width: 10px;
       height: 14px;
-      background: url("../../components/elements/Icon/icons/arrow-href-dark.svg") no-repeat center;
+      color: $primary-color;
+      background: url("../../components/elements/Icon/icons/arrow-href-trd.svg") no-repeat center;
       transform: translate(0, -50%);
       content: "";
     }

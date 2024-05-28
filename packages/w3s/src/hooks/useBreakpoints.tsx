@@ -1,7 +1,7 @@
 import { useMediaQuery } from "react-responsive"
 
 enum Breakpoints {
-  XS = 360,
+  XS = 320,
   SM = 480,
   MD = 768,
   LG = 992,
@@ -20,15 +20,15 @@ const sizes: SizeMap = {
   XXL: Breakpoints.XXL,
 } as const
 
-type DeviceType = "smartphone" | "tablet" | "nonTouchable"
+type DeviceType = "smartphone" | "tablet" | "pC"
 
 type BreakpointHook = { [key in `is${Capitalize<DeviceType>}`]: boolean } & { sizes: SizeMap }
 
 function useBreakpoints(): BreakpointHook {
   return {
-    isSmartphone: useMediaQuery({ maxWidth: Breakpoints.XS }),
-    isTablet: useMediaQuery({ minWidth: Breakpoints.XS + 1, maxWidth: Breakpoints.LG - 1 }),
-    isNonTouchable: useMediaQuery({ minWidth: Breakpoints.LG }),
+    isSmartphone: useMediaQuery({ minWidth: Breakpoints.XS, maxWidth: Breakpoints.SM }),
+    isTablet: useMediaQuery({ minWidth: Breakpoints.SM + 1, maxWidth: Breakpoints.LG - 1 }),
+    isPC: useMediaQuery({ minWidth: Breakpoints.LG }),
     sizes,
   }
 }

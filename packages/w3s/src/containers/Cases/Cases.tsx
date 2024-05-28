@@ -36,13 +36,13 @@ const Cases: FC = () => {
               <div className={"card-case__tools-heading"}>Used tools</div>
               <div className={"card-case__tools-items"}>
                 <div className={"card-case__tools-item"}>
-                  <SvgIcon name={"language-python"} />
+                  <SvgIcon name={"we-use-language-python"} />
                 </div>
                 <div className={"card-case__tools-item"}>
-                  <SvgIcon name={"language-rust"} />
+                  <SvgIcon name={"we-use-language-rust"} />
                 </div>
                 <div className={"card-case__tools-item"}>
-                  <SvgIcon name={"language-python"} />
+                  <SvgIcon name={"we-use-language-python"} />
                 </div>
               </div>
             </div>
@@ -62,10 +62,10 @@ const Cases: FC = () => {
               <div className={"card-case__tools-heading"}>Used tools</div>
               <div className={"card-case__tools-items"}>
                 <div className={"card-case__tools-item card-case__tools-item--invert-color"}>
-                  <SvgIcon name={"language-python"} />
+                  <SvgIcon name={"we-use-language-python"} />
                 </div>
                 <div className={"card-case__tools-item card-case__tools-item--invert-color"}>
-                  <SvgIcon name={"language-rust"} />
+                  <SvgIcon name={"we-use-language-rust"} />
                 </div>
               </div>
             </div>
@@ -85,16 +85,16 @@ const Cases: FC = () => {
               <div className={"card-case__tools-heading"}>Used tools</div>
               <div className={"card-case__tools-items"}>
                 <div className={"card-case__tools-item card-case__tools-item--invert-color"}>
-                  <SvgIcon name={"language-python"} />
+                  <SvgIcon name={"we-use-language-python"} />
                 </div>
                 <div className={"card-case__tools-item card-case__tools-item--invert-color"}>
-                  <SvgIcon name={"language-rust"} />
+                  <SvgIcon name={"we-use-language-rust"} />
                 </div>
                 <div className={"card-case__tools-item card-case__tools-item--invert-color"}>
-                  <SvgIcon name={"language-python"} />
+                  <SvgIcon name={"we-use-language-python"} />
                 </div>
                 <div className={"card-case__tools-item card-case__tools-item--invert-color"}>
-                  <SvgIcon name={"language-rust"} />
+                  <SvgIcon name={"we-use-language-rust"} />
                 </div>
               </div>
             </div>
@@ -114,19 +114,19 @@ const Cases: FC = () => {
               <div className={"card-case__tools-heading"}>Used tools</div>
               <div className={"card-case__tools-items"}>
                 <div className={"card-case__tools-item"}>
-                  <SvgIcon name={"language-python"} />
+                  <SvgIcon name={"we-use-language-python"} />
                 </div>
                 <div className={"card-case__tools-item"}>
-                  <SvgIcon name={"language-rust"} />
+                  <SvgIcon name={"we-use-language-rust"} />
                 </div>
                 <div className={"card-case__tools-item"}>
-                  <SvgIcon name={"language-python"} />
+                  <SvgIcon name={"we-use-language-python"} />
                 </div>
                 <div className={"card-case__tools-item"}>
-                  <SvgIcon name={"language-rust"} />
+                  <SvgIcon name={"we-use-language-rust"} />
                 </div>
                 <div className={"card-case__tools-item"}>
-                  <SvgIcon name={"language-python"} />
+                  <SvgIcon name={"we-use-language-python"} />
                 </div>
               </div>
             </div>

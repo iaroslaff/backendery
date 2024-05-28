@@ -14,7 +14,7 @@ const Footer: FC = () => {
         <div className={"footer__body"}>
           <div className={"footer__title"}>
             Let&apos;s make something create <span></span> <br />
-            <SvgIcon name={"arrow-offer-dark"} /> together
+            <SvgIcon name={"arrow-decoration-rd"} /> together
           </div>
           <div className={"footer__contacts"}>
             <a href={"mailto:hey@backendery.dev"} className={"footer__contacts-email"}>

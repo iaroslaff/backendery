@@ -1,4 +1,37 @@
 <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @keyframes rotate-bd8a94b2 {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes rotate-add6378c {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(-360deg);
+      }
+    }
+
+    .visualizezza {
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .visualizezza.af1d46f0._active {
+      animation: rotate-bd8a94b2 2s linear infinite;
+    }
+
+    .visualizezza.e50c15da._active {
+      animation: rotate-add6378c 2s linear infinite;
+    }
+  </style>
+
   <path
     d="M27 21.3334L27 28M27 28C27 30.2092 28.7909 31.5 31 31.5L41 31.5C44.3137 31.5 47 34.6863 47 38V42.6667M27 28C27 30.2092 25.2091 31.5 23 31.5L13 31.5C9.68629 31.5 7 34.6863 7 38L7 42.6667"
     stroke="#F7AD19"
@@ -12,5 +45,6 @@
     stroke="#FEFEFF"
     stroke-width="2.4"
   />
-  <path d="M20.3335 12H33.6668" stroke="#F7AD19" stroke-width="2.4" />
+  <path class="visualizezza af1d46f0" d="M20.3335 12H33.6668" stroke="#FEFEFF" stroke-width="2.4" />
+  <path class="visualizezza e50c15da" d="M20.3335 12H33.6668" stroke="#F7AD19" stroke-width="2.4" />
 </svg>

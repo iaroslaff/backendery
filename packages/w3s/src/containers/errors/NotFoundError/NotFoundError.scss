@@ -1,9 +1,13 @@
 @import "@styles/variables";
-@import "@styles/funcs";
 @import "@styles/mixin";
 
 .not-found {
-  @include adaptive-value("gap", 60, 20, 1);
+  /* prettier-ignore */
+  @include adaptive-value(
+    $property: "gap",
+    $from: 60,
+    $to: 20
+  );
 
   display: flex;
   flex-direction: column;
@@ -13,7 +17,12 @@
   padding: 0 20px;
 
   &__status-code {
-    @include adaptive-value("font-size", 300, 120, 1);
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 300,
+      $to: 120
+    );
 
     color: $accent-color;
     line-height: 100%;
@@ -21,9 +30,24 @@
   }
 
   &__emulator-of-console-text {
-    @include adaptive-value("font-size", 24, 14, 1);
-    @include adaptive-value("max-width", remove-unit(#{$lg}), remove-unit(#{$xs}), 1);
-    @include adaptive-value("padding", 20, 10, 1);
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "max-width",
+      $from: 992,
+      $to: 320
+    );
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 24,
+      $to: 14
+    );
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "padding",
+      $from: 20,
+      $to: 10
+    );
 
     align-self: center;
     width: 100%;
@@ -38,7 +62,12 @@
       padding: 0 30px;
 
       &::after {
-        @include adaptive-value("height", 150, 100, 1);
+        /* prettier-ignore */
+        @include adaptive-value(
+          $property: "height",
+          $from: 150,
+          $to: 100
+        );
 
         position: absolute;
         top: 0;
@@ -52,7 +81,12 @@
   }
 
   &__what-next {
-    @include adaptive-value("font-size", 24, 14, 1);
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 24,
+      $to: 14
+    );
 
     color: $accent-color;
     line-height: 140%;

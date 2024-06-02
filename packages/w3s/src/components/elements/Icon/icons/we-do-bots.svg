@@ -1,8 +1,32 @@
 <svg width="36" height="50" viewBox="0 0 36 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @keyframes flash-bab1f134 {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+
+    .visualizezza {
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .visualizezza.b001290a._active {
+      animation: flash-bab1f134 350ms ease infinite alternate;
+    }
+
+    .visualizezza.e0fda19e._active {
+      animation: flash-bab1f134 350ms ease infinite alternate;
+    }
+  </style>
+
   <path d="M0 32.8125H28.375C31.6887 32.8125 34.375 35.4988 34.375 38.8125V50" stroke="#FEFEFF" stroke-width="2.4" />
   <rect x="3.125" y="6.25" width="28.125" height="17.1875" rx="8.59375" stroke="#FEFEFF" stroke-width="2.4" />
-  <circle cx="12.5" cy="14.8438" r="1.84375" fill="#F7AD19" stroke="#F7AD19" />
-  <circle cx="21.875" cy="14.8438" r="1.84375" fill="#F7AD19" stroke="#F7AD19" />
+  <circle class="visualizezza b001290a" cx="12.5" cy="14.8438" r="1.84375" fill="#F7AD19" stroke="#F7AD19" />
+  <circle class="visualizezza e0fda19e" cx="21.875" cy="14.8438" r="1.84375" fill="#F7AD19" stroke="#F7AD19" />
   <path d="M14.0625 42.1875L26.5625 42.1875" stroke="#F7AD19" stroke-width="2.4" />
   <path d="M20.3125 48.4375L26.5625 48.4375" stroke="#F7AD19" stroke-width="2.4" />
   <path d="M17.1875 0L17.1875 5.6875" stroke="#FEFEFF" stroke-width="2.4" />

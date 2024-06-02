@@ -6,8 +6,18 @@
   height: 80px;
 
   &__container {
-    @include adaptive-value("padding-left", 100, 20, 1);
-    @include adaptive-value("padding-right", 100, 20, 1);
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "padding-left",
+      $from: 100,
+      $to: 20
+    );
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "padding-right",
+      $from: 100,
+      $to: 20
+    );
 
     display: flex;
     align-items: center;

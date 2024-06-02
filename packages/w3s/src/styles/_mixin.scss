@@ -1,49 +1,52 @@
 @import "./funcs";
+@import "./types";
 @import "./variables";
 
 /**
  * SCSS mixin for creating adaptive CSS values based on screen width.
+ * This mixin generates adaptive CSS property values that adjust based on the screen width.
+ * It supports three types of adaptation: only when the screen is smaller than a container,
+ * only when the screen is larger than a container, or always.
  *
  * @param {string} $property - The CSS property to apply adaptive styles to.
  * @param {number} $fromValue - The initial size of the property.
  * @param {number} $toValue - The minimum size of the property.
- * @param {number} $type - The type of adaptation: 1 for smaller than container, 2 for larger than container, else for always.
+ * @param {string} $type - The type of adaptation (optional, default: "less"):
+ *   - "less": Apply styles only if smaller than the container.
+ *   - "over": Apply styles only if larger than the container.
+ * @throws {error} - Throws an error if the container values are not defined, if the maximum
+ * width is less than the minimum width, or if the unit is not supported.
+ *
+ * @example
+ * // apply an adaptive font size
+ * @include adaptive-value("font-size", 16, 12, "less");
+ *
+ * @example
+ * // apply an adaptive margin top
+ * @include adaptive-value("margin-top", 100, 50);
  */
-@mixin adaptive-value($property, $fromValue, $toValue, $type) {
-  $appendableValue: $fromValue - $toValue;
-  $containerWithoutUnit: remove-unit(#{$container});
-  $minBpWithoutUnit: remove-unit(#{$xs});
-
-  @if not $containerMaxWidth or not $containerMinWidth or not $container {
-    @error "no value is given for '$containerMaxWidth', '$containerMinWidth' or '$container'";
-  }
-
-  @if $containerMaxWidth < $containerMinWidth {
-    @error "the value for '$containerMaxWidth' must not be less than '$containerMinWidth'";
+@mixin adaptive-value($property, $from, $to, $container-type: nth($supported-container-type, 1)) {
+  @if not is-container-supported($container-type) {
+    @error "got container type <#{$container-type}> is not supported; expected one of <#{$supported-container-type}>";
   }
 
   // Apply styles only if smaller than container
-  @if $type==1 {
-    #{$property}: $fromValue + px;
+  @if $container-type == nth($supported-container-type, 1) {
+    #{$property}: $from + px;
 
-    @media (max-width: #{$container}) {
-      #{$property}: calc(
-        #{$toValue + px} + #{$appendableValue} * ((100vw - $xs) / (#{$containerWithoutUnit} - #{$minBpWithoutUnit}))
-      );
+    @media (max-width: $container) {
+      // prettier-ignore
+      #{$property}: calc(#{$to + px} + #{$from - $to} * ((100vw - $xs) / (remove-unit(#{$container}) - remove-unit(#{$xs}))));
     }
-    // Apply styles only if larger than container
-  } @else if $type==2 {
-    #{$property}: $fromValue + px;
+  }
 
-    @media (min-width: #{$container}) {
-      #{$property}: calc(
-        #{$toValue + px} + #{$appendableValue} * ((100vw - $xs) / #{$containerMaxWidth - $containerMinWidth})
-      );
+  // Apply styles only if larger than container
+  @if $container-type == nth($supported-container-type, 2) {
+    #{$property}: $from + px;
+
+    @media (min-width: $container) {
+      // prettier-ignore
+      #{$property}: calc(#{$to + px} + #{$from - $to} * ((100vw - $xs) / ($containerMaxWidth - $containerMinWidth)));
     }
-  } @else {
-    // Apply styles always
-    #{$property}: calc(
-      #{$toValue + px} + #{$appendableValue} * ((100vw - $xs) / #{$containerMaxWidth - $containerMinWidth})
-    );
   }
 }

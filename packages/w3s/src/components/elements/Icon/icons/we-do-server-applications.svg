@@ -1,10 +1,43 @@
 <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @keyframes motion-ef9816ca {
+      from {
+        transform: translateX(0px);
+      }
+      to {
+        transform: translateX(-3px);
+      }
+    }
+
+    .visualizezza {
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .visualizezza.e015dc7f._active {
+      animation: motion-ef9816ca 250ms linear infinite alternate;
+    }
+    .visualizezza.facee2c1._active {
+      animation: motion-ef9816ca 670ms linear infinite alternate;
+      animation-delay: 150ms;
+    }
+
+    .visualizezza.d64ab2d5._active {
+      animation: motion-ef9816ca 270ms linear infinite alternate;
+      animation-delay: 80ms;
+    }
+    .visualizezza.e7eb6149._active {
+      animation: motion-ef9816ca 520ms linear infinite alternate;
+      animation-delay: 170ms;
+    }
+  </style>
+
   <rect x="2" y="2" width="50" height="25" rx="12.5" stroke="#FEFEFF" stroke-width="2.4" />
   <circle cx="14.5" cy="14.5" r="4.5" fill="#FEFEFF" />
-  <path d="M43.6665 17.8334H26.9998" stroke="#F7AD19" stroke-width="2.4" />
-  <path d="M43.6665 11.1666L26.9998 11.1666" stroke="#F7AD19" stroke-width="2.4" />
+  <path class="visualizezza e015dc7f" d="M43.6665 11.1666L26.9998 11.1666" stroke="#F7AD19" stroke-width="2.4" />
+  <path class="visualizezza facee2c1" d="M43.6665 17.8334H26.9998" stroke="#F7AD19" stroke-width="2.4" />
   <rect x="2" y="27" width="50" height="25" rx="12.5" stroke="#FEFEFF" stroke-width="2.4" />
   <circle cx="15.5" cy="39.5" r="4.5" fill="#FEFEFF" />
-  <path d="M43.6665 42.8334H26.9998" stroke="#F7AD19" stroke-width="2.4" />
-  <path d="M43.6665 36.1666H26.9998" stroke="#F7AD19" stroke-width="2.4" />
+  <path class="visualizezza d64ab2d5" d="M43.6665 36.1666H26.9998" stroke="#F7AD19" stroke-width="2.4" />
+  <path class="visualizezza e7eb6149" d="M43.6665 42.8334H26.9998" stroke="#F7AD19" stroke-width="2.4" />
 </svg>

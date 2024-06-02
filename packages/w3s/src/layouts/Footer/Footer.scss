@@ -139,6 +139,7 @@
   &__footer-link {
     position: relative;
     padding: 10px 15px 10px 0;
+    color: $primary-color;
 
     &::after {
       position: absolute;
@@ -146,14 +147,18 @@
       right: 0;
       width: 10px;
       height: 14px;
-      color: $primary-color;
       background: url("../../components/elements/Icon/icons/arrow-href-trd.svg") no-repeat center;
       transform: translate(0, -50%);
       content: "";
     }
 
     a {
-      @include adaptive-value("font-size", 16, 20, 1);
+      @include adaptive-value(
+        $property: "font-size",
+        $fromValue: 16,
+        $toValue: 20,
+        $type: 1
+      );
 
       color: $primary-color;
       font-weight: 500;

@@ -2,31 +2,30 @@
 @import "@styles/mixin";
 
 .we-do {
-  // prettier-ignore
   &__section {
+    /* prettier-ignore */
     @include adaptive-value(
       $property: "gap",
-      $fromValue: 30,
-      $toValue: 20,
-      $type: 1
+      $from: 30,
+      $to: 20
     );
+    /* prettier-ignore */
     @include adaptive-value(
       $property: "padding-top",
-      $fromValue: 300,
-      $toValue: 100,
-      $type: 1
+      $from: 300,
+      $to: 100
     );
+    /* prettier-ignore */
     @include adaptive-value(
       $property: "padding-left",
-      $fromValue: 100,
-      $toValue: 20,
-      $type: 1
+      $from: 100,
+      $to: 20
     );
+    /* prettier-ignore */
     @include adaptive-value(
       $property: "padding-right",
-      $fromValue: 100,
-      $toValue: 20,
-      $type: 1
+      $from: 100,
+      $to: 20
     );
 
     display: grid;
@@ -45,12 +44,11 @@
   }
 
   &__title {
-    // prettier-ignore
+    /* prettier-ignore */
     @include adaptive-value(
       $property: "font-size",
-      $fromValue: 110,
-      $toValue: 70,
-      $type: 1
+      $from: 110,
+      $to: 70
     );
 
     font-weight: 900;
@@ -62,12 +60,11 @@
   }
 
   &__card {
-    // prettier-ignore
+    /* prettier-ignore */
     @include adaptive-value(
       $property: "padding",
-      $fromValue: 40,
-      $toValue: 30,
-      $type: 1
+      $from: 40,
+      $to: 30
     );
 
     display: flex;

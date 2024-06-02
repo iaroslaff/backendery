@@ -84,6 +84,11 @@ const WeDo: FC = () => {
               ease: "none",
             })
 
+            const paths = elt.querySelectorAll("svg > .visualizezza");
+            paths.forEach(x => {
+              x?.classList.add("_active")
+            });
+
             const title = elt.querySelector(".we-do__card-title")
             gsap.to(title, {
               color: "rgb(247, 173, 25)",
@@ -105,6 +110,11 @@ const WeDo: FC = () => {
               duration: 0.19,
               ease: "none",
             })
+
+            const paths = elt.querySelectorAll("svg > .visualizezza");
+            paths.forEach(x => {
+              x?.classList.remove("_active")
+            });
 
             const title = elt.querySelector(".we-do__card-title")
             gsap.to(title, {

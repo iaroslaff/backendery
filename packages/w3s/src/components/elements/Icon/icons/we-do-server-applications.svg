@@ -2,10 +2,10 @@
   <style>
     @keyframes motion-ef9816ca {
       from {
-        transform: translateX(0px);
+        opacity: 1;
       }
       to {
-        transform: translateX(-3px);
+        opacity: 0;
       }
     }
 

@@ -13,6 +13,20 @@ const WeDo: FC = () => {
 
   const sectionRef = useRef<HTMLElement>(null)
 
+  function letsAnimateSvg(elt: HTMLElement): void {
+    const paths = elt.querySelectorAll("svg > .visualizezza")
+    paths.forEach(x => {
+      x?.classList.add("_active")
+    })
+  }
+
+  function stopAnimateSvg(elt: HTMLElement): void {
+    const paths = elt.querySelectorAll("svg > .visualizezza")
+    paths.forEach(x => {
+      x?.classList.remove("_active")
+    })
+  }
+
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger)
@@ -46,26 +60,43 @@ const WeDo: FC = () => {
           },
           y: 40,
         })
-
-      scrollTrigger = ScrollTrigger.create({
-        end: "center 35%",
-        start: "top bottom",
-        trigger: sectionRef.current,
-      })
-
       isSmartphone &&
-        gsap.fromTo(
-          ".we-do__card",
-          {
-            opacity: 0,
-          },
-          {
-            ease: "expo.in",
-            opacity: 1,
-            scrollTrigger: scrollTrigger,
-            stagger: 1.05,
-          }
-        )
+        gsap.utils.toArray(".we-do__card").forEach(x => {
+          const card = x as HTMLElement
+          card.classList.add("_no-click")
+
+          scrollTrigger = ScrollTrigger.create({
+            trigger: card,
+            start: "top 80%",
+            end: "top 25%",
+            onEnter: () => {
+              letsAnimateSvg(card)
+            },
+            onEnterBack: () => {
+              letsAnimateSvg(card)
+            },
+            onLeave: () => {
+              stopAnimateSvg(card)
+            },
+            onLeaveBack: () => {
+              stopAnimateSvg(card)
+            },
+          })
+
+          gsap.fromTo(
+            card,
+            {
+              opacity: 0,
+            },
+            {
+              duration: 0.85,
+              ease: "expo.in",
+              opacity: 1,
+              scrollTrigger: scrollTrigger,
+              stagger: 0.25,
+            }
+          )
+        })
     },
     { scope: sectionRef }
   )
@@ -77,17 +108,14 @@ const WeDo: FC = () => {
         contextSafe((event: MouseEvent) => {
           const elt = event.target as HTMLElement
           if (elt.classList.contains("we-do__card")) {
-            const self = elt
-            gsap.to(self, {
+            const card = elt
+            gsap.to(card, {
               backgroundColor: "rgba(254, 254, 255, 0.06)",
               duration: 0.19,
               ease: "none",
             })
 
-            const paths = elt.querySelectorAll("svg > .visualizezza");
-            paths.forEach(x => {
-              x?.classList.add("_active")
-            });
+            letsAnimateSvg(card)
 
             const title = elt.querySelector(".we-do__card-title")
             gsap.to(title, {
@@ -104,17 +132,14 @@ const WeDo: FC = () => {
         contextSafe((event: MouseEvent) => {
           const elt = event.target as HTMLElement
           if (elt.classList.contains("we-do__card")) {
-            const self = elt
-            gsap.to(self, {
+            const card = elt
+            gsap.to(card, {
               backgroundColor: "rgba(254, 254, 255, 0.02)",
               duration: 0.19,
               ease: "none",
             })
 
-            const paths = elt.querySelectorAll("svg > .visualizezza");
-            paths.forEach(x => {
-              x?.classList.remove("_active")
-            });
+            stopAnimateSvg(card)
 
             const title = elt.querySelector(".we-do__card-title")
             gsap.to(title, {

@@ -19,16 +19,16 @@ const NotFoundError: FC = () => {
   }, [])
 
   return (
-    <div className={"not-found"}>
-      <div className={"not-found__status-code"}>404</div>
-      <div className={"not-found__emulator-of-console-text not-found__emulator-of-console-text--console-border"}>
+    <div className={"not-found-error"}>
+      <div className={"not-found-error__status-code"}>404</div>
+      <div className={"not-found-error__emulator-of-console-text not-found-error__emulator-of-console-text--console-border"}>
         <div>{"#>"}&nbsp;uh-oh! page not found...</div>
         <div>
           {"#>"}&nbsp;
           <a ref={elementRef} href={"/"}></a>
         </div>
       </div>
-      <div className={"not-found__what-next"}>
+      <div className={"not-found-error__what-next"}>
         Go ahead then
         <br />
         Click the terminal message

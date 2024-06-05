@@ -1,15 +1,15 @@
-import { useGSAP } from "@gsap/react"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { FC, useRef } from "react"
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { FC, useRef } from 'react'
 
-import { SvgIcon } from "../../components/elements/Icon"
-// import { useBreakpoints } from "../../hooks/useBreakpoints"
+import { SvgIcon } from '../../components/elements/Icon'
+import { useBreakpoints } from '../../hooks/useBreakpoints'
 
-import "./WeUse.scss"
+import './WeUse.scss'
 
 const WeUse: FC = () => {
-  // const { isPC, isTablet, isSmartphone } = useBreakpoints()
+  const { isSmartphone, isTablet, isSmallLaptop, isLaptop, isPC } = useBreakpoints()
 
   const sectionRef = useRef<HTMLElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
@@ -20,59 +20,92 @@ const WeUse: FC = () => {
     () => {
       gsap.registerPlugin(ScrollTrigger)
 
-      ScrollTrigger.create({
-        trigger: titleRef.current,
-        start: "top 5%",
-        end: "bottom 63%",
-        endTrigger: cardsRef.current,
-        pinSpacing: false,
-        pin: true,
-      })
+      let scrollTrigger = null;
 
-      ScrollTrigger.create({
-        trigger: descriptionRef.current,
-        start: "center center",
-        end: "bottom 63%",
-        endTrigger: cardsRef.current,
-        pinSpacing: false,
-        pin: true,
-      })
+      ; (isSmallLaptop || isLaptop || isPC) && (
+        ScrollTrigger.create({
+          trigger: titleRef.current,
+          start: "top 5%",
+          end: "bottom 63%",
+          endTrigger: cardsRef.current,
+          pinSpacing: false,
+          pin: true,
+        }),
 
-      let scrollTrigger = ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top 45%",
-      })
+        ScrollTrigger.create({
+          trigger: descriptionRef.current,
+          start: "center center",
+          end: "bottom 63%",
+          endTrigger: cardsRef.current,
+          pinSpacing: false,
+          pin: true,
+        }),
 
-      gsap.from(titleRef.current, {
-        duration: 0.85,
-        ease: "power4.out",
-        opacity: 0,
-        scrollTrigger: scrollTrigger,
-        y: 60,
-      })
+        scrollTrigger = ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top center",
+        }),
+
+        gsap.from(titleRef.current, {
+          duration: 0.85,
+          ease: "power4.out",
+          opacity: 0,
+          scrollTrigger: scrollTrigger,
+          y: 60,
+        })
+      )
+
+      ; (isSmartphone || isTablet) && (
+        scrollTrigger = ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top 80%",
+        }),
+
+        gsap.from(titleRef.current, {
+          duration: 0.85,
+          ease: "power4.out",
+          opacity: 0,
+          scrollTrigger: scrollTrigger,
+          y: 60,
+        })
+      )
 
       gsap.utils.toArray(".we-use__card").forEach(x => {
         const card = x as HTMLElement
+        card.classList.add("_no-tap")
 
         scrollTrigger = ScrollTrigger.create({
           trigger: card,
           start: "top 80%",
-          end: "top 30%",
+          end: "top 75%",
         })
 
         gsap.fromTo(
           card,
           {
             opacity: 0,
-            y: 40,
           },
           {
+            duration: 0.85,
             ease: "expo.in",
             opacity: 1,
-            stagger: 6.05,
-            // duration: 0.35,
             scrollTrigger: scrollTrigger,
-            y: 0,
+            stagger: 0.25,
+            onStart: () => {
+              const title = card.querySelector(".we-use__card-title")
+              gsap.fromTo(
+                title,
+                {
+                  x: 20
+                },
+                {
+                  delay: 0.25,
+                  duration: 0.60,
+                  ease: "none",
+                  x: 0
+                }
+              )
+            }
           }
         )
       })

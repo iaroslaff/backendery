@@ -9,9 +9,10 @@ import { useBreakpoints } from "../../hooks/useBreakpoints"
 import "./WeDo.scss"
 
 const WeDo: FC = () => {
-  const { isPC, isTablet, isSmartphone } = useBreakpoints()
+  const { isSmartphone, isTablet, isSmallLaptop, isLaptop, isPC } = useBreakpoints()
 
   const sectionRef = useRef<HTMLElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
 
   function letsAnimateSvg(elt: HTMLElement): void {
     const paths = elt.querySelectorAll("svg > .visualizezza")
@@ -27,60 +28,42 @@ const WeDo: FC = () => {
     })
   }
 
+  function letsChangeCardColor(elt: HTMLElement, color: string): void {
+    gsap.to(elt, {
+      backgroundColor: color,
+      duration: 0.19,
+      ease: "none",
+    })
+  }
+
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger)
 
-      let scrollTrigger = ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top 45%",
-      })
+      let scrollTrigger = null;
 
-      gsap.from(".we-do__title", {
-        duration: 0.85,
-        ease: "power4.out",
-        opacity: 0,
-        scrollTrigger: scrollTrigger,
-        y: 60,
-      })
+      ; (isSmartphone || isTablet) && (
+        scrollTrigger = ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top 80%",
+        }),
 
-      scrollTrigger = ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top 25%",
-      })
-      ;(isPC || isTablet) &&
-        gsap.from(".we-do__card", {
+        gsap.from(titleRef.current, {
+          duration: 0.85,
           ease: "power4.out",
           opacity: 0,
           scrollTrigger: scrollTrigger,
-          stagger: {
-            each: 0.25,
-            from: "random",
-            grid: [2, 3],
-          },
-          y: 40,
-        })
-      isSmartphone &&
+          y: 60,
+        }),
+
         gsap.utils.toArray(".we-do__card").forEach(x => {
           const card = x as HTMLElement
-          card.classList.add("_no-click")
+          card.classList.add("_no-tap")
 
           scrollTrigger = ScrollTrigger.create({
             trigger: card,
             start: "top 80%",
-            end: "top 25%",
-            onEnter: () => {
-              letsAnimateSvg(card)
-            },
-            onEnterBack: () => {
-              letsAnimateSvg(card)
-            },
-            onLeave: () => {
-              stopAnimateSvg(card)
-            },
-            onLeaveBack: () => {
-              stopAnimateSvg(card)
-            },
+            end: "top 75%",
           })
 
           gsap.fromTo(
@@ -96,7 +79,62 @@ const WeDo: FC = () => {
               stagger: 0.25,
             }
           )
+
+          ScrollTrigger.create({
+            trigger: card,
+            start: "top center",
+            end: "bottom center",
+            onEnter: () => {
+              letsChangeCardColor(card, "rgba(254, 254, 255, 0.06)")
+              letsAnimateSvg(card)
+            },
+            onEnterBack: () => {
+              letsChangeCardColor(card, "rgba(254, 254, 255, 0.06)")
+              letsAnimateSvg(card)
+            },
+            onLeave: () => {
+              letsChangeCardColor(card, "rgba(254, 254, 255, 0.02)")
+              stopAnimateSvg(card)
+            },
+            onLeaveBack: () => {
+              letsChangeCardColor(card, "rgba(254, 254, 255, 0.02)")
+              stopAnimateSvg(card)
+            },
+          })
         })
+      )
+
+      ; (isSmallLaptop || isLaptop || isPC) && (
+        scrollTrigger = ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top center",
+        }),
+
+        gsap.from(titleRef.current, {
+          duration: 0.85,
+          ease: "power4.out",
+          opacity: 0,
+          scrollTrigger: scrollTrigger,
+          y: 60,
+        }),
+
+        scrollTrigger = ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top 25%",
+        }),
+
+        gsap.from(".we-do__card", {
+          ease: "power4.out",
+          opacity: 0,
+          scrollTrigger: scrollTrigger,
+          stagger: {
+            each: 0.25,
+            from: "random",
+            grid: [2, 3],
+          },
+          y: 40,
+        })
+      )
     },
     { scope: sectionRef }
   )
@@ -109,12 +147,8 @@ const WeDo: FC = () => {
           const elt = event.target as HTMLElement
           if (elt.classList.contains("we-do__card")) {
             const card = elt
-            gsap.to(card, {
-              backgroundColor: "rgba(254, 254, 255, 0.06)",
-              duration: 0.19,
-              ease: "none",
-            })
 
+            letsChangeCardColor(card, "rgba(254, 254, 255, 0.06)")
             letsAnimateSvg(card)
 
             const title = elt.querySelector(".we-do__card-title")
@@ -133,12 +167,8 @@ const WeDo: FC = () => {
           const elt = event.target as HTMLElement
           if (elt.classList.contains("we-do__card")) {
             const card = elt
-            gsap.to(card, {
-              backgroundColor: "rgba(254, 254, 255, 0.02)",
-              duration: 0.19,
-              ease: "none",
-            })
 
+            letsChangeCardColor(card, "rgba(254, 254, 255, 0.02)")
             stopAnimateSvg(card)
 
             const title = elt.querySelector(".we-do__card-title")
@@ -179,7 +209,7 @@ const WeDo: FC = () => {
 
   return (
     <section className={"we-do__section"} ref={sectionRef}>
-      <h2 className={"we-do__title"}>
+      <h2 className={"we-do__title"} ref={titleRef}>
         What
         <br />
         we do

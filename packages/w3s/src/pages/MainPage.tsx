@@ -15,11 +15,11 @@ const MainPage: FC = () => {
 
   return (
     <React.Fragment>
-      {/* <Hero /> */}
+      <Hero />
       <WeDo />
-      {/* <WeUse />
+      <WeUse />
       <Cases />
-      <Steps />
+      {/*<Steps />
       <AboutUs /> */}
       {isLetsStartedFormVisible && <LetsStartedForm />}
     </React.Fragment>

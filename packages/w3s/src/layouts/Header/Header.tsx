@@ -1,3 +1,4 @@
+import { useLenis } from "@studio-freight/react-lenis"
 import React, { FC } from "react"
 import { useMediaQuery } from "react-responsive"
 
@@ -10,8 +11,18 @@ import "./Header.scss"
 
 const Header: FC = () => {
   const { setDrawerVisibility } = useApp()
+
   const { sizes } = useBreakpoints()
   const isLG = useMediaQuery({ minWidth: sizes.LG })
+
+  const lenis = useLenis()
+
+  function getSrollingOffsetForSection(idOrClass: string) {
+    return (
+      parseInt(window.getComputedStyle(document.querySelector(idOrClass) as Element).getPropertyValue("padding-top")) /
+      2
+    )
+  }
 
   return (
     <header className={"header"}>
@@ -24,8 +35,26 @@ const Header: FC = () => {
           isLG
           ? (
             <div className={"header__nav"}>
-              <a className={"header__nav-link _underscore"} href={"#"}>We do!</a>
-              <a className={"header__nav-link _underscore"} href={"#"}>Cases</a>
+              <a
+                href={"#"}
+                className={"header__nav-link _underscore"}
+                onClick={(event) => {
+                  event.preventDefault();
+                  lenis?.scrollTo(
+                    ".we-do__section", { lerp: 0.075, offset: getSrollingOffsetForSection(".we-do__section") }
+                  )
+                }}
+              >We do!</a>
+              <a
+                href={"#"}
+                className={"header__nav-link _underscore"}
+                onClick={(event) => {
+                  event.preventDefault();
+                  lenis?.scrollTo(
+                    ".we-use__section", { lerp: 0.075, offset: getSrollingOffsetForSection(".we-use__section") }
+                  )
+                }}
+              >We use</a>
               <a className={"header__nav-link _underscore"} href={"#"}>Steps</a>
               <a className={"header__nav-link _underscore"} href={"#"}>About Us</a>
               <a className={"header__nav-link _underscore"} href={"#"}>Contacts</a>

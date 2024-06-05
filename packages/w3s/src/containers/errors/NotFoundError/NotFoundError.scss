@@ -1,7 +1,7 @@
 @import "@styles/variables";
 @import "@styles/mixin";
 
-.not-found {
+.not-found-error {
   /* prettier-ignore */
   @include adaptive-value(
     $property: "gap",
@@ -15,6 +15,10 @@
   justify-content: center;
   height: 100vh;
   padding: 0 20px;
+
+  a {
+    cursor: pointer;
+  }
 
   &__status-code {
     /* prettier-ignore */

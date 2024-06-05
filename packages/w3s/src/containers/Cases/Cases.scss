@@ -3,16 +3,38 @@
 
 .cases {
   &__section {
-    @include adaptive-value("padding-bottom", 300, 100, 1);
-    @include adaptive-value("padding-left", 100, 20, 1);
-    @include adaptive-value("padding-right", 100, 20, 1);
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "padding-top",
+      $from: 300,
+      $to: 100
+    );
+
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "padding-left",
+      $from: 100,
+      $to: 20
+    );
+
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "padding-right",
+      $from: 100,
+      $to: 20
+    );
 
     max-width: $container;
     margin: 0 auto;
   }
 
   &__heading {
-    @include adaptive-value("margin-bottom", 100, 40, 1);
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "margin-bottom",
+      $from: 100,
+      $to: 40
+    );
 
     display: grid;
     grid-template-columns: 150px 1fr 150px;
@@ -41,7 +63,12 @@
   }
 
   &__title {
-    @include adaptive-value("font-size", 110, 55, 1);
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 110,
+      $to: 55
+    );
 
     font-weight: 900;
     line-height: 90%;
@@ -56,18 +83,20 @@
 
   &__grid {
     display: grid;
+    grid-template-rows: minmax(420px, auto) minmax(420px, auto);
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
 
     @media (max-width: $xl) {
+      grid-template-rows: repeat(4, minmax(420px, auto));
       grid-template-columns: 1fr;
     }
   }
 }
 
 .card-case {
-  display: flex;
-  max-height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   padding: 10px;
   border-radius: 30px;
 
@@ -87,27 +116,30 @@
 
   &__content {
     display: flex;
-    flex: 1 1 auto;
     flex-direction: column;
     align-items: start;
     padding: 30px;
   }
 
   &__title {
-    @include adaptive-value("font-size", 36, 30, 1);
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 36,
+      $to: 30
+    );
 
     margin-bottom: 20px;
     font-weight: 900;
+    line-height: 120%;
   }
 
   &__description {
     flex: 1 1 auto;
+    max-width: 320px;
+    margin-bottom: 40px;
     font-style: 16px;
     line-height: 150%;
-
-    @media (max-width: $lg) {
-      margin-bottom: 60px;
-    }
   }
 
   &__tools-heading {
@@ -144,27 +176,18 @@
   }
 
   &__image {
-    position: relative;
-    flex: 0 0 45%;
-    padding-bottom: 50%;
-    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background-color: antiquewhite;
     border-radius: 20px;
 
-    img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    @media (max-width: $lg) {
-      padding-bottom: 100%;
+    @media (width <= 630px) {
+      grid-row: 1;
+      height: 300px;
     }
   }
 
-  @media (max-width: $lg) {
-    flex-direction: column-reverse;
+  @media (width <= 630px) {
+    grid-template-columns: 1fr;
   }
 }

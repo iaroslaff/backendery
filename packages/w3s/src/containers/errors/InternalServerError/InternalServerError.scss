@@ -1,0 +1,101 @@
+@import "@styles/variables";
+@import "@styles/mixin";
+
+.internal-server-error {
+  /* prettier-ignore */
+  @include adaptive-value(
+    $property: "gap",
+    $from: 60,
+    $to: 20
+  );
+
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 0 20px;
+
+  a {
+    cursor: pointer;
+  }
+
+  &__status-code {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 300,
+      $to: 120
+    );
+
+    color: $accent-color;
+    line-height: 100%;
+    text-align: center;
+  }
+
+  &__emulator-of-console-text {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "max-width",
+      $from: 992,
+      $to: 320
+    );
+
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 24,
+      $to: 14
+    );
+
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "padding",
+      $from: 20,
+      $to: 10
+    );
+
+    align-self: center;
+    width: 100%;
+    color: $secondary-color;
+    font-family: "Space Mono", sans-serif;
+    line-height: 140%;
+
+    &--console-border {
+      position: relative;
+      top: 0;
+      left: 0;
+      padding: 0 30px;
+
+      &::after {
+        /* prettier-ignore */
+        @include adaptive-value(
+          $property: "height",
+          $from: 150,
+          $to: 100
+        );
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1px;
+        background: linear-gradient(to bottom, rgb(254, 254, 255), rgb(21, 45, 57));
+        opacity: 0.06;
+        content: "";
+      }
+    }
+  }
+
+  &__what-next {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 24,
+      $to: 14
+    );
+
+    color: $accent-color;
+    line-height: 140%;
+    text-align: center;
+  }
+}

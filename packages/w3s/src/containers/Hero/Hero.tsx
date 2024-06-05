@@ -1,4 +1,5 @@
 import { useGSAP } from "@gsap/react"
+import { useLenis } from "@studio-freight/react-lenis"
 import gsap from "gsap"
 import { FC, useEffect, useRef } from "react"
 import Typed from "typed.js"
@@ -89,6 +90,8 @@ fn internal_error<E>(err: E) -&gt; (StatusCode, String)
 
 const Hero: FC = () => {
   const { setLetsStartedFormVisibility } = useApp()
+
+  const lenis = useLenis()
 
   const pythonCodeRef = useRef<HTMLElement>(null)
   const rustCodeRef = useRef<HTMLElement>(null)
@@ -274,7 +277,20 @@ const Hero: FC = () => {
         </div>
         <div className={"hero__lets-watch"}>
           <span>Let&apos;s watch</span>
-          <button className={"hero__lets-watch-circle"}>
+          <button
+            className={"hero__lets-watch-circle"}
+            onClick={() =>
+              lenis?.scrollTo(".we-do__section", {
+                lerp: 0.075,
+                offset:
+                  parseInt(
+                    window
+                      .getComputedStyle(document.querySelector(".we-do__section") as Element)
+                      .getPropertyValue("padding-top")
+                  ) / 2,
+              })
+            }
+          >
             <SvgIcon name={"arrow-decoration-bw"} />
           </button>
         </div>

@@ -1,18 +1,22 @@
-import { StrictMode } from "react"
-import { createRoot } from "react-dom/client"
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { ErrorBoundary } from 'react-error-boundary'
 
-import App from "./App"
-import SmoothScroll from "./SmoothScroll"
+import App from './App'
+import InternalServerError from './containers/errors/InternalServerError/InternalServerError'
+import SmoothScroll from './SmoothScroll'
 
-import "./index.scss"
+import './index.scss'
 
 const rootElement = document.querySelector("#root") as HTMLElement
 const root = createRoot(rootElement)
 
 root.render(
   <StrictMode>
-    <SmoothScroll>
-      <App />
-    </SmoothScroll>
+    <ErrorBoundary FallbackComponent={InternalServerError}>
+      <SmoothScroll>
+        <App />
+      </SmoothScroll>
+    </ErrorBoundary>
   </StrictMode>
 )

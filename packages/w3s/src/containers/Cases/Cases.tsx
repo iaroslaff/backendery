@@ -1,19 +1,27 @@
-import { FC } from "react"
+import { useGSAP } from "@gsap/react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { FC, useRef } from "react"
 
 import { SvgIcon } from "../../components/elements/Icon"
-
-import {
-  default as noImage1,
-  default as noImage2,
-  default as noImage3,
-  default as noImage4,
-} from "../../assets/images/no-image-placeholder.png"
+import { useBreakpoints } from "../../hooks/useBreakpoints"
 
 import "./Cases.scss"
 
 const Cases: FC = () => {
+  const { isSmartphone, isTablet, isSmallLaptop, isLaptop, isPC } = useBreakpoints()
+
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useGSAP(
+    () => {
+      gsap.registerPlugin(ScrollTrigger)
+    },
+    { scope: sectionRef }
+  )
+
   return (
-    <section className={"cases__section"}>
+    <section className={"cases__section"} ref={sectionRef}>
       <div className={"cases__heading"}>
         <div className={"cases__note"}>
           <SvgIcon name={"decoration-asterisk"} />
@@ -48,7 +56,7 @@ const Cases: FC = () => {
             </div>
           </div>
           <div className={"card-case__image"}>
-            <img src={noImage1} />
+            {/* <img src={noImage1} /> */}
           </div>
         </article>
         <article className={"card-case _light-theme"}>
@@ -71,7 +79,7 @@ const Cases: FC = () => {
             </div>
           </div>
           <div className={"card-case__image"}>
-            <img src={noImage2} />
+            {/* <img src={noImage2} /> */}
           </div>
         </article>
         <article className={"card-case _light-theme"}>
@@ -100,7 +108,7 @@ const Cases: FC = () => {
             </div>
           </div>
           <div className={"card-case__image"}>
-            <img src={noImage3} />
+            {/* <img src={noImage3} /> */}
           </div>
         </article>
         <article className={"card-case _dark-theme"}>
@@ -125,14 +133,11 @@ const Cases: FC = () => {
                 <div className={"card-case__tools-item"}>
                   <SvgIcon name={"we-use-language-rust"} />
                 </div>
-                <div className={"card-case__tools-item"}>
-                  <SvgIcon name={"we-use-language-python"} />
-                </div>
               </div>
             </div>
           </div>
           <div className={"card-case__image"}>
-            <img src={noImage4} />
+            {/* <img src={noImage4} /> */}
           </div>
         </article>
       </div>

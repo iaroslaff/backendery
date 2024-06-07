@@ -19,6 +19,7 @@
     position: absolute;
     top: 40px;
     right: 40px;
+    z-index: 15;
     width: 60px;
     height: 60px;
     background-color: transparent;
@@ -36,7 +37,6 @@
       top: 20px;
       right: 50%;
       transform: translate(50%, 0);
-      mix-blend-mode: difference;
     }
   }
 
@@ -77,6 +77,7 @@
       $from: 28,
       $to: 16
     );
+
     /* prettier-ignore */
     @include adaptive-value(
       $property: "margin-bottom",
@@ -112,6 +113,7 @@
         $from: 84,
         $to: 20
       );
+
       /* prettier-ignore */
       @include adaptive-value(
         $property: "padding-right",

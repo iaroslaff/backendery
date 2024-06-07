@@ -12,6 +12,7 @@
       $from: 100,
       $to: 20
     );
+
     /* prettier-ignore */
     @include adaptive-value(
       $property: "padding-right",

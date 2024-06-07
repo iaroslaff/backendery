@@ -11,17 +11,18 @@ import './Header.scss'
 const Header: FC = () => {
   const { setDrawerVisibility } = useApp()
   const { isSmallLaptop, isLaptop, isPC } = useBreakpoints()
+
   const lenis = useLenis()
 
   /* prettier-ignore */
-  function getSrollingOffsetForSection(idOrClass: string) {
-    return (
-      parseInt(
-        window
-          .getComputedStyle(document.querySelector(idOrClass) as Element)
-          .getPropertyValue("padding-top")
-      ) / 2
-    )
+  function getSectionScrollingOffset(selector: string): number {
+    const offset: number = parseInt(
+      window
+        .getComputedStyle(document.querySelector(selector) as Element)
+        .getPropertyValue("padding-top")
+    ) / 2;
+
+    return offset;
   }
 
   return (
@@ -41,7 +42,7 @@ const Header: FC = () => {
                 onClick={(event) => {
                   event.preventDefault();
                   lenis?.scrollTo(
-                    ".we-do__section", { lerp: 0.075, offset: getSrollingOffsetForSection(".we-do__section") }
+                    ".we-do__section", { lerp: 0.075, offset: getSectionScrollingOffset(".we-do__section") }
                   )
                 }}
               >We do!</a>
@@ -51,7 +52,7 @@ const Header: FC = () => {
                 onClick={(event) => {
                   event.preventDefault();
                   lenis?.scrollTo(
-                    ".we-use__section", { lerp: 0.075, offset: getSrollingOffsetForSection(".we-use__section") }
+                    ".we-use__section", { lerp: 0.075, offset: getSectionScrollingOffset(".we-use__section") }
                   )
                 }}
               >We use</a>
@@ -61,7 +62,7 @@ const Header: FC = () => {
                 onClick={(event) => {
                   event.preventDefault();
                   lenis?.scrollTo(
-                    ".cases__section", { lerp: 0.075, offset: getSrollingOffsetForSection(".cases__section") }
+                    ".cases__section", { lerp: 0.075, offset: getSectionScrollingOffset(".cases__section") }
                   )
                 }}
               >Cases</a>

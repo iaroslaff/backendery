@@ -11,8 +11,8 @@ import "./WeDo.scss"
 const WeDo: FC = () => {
   const { isSmartphone, isTablet, isSmallLaptop, isLaptop, isPC } = useBreakpoints()
 
-  const sectionRef = useRef<HTMLElement>(null)
-  const titleRef = useRef<HTMLHeadingElement>(null)
+  const tagSectionRef = useRef<HTMLElement>(null)
+  const tagTitleRef = useRef<HTMLHeadingElement>(null)
 
   function letsAnimateSvg(elt: HTMLElement): void {
     const paths = elt.querySelectorAll("svg > .visualizezza")
@@ -44,11 +44,11 @@ const WeDo: FC = () => {
 
       ; (isSmartphone || isTablet) && (
         scrollTrigger = ScrollTrigger.create({
-          trigger: sectionRef.current,
+          trigger: tagSectionRef.current,
           start: "top 80%",
         }),
 
-        gsap.from(titleRef.current, {
+        gsap.from(tagTitleRef.current, {
           duration: 0.85,
           ease: "power4.out",
           opacity: 0,
@@ -106,11 +106,11 @@ const WeDo: FC = () => {
 
       ; (isSmallLaptop || isLaptop || isPC) && (
         scrollTrigger = ScrollTrigger.create({
-          trigger: sectionRef.current,
+          trigger: tagSectionRef.current,
           start: "top center",
         }),
 
-        gsap.from(titleRef.current, {
+        gsap.from(tagTitleRef.current, {
           duration: 0.85,
           ease: "power4.out",
           opacity: 0,
@@ -119,7 +119,7 @@ const WeDo: FC = () => {
         }),
 
         scrollTrigger = ScrollTrigger.create({
-          trigger: sectionRef.current,
+          trigger: tagSectionRef.current,
           start: "top 25%",
         }),
 
@@ -136,7 +136,7 @@ const WeDo: FC = () => {
         })
       )
     },
-    { scope: sectionRef }
+    { scope: tagSectionRef }
   )
 
   useGSAP(
@@ -183,33 +183,33 @@ const WeDo: FC = () => {
 
       // prettier-ignore
       if (
-           sectionRef.current
+           tagSectionRef.current
         && onMouseEnter
         && onMouseLeave
       ) {
-        sectionRef.current.addEventListener("mouseenter", onMouseEnter, true)
-        sectionRef.current.addEventListener("mouseleave", onMouseLeave, true)
+        tagSectionRef.current.addEventListener("mouseenter", onMouseEnter, true)
+        tagSectionRef.current.addEventListener("mouseleave", onMouseLeave, true)
       }
 
       // Cleanup event listeners on component unmount
       return () => {
         // prettier-ignore
         if (
-             sectionRef.current
+             tagSectionRef.current
           && onMouseEnter
           && onMouseLeave
         ) {
-          sectionRef.current.removeEventListener("mouseenter", onMouseEnter, true)
-          sectionRef.current.removeEventListener("mouseleave", onMouseLeave, true)
+          tagSectionRef.current.removeEventListener("mouseenter", onMouseEnter, true)
+          tagSectionRef.current.removeEventListener("mouseleave", onMouseLeave, true)
         }
       }
     },
-    { scope: sectionRef }
+    { scope: tagSectionRef }
   )
 
   return (
-    <section className={"we-do__section"} ref={sectionRef}>
-      <h2 className={"we-do__title"} ref={titleRef}>
+    <section className={"we-do__section"} ref={tagSectionRef}>
+      <h2 className={"we-do__title"} ref={tagTitleRef}>
         What
         <br />
         we do

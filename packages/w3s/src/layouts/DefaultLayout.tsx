@@ -13,7 +13,7 @@ const DefaultLayout: FC = () => {
       <main>
         <Outlet />
       </main>
-      {/* <Footer /> */}
+      <Footer />
     </React.Fragment>
   )
 }

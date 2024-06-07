@@ -1,26 +1,26 @@
-import { useLenis } from "@studio-freight/react-lenis"
-import React, { FC } from "react"
-import { useMediaQuery } from "react-responsive"
+import { useLenis } from '@studio-freight/react-lenis'
+import React, { FC } from 'react'
 
-import { SvgIcon } from "../../components/elements/Icon"
-import { useApp } from "../../contexts/App"
-import { useBreakpoints } from "../../hooks/useBreakpoints"
-import DrawerMenu from "./Drawers/DrawerMenu"
+import DrawerMenu from './Drawers/DrawerMenu'
+import { SvgIcon } from '../../components/elements/Icon'
+import { useApp } from '../../contexts/App'
+import { useBreakpoints } from '../../hooks/useBreakpoints'
 
-import "./Header.scss"
+import './Header.scss'
 
 const Header: FC = () => {
   const { setDrawerVisibility } = useApp()
-
-  const { sizes } = useBreakpoints()
-  const isLG = useMediaQuery({ minWidth: sizes.LG })
-
+  const { isSmallLaptop, isLaptop, isPC } = useBreakpoints()
   const lenis = useLenis()
 
+  /* prettier-ignore */
   function getSrollingOffsetForSection(idOrClass: string) {
     return (
-      parseInt(window.getComputedStyle(document.querySelector(idOrClass) as Element).getPropertyValue("padding-top")) /
-      2
+      parseInt(
+        window
+          .getComputedStyle(document.querySelector(idOrClass) as Element)
+          .getPropertyValue("padding-top")
+      ) / 2
     )
   }
 
@@ -32,7 +32,7 @@ const Header: FC = () => {
         </a>
         {
           //prettier-ignore
-          isLG
+          isSmallLaptop || isLaptop || isPC
           ? (
             <div className={"header__nav"}>
               <a
@@ -55,7 +55,16 @@ const Header: FC = () => {
                   )
                 }}
               >We use</a>
-              <a className={"header__nav-link _underscore"} href={"#"}>Steps</a>
+              <a
+                href={"#"}
+                className={"header__nav-link _underscore"}
+                onClick={(event) => {
+                  event.preventDefault();
+                  lenis?.scrollTo(
+                    ".cases__section", { lerp: 0.075, offset: getSrollingOffsetForSection(".cases__section") }
+                  )
+                }}
+              >Cases</a>
               <a className={"header__nav-link _underscore"} href={"#"}>About Us</a>
               <a className={"header__nav-link _underscore"} href={"#"}>Contacts</a>
             </div>

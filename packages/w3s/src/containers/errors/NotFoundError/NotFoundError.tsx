@@ -4,10 +4,10 @@ import Typed from "typed.js"
 import "./NotFoundError.scss"
 
 const NotFoundError: FC = () => {
-  const elementRef = useRef(null)
+  const tagResetErrorAnchorRef = useRef(null)
 
   useEffect(() => {
-    const typed = new Typed(elementRef && elementRef.current, {
+    const typed = new Typed(tagResetErrorAnchorRef && tagResetErrorAnchorRef.current, {
       cursorChar: "_",
       strings: ["return home?"],
       typeSpeed: 90,
@@ -23,10 +23,7 @@ const NotFoundError: FC = () => {
       <div className={"not-found-error__status-code"}>404</div>
       <div className={"not-found-error__emulator-of-console-text not-found-error__emulator-of-console-text--console-border"}>
         <div>{"#>"}&nbsp;uh-oh! page not found...</div>
-        <div>
-          {"#>"}&nbsp;
-          <a ref={elementRef} href={"/"}></a>
-        </div>
+        <div>{"#>"}&nbsp;<a ref={tagResetErrorAnchorRef} href={"/"}></a></div>
       </div>
       <div className={"not-found-error__what-next"}>
         Go ahead then

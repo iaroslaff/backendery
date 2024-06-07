@@ -5,172 +5,204 @@
   background-color: $accent-color;
 
   &__container {
-    @include adaptive-value("padding-left", 100, 20, 1);
-    @include adaptive-value("padding-right", 100, 20, 1);
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "padding-left",
+      $from: 100,
+      $to: 20
+    );
+
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "padding-right",
+      $from: 100,
+      $to: 20
+    );
 
     max-width: $container;
     margin: 0 auto;
   }
 
-  &__body {
-    @include adaptive-value("padding-top", 168, 100, 1);
-    @include adaptive-value("padding-bottom", 175, 60, 1);
+  &__content {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "padding-top",
+      $from: 100,
+      $to: 80
+    );
 
-    display: flex;
-    gap: 60px;
-    align-items: center;
-    justify-content: space-between;
-    color: $primary-color;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    grid-template-columns: repeat(2, 1fr);
+    height: 100dvh;
 
     @media (max-width: $lg) {
+      display: flex;
       flex-direction: column;
+      height: auto;
     }
   }
 
-  &__title {
-    @include adaptive-value("font-size", 160, 55, 1);
+  &__offer {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
 
+    @media (max-width: $lg) {
+      margin-bottom: 60px;
+    }
+  }
+
+  &__offer-word {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 160,
+      $to: 55
+    );
+
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "gap",
+      $from: 40,
+      $to: 20
+    );
+
+    display: flex;
+    align-items: center;
+    color: $primary-color;
     font-weight: 900;
     line-height: 90%;
-
-    span {
-      @include adaptive-value("width", 290, 110, 1);
-      @include adaptive-value("height", 90, 20, 1);
-
-      position: relative;
-      display: inline-block;
-
-      &::after {
-        @include adaptive-value("height", 20, 12, 1);
-
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: 100%;
-        background-color: $primary-color;
-        transform: translate(0, -50%);
-        content: "";
-      }
-    }
-
-    svg {
-      @include adaptive-value("height", 74, 34, 1);
-      @include adaptive-value("right", 20, 5, 1);
-      @include adaptive-value("width", 90, 36, 1);
-
-      position: relative;
-    }
-
-    @media (min-width: $xl) {
-      @include adaptive-value("flex-basis", 860, 360, 1);
-      @include adaptive-value("max-width", 860, 360, 1);
-
-      flex-grow: 0;
-      flex-shrink: 0;
-    }
-
-    @media (max-width: $lg) {
-      text-align: center;
-    }
+    white-space: nowrap;
   }
 
-  &__contacts {
-    @include adaptive-value("gap", 53, 20, 1);
-
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-
-    @media (max-width: $xl) {
-      flex-direction: column;
-    }
-  }
-
-  &__contacts-email {
-    @include adaptive-value("font-size", 36, 30, 1);
-
-    font-weight: 800;
-    line-height: 150%;
-  }
-
-  &__contacts-start-project-btn {
-    display: flex;
-    flex: 0 0 250px;
-    align-items: center;
-    justify-content: center;
-    width: 250px;
-    height: 250px;
-    color: $accent-color;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 150%;
+  &__offer-decoration-line {
+    width: 30%;
+    height: 0.15em;
     background-color: $primary-color;
-    border-radius: 50%;
-  }
-}
-
-.bottom-footer {
-  @include adaptive-value("padding-top", 20, 10, 1);
-  @include adaptive-value("padding-bottom", 20, 10, 1);
-
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid $primary-color;
-
-  &__policy {
-    color: $primary-color;
-    font-size: 16px;
-    line-height: 150%;
+    transform: translateY(0.1em);
   }
 
-  &__footer-links {
+  &__offer-decoration-arrow {
+    width: 0.6em;
+    transform: translateY(0.1em);
+  }
+
+  &__lets-start-wrapper {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "gap",
+      $from: 60,
+      $to: 30
+    );
+
     display: flex;
-    gap: 30px;
     align-items: center;
+    justify-self: flex-end;
 
-    @media (max-width: $md) {
-      justify-content: space-between;
-      width: 100%;
+    /* stylelint-disable-next-line */
+    @media (max-width: 1380px) {
+      flex-direction: column;
+      justify-content: center;
     }
   }
 
-  &__footer-link {
-    position: relative;
-    padding: 10px 15px 10px 0;
+  &__lets-start-email {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 36,
+      $to: 24
+    );
+
     color: $primary-color;
-
-    &::after {
-      position: absolute;
-      top: 50%;
-      right: 0;
-      width: 10px;
-      height: 14px;
-      background: url("../../components/elements/Icon/icons/arrow-href-trd.svg") no-repeat center;
-      transform: translate(0, -50%);
-      content: "";
-    }
-
-    a {
-      @include adaptive-value(
-        $property: "font-size",
-        $fromValue: 16,
-        $toValue: 20,
-        $type: 1
-      );
-
-      color: $primary-color;
-      font-weight: 500;
-      line-height: 150%;
-    }
+    font-weight: 900;
 
     &:hover {
       color: $primary-color;
     }
   }
 
-  @media (max-width: $lg) {
-    flex-direction: column-reverse;
+  &__lets-start-project-btn {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "width",
+      $from: 240,
+      $to: 200
+    );
+
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "height",
+      $from: 240,
+      $to: 200
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $accent-color;
+    font-weight: 600;
+    font-size: 16px;
+    background-color: $primary-color;
+    border-radius: 50%;
+
+    @media (max-width: $lg) {
+      margin-bottom: 60px;
+    }
+  }
+
+  &__additional-info {
+    display: flex;
+    grid-column: 1/3;
+    align-items: center;
+    height: 80px;
+    border-top: 1px solid $primary-color;
+
+    /* stylelint-disable-next-line */
+    @media (max-width: 668px) {
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      height: auto;
+      padding: 16px 0;
+    }
+  }
+
+  &__additional-info-copyright {
+    color: $primary-color;
+  }
+
+  &__additional-info-social {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "gap",
+      $from: 30,
+      $to: 10
+    );
+
+    display: flex;
+    margin-left: auto;
+
+    /* stylelint-disable-next-line */
+    @media (max-width: 668px) {
+      justify-content: space-between;
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+
+  &__social-link {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    color: $primary-color;
+    font-weight: 700;
+    text-decoration: none;
+
+    &:hover {
+      color: $primary-color;
+    }
   }
 }

@@ -5,10 +5,10 @@ import Typed from "typed.js"
 import "./InternalServerError.scss"
 
 const InternalServerError: FC<FallbackProps> = ({ error, resetErrorBoundary }) => {
-  const elementRef = useRef<HTMLAnchorElement>(null)
+  const tagResetErrorAnchorRef = useRef<HTMLAnchorElement>(null)
 
   useEffect(() => {
-    const typed = new Typed(elementRef && elementRef.current, {
+    const typed = new Typed(tagResetErrorAnchorRef && tagResetErrorAnchorRef.current, {
       cursorChar: "_",
       strings: ["reload page?"],
       typeSpeed: 90,
@@ -28,7 +28,7 @@ const InternalServerError: FC<FallbackProps> = ({ error, resetErrorBoundary }) =
         }
       >
         <div>{"#>"}&nbsp;oops! internal server error...</div>
-        <div>{"#>"}&nbsp;<a onClick={() => resetErrorBoundary()} ref={elementRef}></a></div>
+        <div>{"#>"}&nbsp;<a onClick={() => resetErrorBoundary()} ref={tagResetErrorAnchorRef}></a></div>
       </div>
       <div className={"internal-server-error__what-next"}>
         Go ahead then

@@ -90,20 +90,19 @@ fn internal_error<E>(err: E) -&gt; (StatusCode, String)
 
 const Hero: FC = () => {
   const { setLetsStartedFormVisibility } = useApp()
-
   const lenis = useLenis()
 
-  const pythonCodeRef = useRef<HTMLElement>(null)
-  const rustCodeRef = useRef<HTMLElement>(null)
-  const startProjectBtnRef = useRef<HTMLButtonElement>(null)
+  const tagPyCodeRef = useRef<HTMLElement>(null)
+  const tagRsCodeRef = useRef<HTMLElement>(null)
+  const tagLetsStartProjectBtnRef = useRef<HTMLButtonElement>(null)
 
   // prettier-ignore
-  const typedOptions = {
+  const typedOptions: Record<string, number | boolean> = {
     fadeOut: true, fadeOutDelay: 90, loop: true, showCursor: false, startDelay: 1_100
   }
 
   useEffect(() => {
-    const typed = new Typed(pythonCodeRef.current, {
+    const typed = new Typed(tagPyCodeRef && tagPyCodeRef.current, {
       ...typedOptions,
       strings: [...pythonCodes],
       typeSpeed: 15,
@@ -115,7 +114,7 @@ const Hero: FC = () => {
   }, [])
 
   useEffect(() => {
-    const typed = new Typed(rustCodeRef.current, {
+    const typed = new Typed(tagRsCodeRef && tagRsCodeRef.current, {
       ...typedOptions,
       strings: [...rustCodes],
       typeSpeed: 45,
@@ -128,7 +127,6 @@ const Hero: FC = () => {
 
   useGSAP(() => {
     const tl = gsap.timeline()
-
     tl.from(
       ".hero__title-word",
       {
@@ -218,23 +216,23 @@ const Hero: FC = () => {
 
     // prettier-ignore
     if (
-         startProjectBtnRef.current
+         tagLetsStartProjectBtnRef.current
       && onMouseMove
       && onMouseOut
     ) {
-      startProjectBtnRef.current.addEventListener("mousemove", onMouseMove);
-      startProjectBtnRef.current.addEventListener("mouseout", onMouseOut);
+      tagLetsStartProjectBtnRef.current.addEventListener("mousemove", onMouseMove);
+      tagLetsStartProjectBtnRef.current.addEventListener("mouseout", onMouseOut);
     }
 
     return () => {
       // prettier-ignore
       if (
-           startProjectBtnRef.current
+           tagLetsStartProjectBtnRef.current
         && onMouseMove
         && onMouseOut
       ) {
-        startProjectBtnRef.current.removeEventListener("mousemove", onMouseMove);
-        startProjectBtnRef.current.removeEventListener("mouseout", onMouseOut);
+        tagLetsStartProjectBtnRef.current.removeEventListener("mousemove", onMouseMove);
+        tagLetsStartProjectBtnRef.current.removeEventListener("mouseout", onMouseOut);
       }
     }
   })
@@ -248,7 +246,7 @@ const Hero: FC = () => {
             onClick={() => {
               setLetsStartedFormVisibility(true)
             }}
-            ref={startProjectBtnRef}
+            ref={tagLetsStartProjectBtnRef}
           >
             <span>
               Start <br /> a project
@@ -267,12 +265,12 @@ const Hero: FC = () => {
       <div className={"hero__code-wrapper"}>
         <div className={"hero__code hero__code--python"}>
           <pre>
-            <code className={"language-python"} ref={pythonCodeRef}></code>
+            <code className={"language-python"} ref={tagPyCodeRef}></code>
           </pre>
         </div>
         <div className={"hero__code hero__code--rust"}>
           <pre>
-            <code className={"language-rust"} ref={rustCodeRef}></code>
+            <code className={"language-rust"} ref={tagRsCodeRef}></code>
           </pre>
         </div>
         <div className={"hero__lets-watch"}>

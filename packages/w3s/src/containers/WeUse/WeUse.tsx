@@ -11,10 +11,10 @@ import './WeUse.scss'
 const WeUse: FC = () => {
   const { isSmartphone, isTablet, isSmallLaptop, isLaptop, isPC } = useBreakpoints()
 
-  const sectionRef = useRef<HTMLElement>(null)
-  const titleRef = useRef<HTMLHeadingElement>(null)
-  const descriptionRef = useRef<HTMLParagraphElement>(null)
-  const cardsRef = useRef<HTMLDivElement>(null)
+  const tagSectionRef = useRef<HTMLElement>(null)
+  const tagTitleRef = useRef<HTMLHeadingElement>(null)
+  const tagDescriptionRef = useRef<HTMLParagraphElement>(null)
+  const tagCardsRef = useRef<HTMLDivElement>(null)
 
   useGSAP(
     () => {
@@ -24,29 +24,29 @@ const WeUse: FC = () => {
 
       ; (isSmallLaptop || isLaptop || isPC) && (
         ScrollTrigger.create({
-          trigger: titleRef.current,
+          trigger: tagTitleRef.current,
           start: "top 5%",
           end: "bottom 63%",
-          endTrigger: cardsRef.current,
+          endTrigger: tagCardsRef.current,
           pinSpacing: false,
           pin: true,
         }),
 
         ScrollTrigger.create({
-          trigger: descriptionRef.current,
+          trigger: tagDescriptionRef.current,
           start: "center center",
           end: "bottom 63%",
-          endTrigger: cardsRef.current,
+          endTrigger: tagCardsRef.current,
           pinSpacing: false,
           pin: true,
         }),
 
         scrollTrigger = ScrollTrigger.create({
-          trigger: sectionRef.current,
+          trigger: tagSectionRef.current,
           start: "top center",
         }),
 
-        gsap.from(titleRef.current, {
+        gsap.from(tagTitleRef.current, {
           duration: 0.85,
           ease: "power4.out",
           opacity: 0,
@@ -57,11 +57,11 @@ const WeUse: FC = () => {
 
       ; (isSmartphone || isTablet) && (
         scrollTrigger = ScrollTrigger.create({
-          trigger: sectionRef.current,
+          trigger: tagSectionRef.current,
           start: "top 80%",
         }),
 
-        gsap.from(titleRef.current, {
+        gsap.from(tagTitleRef.current, {
           duration: 0.85,
           ease: "power4.out",
           opacity: 0,
@@ -110,20 +110,20 @@ const WeUse: FC = () => {
         )
       })
     },
-    { scope: sectionRef }
+    { scope: tagSectionRef }
   )
 
   return (
-    <section className={"we-use__section"} ref={sectionRef}>
+    <section className={"we-use__section"} ref={tagSectionRef}>
       <div className={"we-use__heading"}>
-        <h2 className={"we-use__heading-title"} ref={titleRef}>
+        <h2 className={"we-use__heading-title"} ref={tagTitleRef}>
           We use
         </h2>
-        <p className={"we-use__heading-description"} ref={descriptionRef}>
+        <p className={"we-use__heading-description"} ref={tagDescriptionRef}>
           We cover the full range of services for analysis, <span>development and support of your online business</span>
         </p>
       </div>
-      <div className={"we-use__cards"} ref={cardsRef}>
+      <div className={"we-use__cards"} ref={tagCardsRef}>
         <div className={"we-use__card"}>
           <h3 className={"we-use__card-title"}>Language</h3>
           <p className={"we-use__card-description"}>

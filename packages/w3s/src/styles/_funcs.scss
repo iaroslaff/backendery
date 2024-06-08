@@ -16,7 +16,7 @@
  * // returns false
  * $result: is-container-supported("unknown");
  */
-@function is-container-supported($value) {
+@function is-container-supported ($value) {
   @if type-of($value) != "string" {
     @error "the value <#{$value}> is not a string";
   }
@@ -48,7 +48,7 @@
  * // throws an error: unsupported unit found in value
  * $result: remove-unit("16dp");
  */
-@function remove-unit($value) {
+@function remove-unit ($value) {
   @if type-of($value) != "string" {
     @error "the value <#{$value}> is not a string";
   }
@@ -56,6 +56,7 @@
   @each $unit in $supported-unit-type {
     @if (str-index($value, $unit) != null) {
       $unitLenght: str-length($unit);
+
       @return str-slice($value, 1, -$unitLenght - 1);
     }
   }

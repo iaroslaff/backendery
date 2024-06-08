@@ -40,12 +40,14 @@
       $from: 992,
       $to: 320
     );
+
     /* prettier-ignore */
     @include adaptive-value(
       $property: "font-size",
       $from: 24,
       $to: 14
     );
+
     /* prettier-ignore */
     @include adaptive-value(
       $property: "padding",

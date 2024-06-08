@@ -42,8 +42,8 @@
     }
 
     @media (max-width: $md) {
-      grid-template-columns: 1fr;
       grid-template-rows: auto;
+      grid-template-columns: 1fr;
     }
 
     @media (max-width: $sm) {

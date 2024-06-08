@@ -25,7 +25,7 @@
  * // apply an adaptive margin top
  * @include adaptive-value("margin-top", 100, 50);
  */
-@mixin adaptive-value($property, $from, $to, $container-type: nth($supported-container-type, 1)) {
+@mixin adaptive-value ($property, $from, $to, $container-type: nth($supported-container-type, 1)) {
   @if not is-container-supported($container-type) {
     @error "got container type <#{$container-type}> is not supported; expected one of <#{$supported-container-type}>";
   }

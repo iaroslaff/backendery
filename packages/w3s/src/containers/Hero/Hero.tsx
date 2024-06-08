@@ -149,7 +149,7 @@ const Hero: FC = () => {
         "<0.55"
       )
       .from(
-        ".hero__start-project-btn",
+        ".hero__lets-start-project-btn",
         {
           duration: 0.5,
           ease: "power1",
@@ -158,7 +158,7 @@ const Hero: FC = () => {
         ">"
       )
       .from(
-        ".hero__start-project-btn span",
+        ".hero__lets-start-project-btn span",
         {
           duration: 0.35,
           ease: "power2.inOut",
@@ -242,7 +242,7 @@ const Hero: FC = () => {
       <div className={"hero__offer"}>
         <div className={"hero__description-wrapper"}>
           <button
-            className={"hero__start-project-btn"}
+            className={"hero__lets-start-project-btn"}
             onClick={() => {
               setLetsStartedFormVisibility(true)
             }}

@@ -84,6 +84,7 @@
   }
 
   &__offer-decoration-arrow {
+    height: fit-content;
     width: 0.6em;
     transform: translateY(0.1em);
   }
@@ -161,7 +162,7 @@
 
     /* stylelint-disable-next-line */
     @media (max-width: 668px) {
-      flex-direction: column;
+      flex-direction: column-reverse;
       gap: 20px;
       align-items: center;
       justify-content: center;

@@ -1,12 +1,12 @@
-import { useGSAP } from '@gsap/react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { FC, useRef } from 'react'
+import { useGSAP } from "@gsap/react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { FC, useRef } from "react"
 
-import { SvgIcon } from '../../components/elements/Icon'
-import { useBreakpoints } from '../../hooks/useBreakpoints'
+import { SvgIcon } from "../../components/elements/Icon"
+import { useBreakpoints } from "../../hooks/useBreakpoints"
 
-import './WeUse.scss'
+import "./WeUse.scss"
 
 const WeUse: FC = () => {
   const { isSmartphone, isTablet, isSmallLaptop, isLaptop, isPC } = useBreakpoints()
@@ -20,10 +20,10 @@ const WeUse: FC = () => {
     () => {
       gsap.registerPlugin(ScrollTrigger)
 
-      let scrollTrigger = null;
+      let scrollTrigger = null
 
-      ; (isSmallLaptop || isLaptop || isPC) && (
-        ScrollTrigger.create({
+      ;(isSmallLaptop || isLaptop || isPC) &&
+        (ScrollTrigger.create({
           trigger: tagTitleRef.current,
           start: "top 5%",
           end: "bottom 63%",
@@ -31,7 +31,6 @@ const WeUse: FC = () => {
           pinSpacing: false,
           pin: true,
         }),
-
         ScrollTrigger.create({
           trigger: tagDescriptionRef.current,
           start: "center center",
@@ -40,35 +39,29 @@ const WeUse: FC = () => {
           pinSpacing: false,
           pin: true,
         }),
-
-        scrollTrigger = ScrollTrigger.create({
+        (scrollTrigger = ScrollTrigger.create({
           trigger: tagSectionRef.current,
           start: "top center",
-        }),
-
+        })),
         gsap.from(tagTitleRef.current, {
           duration: 0.85,
           ease: "power4.out",
           opacity: 0,
           scrollTrigger: scrollTrigger,
           y: 60,
-        })
-      )
-
-      ; (isSmartphone || isTablet) && (
-        scrollTrigger = ScrollTrigger.create({
+        }))
+      ;(isSmartphone || isTablet) &&
+        ((scrollTrigger = ScrollTrigger.create({
           trigger: tagSectionRef.current,
           start: "top 80%",
-        }),
-
+        })),
         gsap.from(tagTitleRef.current, {
           duration: 0.85,
           ease: "power4.out",
           opacity: 0,
           scrollTrigger: scrollTrigger,
           y: 60,
-        })
-      )
+        }))
 
       gsap.utils.toArray(".we-use__card").forEach(x => {
         const card = x as HTMLElement
@@ -96,16 +89,16 @@ const WeUse: FC = () => {
               gsap.fromTo(
                 title,
                 {
-                  x: 20
+                  x: 20,
                 },
                 {
                   delay: 0.25,
-                  duration: 0.60,
+                  duration: 0.6,
                   ease: "none",
-                  x: 0
+                  x: 0,
                 }
               )
-            }
+            },
           }
         )
       })

@@ -55,9 +55,7 @@ const Cases: FC = () => {
               </div>
             </div>
           </div>
-          <div className={"card-case__image"}>
-            {/* <img src={noImage1} /> */}
-          </div>
+          <div className={"card-case__image"}>{/* <img src={noImage1} /> */}</div>
         </article>
         <article className={"card-case _light-theme"}>
           <div className={"card-case__content"}>
@@ -78,9 +76,7 @@ const Cases: FC = () => {
               </div>
             </div>
           </div>
-          <div className={"card-case__image"}>
-            {/* <img src={noImage2} /> */}
-          </div>
+          <div className={"card-case__image"}>{/* <img src={noImage2} /> */}</div>
         </article>
         <article className={"card-case _light-theme"}>
           <div className={"card-case__content"}>
@@ -107,9 +103,7 @@ const Cases: FC = () => {
               </div>
             </div>
           </div>
-          <div className={"card-case__image"}>
-            {/* <img src={noImage3} /> */}
-          </div>
+          <div className={"card-case__image"}>{/* <img src={noImage3} /> */}</div>
         </article>
         <article className={"card-case _dark-theme"}>
           <div className={"card-case__content"}>
@@ -136,9 +130,7 @@ const Cases: FC = () => {
               </div>
             </div>
           </div>
-          <div className={"card-case__image"}>
-            {/* <img src={noImage4} /> */}
-          </div>
+          <div className={"card-case__image"}>{/* <img src={noImage4} /> */}</div>
         </article>
       </div>
     </section>

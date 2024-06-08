@@ -28,7 +28,9 @@ const InternalServerError: FC<FallbackProps> = ({ error, resetErrorBoundary }) =
         }
       >
         <div>{"#>"}&nbsp;oops! internal server error...</div>
-        <div>{"#>"}&nbsp;<a onClick={() => resetErrorBoundary()} ref={tagResetErrorAnchorRef}></a></div>
+        <div>
+          {"#>"}&nbsp;<a onClick={() => resetErrorBoundary()} ref={tagResetErrorAnchorRef}></a>
+        </div>
       </div>
       <div className={"internal-server-error__what-next"}>
         Go ahead then

@@ -1,12 +1,12 @@
-import { useLenis } from '@studio-freight/react-lenis'
-import React, { FC } from 'react'
+import { useLenis } from "@studio-freight/react-lenis"
+import React, { FC } from "react"
 
-import DrawerMenu from './Drawers/DrawerMenu'
-import { SvgIcon } from '../../components/elements/Icon'
-import { useApp } from '../../contexts/App'
-import { useBreakpoints } from '../../hooks/useBreakpoints'
+import { SvgIcon } from "../../components/elements/Icon"
+import { useApp } from "../../contexts/App"
+import { useBreakpoints } from "../../hooks/useBreakpoints"
+import DrawerMenu from "./Drawers/DrawerMenu"
 
-import './Header.scss'
+import "./Header.scss"
 
 const Header: FC = () => {
   const { setDrawerVisibility } = useApp()

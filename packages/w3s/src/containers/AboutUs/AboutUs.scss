@@ -2,190 +2,292 @@
 @import "@styles/mixin";
 
 .about-us {
-  &__container {
-    @include adaptive-value("padding-bottom", 300, 100, 1);
-    @include adaptive-value("padding-left", 100, 20, 1);
-    @include adaptive-value("padding-right", 100, 20, 1);
+  &__section {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "margin-bottom",
+      $from: 300,
+      $to: 100
+    );
+
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "padding-top",
+      $from: 300,
+      $to: 100
+      );
+
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "padding-left",
+      $from: 100,
+      $to: 20
+    );
+
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "padding-right",
+      $from: 100,
+      $to: 20
+    );
 
     max-width: $container;
     margin: 0 auto;
-  }
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
 
-  &__heading-section {
-    @include adaptive-value("margin-bottom", 400, 90, 1);
-
-    display: flex;
-    flex-wrap: wrap;
-    align-items: start;
-    justify-content: space-between;
-
-    @media (max-width: $xxl) {
+    @media (max-width: $lg) {
+      display: flex;
       flex-direction: column;
     }
   }
 
-  &__title-section {
-    @include adaptive-value("font-size", 200, 120, 1);
+  &__title-wrapper {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "margin-right",
+      $from: 100,
+      $to: 0
+    );
 
-    flex: 0 1 auto;
-    max-width: 750px;
-    padding-right: 80px;
-    color: $secondary-color;
-    font-weight: 900;
-    line-height: 90%;
-    text-align: right;
+    width: fit-content;
 
-    span {
-      @include adaptive-value("font-size", 100, 60, 1);
-
-      position: relative;
-      top: -90px;
+    @media (max-width: $lg) {
+      margin-bottom: 50px;
     }
   }
 
-  &__description-section {
-    @include adaptive-value("font-size", 46, 30, 1);
+  &__title {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 200,
+      $to: 90
+    );
 
-    flex: 0 0 60%;
-    max-width: 860px;
-    color: $secondary-color;
-    line-height: 150%;
-    text-align-last: left;
+    line-height: 90%;
+    font-weight: 900;
+  }
 
-    p {
-      &:not(:last-child) {
-        margin-top: 250px;
-        margin-bottom: 20px;
-      }
+  &__title-smaller {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 100,
+      $to: 50
+    );
+
+    font-weight: 900;
+    text-align: right;
+    line-height: 90%;
+    margin-top: -20px;
+
+    /* stylelint-disable-next-line */
+    @media (max-width: 1440px) {
+      line-height: 120%;
     }
+  }
+
+  &__description {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 46,
+      $to: 30
+    );
+
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "margin-bottom",
+      $from: 300,
+      $to: 120
+    );
 
     span {
       opacity: 0.5;
     }
-  }
 
-  &__body {
-    @include adaptive-value("margin-bottom", 160, 90, 1);
+    line-height: 140%;
+    margin-top: 250px;
 
-    display: flex;
-
-    @media (max-width: $xl) {
-      flex-direction: column-reverse;
+    @media (max-width: $lg) {
+      margin-top: 0;
     }
   }
 
-  &__list {
-    @include adaptive-value("gap", 120, 60, 1);
+  &__clients-said-wrapper {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "margin-bottom",
+      $from: 100,
+      $to: 50
+    );
 
-    display: flex;
-    flex: 0 1 400px;
-    flex-direction: column;
+    display: grid;
+    margin-top: 480px;
+
+    @media (max-width: $lg) {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 40px;
+      order: 4;
+      margin-top: 0;
+    }
+
+    @media (max-width: $md) {
+      grid-template-columns: 1fr;
+    }
   }
 
-  &__item-list {
-  }
+  &__clients-said-title {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 60,
+      $to: 36
+    );
 
-  &__item-title {
-    @include adaptive-value("font-size", 60, 36, 1);
-
+    line-height: 120%;
     margin-bottom: 20px;
     font-weight: 900;
-    line-height: 120%;
   }
 
-  &__item-description {
-    font-style: 16px;
-    line-height: 150%;
-    opacity: 0.5;
+  &__clients-said-description {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "margin-bottom",
+      $from: 100,
+      $to: 60
+    );
+
+    opacity: 50%;
+    max-width: 400px;
   }
 
-  &__title-wrapper {
-    display: flex;
-    flex: 1 1 auto;
-    align-items: start;
-    justify-content: center;
-  }
-
-  &__decoration-title {
-    @include adaptive-value("font-size", 110, 50, 1);
-    @include adaptive-value("padding-left", 100, 60, 1);
+  &__clients-said-decoration-wrapper {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "margin-bottom",
+      $from: 100,
+      $to: 60
+    );
 
     position: relative;
-    z-index: 10;
-    max-width: 620px;
+    height: fit-content;
+
+    @media (max-width: $lg) {
+      order: 3;
+      text-align: center;
+    }
+  }
+
+  &__clients-said-decoration-title {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 110,
+      $to: 60
+    );
+
     font-weight: 900;
     line-height: 90%;
+    white-space: nowrap;
+  }
 
-    span {
-      position: relative;
-      z-index: 10;
-    }
+  &__clients-said-decoration-circle {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "left",
+      $from: -50,
+      $to: -20
+    );
 
-    svg {
-      position: absolute;
-      top: 50%;
+    position: absolute;
+    height: 121%;
+    top: -30px;
+    z-index: -15;
+
+    @media (max-width: $lg) {
       left: 50%;
-      z-index: 9;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: translate(-50%, -50%) scale(1.3);
-    }
-
-    @media (max-width: $xl) {
-      margin-bottom: 80px;
+      transform: translateX(-50%);
     }
   }
-}
 
-.me-profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  &__profile-wrapper {
+    grid-column: 1/3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-  &__image {
-    position: relative;
-    flex: 0 0 160px;
-    width: 160px;
-    height: 160px;
+    @media (max-width: $lg) {
+      order: 5;
+    }
+  }
+
+  &__iam-image {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "width",
+      $from: 160,
+      $to: 120
+    );
+
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "height",
+      $from: 160,
+      $to: 120
+    );
+
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "border-radius",
+      $from: 50,
+      $to: 40
+    );
+
+    object-fit: cover;
     margin-bottom: 20px;
-    overflow: hidden;
-    border-radius: 50%;
-
-    img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
   }
 
-  &__name {
-    margin-bottom: 5px;
+  &__iam-name {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 24,
+      $to: 20
+    );
+
     font-weight: 900;
-    font-style: 24px;
-    line-height: 150%;
+    line-height: 120%;
+    margin-bottom: 6px;
   }
 
-  &__position {
-    @include adaptive-value("margin-bottom", 60, 30, 1);
+  &__iam-position {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "margin-bottom",
+      $from: 40,
+      $to: 20
+    );
 
-    font-weight: 600;
-    line-height: 150%;
-    opacity: 0.5;
+    opacity: 50%;
   }
 
-  &__quote {
-    @include adaptive-value("font-size", 60, 30, 1);
+  &__iam-quote {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 60,
+      $to: 30
+    );
 
-    max-width: 1290px;
+    max-width: $xl;
     line-height: 120%;
     text-align: center;
+    font-weight: 400;
+  }
 
-    span {
-      color: $accent-color;
-    }
+  &__iam-decoration-quote {
+    color: $accent-color;
   }
 }

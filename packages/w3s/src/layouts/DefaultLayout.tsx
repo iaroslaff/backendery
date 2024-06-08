@@ -1,10 +1,10 @@
-import React, { FC } from 'react'
-import { Outlet } from 'react-router-dom'
+import React, { FC } from "react"
+import { Outlet } from "react-router-dom"
 
-import Footer from './Footer/Footer'
-import Header from './Header/Header'
+import Footer from "./Footer/Footer"
+import Header from "./Header/Header"
 
-import './DefaultLayout.scss'
+import "./DefaultLayout.scss"
 
 const DefaultLayout: FC = () => {
   return (

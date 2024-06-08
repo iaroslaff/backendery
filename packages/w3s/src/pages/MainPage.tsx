@@ -19,8 +19,8 @@ const MainPage: FC = () => {
       <WeDo />
       <WeUse />
       <Cases />
-      {/*<Steps />
-      <AboutUs /> */}
+      {/*<Steps />*/}
+      <AboutUs />
       {isLetsStartedFormVisible && <LetsStartedForm />}
     </React.Fragment>
   )

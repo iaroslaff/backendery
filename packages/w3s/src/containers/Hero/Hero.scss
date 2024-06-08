@@ -9,12 +9,14 @@
       $from: 100,
       $to: 20
     );
+
     /* prettier-ignore */
     @include adaptive-value(
       $property: "padding-right",
       $from: 100,
       $to: 20
     );
+
     /* prettier-ignore */
     @include adaptive-value(
       $property: "padding-bottom",
@@ -58,19 +60,21 @@
     align-items: center;
   }
 
-  &__start-project-btn {
+  &__lets-start-project-btn {
     /* prettier-ignore */
     @include adaptive-value(
       $property: "flex-basis",
       $from: 120,
       $to: 100
     );
+
     /* prettier-ignore */
     @include adaptive-value(
       $property: "height",
       $from: 120,
       $to: 100
     );
+
     /* prettier-ignore */
     @include adaptive-value(
       $property: "width",
@@ -193,7 +197,6 @@
       // @include adaptive-value($property: "margin-left", $from: 150, $to: 45);
       // @include adaptive-value($property: "margin-bottom", $from: 100, $to: 50);
       // @include adaptive-value($property: "margin-top", $from: 250, $to: 145);
-
 
       margin-left: 25%;
       padding: 0 0 0 20px;

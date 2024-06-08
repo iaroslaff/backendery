@@ -40,14 +40,13 @@ const WeDo: FC = () => {
     () => {
       gsap.registerPlugin(ScrollTrigger)
 
-      let scrollTrigger = null;
+      let scrollTrigger = null
 
-      ; (isSmartphone || isTablet) && (
-        scrollTrigger = ScrollTrigger.create({
+      ;(isSmartphone || isTablet) &&
+        ((scrollTrigger = ScrollTrigger.create({
           trigger: tagSectionRef.current,
           start: "top 80%",
-        }),
-
+        })),
         gsap.from(tagTitleRef.current, {
           duration: 0.85,
           ease: "power4.out",
@@ -55,7 +54,6 @@ const WeDo: FC = () => {
           scrollTrigger: scrollTrigger,
           y: 60,
         }),
-
         gsap.utils.toArray(".we-do__card").forEach(x => {
           const card = x as HTMLElement
           card.classList.add("_no-tap")
@@ -101,15 +99,12 @@ const WeDo: FC = () => {
               stopAnimateSvg(card)
             },
           })
-        })
-      )
-
-      ; (isSmallLaptop || isLaptop || isPC) && (
-        scrollTrigger = ScrollTrigger.create({
+        }))
+      ;(isSmallLaptop || isLaptop || isPC) &&
+        ((scrollTrigger = ScrollTrigger.create({
           trigger: tagSectionRef.current,
           start: "top center",
-        }),
-
+        })),
         gsap.from(tagTitleRef.current, {
           duration: 0.85,
           ease: "power4.out",
@@ -117,12 +112,10 @@ const WeDo: FC = () => {
           scrollTrigger: scrollTrigger,
           y: 60,
         }),
-
-        scrollTrigger = ScrollTrigger.create({
+        (scrollTrigger = ScrollTrigger.create({
           trigger: tagSectionRef.current,
           start: "top 25%",
-        }),
-
+        })),
         gsap.from(".we-do__card", {
           ease: "power4.out",
           opacity: 0,
@@ -133,8 +126,7 @@ const WeDo: FC = () => {
             grid: [2, 3],
           },
           y: 40,
-        })
-      )
+        }))
     },
     { scope: tagSectionRef }
   )

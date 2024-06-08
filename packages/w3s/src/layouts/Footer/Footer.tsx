@@ -90,7 +90,7 @@ const Footer: FC = () => {
           },
           {
             duration: 0.85,
-            ease: "back.out",
+            ease: "power4.out",
             x: 0,
           },
           ">"

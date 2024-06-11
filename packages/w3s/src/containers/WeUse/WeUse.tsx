@@ -26,7 +26,7 @@ const WeUse: FC = () => {
         (ScrollTrigger.create({
           trigger: tagTitleRef.current,
           start: "top 5%",
-          end: "bottom 63%",
+          end: "bottom 65%",
           endTrigger: tagCardsRef.current,
           pinSpacing: false,
           pin: true,
@@ -34,7 +34,7 @@ const WeUse: FC = () => {
         ScrollTrigger.create({
           trigger: tagDescriptionRef.current,
           start: "center center",
-          end: "bottom 63%",
+          end: "bottom 55%",
           endTrigger: tagCardsRef.current,
           pinSpacing: false,
           pin: true,
@@ -89,12 +89,12 @@ const WeUse: FC = () => {
               gsap.fromTo(
                 title,
                 {
-                  x: 20,
+                  x: 60,
                 },
                 {
                   delay: 0.25,
-                  duration: 0.6,
-                  ease: "none",
+                  duration: 0.7,
+                  ease: "power4.out",
                   x: 0,
                 }
               )

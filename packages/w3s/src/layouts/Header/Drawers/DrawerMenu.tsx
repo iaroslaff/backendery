@@ -1,20 +1,159 @@
-import { FC } from "react"
+import { useLenis } from "@studio-freight/react-lenis"
+import { useGSAP } from "@gsap/react"
+import gsap from "gsap"
+import { FC, useRef } from "react"
 
 import { SvgIcon } from "../../../components/elements/Icon"
 import { useApp } from "../../../contexts/App"
+import { useScrollLock } from "../../../hooks/useScrollLock"
 
 import "./DrawerMenu.scss"
 
 const DrawerMenu: FC = () => {
-  const { isDrawerVisible, setDrawerVisibility, setLetsStartedFormVisibility } = useApp()
+  /** hooks */
+  const { isDrawerVisible, setDrawerVisibility } = useApp()
+  const { setLetsStartedFormVisibility } = useApp()
+  const lenis = useLenis()
+
+  /** refs */
+  /* prettier-ignore */
+  const refCloseDrawerMenuBtn  = useRef<HTMLButtonElement>(null)
+  const refLetsStartProjectBtn = useRef<HTMLButtonElement>(null)
+
+  /* prettier-ignore */
+  function getSectionScrollingOffset(selector: string): number {
+    const offset: number =
+      parseInt(window
+        .getComputedStyle(document.querySelector(selector) as Element)
+        .getPropertyValue("padding-top")
+      ) / 2
+
+    return offset
+  }
+
+  function closeDrawerMenu(): void {
+    gsap
+      .timeline({
+        onComplete: () => {
+          setDrawerVisibility(false)
+        },
+      })
+      .fromTo(
+        ".drawer-menu__close-btn",
+        {
+          opacity: 1,
+          y: 0,
+        },
+        {
+          ease: "power4.out",
+          opacity: 0,
+          y: -30,
+        }
+      )
+      .fromTo(
+        ".drawer-menu__link",
+        {
+          opacity: 1,
+          x: 0,
+        },
+        {
+          ease: "power4.out",
+          opacity: 0,
+          stagger: 0.05,
+          x: 80,
+        },
+        "<0.15"
+      )
+      .fromTo(
+        ".drawer-menu__lets-start-project-btn",
+        {
+          opacity: 1,
+        },
+        {
+          duration: 0.25,
+          ease: "power1",
+          opacity: 0,
+        },
+        "<0.15"
+      )
+      .fromTo(
+        ".drawer-menu__social-link",
+        {
+          opacity: 1,
+          y: 0,
+        },
+        {
+          ease: "power4.out",
+          opacity: 0,
+          stagger: 0.05,
+          y: 20,
+        },
+        "<0.15"
+      )
+  }
+
+  /* prettier-ignore */
+  useGSAP((_, contextSafe) => {
+    const onMouseClickAtCloseDrawerMenu  =
+         contextSafe
+      && contextSafe(() => { closeDrawerMenu() })
+
+    const onMouseClickAtLetsStartProject =
+         contextSafe
+      && contextSafe(() => {
+        closeDrawerMenu()
+        setLetsStartedFormVisibility(true)
+      })
+
+       onMouseClickAtCloseDrawerMenu
+    && refCloseDrawerMenuBtn.current
+    && refCloseDrawerMenuBtn.current.addEventListener(
+      "click",
+      onMouseClickAtCloseDrawerMenu
+    );
+
+       onMouseClickAtLetsStartProject
+    && refLetsStartProjectBtn.current
+    && refLetsStartProjectBtn.current.addEventListener(
+      "click",
+      onMouseClickAtLetsStartProject
+    );
+
+    return () => {
+         onMouseClickAtCloseDrawerMenu
+      && refCloseDrawerMenuBtn.current
+      && refCloseDrawerMenuBtn.current.removeEventListener(
+        "click",
+        onMouseClickAtCloseDrawerMenu
+      );
+
+         onMouseClickAtLetsStartProject
+      && refLetsStartProjectBtn.current
+      && refLetsStartProjectBtn.current.addEventListener(
+        "click",
+        onMouseClickAtLetsStartProject
+      );
+    }
+  })
+
+  useScrollLock(isDrawerVisible)
 
   return (
     <div className={`drawer-menu ${isDrawerVisible ? "_visible" : ""}`}>
-      <button className={"drawer-menu__close-btn"} onClick={() => setDrawerVisibility(false)}>
+      <button className={"drawer-menu__close-btn"} ref={refCloseDrawerMenuBtn}>
         <SvgIcon name={"drawer-close"} />
       </button>
       <nav className={"drawer-menu__nav"}>
-        <button className={"drawer-menu__link"} onClick={() => setDrawerVisibility(false)}>
+        <button
+          className={"drawer-menu__link"}
+          onClick={(event) => {
+            event && event.preventDefault();
+            lenis && lenis.scrollTo(
+              ".we-do__section", { lerp: 0.075, offset: getSectionScrollingOffset(".we-do__section") }
+            );
+            closeDrawerMenu();
+          }}
+        >
           We do!
         </button>
         <button className={"drawer-menu__link"} onClick={() => setDrawerVisibility(false)}>
@@ -31,9 +170,9 @@ const DrawerMenu: FC = () => {
         </button>
       </nav>
       <button
-        className={"drawer-menu__start-project-btn"}
+        className={"drawer-menu__lets-start-project-btn"}
         onClick={() => {
-          setDrawerVisibility(false)
+          closeDrawerMenu()
           setLetsStartedFormVisibility(true)
         }}
       >

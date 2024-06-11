@@ -6,7 +6,6 @@ import { FC, useRef } from "react"
 import { SvgIcon } from "../../components/elements/Icon"
 import { useBreakpoints } from "../../hooks/useBreakpoints"
 
-import decorationCircle from "./../../assets/images/svg/decoration-circle.svg"
 import iamImage from "./../../assets/images/jpeg/iam-image.jpeg"
 
 import "./AboutUs.scss"
@@ -33,6 +32,13 @@ const AboutUs: FC = () => {
           endTrigger: tagClientsSaidRef.current,
           pinSpacing: false,
           pin: true,
+          onEnter: () => {
+            const paths = tagClientsSaidDecorationRef.current
+              && tagClientsSaidDecorationRef.current.querySelectorAll("svg > .visualizezza")
+              paths && paths.forEach(x => {
+              x?.classList.add("_active")
+            })
+          }
         }),
         (scrollTrigger = ScrollTrigger.create({
           trigger: tagSectionRef.current,
@@ -46,7 +52,49 @@ const AboutUs: FC = () => {
           y: 160,
         })
 
-    }, {scope: tagSectionRef}
+        gsap.utils.toArray(".about-us__clients-said-wrapper > div").forEach(x => {
+          const card = x as HTMLElement
+          card.classList.add("_no-tap")
+  
+          scrollTrigger = ScrollTrigger.create({
+            trigger: card,
+            start: "top 80%",
+            end: "top 75%",
+          })
+  
+          gsap.fromTo(
+            card,
+            {
+              opacity: 0,
+            },
+            {
+              duration: 0.85,
+              ease: "expo.in",
+              opacity: 1,
+              scrollTrigger: scrollTrigger,
+              stagger: 0.25,
+              onStart: () => {
+                const title = card.querySelector(".about-us__clients-said-title")
+                gsap.fromTo(
+                  title,
+                  {
+                    x: 40,
+                  },
+                  {
+                    delay: 0.25,
+                    duration: 0.7,
+                    ease: "power4.out",
+                    x: 0,
+                  }
+                )
+              },
+            }
+          )
+        })
+
+
+
+    }, { scope: tagSectionRef }
   )
 
   return (
@@ -57,8 +105,8 @@ const AboutUs: FC = () => {
       </div>
       <p className={"about-us__description"}>
         <span>Pellentesque euismod dapibus efficitur. Etiam est massa, viverra sed porta nec, porta quis felis. </span>
-        Proin id gravida justo, tempus scelerisque dolor Aenean eu convallis velit. Ut non sapien felis. Curabitur justo
-        massa, porttitor eget mauris quis, tempor pharetra lorem
+        Proin id gravida justo, tempus scelerisque dolor Aenean eu convallis velit.
+        Ut non sapien felis. Curabitur justo massa, porttitor eget mauris quis, tempor pharetra lorem
       </p>
       <div className={"about-us__clients-said-wrapper"} ref={tagClientsSaidRef}>
         <div>
@@ -97,10 +145,7 @@ const AboutUs: FC = () => {
           value in <br />
           our work
         </h3>
-        <div >
-          <SvgIcon className={"about-us__clients-said-decoration-circle"} name={"decoration-circle"} />
-        </div>
-        {/* <img className={"about-us__clients-said-decoration-circle"} src={decorationCircle} /> */}
+        <SvgIcon className={"about-us__clients-said-decoration-circle"} name={"decoration-circle"} />
       </div>
       <div className={"about-us__profile-wrapper"}>
         <img className={"about-us__iam-image"} src={iamImage} />

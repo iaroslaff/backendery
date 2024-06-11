@@ -1,10 +1,11 @@
 @import "@styles/variables";
+@import "@styles/mixin";
 
 .drawer-menu {
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 1280;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,12 +26,19 @@
   }
 
   &__close-btn {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "margin-bottom",
+      $from: 85,
+      $to: 50
+    );
+
     width: fit-content;
     margin-bottom: 85px;
     background-color: transparent;
   }
 
-  &__start-project-btn {
+  &__lets-start-project-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -45,23 +53,38 @@
   }
 
   &__nav {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "gap",
+      $from: 46,
+      $to: 30
+    );
+
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "margin-bottom",
+      $from: 40,
+      $to: 30
+    );
+
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
-    gap: 46px;
     align-items: center;
-    margin-bottom: 40px;
   }
 
   &__link {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 32,
+      $to: 24
+    );
+
+    color: $primary-color;
     font-weight: 500;
-    font-size: 30px;
     text-align: center;
     background-color: $accent-color;
-
-    a {
-      color: $primary-color;
-    }
   }
 
   &__social-links {
@@ -75,10 +98,10 @@
   &__social-link {
     display: flex;
     align-items: center;
+    color: $primary-color;
 
     a {
       margin-right: 6px;
-      color: $primary-color;
       font-weight: 700;
       font-size: 16px;
     }

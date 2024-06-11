@@ -126,6 +126,10 @@
     display: grid;
     margin-top: 480px;
 
+    &._no-tap {
+      pointer-events: none;
+    }
+
     @media (max-width: $lg) {
       grid-template-columns: repeat(2, 1fr);
       column-gap: 40px;
@@ -137,6 +141,8 @@
       grid-template-columns: 1fr;
     }
   }
+
+  &__clients-said-card {}
 
   &__clients-said-title {
     /* prettier-ignore */
@@ -173,10 +179,12 @@
 
     position: relative;
     height: fit-content;
+    width: fit-content;
 
     @media (max-width: $lg) {
       order: 3;
       text-align: center;
+      width: 100%;
     }
   }
 
@@ -194,22 +202,12 @@
   }
 
   &__clients-said-decoration-circle {
-    /* prettier-ignore */
-    @include adaptive-value(
-      $property: "left",
-      $from: -50,
-      $to: -20
-    );
-
     position: absolute;
-    height: 121%;
+    height: 120%;
     top: -30px;
     z-index: -15;
-
-    @media (max-width: $lg) {
-      left: 50%;
-      transform: translateX(-50%);
-    }
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   &__profile-wrapper {

@@ -50,7 +50,7 @@ const LetsStartedForm: FC = () => {
   }
 
   return (
-    <div className={"lets-started-form__body"}>
+    <div className={"lets-started-form__body"} data-lenis-prevent-touch>
       <button
         className={"lets-started-form__close-btn"}
         type={"button"}

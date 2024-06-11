@@ -207,7 +207,7 @@ const WeDo: FC = () => {
         we do
       </h2>
       <div className={"we-do__card"}>
-        <div className={"we-do__card-heading-decoration"}>
+        <div className={"we-do__card-icon"}>
           <SvgIcon name={"we-do-server-applications"} />
         </div>
         <h4 className={"we-do__card-title"}>Server Applications</h4>
@@ -217,7 +217,7 @@ const WeDo: FC = () => {
       </div>
 
       <div className={"we-do__card"}>
-        <div className={"we-do__card-heading-decoration"}>
+        <div className={"we-do__card-icon"}>
           <SvgIcon name={"we-do-api"} />
         </div>
         <h4 className={"we-do__card-title"}>API&apos;s</h4>
@@ -227,7 +227,7 @@ const WeDo: FC = () => {
       </div>
 
       <div className={"we-do__card"}>
-        <div className={"we-do__card-heading-decoration"}>
+        <div className={"we-do__card-icon"}>
           <SvgIcon name={"we-do-service-integrations"} />
         </div>
         <h4 className={"we-do__card-title"}>Service Integrations</h4>
@@ -237,7 +237,7 @@ const WeDo: FC = () => {
       </div>
 
       <div className={"we-do__card"}>
-        <div className={"we-do__card-heading-decoration"}>
+        <div className={"we-do__card-icon"}>
           <SvgIcon name={"we-do-automation-tools"} />
         </div>
         <h4 className={"we-do__card-title"}>Automation Tools</h4>
@@ -247,7 +247,7 @@ const WeDo: FC = () => {
       </div>
 
       <div className={"we-do__card"}>
-        <div className={"we-do__card-heading-decoration"}>
+        <div className={"we-do__card-icon"}>
           <SvgIcon name={"we-do-bots"} />
         </div>
         <h4 className={"we-do__card-title"}>Bots</h4>

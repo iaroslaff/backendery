@@ -7,6 +7,7 @@ import { SvgIcon } from "../../components/elements/Icon"
 import { useApp } from "../../contexts/App"
 import { useBreakpoints } from "../../hooks/useBreakpoints"
 import DrawerMenu from "./Drawers/DrawerMenu"
+import calcScrollingOffset from "./utils"
 
 import "./Header.scss"
 
@@ -18,17 +19,6 @@ const Header: FC = () => {
 
   /** refs */
   const refOpenDrawerMenuBtn = useRef<HTMLButtonElement>(null)
-
-  /* prettier-ignore */
-  function getSectionScrollingOffset(selector: string): number {
-    const offset: number =
-      parseInt(window
-        .getComputedStyle(document.querySelector(selector) as Element)
-        .getPropertyValue("padding-top")
-      ) / 2
-
-    return offset
-  }
 
   function openDrawerMenu(): void {
     gsap
@@ -132,7 +122,11 @@ const Header: FC = () => {
                 onClick={(event) => {
                   event && event.preventDefault();
                   lenis && lenis.scrollTo(
-                    ".we-do__section", { lerp: 0.075, offset: getSectionScrollingOffset(".we-do__section") }
+                    ".we-do__section",
+                    {
+                      lerp: 0.075,
+                      offset: calcScrollingOffset(".we-do__section")
+                    }
                   )
                 }}
               >We do!</a>
@@ -142,7 +136,11 @@ const Header: FC = () => {
                 onClick={(event) => {
                   event && event.preventDefault();
                   lenis && lenis.scrollTo(
-                    ".we-use__section", { lerp: 0.075, offset: getSectionScrollingOffset(".we-use__section") }
+                    ".we-use__section",
+                    {
+                      lerp: 0.075,
+                      offset: calcScrollingOffset(".we-use__section")
+                    }
                   )
                 }}
               >We use</a>
@@ -152,7 +150,11 @@ const Header: FC = () => {
                 onClick={(event) => {
                   event && event.preventDefault();
                   lenis && lenis.scrollTo(
-                    ".cases__section", { lerp: 0.075, offset: getSectionScrollingOffset(".cases__section") }
+                    ".cases__section",
+                    {
+                      lerp: 0.075,
+                      offset: calcScrollingOffset(".cases__section")
+                    }
                   )
                 }}
               >Cases</a>
@@ -162,7 +164,11 @@ const Header: FC = () => {
                 onClick={(event) => {
                   event && event.preventDefault();
                   lenis && lenis.scrollTo(
-                    ".steps__section", { lerp: 0.075, offset: getSectionScrollingOffset(".steps__section") }
+                    ".steps__section",
+                    {
+                      lerp: 0.075,
+                      offset: calcScrollingOffset(".steps__section")
+                    }
                   )
                 }}
               >Steps</a>
@@ -172,7 +178,11 @@ const Header: FC = () => {
                 onClick={(event) => {
                   event && event.preventDefault();
                   lenis && lenis.scrollTo(
-                    ".about-us__section", { lerp: 0.075, offset: getSectionScrollingOffset(".about-us__section") }
+                    ".about-us__section",
+                    {
+                      lerp: 0.075,
+                      offset: calcScrollingOffset(".about-us__section")
+                    }
                   )
                 }}
               >About us</a>
@@ -182,7 +192,11 @@ const Header: FC = () => {
                 onClick={(event) => {
                   event && event.preventDefault();
                   lenis && lenis.scrollTo(
-                    ".footer", { lerp: 0.075, offset: getSectionScrollingOffset(".footer") }
+                    ".footer",
+                    {
+                      lerp: 0.075,
+                      offset: calcScrollingOffset(".footer")
+                    }
                   )
                 }}
               >Contacts</a>

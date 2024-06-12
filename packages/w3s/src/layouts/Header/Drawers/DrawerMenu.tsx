@@ -1,35 +1,24 @@
-import { useLenis } from "@studio-freight/react-lenis"
 import { useGSAP } from "@gsap/react"
+import { useLenis } from "@studio-freight/react-lenis"
 import gsap from "gsap"
 import { FC, useRef } from "react"
 
 import { SvgIcon } from "../../../components/elements/Icon"
 import { useApp } from "../../../contexts/App"
 import { useScrollLock } from "../../../hooks/useScrollLock"
+import calcScrollingOffset from "../utils"
 
 import "./DrawerMenu.scss"
 
 const DrawerMenu: FC = () => {
   /** hooks */
-  const { isDrawerVisible, setDrawerVisibility } = useApp()
-  const { setLetsStartedFormVisibility } = useApp()
+  const { isDrawerVisible, setDrawerVisibility, setLetsStartedFormVisibility } = useApp()
   const lenis = useLenis()
 
   /** refs */
   /* prettier-ignore */
   const refCloseDrawerMenuBtn  = useRef<HTMLButtonElement>(null)
   const refLetsStartProjectBtn = useRef<HTMLButtonElement>(null)
-
-  /* prettier-ignore */
-  function getSectionScrollingOffset(selector: string): number {
-    const offset: number =
-      parseInt(window
-        .getComputedStyle(document.querySelector(selector) as Element)
-        .getPropertyValue("padding-top")
-      ) / 2
-
-    return offset
-  }
 
   function closeDrawerMenu(): void {
     gsap
@@ -139,7 +128,7 @@ const DrawerMenu: FC = () => {
   useScrollLock(isDrawerVisible)
 
   return (
-    <div className={`drawer-menu ${isDrawerVisible ? "_visible" : ""}`}>
+    <div className={`drawer-menu ${isDrawerVisible ? "_visible" : ""}`} data-lenis-prevent-touch>
       <button className={"drawer-menu__close-btn"} ref={refCloseDrawerMenuBtn}>
         <SvgIcon name={"drawer-close"} />
       </button>
@@ -147,27 +136,87 @@ const DrawerMenu: FC = () => {
         <button
           className={"drawer-menu__link"}
           onClick={(event) => {
+            event && event.preventDefault()
+            lenis && lenis.scrollTo(
+              ".we-do__section",
+              {
+                lerp: 0.075,
+                offset: calcScrollingOffset(".we-do__section")
+              }
+            )
+            closeDrawerMenu()
+          }}
+        >We do!</button>
+        <button
+          className={"drawer-menu__link"}
+          onClick={(event) => {
+            event && event.preventDefault()
+            lenis && lenis.scrollTo(
+              ".we-use__section",
+              {
+                lerp: 0.075,
+                offset: calcScrollingOffset(".we-use__section")
+              }
+            )
+            closeDrawerMenu()
+          }}
+        >We use</button>
+        <button
+          className={"drawer-menu__link"}
+          onClick={(event) => {
+            event && event.preventDefault()
+            lenis && lenis.scrollTo(
+              ".cases__section",
+              {
+                lerp: 0.075,
+                offset: calcScrollingOffset(".cases__section")
+              }
+            )
+            closeDrawerMenu()
+          }}
+        >Cases</button>
+        <button
+          className={"drawer-menu__link"}
+          onClick={(event) => {
             event && event.preventDefault();
             lenis && lenis.scrollTo(
-              ".we-do__section", { lerp: 0.075, offset: getSectionScrollingOffset(".we-do__section") }
-            );
-            closeDrawerMenu();
+              ".steps__section",
+              {
+                lerp: 0.075,
+                offset: calcScrollingOffset(".steps__section")
+              }
+            )
+            closeDrawerMenu()
           }}
-        >
-          We do!
-        </button>
-        <button className={"drawer-menu__link"} onClick={() => setDrawerVisibility(false)}>
-          Cases
-        </button>
-        <button className={"drawer-menu__link"} onClick={() => setDrawerVisibility(false)}>
-          Steps
-        </button>
-        <button className={"drawer-menu__link"} onClick={() => setDrawerVisibility(false)}>
-          About
-        </button>
-        <button className={"drawer-menu__link"} onClick={() => setDrawerVisibility(false)}>
-          Contacts
-        </button>
+        >Steps</button>
+        <button
+          className={"drawer-menu__link"}
+          onClick={(event) => {
+            event && event.preventDefault();
+            lenis && lenis.scrollTo(
+              ".about-us__section",
+              {
+                lerp: 0.075,
+                offset: calcScrollingOffset(".about-us__section")
+              }
+            )
+            closeDrawerMenu()
+          }}
+        >About us</button>
+        <button
+          className={"drawer-menu__link"}
+          onClick={(event) => {
+            event && event.preventDefault();
+            lenis && lenis.scrollTo(
+              ".footer",
+              {
+                lerp: 0.075,
+                offset: calcScrollingOffset(".footer")
+              }
+            )
+            closeDrawerMenu()
+          }}
+        >Contacts</button>
       </nav>
       <button
         className={"drawer-menu__lets-start-project-btn"}

@@ -2,6 +2,7 @@ import { useLenis } from "@studio-freight/react-lenis"
 import { useEffect, useState } from "react"
 
 interface IUseScrollLock {
+  /* Properties */
   isLocked: boolean
 }
 const useScrollLock = (flag: boolean): IUseScrollLock => {
@@ -14,7 +15,7 @@ const useScrollLock = (flag: boolean): IUseScrollLock => {
   }, [flag])
 
   return {
-    isLocked,
+    isLocked
   }
 }
 

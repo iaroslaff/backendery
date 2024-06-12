@@ -1,5 +1,3 @@
-"use client"
-
 import { ReactLenis } from "@studio-freight/react-lenis"
 import gsap from "gsap"
 import React, { FC, useEffect, useRef } from "react"

@@ -5,14 +5,13 @@ import * as Yup from "yup"
 import BudgetSlider from "../../../components/BudgetSlider/BudgetSlider"
 import { SvgIcon } from "../../../components/elements/Icon"
 import { useApp } from "../../../contexts/App"
-import { useScrollLock } from "../../../hooks/useScrollLock"
 
 import "./LetsStartedForm.scss"
 
 const LetsStartedForm: FC = () => {
   const { isLetsStartedFormVisible, setLetsStartedFormVisibility } = useApp()
 
-  useScrollLock(isLetsStartedFormVisible)
+  // useScrollLock(isLetsStartedFormVisible)
 
   const Schema = Yup.object().shape({
     aboutProject: Yup.string().required("an about the project is required"),

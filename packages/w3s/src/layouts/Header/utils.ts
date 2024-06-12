@@ -1,9 +1,12 @@
 /* prettier-ignore */
-export default function calcScrollingOffset(selector: string): number {
-  const offset: number =
-    parseInt(window
-      .getComputedStyle(document.querySelector(selector) as Element)
-      .getPropertyValue("padding-top")
+export function calcScrollingOffset(selector: string): number {
+  const elt = document.querySelector(selector) as Element
+  if (!elt) {
+    throw Error("the specified selector could not be found")
+  }
+
+  const offset: number = parseInt(
+    window.getComputedStyle(elt).getPropertyValue("padding-top")
   ) / 2
 
   return offset

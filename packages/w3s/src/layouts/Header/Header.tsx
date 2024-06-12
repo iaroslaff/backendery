@@ -7,7 +7,7 @@ import { SvgIcon } from "../../components/elements/Icon"
 import { useApp } from "../../contexts/App"
 import { useBreakpoints } from "../../hooks/useBreakpoints"
 import DrawerMenu from "./Drawers/DrawerMenu"
-import calcScrollingOffset from "./utils"
+import { calcScrollingOffset } from "./utils"
 
 import "./Header.scss"
 
@@ -120,8 +120,10 @@ const Header: FC = () => {
                 href={"#"}
                 className={"header__nav-link _underscore"}
                 onClick={(event) => {
-                  event && event.preventDefault();
-                  lenis && lenis.scrollTo(
+                     event
+                  && event.preventDefault();
+                     lenis
+                  && lenis.scrollTo(
                     ".we-do__section",
                     {
                       lerp: 0.075,
@@ -134,8 +136,10 @@ const Header: FC = () => {
                 href={"#"}
                 className={"header__nav-link _underscore"}
                 onClick={(event) => {
-                  event && event.preventDefault();
-                  lenis && lenis.scrollTo(
+                     event
+                  && event.preventDefault();
+                     lenis
+                  && lenis.scrollTo(
                     ".we-use__section",
                     {
                       lerp: 0.075,
@@ -148,8 +152,10 @@ const Header: FC = () => {
                 href={"#"}
                 className={"header__nav-link _underscore"}
                 onClick={(event) => {
-                  event && event.preventDefault();
-                  lenis && lenis.scrollTo(
+                     event
+                  && event.preventDefault();
+                     lenis
+                  && lenis.scrollTo(
                     ".cases__section",
                     {
                       lerp: 0.075,
@@ -162,8 +168,10 @@ const Header: FC = () => {
                 href={"#"}
                 className={"header__nav-link _underscore"}
                 onClick={(event) => {
-                  event && event.preventDefault();
-                  lenis && lenis.scrollTo(
+                     event
+                  && event.preventDefault();
+                     lenis
+                  && lenis.scrollTo(
                     ".steps__section",
                     {
                       lerp: 0.075,
@@ -176,8 +184,10 @@ const Header: FC = () => {
                 href={"#"}
                 className={"header__nav-link _underscore"}
                 onClick={(event) => {
-                  event && event.preventDefault();
-                  lenis && lenis.scrollTo(
+                     event
+                  && event.preventDefault();
+                     lenis
+                  && lenis.scrollTo(
                     ".about-us__section",
                     {
                       lerp: 0.075,
@@ -190,8 +200,10 @@ const Header: FC = () => {
                 href={"#"}
                 className={"header__nav-link _underscore"}
                 onClick={(event) => {
-                  event && event.preventDefault();
-                  lenis && lenis.scrollTo(
+                     event
+                  && event.preventDefault();
+                     lenis
+                  && lenis.scrollTo(
                     ".footer",
                     {
                       lerp: 0.075,

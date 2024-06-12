@@ -1,12 +1,11 @@
-import { useGSAP } from "@gsap/react"
 import { useLenis } from "@studio-freight/react-lenis"
+import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
-import { FC, useRef } from "react"
+import { FC, useRef, useEffect } from "react"
 
 import { SvgIcon } from "../../../components/elements/Icon"
 import { useApp } from "../../../contexts/App"
-import { useScrollLock } from "../../../hooks/useScrollLock"
-import calcScrollingOffset from "../utils"
+import { calcScrollingOffset } from "../utils"
 
 import "./DrawerMenu.scss"
 
@@ -89,10 +88,7 @@ const DrawerMenu: FC = () => {
 
     const onMouseClickAtLetsStartProject =
          contextSafe
-      && contextSafe(() => {
-        closeDrawerMenu()
-        setLetsStartedFormVisibility(true)
-      })
+      && contextSafe(() => { closeDrawerMenu(); setLetsStartedFormVisibility(true) })
 
        onMouseClickAtCloseDrawerMenu
     && refCloseDrawerMenuBtn.current
@@ -125,8 +121,14 @@ const DrawerMenu: FC = () => {
     }
   })
 
-  useScrollLock(isDrawerVisible)
+  /* prettier-ignore */
+  useEffect(() => {
+    isDrawerVisible ? lenis && lenis.stop() : lenis && lenis.start()
+  }, [
+    isDrawerVisible
+  ])
 
+  /* prettier-ignore */
   return (
     <div className={`drawer-menu ${isDrawerVisible ? "_visible" : ""}`} data-lenis-prevent-touch>
       <button className={"drawer-menu__close-btn"} ref={refCloseDrawerMenuBtn}>
@@ -136,85 +138,115 @@ const DrawerMenu: FC = () => {
         <button
           className={"drawer-menu__link"}
           onClick={(event) => {
-            event && event.preventDefault()
-            lenis && lenis.scrollTo(
-              ".we-do__section",
-              {
-                lerp: 0.075,
-                offset: calcScrollingOffset(".we-do__section")
-              }
-            )
-            closeDrawerMenu()
+               event
+            && event.preventDefault();
+               lenis
+            && (
+               lenis.start(),
+               lenis.scrollTo(
+                ".we-do__section",
+                {
+                  lerp: 0.075,
+                  offset: calcScrollingOffset(".we-do__section")
+                }
+              )
+            );
+            closeDrawerMenu();
           }}
         >We do!</button>
         <button
           className={"drawer-menu__link"}
           onClick={(event) => {
-            event && event.preventDefault()
-            lenis && lenis.scrollTo(
-              ".we-use__section",
-              {
-                lerp: 0.075,
-                offset: calcScrollingOffset(".we-use__section")
-              }
-            )
-            closeDrawerMenu()
+            event
+            && event.preventDefault();
+               lenis
+            && (
+               lenis.start(),
+               lenis.scrollTo(
+                ".we-use__section",
+                {
+                  lerp: 0.075,
+                  offset: calcScrollingOffset(".we-use__section")
+                }
+              )
+            );
+            closeDrawerMenu();
           }}
         >We use</button>
         <button
           className={"drawer-menu__link"}
           onClick={(event) => {
-            event && event.preventDefault()
-            lenis && lenis.scrollTo(
-              ".cases__section",
-              {
-                lerp: 0.075,
-                offset: calcScrollingOffset(".cases__section")
-              }
-            )
-            closeDrawerMenu()
+               event
+            && event.preventDefault();
+               lenis
+            && (
+               lenis.start(),
+               lenis.scrollTo(
+                ".cases__section",
+                {
+                  lerp: 0.075,
+                  offset: calcScrollingOffset(".cases__section")
+                }
+              )
+            );
+            closeDrawerMenu();
           }}
         >Cases</button>
         <button
           className={"drawer-menu__link"}
           onClick={(event) => {
-            event && event.preventDefault();
-            lenis && lenis.scrollTo(
-              ".steps__section",
-              {
-                lerp: 0.075,
-                offset: calcScrollingOffset(".steps__section")
-              }
-            )
-            closeDrawerMenu()
+               event
+            && event.preventDefault();
+               lenis
+            && (
+               lenis.start(),
+               lenis.scrollTo(
+                ".steps__section",
+                {
+                  lerp: 0.075,
+                  offset: calcScrollingOffset(".steps__section")
+                }
+              )
+            );
+            closeDrawerMenu();
           }}
         >Steps</button>
         <button
           className={"drawer-menu__link"}
           onClick={(event) => {
-            event && event.preventDefault();
-            lenis && lenis.scrollTo(
-              ".about-us__section",
-              {
-                lerp: 0.075,
-                offset: calcScrollingOffset(".about-us__section")
-              }
-            )
-            closeDrawerMenu()
+               event
+            && event.preventDefault();
+               lenis
+            && (
+               lenis.start(),
+               lenis.scrollTo(
+                ".about-us__section",
+                {
+                  lerp: 0.075,
+                  offset: calcScrollingOffset(".about-us__section")
+                }
+              )
+            );
+            closeDrawerMenu();
           }}
         >About us</button>
         <button
           className={"drawer-menu__link"}
           onClick={(event) => {
-            event && event.preventDefault();
-            lenis && lenis.scrollTo(
-              ".footer",
-              {
-                lerp: 0.075,
-                offset: calcScrollingOffset(".footer")
-              }
-            )
-            closeDrawerMenu()
+               event
+            && event.preventDefault();
+               lenis
+            && (
+               lenis.start(),
+               lenis.scrollTo(
+                ".footer",
+                {
+                  lerp: 0.075,
+                  offset: calcScrollingOffset(".footer")
+                }
+              )
+            );
+            closeDrawerMenu();
           }}
         >Contacts</button>
       </nav>

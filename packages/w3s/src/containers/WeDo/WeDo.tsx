@@ -8,52 +8,67 @@ import { useBreakpoints } from "../../hooks/useBreakpoints"
 
 import "./WeDo.scss"
 
+enum AnimationState {
+  Start = 0x00_00_00_01,
+  Stop,
+}
+
+function animateSvg(elt: HTMLElement, state: AnimationState = AnimationState.Start): void {
+  const paths = elt.querySelectorAll("svg > .visualizezza")
+  paths.forEach(x => {
+    switch (state) {
+      case AnimationState.Start: {
+        x && x.classList.add("_active")
+        return
+      }
+      case AnimationState.Stop: {
+        x && x.classList.remove("_active")
+        return
+      }
+      default:
+        throw new Error("an unknown animation state is specified")
+    }
+  })
+}
+
+function changeCardColor(elt: HTMLElement, color: string): void {
+  gsap.to(elt, {
+    backgroundColor: color,
+    duration: 0.19,
+    ease: "none",
+  })
+}
+
 const WeDo: FC = () => {
+  /** hooks */
   const { isSmartphone, isTablet, isSmallLaptop, isLaptop, isPC } = useBreakpoints()
 
-  const tagSectionRef = useRef<HTMLElement>(null)
-  const tagTitleRef = useRef<HTMLHeadingElement>(null)
+  /** refs */
+  const refSection = useRef<HTMLElement>(null)
+  const refTitle = useRef<HTMLHeadingElement>(null)
 
-  function letsAnimateSvg(elt: HTMLElement): void {
-    const paths = elt.querySelectorAll("svg > .visualizezza")
-    paths.forEach(x => {
-      x?.classList.add("_active")
-    })
-  }
-
-  function stopAnimateSvg(elt: HTMLElement): void {
-    const paths = elt.querySelectorAll("svg > .visualizezza")
-    paths.forEach(x => {
-      x?.classList.remove("_active")
-    })
-  }
-
-  function letsChangeCardColor(elt: HTMLElement, color: string): void {
-    gsap.to(elt, {
-      backgroundColor: color,
-      duration: 0.19,
-      ease: "none",
-    })
-  }
-
+  /* prettier-ignore */
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger)
 
       let scrollTrigger = null
 
-      ;(isSmartphone || isTablet) &&
-        ((scrollTrigger = ScrollTrigger.create({
-          trigger: tagSectionRef.current,
+      ;(isSmartphone || isTablet) && (
+        // 1
+        scrollTrigger = ScrollTrigger.create({
+          trigger: refSection.current,
           start: "top 80%",
-        })),
-        gsap.from(tagTitleRef.current, {
+        }),
+        // 2
+        gsap.from(refTitle.current, {
           duration: 0.85,
           ease: "power4.out",
           opacity: 0,
           scrollTrigger: scrollTrigger,
           y: 60,
         }),
+        // 3
         gsap.utils.toArray(".we-do__card").forEach(x => {
           const card = x as HTMLElement
           card.classList.add("_no-tap")
@@ -63,7 +78,6 @@ const WeDo: FC = () => {
             start: "top 80%",
             end: "top 75%",
           })
-
           gsap.fromTo(
             card,
             {
@@ -77,45 +91,46 @@ const WeDo: FC = () => {
               stagger: 0.25,
             }
           )
-
           ScrollTrigger.create({
             trigger: card,
             start: "top center",
             end: "bottom center",
             onEnter: () => {
-              letsChangeCardColor(card, "rgba(254, 254, 255, 0.06)")
-              letsAnimateSvg(card)
+              changeCardColor(card, "rgba(254, 254, 255, 0.06)"); animateSvg(card)
             },
             onEnterBack: () => {
-              letsChangeCardColor(card, "rgba(254, 254, 255, 0.06)")
-              letsAnimateSvg(card)
+              changeCardColor(card, "rgba(254, 254, 255, 0.06)"); animateSvg(card)
             },
             onLeave: () => {
-              letsChangeCardColor(card, "rgba(254, 254, 255, 0.02)")
-              stopAnimateSvg(card)
+              changeCardColor(card, "rgba(254, 254, 255, 0.02)"); animateSvg(card, AnimationState.Stop)
             },
             onLeaveBack: () => {
-              letsChangeCardColor(card, "rgba(254, 254, 255, 0.02)")
-              stopAnimateSvg(card)
+              changeCardColor(card, "rgba(254, 254, 255, 0.02)"); animateSvg(card, AnimationState.Stop)
             },
           })
-        }))
-      ;(isSmallLaptop || isLaptop || isPC) &&
-        ((scrollTrigger = ScrollTrigger.create({
-          trigger: tagSectionRef.current,
+        })
+      )
+
+      ;(isSmallLaptop || isLaptop || isPC) && (
+        // 1
+        scrollTrigger = ScrollTrigger.create({
+          trigger: refSection.current,
           start: "top center",
-        })),
-        gsap.from(tagTitleRef.current, {
+        }),
+        // 2
+        gsap.from(refTitle.current, {
           duration: 0.85,
           ease: "power4.out",
           opacity: 0,
           scrollTrigger: scrollTrigger,
           y: 60,
         }),
-        (scrollTrigger = ScrollTrigger.create({
-          trigger: tagSectionRef.current,
+        // 3
+        scrollTrigger = ScrollTrigger.create({
+          trigger: refSection.current,
           start: "top 25%",
-        })),
+        }),
+        // 4
         gsap.from(".we-do__card", {
           ease: "power4.out",
           opacity: 0,
@@ -126,22 +141,23 @@ const WeDo: FC = () => {
             grid: [2, 3],
           },
           y: 40,
-        }))
+        })
+      )
     },
-    { scope: tagSectionRef }
+    { scope: refSection }
   )
 
+  /* prettier-ignore */
   useGSAP(
     (_, contextSafe) => {
       const onMouseEnter =
-        contextSafe &&
-        contextSafe((event: MouseEvent) => {
+           contextSafe
+        && contextSafe((event: MouseEvent) => {
           const elt = event.target as HTMLElement
           if (elt.classList.contains("we-do__card")) {
             const card = elt
 
-            letsChangeCardColor(card, "rgba(254, 254, 255, 0.06)")
-            letsAnimateSvg(card)
+            changeCardColor(card, "rgba(254, 254, 255, 0.06)"); animateSvg(card)
 
             const title = elt.querySelector(".we-do__card-title")
             gsap.to(title, {
@@ -154,14 +170,13 @@ const WeDo: FC = () => {
         })
 
       const onMouseLeave =
-        contextSafe &&
-        contextSafe((event: MouseEvent) => {
+           contextSafe
+        && contextSafe((event: MouseEvent) => {
           const elt = event.target as HTMLElement
           if (elt.classList.contains("we-do__card")) {
             const card = elt
 
-            letsChangeCardColor(card, "rgba(254, 254, 255, 0.02)")
-            stopAnimateSvg(card)
+            changeCardColor(card, "rgba(254, 254, 255, 0.02)"); animateSvg(card, AnimationState.Stop)
 
             const title = elt.querySelector(".we-do__card-title")
             gsap.to(title, {
@@ -173,35 +188,33 @@ const WeDo: FC = () => {
           }
         })
 
-      // prettier-ignore
       if (
-           tagSectionRef.current
+           refSection.current
         && onMouseEnter
         && onMouseLeave
       ) {
-        tagSectionRef.current.addEventListener("mouseenter", onMouseEnter, true)
-        tagSectionRef.current.addEventListener("mouseleave", onMouseLeave, true)
+        refSection.current.addEventListener("mouseenter", onMouseEnter, true)
+        refSection.current.addEventListener("mouseleave", onMouseLeave, true)
       }
 
-      // Cleanup event listeners on component unmount
+      // cleanup event listeners on component unmount
       return () => {
-        // prettier-ignore
         if (
-             tagSectionRef.current
+             refSection.current
           && onMouseEnter
           && onMouseLeave
         ) {
-          tagSectionRef.current.removeEventListener("mouseenter", onMouseEnter, true)
-          tagSectionRef.current.removeEventListener("mouseleave", onMouseLeave, true)
+          refSection.current.removeEventListener("mouseenter", onMouseEnter, true)
+          refSection.current.removeEventListener("mouseleave", onMouseLeave, true)
         }
       }
     },
-    { scope: tagSectionRef }
+    { scope: refSection }
   )
 
   return (
-    <section className={"we-do__section"} ref={tagSectionRef}>
-      <h2 className={"we-do__title"} ref={tagTitleRef}>
+    <section className={"we-do__section"} ref={refSection}>
+      <h2 className={"we-do__title"} ref={refTitle}>
         What
         <br />
         we do

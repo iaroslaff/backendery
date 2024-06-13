@@ -6,8 +6,8 @@ import React, { FC, useRef } from "react"
 import { SvgIcon } from "../../components/elements/Icon"
 import { useApp } from "../../contexts/App"
 import { useBreakpoints } from "../../hooks/useBreakpoints"
+import { calcScrollingOffset } from "../../utils/fn"
 import DrawerMenu from "./Drawers/DrawerMenu"
-import { calcScrollingOffset } from "./utils"
 
 import "./Header.scss"
 

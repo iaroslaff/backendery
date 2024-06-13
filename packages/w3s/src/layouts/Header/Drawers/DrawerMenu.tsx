@@ -5,7 +5,7 @@ import { FC, useRef, useEffect } from "react"
 
 import { SvgIcon } from "../../../components/elements/Icon"
 import { useApp } from "../../../contexts/App"
-import { calcScrollingOffset } from "../utils"
+import { calcScrollingOffset } from "../../../utils/fn"
 
 import "./DrawerMenu.scss"
 

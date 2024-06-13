@@ -85,7 +85,7 @@
     }
   }
 
-  &__cards {
+  &__toolset {
     /* prettier-ignore */
     @include adaptive-value(
       $property: "gap",

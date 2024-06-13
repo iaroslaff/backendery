@@ -9,12 +9,14 @@ import { useBreakpoints } from "../../hooks/useBreakpoints"
 import "./WeUse.scss"
 
 const WeUse: FC = () => {
+  /** hooks */
   const { isSmartphone, isTablet, isSmallLaptop, isLaptop, isPC } = useBreakpoints()
 
-  const tagSectionRef = useRef<HTMLElement>(null)
-  const tagTitleRef = useRef<HTMLHeadingElement>(null)
-  const tagDescriptionRef = useRef<HTMLParagraphElement>(null)
-  const tagCardsRef = useRef<HTMLDivElement>(null)
+  /** refs */
+  const refSection = useRef<HTMLElement>(null)
+  const refTitle = useRef<HTMLHeadingElement>(null)
+  const refDescription = useRef<HTMLParagraphElement>(null)
+  const refToolSet = useRef<HTMLDivElement>(null)
 
   useGSAP(
     () => {
@@ -24,26 +26,26 @@ const WeUse: FC = () => {
 
       ;(isSmallLaptop || isLaptop || isPC) &&
         (ScrollTrigger.create({
-          trigger: tagTitleRef.current,
+          trigger: refTitle.current,
           start: "top 5%",
           end: "bottom 65%",
-          endTrigger: tagCardsRef.current,
+          endTrigger: refToolSet.current,
           pinSpacing: false,
           pin: true,
         }),
         ScrollTrigger.create({
-          trigger: tagDescriptionRef.current,
+          trigger: refDescription.current,
           start: "center center",
           end: "bottom 55%",
-          endTrigger: tagCardsRef.current,
+          endTrigger: refToolSet.current,
           pinSpacing: false,
           pin: true,
         }),
         (scrollTrigger = ScrollTrigger.create({
-          trigger: tagSectionRef.current,
+          trigger: refSection.current,
           start: "top center",
         })),
-        gsap.from(tagTitleRef.current, {
+        gsap.from(refTitle.current, {
           duration: 0.85,
           ease: "power4.out",
           opacity: 0,
@@ -52,10 +54,10 @@ const WeUse: FC = () => {
         }))
       ;(isSmartphone || isTablet) &&
         ((scrollTrigger = ScrollTrigger.create({
-          trigger: tagSectionRef.current,
+          trigger: refSection.current,
           start: "top 80%",
         })),
-        gsap.from(tagTitleRef.current, {
+        gsap.from(refTitle.current, {
           duration: 0.85,
           ease: "power4.out",
           opacity: 0,
@@ -103,20 +105,20 @@ const WeUse: FC = () => {
         )
       })
     },
-    { scope: tagSectionRef }
+    { scope: refSection }
   )
 
   return (
-    <section className={"we-use__section"} ref={tagSectionRef}>
+    <section className={"we-use__section"} ref={refSection}>
       <div className={"we-use__heading"}>
-        <h2 className={"we-use__heading-title"} ref={tagTitleRef}>
+        <h2 className={"we-use__heading-title"} ref={refTitle}>
           We use
         </h2>
-        <p className={"we-use__heading-description"} ref={tagDescriptionRef}>
+        <p className={"we-use__heading-description"} ref={refDescription}>
           We cover the full range of services for analysis, <span>development and support of your online business</span>
         </p>
       </div>
-      <div className={"we-use__cards"} ref={tagCardsRef}>
+      <div className={"we-use__toolset"} ref={refToolSet}>
         <div className={"we-use__card"}>
           <h3 className={"we-use__card-title"}>Language</h3>
           <p className={"we-use__card-description"}>

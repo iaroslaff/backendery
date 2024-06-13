@@ -4,7 +4,7 @@ import { ErrorBoundary } from "react-error-boundary"
 
 import App from "./App"
 import InternalServerError from "./containers/errors/InternalServerError/InternalServerError"
-import SmoothScroll from "./SmoothScroll"
+import SmoothScroll from "./components/SmoothScroll/SmoothScroll"
 
 import "./index.scss"
 

@@ -6,10 +6,11 @@ import Typed from "typed.js"
 
 import { SvgIcon } from "../../components/elements/Icon"
 import { useApp } from "../../contexts/App"
+import { calcScrollingOffset } from "../../utils/fn"
 
 import "./Hero.scss"
 
-// prettier-ignore
+/* prettier-ignore */
 const pythonCodes: string[] = [
 `@strawberry.type
 class Author:
@@ -32,7 +33,7 @@ async def lifespan(app: ASGIApp) -> AsyncIterator[None]:
 `
 ] as const
 
-// prettier-ignore
+/* prettier-ignore */
 const rustCodes: string[] = [
 `#[derive(Debug, Display)]
 pub enum State { Start, Transient, Closed }
@@ -89,20 +90,22 @@ fn internal_error<E>(err: E) -&gt; (StatusCode, String)
 ] as const
 
 const Hero: FC = () => {
+  /** hooks */
   const { setLetsStartedFormVisibility } = useApp()
   const lenis = useLenis()
 
-  const tagPyCodeRef = useRef<HTMLElement>(null)
-  const tagRsCodeRef = useRef<HTMLElement>(null)
-  const tagLetsStartProjectBtnRef = useRef<HTMLButtonElement>(null)
+  /** refs */
+  const refCodePython = useRef<HTMLElement>(null)
+  const refCodeRust = useRef<HTMLElement>(null)
+  const refLetsStartProjectBtn = useRef<HTMLButtonElement>(null)
 
-  // prettier-ignore
+  /* prettier-ignore */
   const typedOptions: Record<string, number | boolean> = {
     fadeOut: true, fadeOutDelay: 90, loop: true, showCursor: false, startDelay: 1_100
   }
 
   useEffect(() => {
-    const typed = new Typed(tagPyCodeRef && tagPyCodeRef.current, {
+    const typed = new Typed(refCodePython && refCodePython.current, {
       ...typedOptions,
       strings: [...pythonCodes],
       typeSpeed: 15,
@@ -114,7 +117,7 @@ const Hero: FC = () => {
   }, [])
 
   useEffect(() => {
-    const typed = new Typed(tagRsCodeRef && tagRsCodeRef.current, {
+    const typed = new Typed(refCodeRust && refCodeRust.current, {
       ...typedOptions,
       strings: [...rustCodes],
       typeSpeed: 45,
@@ -126,18 +129,19 @@ const Hero: FC = () => {
   }, [])
 
   useGSAP(() => {
-    const tl = gsap.timeline()
-    tl.from(
-      ".hero__title-word",
-      {
-        duration: 0.85,
-        ease: "power4.out",
-        opacity: 0,
-        stagger: 0.1,
-        y: 40,
-      },
-      "+=0.25"
-    )
+    gsap
+      .timeline()
+      .from(
+        ".hero__title-word",
+        {
+          duration: 0.85,
+          ease: "power4.out",
+          opacity: 0,
+          stagger: 0.1,
+          y: 40,
+        },
+        "+=0.25"
+      )
       .from(
         ".hero__code",
         {
@@ -188,53 +192,54 @@ const Hero: FC = () => {
       )
   })
 
-  useGSAP((_, contextSafe) => {
-    const onMouseMove =
-      contextSafe &&
-      contextSafe((event: MouseEvent) => {
-        const elt = event.currentTarget as HTMLElement
-        const bounding = elt.getBoundingClientRect() as DOMRect
+  /* prettier-ignore */
+  useGSAP(
+    (_, contextSafe) => {
+      const onMouseMove =
+           contextSafe
+        && contextSafe((event: MouseEvent) => {
+          const elt = event.currentTarget as HTMLElement
+          const bounding = elt.getBoundingClientRect() as DOMRect
 
-        gsap.to(elt, {
-          x: ((event.clientX - bounding.left) / elt.offsetWidth - 0.5) * 50,
-          y: ((event.clientY - bounding.top) / elt.offsetHeight - 0.5) * 50,
-          ease: "power4.out",
+          gsap.to(elt, {
+            x: ((event.clientX - bounding.left) / elt.offsetWidth - 0.5) * 50,
+            y: ((event.clientY - bounding.top) / elt.offsetHeight - 0.5) * 50,
+            ease: "power4.out",
+          })
         })
-      })
 
-    const onMouseOut =
-      contextSafe &&
-      contextSafe((event: MouseEvent) => {
-        const elt = event.currentTarget as HTMLElement
+      const onMouseOut =
+           contextSafe
+        && contextSafe((event: MouseEvent) => {
+          const elt = event.currentTarget as HTMLElement
 
-        gsap.to(elt, {
-          x: 0,
-          y: 0,
-          ease: "power4.out",
+          gsap.to(elt, {
+            x: 0,
+            y: 0,
+            ease: "power4.out",
+          })
         })
-      })
 
-    // prettier-ignore
-    if (
-         tagLetsStartProjectBtnRef.current
-      && onMouseMove
-      && onMouseOut
-    ) {
-      tagLetsStartProjectBtnRef.current.addEventListener("mousemove", onMouseMove);
-      tagLetsStartProjectBtnRef.current.addEventListener("mouseout", onMouseOut);
-    }
-
-    return () => {
-      // prettier-ignore
       if (
-           tagLetsStartProjectBtnRef.current
+           refLetsStartProjectBtn.current
         && onMouseMove
         && onMouseOut
       ) {
-        tagLetsStartProjectBtnRef.current.removeEventListener("mousemove", onMouseMove);
-        tagLetsStartProjectBtnRef.current.removeEventListener("mouseout", onMouseOut);
+        refLetsStartProjectBtn.current.addEventListener("mousemove", onMouseMove);
+        refLetsStartProjectBtn.current.addEventListener("mouseout", onMouseOut);
       }
-    }
+
+      // cleanup event listeners on component unmount
+      return () => {
+        if (
+             refLetsStartProjectBtn.current
+          && onMouseMove
+          && onMouseOut
+        ) {
+          refLetsStartProjectBtn.current.removeEventListener("mousemove", onMouseMove);
+          refLetsStartProjectBtn.current.removeEventListener("mouseout", onMouseOut);
+        }
+      }
   })
 
   return (
@@ -246,7 +251,7 @@ const Hero: FC = () => {
             onClick={() => {
               setLetsStartedFormVisibility(true)
             }}
-            ref={tagLetsStartProjectBtnRef}
+            ref={refLetsStartProjectBtn}
           >
             <span>
               Start <br /> a project
@@ -265,29 +270,31 @@ const Hero: FC = () => {
       <div className={"hero__code-wrapper"}>
         <div className={"hero__code hero__code--python"}>
           <pre>
-            <code className={"language-python"} ref={tagPyCodeRef}></code>
+            <code className={"language-python"} ref={refCodePython}></code>
           </pre>
         </div>
         <div className={"hero__code hero__code--rust"}>
           <pre>
-            <code className={"language-rust"} ref={tagRsCodeRef}></code>
+            <code className={"language-rust"} ref={refCodeRust}></code>
           </pre>
         </div>
         <div className={"hero__lets-watch"}>
           <span>Let&apos;s watch</span>
           <button
             className={"hero__lets-watch-circle"}
-            onClick={() =>
-              lenis?.scrollTo(".we-do__section", {
-                lerp: 0.075,
-                offset:
-                  parseInt(
-                    window
-                      .getComputedStyle(document.querySelector(".we-do__section") as Element)
-                      .getPropertyValue("padding-top")
-                  ) / 2,
-              })
-            }
+            /* prettier-ignore */
+            onClick={(event) => {
+                 event
+              && event.preventDefault();
+                 lenis
+              && lenis.scrollTo(
+                ".we-do__section",
+                {
+                  lerp: 0.075,
+                  offset: calcScrollingOffset(".we-do__section")
+                }
+              )
+            }}
           >
             <SvgIcon name={"arrow-decoration-bw"} />
           </button>

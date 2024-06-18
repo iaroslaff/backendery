@@ -13,10 +13,10 @@ import "./AboutUs.scss"
 const AboutUs: FC = () => {
   const { isSmartphone, isTablet, isSmallLaptop, isLaptop, isPC } = useBreakpoints()
 
-  const tagSectionRef = useRef<HTMLElement>(null)
-  const tagTitleRef = useRef<HTMLHeadingElement>(null)
-  const tagClientsSaidRef = useRef<HTMLDivElement>(null)
-  const tagClientsSaidDecorationRef = useRef<HTMLDivElement>(null)
+  const refSection = useRef<HTMLElement>(null)
+  const refTitle = useRef<HTMLHeadingElement>(null)
+  const refClientsSaid = useRef<HTMLDivElement>(null)
+  const refClientsSaidDecoration = useRef<HTMLDivElement>(null)
 
   useGSAP(
     () => {
@@ -24,27 +24,27 @@ const AboutUs: FC = () => {
 
       let scrollTrigger = null
 
-      ; (isSmallLaptop || isLaptop || isPC) &&
+      ;(isSmallLaptop || isLaptop || isPC) &&
         ScrollTrigger.create({
-          trigger: tagClientsSaidDecorationRef.current,
+          trigger: refClientsSaidDecoration.current,
           start: "center center",
           end: "bottom 85%",
-          endTrigger: tagClientsSaidRef.current,
+          endTrigger: refClientsSaid.current,
           pinSpacing: false,
           pin: true,
           onEnter: () => {
-            const paths = tagClientsSaidDecorationRef.current
-              && tagClientsSaidDecorationRef.current.querySelectorAll("svg > .visualizezza")
+            const paths = refClientsSaidDecoration.current
+              && refClientsSaidDecoration.current.querySelectorAll("svg > .visualizezza")
               paths && paths.forEach(x => {
               x?.classList.add("_active")
             })
           }
         }),
         (scrollTrigger = ScrollTrigger.create({
-          trigger: tagSectionRef.current,
+          trigger: refSection.current,
           start: "top center",
         })),
-        gsap.from(tagTitleRef.current, {
+        gsap.from(refTitle.current, {
           duration: 0.85,
           ease: "power4.out",
           opacity: 0,
@@ -94,12 +94,12 @@ const AboutUs: FC = () => {
 
 
 
-    }, { scope: tagSectionRef }
+    }, { scope: refSection }
   )
 
   return (
-    <section className={"about-us__section"} ref={tagSectionRef}>
-      <div className={"about-us__title-wrapper"} ref={tagTitleRef}>
+    <section className={"about-us__section"} ref={refSection}>
+      <div className={"about-us__title-wrapper"} ref={refTitle}>
         <h2 className={"about-us__title"}>About</h2>
         <div className={"about-us__title-smaller"}>us</div>
       </div>
@@ -108,7 +108,7 @@ const AboutUs: FC = () => {
         Proin id gravida justo, tempus scelerisque dolor Aenean eu convallis velit.
         Ut non sapien felis. Curabitur justo massa, porttitor eget mauris quis, tempor pharetra lorem
       </p>
-      <div className={"about-us__clients-said-wrapper"} ref={tagClientsSaidRef}>
+      <div className={"about-us__clients-said-wrapper"} ref={refClientsSaid}>
         <div>
           <h4 className={"about-us__clients-said-title"}>Experience</h4>
           <p className={"about-us__clients-said-description"}>
@@ -138,7 +138,7 @@ const AboutUs: FC = () => {
           </p>
         </div>
       </div>
-      <div className={"about-us__clients-said-decoration-wrapper"} ref={tagClientsSaidDecorationRef}>
+      <div className={"about-us__clients-said-decoration-wrapper"} ref={refClientsSaidDecoration}>
         <h3 className={"about-us__clients-said-decoration-title"}>
           What <br />
           do clients <br />

@@ -3,7 +3,6 @@ import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { FC, useRef } from "react"
 
-import { SvgIcon } from "../../components/elements/Icon"
 import { useBreakpoints } from "../../hooks/useBreakpoints"
 
 import "./WeUse.scss"
@@ -127,10 +126,10 @@ const WeUse: FC = () => {
           </p>
           <div className={"we-use__card-tools"}>
             <div className={"we-use__card-tools-particular"}>
-              <SvgIcon name={"we-use-language-python"} />
+              Python
             </div>
             <div className={"we-use__card-tools-particular"}>
-              <SvgIcon name={"we-use-language-rust"} />
+              Rust
             </div>
           </div>
         </div>
@@ -142,11 +141,21 @@ const WeUse: FC = () => {
             their audience and grow their business
           </p>
           <div className={"we-use__card-tools"}>
-            <div className={"we-use__card-tools-particular"}>
-              <SvgIcon name={"we-use-language-python"} />
-            </div>
-            <div className={"we-use__card-tools-particular"}>
-              <SvgIcon name={"we-use-language-rust"} />
+            <div className={"we-use__card-tools-particular"}>Asyncio</div>
+            <div className={"we-use__card-tools-particular"}>Tokio</div>
+            <div className={"we-use__card-tools-particular"}>AioHttp</div>
+            <div className={"we-use__card-tools-particular"}>FastAPI</div>
+            <div className={"we-use__card-tools-particular"}>Axum</div>
+            <div className={"we-use__card-tools-particular"}>SQLAlchemy</div>
+            <div className={"we-use__card-tools-particular"}>Peewee</div>
+            <div className={"we-use__card-tools-particular"}>SQLx</div>
+            <div className={"we-use__card-tools-particular"}>Diesel</div>
+            <div className={"we-use__card-tools-particular"}>Celery</div>
+            <div className={"we-use__card-tools-particular"}>Pydantic</div>
+            <div className={"we-use__card-tools-particular"}>Serde</div>
+            <div className={"we-use__card-tools-particular"}>Hydra</div>
+            <div className={"we-use__card-tools--text"}>
+              <p>... and others</p>
             </div>
           </div>
         </div>
@@ -158,11 +167,15 @@ const WeUse: FC = () => {
             their audience and grow their business
           </p>
           <div className={"we-use__card-tools"}>
-            <div className={"we-use__card-tools-particular"}>
-              <SvgIcon name={"we-use-language-python"} />
-            </div>
-            <div className={"we-use__card-tools-particular"}>
-              <SvgIcon name={"we-use-language-rust"} />
+            <div className={"we-use__card-tools-particular"}>PostgreSQL</div>
+            <div className={"we-use__card-tools-particular"}>EdgeDB</div>
+            <div className={"we-use__card-tools-particular"}>MongoDB</div>
+            <div className={"we-use__card-tools-particular"}>Redis</div>
+            <div className={"we-use__card-tools-particular"}>Elasticsearch</div>
+            <div className={"we-use__card-tools-particular"}>FirebaseRDB</div>
+            <div className={"we-use__card-tools-particular"}>InfluxDB</div>
+            <div className={"we-use__card-tools--text"}>
+              <p>... and others</p>
             </div>
           </div>
         </div>
@@ -175,10 +188,13 @@ const WeUse: FC = () => {
           </p>
           <div className={"we-use__card-tools"}>
             <div className={"we-use__card-tools-particular"}>
-              <SvgIcon name={"we-use-language-python"} />
+              Kafka
             </div>
             <div className={"we-use__card-tools-particular"}>
-              <SvgIcon name={"we-use-language-rust"} />
+              RabbitMQ
+            </div>
+            <div className={"we-use__card-tools-particular"}>
+              Redis Pub/Sub
             </div>
           </div>
         </div>
@@ -191,26 +207,13 @@ const WeUse: FC = () => {
           </p>
           <div className={"we-use__card-tools"}>
             <div className={"we-use__card-tools-particular"}>
-              <SvgIcon name={"we-use-language-python"} />
+              PyTest
             </div>
             <div className={"we-use__card-tools-particular"}>
-              <SvgIcon name={"we-use-language-rust"} />
-            </div>
-          </div>
-        </div>
-
-        <div className={"we-use__card"}>
-          <h3 className={"we-use__card-title"}>Documentation</h3>
-          <p className={"we-use__card-description"}>
-            As a digital designer and art director I help companies and organisations around the world connect with
-            their audience and grow their business
-          </p>
-          <div className={"we-use__card-tools"}>
-            <div className={"we-use__card-tools-particular"}>
-              <SvgIcon name={"we-use-language-python"} />
+              Unittest
             </div>
             <div className={"we-use__card-tools-particular"}>
-              <SvgIcon name={"we-use-language-rust"} />
+              Rust Test Module
             </div>
           </div>
         </div>
@@ -223,10 +226,26 @@ const WeUse: FC = () => {
           </p>
           <div className={"we-use__card-tools"}>
             <div className={"we-use__card-tools-particular"}>
-              <SvgIcon name={"we-use-language-python"} />
+              Docker
             </div>
             <div className={"we-use__card-tools-particular"}>
-              <SvgIcon name={"we-use-language-rust"} />
+              Kubernetes
+            </div>
+          </div>
+        </div>
+
+        <div className={"we-use__card"}>
+          <h3 className={"we-use__card-title"}>Monitoring</h3>
+          <p className={"we-use__card-description"}>
+            As a digital designer and art director I help companies and organisations around the world connect with
+            their audience and grow their business
+          </p>
+          <div className={"we-use__card-tools"}>
+            <div className={"we-use__card-tools-particular"}>
+              Prometheus
+            </div>
+            <div className={"we-use__card-tools-particular"}>
+              Grafana
             </div>
           </div>
         </div>

@@ -16,8 +16,6 @@ import { ReactComponent as WeDoAutomationToolsIcon } from "./icons/we-do-automat
 import { ReactComponent as WeDoBotsIcon } from "./icons/we-do-bots.svg"
 import { ReactComponent as WeDoServerApplicationsIcon } from "./icons/we-do-server-applications.svg"
 import { ReactComponent as WeDoServiceIntegrationsIcon } from "./icons/we-do-service-integrations.svg"
-import { ReactComponent as WeUseLanguagePythonIcon } from "./icons/we-use-language-python.svg"
-import { ReactComponent as WeUseLanguageRustIcon } from "./icons/we-use-language-rust.svg"
 
 const icons = {
   "arrow-decoration-bw": ArrowDecorationBWIcon,
@@ -36,8 +34,6 @@ const icons = {
   "we-do-bots": WeDoBotsIcon,
   "we-do-server-applications": WeDoServerApplicationsIcon,
   "we-do-service-integrations": WeDoServiceIntegrationsIcon,
-  "we-use-language-python": WeUseLanguagePythonIcon,
-  "we-use-language-rust": WeUseLanguageRustIcon,
 } as const
 
 export type SvgIconName = keyof typeof icons

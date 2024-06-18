@@ -88,12 +88,12 @@ const Header: FC = () => {
          contextSafe
       && contextSafe(() => { openDrawerMenu() })
 
-         onMouseClickAtOpenDrawerMenu
-      && refOpenDrawerMenuBtn.current
-      && refOpenDrawerMenuBtn.current.addEventListener(
-        "click",
-        onMouseClickAtOpenDrawerMenu
-      )
+       onMouseClickAtOpenDrawerMenu
+    && refOpenDrawerMenuBtn.current
+    && refOpenDrawerMenuBtn.current.addEventListener(
+      "click",
+      onMouseClickAtOpenDrawerMenu
+    )
 
     return () => {
          onMouseClickAtOpenDrawerMenu

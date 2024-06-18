@@ -5,72 +5,54 @@ import { FC, useRef } from "react"
 
 import { SvgIcon } from "../../components/elements/Icon"
 import { useApp } from "../../contexts/App"
+import { getElementWidth } from "../../utils/fn"
 
 import "./Footer.scss"
 
+/* prettier-ignore */
+function _calcDecorationArrowXPosition(): number {
+  const x: number = (
+      getElementWidth(".footer__container")
+    - getElementWidth(".footer__offer")) / 2
+  const position: number = (getElementWidth(".footer__offer-decoration-arrow") + x) * -1;
+
+  return position
+}
+
 const Footer: FC = () => {
+  /** hooks */
   const { setLetsStartedFormVisibility } = useApp()
 
-  const tagFooterRef = useRef<HTMLElement>(null)
-  const tagLetsStartProjectBtnRef = useRef<HTMLButtonElement>(null)
-
-  /* prettier-ignore */
-  function getDecorationLineWidth(): number {
-    const width: number = parseInt(window
-      .getComputedStyle(document.querySelector(".footer__offer-decoration-line") as Element)
-      .getPropertyValue("width")
-    )
-
-    return width;
-  }
-
-  /* prettier-ignore */
-  function computeDecorationArrowXPosition(): number {
-    const x: number = (
-      parseInt(window
-        .getComputedStyle(document.querySelector(".footer__container") as Element)
-        .getPropertyValue("width")
-      ) -
-      parseInt(window
-        .getComputedStyle(document.querySelector(".footer__offer") as Element)
-        .getPropertyValue("width")
-      )
-    ) / 2;
-
-    const position: number = (
-      parseInt(window
-        .getComputedStyle(document.querySelector(".footer__offer-decoration-arrow") as Element)
-        .getPropertyValue("width")
-      ) + x) * -1;
-    
-    return position;
-  }
+  /** refs */
+  const refFooter = useRef<HTMLElement>(null)
+  const refLetsStartProjectBtn = useRef<HTMLButtonElement>(null)
 
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger)
 
       const scrollTrigger = ScrollTrigger.create({
-        trigger: tagFooterRef.current,
+        trigger: refFooter.current,
         start: "top 60%",
       })
 
-      const tl = gsap.timeline({ scrollTrigger: scrollTrigger })
-      tl.fromTo(
-        ".footer__offer-word",
-        {
-          opacity: 0,
-          y: 40,
-        },
-        {
-          duration: 0.85,
-          ease: "power4.out",
-          opacity: 1,
-          stagger: 0.1,
-          y: 0,
-        },
-        "+=0.25"
-      )
+      gsap
+        .timeline({ scrollTrigger: scrollTrigger })
+        .fromTo(
+          ".footer__offer-word",
+          {
+            opacity: 0,
+            y: 40,
+          },
+          {
+            duration: 0.85,
+            ease: "power4.out",
+            opacity: 1,
+            stagger: 0.1,
+            y: 0,
+          },
+          "+=0.25"
+        )
         .fromTo(
           ".footer__offer-decoration-line",
           {
@@ -79,14 +61,14 @@ const Footer: FC = () => {
           {
             duration: 0.45,
             ease: "power4.out",
-            width: getDecorationLineWidth(),
+            width: getElementWidth(".footer__offer-decoration-line"),
           },
           "-=0.25"
         )
         .fromTo(
           ".footer__offer-decoration-arrow",
           {
-            x: computeDecorationArrowXPosition(),
+            x: _calcDecorationArrowXPosition(),
           },
           {
             duration: 0.85,
@@ -96,63 +78,60 @@ const Footer: FC = () => {
           ">"
         )
     },
-    { scope: tagFooterRef }
+    { scope: refFooter }
   )
 
-  useGSAP(
-    (_, contextSafe) => {
-      const onMouseMove =
-        contextSafe &&
-        contextSafe((event: MouseEvent) => {
-          const elt = event.currentTarget as HTMLElement
-          const bounding = elt.getBoundingClientRect() as DOMRect
+  /* prettier-ignore */
+  useGSAP((_, contextSafe) => {
+    const onMouseMove =
+         contextSafe
+      && contextSafe((event: MouseEvent) => {
+        const elt = event.currentTarget as HTMLElement
+        const bounding = elt.getBoundingClientRect() as DOMRect
 
-          gsap.to(elt, {
-            x: ((event.clientX - bounding.left) / elt.offsetWidth - 0.5) * 50,
-            y: ((event.clientY - bounding.top) / elt.offsetHeight - 0.5) * 50,
-            ease: "power4.out",
-          })
+        gsap.to(elt, {
+          x: ((event.clientX - bounding.left) / elt.offsetWidth - 0.5) * 50,
+          y: ((event.clientY - bounding.top) / elt.offsetHeight - 0.5) * 50,
+          ease: "power4.out",
         })
+      })
 
-      const onMouseOut =
-        contextSafe &&
-        contextSafe((event: MouseEvent) => {
-          const elt = event.currentTarget as HTMLElement
+    const onMouseOut =
+         contextSafe
+      && contextSafe((event: MouseEvent) => {
+        const elt = event.currentTarget as HTMLElement
 
-          gsap.to(elt, {
-            x: 0,
-            y: 0,
-            ease: "power4.out",
-          })
+        gsap.to(elt, {
+          x: 0,
+          y: 0,
+          ease: "power4.out",
         })
+      })
 
-      // prettier-ignore
-      if (
-         tagLetsStartProjectBtnRef.current
+    if (
+         refLetsStartProjectBtn.current
       && onMouseMove
       && onMouseOut
     ) {
-      tagLetsStartProjectBtnRef.current.addEventListener("mousemove", onMouseMove);
-      tagLetsStartProjectBtnRef.current.addEventListener("mouseout", onMouseOut);
+      refLetsStartProjectBtn.current.addEventListener("mousemove", onMouseMove);
+      refLetsStartProjectBtn.current.addEventListener("mouseout", onMouseOut);
     }
 
-      return () => {
-        // prettier-ignore
-        if (
-           tagLetsStartProjectBtnRef.current
-        && onMouseMove
-        && onMouseOut
+    return () => {
+      if (
+         refLetsStartProjectBtn.current
+      && onMouseMove
+      && onMouseOut
       ) {
-        tagLetsStartProjectBtnRef.current.removeEventListener("mousemove", onMouseMove);
-        tagLetsStartProjectBtnRef.current.removeEventListener("mouseout", onMouseOut);
-      }
-      }
+        refLetsStartProjectBtn.current.removeEventListener("mousemove", onMouseMove);
+        refLetsStartProjectBtn.current.removeEventListener("mouseout", onMouseOut);
+      }}
     },
-    { scope: tagFooterRef }
+    { scope: refFooter }
   )
 
   return (
-    <footer className={"footer"} ref={tagFooterRef}>
+    <footer className={"footer"} ref={refFooter}>
       <div className={"footer__container"}>
         <div className={"footer__content"}>
           <div className={"footer__offer"}>
@@ -180,7 +159,7 @@ const Footer: FC = () => {
               onClick={() => {
                 setLetsStartedFormVisibility(true)
               }}
-              ref={tagLetsStartProjectBtnRef}
+              ref={refLetsStartProjectBtn}
             >
               Start a project
             </button>

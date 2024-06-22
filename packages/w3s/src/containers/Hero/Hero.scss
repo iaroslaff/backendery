@@ -104,7 +104,7 @@
     line-height: 150%;
   }
 
-  &__title-wrapper {
+  &__title {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -241,7 +241,7 @@
     }
   }
 
-  &__lets-watch-circle {
+  &__lets-watch-circle-btn {
     position: relative;
     display: flex;
     align-items: center;

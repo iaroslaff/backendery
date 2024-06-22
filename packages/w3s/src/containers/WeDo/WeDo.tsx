@@ -13,6 +13,17 @@ enum AnimationState {
   Stop,
 }
 
+/**
+ * Toggles animation state on SVG elements within a specified HTML element.
+ *
+ * This function applies the `_active` class to SVG elements with the class `visualizezza`
+ * inside the specified HTML element to either start or stop the animation based on the given state.
+ *
+ * @param {HTMLElement} elt - The parent HTML element that contains the SVG elements to be animated.
+ * @param {AnimationState} [state=AnimationState.Start] - The desired animation state. Defaults to `AnimationState.Start`.
+ *
+ * @throws {Error} Will throw an error if an unknown animation state is specified.
+ */
 function animateSvg(elt: HTMLElement, state: AnimationState = AnimationState.Start): void {
   const paths = elt.querySelectorAll("svg > .visualizezza")
   paths.forEach(x => {
@@ -31,6 +42,15 @@ function animateSvg(elt: HTMLElement, state: AnimationState = AnimationState.Sta
   })
 }
 
+/**
+ * Changes the background color of an HTML element using GSAP animation.
+ *
+ * This function animates the background color of the specified HTML element
+ * to the given color over a duration of 0.19 seconds with no easing.
+ *
+ * @param {HTMLElement} elt - The HTML element whose background color will be changed.
+ * @param {string} color - The target background color to transition to.
+ */
 function changeCardColor(elt: HTMLElement, color: string): void {
   gsap.to(elt, {
     backgroundColor: color,
@@ -50,48 +70,66 @@ const WeDo: FC = () => {
   /* prettier-ignore */
   useGSAP(
     () => {
-      gsap.registerPlugin(ScrollTrigger)
+      gsap.registerPlugin(ScrollTrigger);
 
-      let scrollTrigger = null
+      let triggerConfig: ScrollTrigger.StaticVars = {};
+      let scrollTrigger: ScrollTrigger = ScrollTrigger.prototype;
 
-      ;(isSmartphone || isTablet) && (
-        // 0
-        scrollTrigger = ScrollTrigger.create({
-          trigger: refSection.current,
-          start: "top 80%",
-        }),
-        // 1
-        gsap.from(refTitle.current, {
+      // 0
+      triggerConfig = {
+        trigger: refSection.current,
+        start: (isSmartphone || isTablet || isSmallLaptop) ? "top 80%" : "top center"
+      };
+      scrollTrigger = ScrollTrigger.create(triggerConfig);
+      gsap.fromTo(
+        refTitle.current,
+        {
+          opacity: 0,
+          y: 60,
+        },
+        {
           duration: 0.85,
+          ease: "power4.out",
+          opacity: 1,
+          scrollTrigger: scrollTrigger,
+          y: 0,
+        }
+      );
+
+      // 1
+      ;(isSmallLaptop || isLaptop || isPC) && (
+        triggerConfig = { trigger: refSection.current, start: "top 25%" },
+        scrollTrigger = ScrollTrigger.create(triggerConfig),
+        gsap.from(".we-do__card", {
           ease: "power4.out",
           opacity: 0,
           scrollTrigger: scrollTrigger,
-          y: 60,
-        }),
-        // 2
+          stagger: {
+            each: 0.25,
+            from: "random",
+            grid: "auto",
+          },
+          y: 40,
+        })
+      )
+
+      // 2
+      ;(isSmartphone || isTablet) && (
         gsap.utils.toArray(".we-do__card").forEach(x => {
           const card = x as HTMLElement
           card.classList.add("_no-tap")
 
-          scrollTrigger = ScrollTrigger.create({
-            trigger: card,
-            start: "top 80%",
-            end: "top 75%",
+          triggerConfig = { trigger: card, start: "top 80%", end: "top 75%" }
+          scrollTrigger = ScrollTrigger.create(triggerConfig)
+          gsap.from(card, {
+            duration: 0.85,
+            ease: "expo.in",
+            opacity: 0,
+            scrollTrigger: scrollTrigger,
+            stagger: 0.25,
           })
-          gsap.fromTo(
-            card,
-            {
-              opacity: 0,
-            },
-            {
-              duration: 0.85,
-              ease: "expo.in",
-              opacity: 1,
-              scrollTrigger: scrollTrigger,
-              stagger: 0.25,
-            }
-          )
-          ScrollTrigger.create({
+
+          triggerConfig = {
             trigger: card,
             start: "top center",
             end: "bottom center",
@@ -107,40 +145,8 @@ const WeDo: FC = () => {
             onLeaveBack: () => {
               changeCardColor(card, "rgba(254, 254, 255, 0.02)"); animateSvg(card, AnimationState.Stop)
             },
-          })
-        })
-      )
-
-      ;(isSmallLaptop || isLaptop || isPC) && (
-        // 0
-        scrollTrigger = ScrollTrigger.create({
-          trigger: refSection.current,
-          start: "top center",
-        }),
-        // 1
-        gsap.from(refTitle.current, {
-          duration: 0.85,
-          ease: "power4.out",
-          opacity: 0,
-          scrollTrigger: scrollTrigger,
-          y: 60,
-        }),
-        // 2
-        scrollTrigger = ScrollTrigger.create({
-          trigger: refSection.current,
-          start: "top 25%",
-        }),
-        // 3
-        gsap.from(".we-do__card", {
-          ease: "power4.out",
-          opacity: 0,
-          scrollTrigger: scrollTrigger,
-          stagger: {
-            each: 0.25,
-            from: "random",
-            grid: [2, 3],
-          },
-          y: 40,
+          }
+          ScrollTrigger.create(triggerConfig)
         })
       )
     },

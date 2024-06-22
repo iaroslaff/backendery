@@ -9,6 +9,14 @@ import { getElementWidth } from "../../utils/fn"
 
 import "./Footer.scss"
 
+/**
+ * Calculates the X position for the decoration arrow in the footer.
+ *
+ * This function computes the X position of the decoration arrow element
+ * within the footer based on the widths of specified elements.
+ *
+ * @returns {number} The computed X position for the decoration arrow.
+ */
 /* prettier-ignore */
 function _calcDecorationArrowXPosition(): number {
   const x: number = (
@@ -31,11 +39,11 @@ const Footer: FC = () => {
     () => {
       gsap.registerPlugin(ScrollTrigger)
 
-      const scrollTrigger = ScrollTrigger.create({
-        trigger: refFooter.current,
-        start: "top 60%",
-      })
+      let triggerConfig: ScrollTrigger.StaticVars = {}
+      let scrollTrigger: ScrollTrigger = ScrollTrigger.prototype
 
+      triggerConfig = { trigger: refFooter.current, start: "top 60%" }
+      scrollTrigger = ScrollTrigger.create(triggerConfig)
       gsap
         .timeline({ scrollTrigger: scrollTrigger })
         .fromTo(

@@ -62,7 +62,8 @@ table! {
   }
 }
 `,
-`#[derive(serde::Serialize, Selectable, Queryable)]
+`#[derive(Serialize)]
+#[derive(Selectable, Queryable)]
 struct User {
   id: i32, name: String
 }
@@ -82,7 +83,6 @@ fn internal_error<E>(err: E) -&gt; (StatusCode, String)
       users::table.select(User::as_select()).load(pg)
     })
     .await
-    .map_err(internal_error)?
     .map_err(internal_error)?;
   Ok(Json(result))
 }
@@ -131,24 +131,32 @@ const Hero: FC = () => {
   useGSAP(() => {
     gsap
       .timeline()
-      .from(
+      .fromTo(
         ".hero__title-word",
+        {
+          opacity: 0,
+          y: 40,
+        },
         {
           duration: 0.85,
           ease: "power4.out",
-          opacity: 0,
+          opacity: 1,
           stagger: 0.1,
-          y: 40,
+          y: 0,
         },
         "+=0.25"
       )
-      .from(
+      .fromTo(
         ".hero__code",
+        {
+          opacity: 0,
+          y: 25,
+        },
         {
           duration: 0.85,
           ease: "power4.out",
-          opacity: 0,
-          y: 25,
+          opacity: 1,
+          y: 0,
         },
         "<0.55"
       )
@@ -170,23 +178,31 @@ const Hero: FC = () => {
         },
         ">"
       )
-      .from(
+      .fromTo(
         ".hero__description",
         {
-          duration: 0.85,
-          ease: "expo.out",
           opacity: 0,
           y: -25,
         },
+        {
+          duration: 0.85,
+          ease: "expo.out",
+          opacity: 1,
+          y: 0,
+        },
         ">"
       )
-      .from(
+      .fromTo(
         ".hero__lets-watch",
+        {
+          opacity: 0,
+          y: 40,
+        },
         {
           duration: 0.85,
           ease: "power4.out",
-          opacity: 0,
-          y: 40,
+          opacity: 1,
+          y: 0,
         },
         "+=0.15"
       )
@@ -261,7 +277,7 @@ const Hero: FC = () => {
             These words don&apos;t just describe our approach, they are the foundation
           </p>
         </div>
-        <div className={"hero__title-wrapper"}>
+        <div className={"hero__title"}>
           <h2 className={"hero__title-word"}>Robust</h2>
           <h2 className={"hero__title-word"}>Flexible</h2>
           <h2 className={"hero__title-word"}>Intuitive</h2>
@@ -281,7 +297,7 @@ const Hero: FC = () => {
         <div className={"hero__lets-watch"}>
           <span>Let&apos;s watch</span>
           <button
-            className={"hero__lets-watch-circle"}
+            className={"hero__lets-watch-circle-btn"}
             /* prettier-ignore */
             onClick={(event) => {
                  event

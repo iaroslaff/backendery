@@ -164,10 +164,10 @@
     &--text {
       display: flex;
       gap: 6px;
-      font-weight: 500;
-      font-size: 16px;
       align-items: center;
       color: $accent-color;
+      font-weight: 500;
+      font-size: 16px;
       line-height: 120%;
     }
   }
@@ -183,9 +183,9 @@
     font-weight: 500;
     font-size: 16px;
     background-color: $primary-color;
-    border-radius: 30px;
     border: 2px solid $accent-color;
     border-color: $accent-color;
+    border-radius: 30px;
   }
 
   @media (max-width: $md) {

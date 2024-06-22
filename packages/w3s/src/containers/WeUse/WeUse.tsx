@@ -17,77 +17,78 @@ const WeUse: FC = () => {
   const refDescription = useRef<HTMLParagraphElement>(null)
   const refToolSet = useRef<HTMLDivElement>(null)
 
+  /* prettier-ignore */
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger)
 
-      let scrollTrigger = null
+      let triggerConfig: ScrollTrigger.StaticVars = {};
+      let scrollTrigger: ScrollTrigger = ScrollTrigger.prototype;
 
-      ;(isSmallLaptop || isLaptop || isPC) &&
-        (ScrollTrigger.create({
+      // 0
+      triggerConfig = {
+        trigger: refSection.current,
+        start: (isSmartphone || isTablet || isSmallLaptop) ? "top 80%" : "top center"
+      };
+      scrollTrigger = ScrollTrigger.create(triggerConfig)
+      gsap.fromTo(
+        refTitle.current,
+        {
+          opacity: 0,
+          y: 60,
+        },
+        {
+        duration: 0.85,
+        ease: "power4.out",
+        opacity: 1,
+        scrollTrigger: scrollTrigger,
+        y: 0,
+      })
+
+      // 1
+      ;(isSmallLaptop || isLaptop || isPC) && (
+        triggerConfig = {
           trigger: refTitle.current,
           start: "top 5%",
           end: "bottom 65%",
           endTrigger: refToolSet.current,
           pinSpacing: false,
           pin: true,
-        }),
-        ScrollTrigger.create({
+        },
+        ScrollTrigger.create(triggerConfig),
+
+        triggerConfig = {
           trigger: refDescription.current,
           start: "center center",
           end: "bottom 55%",
           endTrigger: refToolSet.current,
           pinSpacing: false,
           pin: true,
-        }),
-        (scrollTrigger = ScrollTrigger.create({
-          trigger: refSection.current,
-          start: "top center",
-        })),
-        gsap.from(refTitle.current, {
-          duration: 0.85,
-          ease: "power4.out",
-          opacity: 0,
-          scrollTrigger: scrollTrigger,
-          y: 60,
-        }))
-      ;(isSmartphone || isTablet) &&
-        ((scrollTrigger = ScrollTrigger.create({
-          trigger: refSection.current,
-          start: "top 80%",
-        })),
-        gsap.from(refTitle.current, {
-          duration: 0.85,
-          ease: "power4.out",
-          opacity: 0,
-          scrollTrigger: scrollTrigger,
-          y: 60,
-        }))
+        },
+        ScrollTrigger.create(triggerConfig)
+      )
 
+      // 2
       gsap.utils.toArray(".we-use__card").forEach(x => {
         const card = x as HTMLElement
         card.classList.add("_no-tap")
 
-        scrollTrigger = ScrollTrigger.create({
-          trigger: card,
-          start: "top 80%",
-          end: "top 75%",
-        })
+        triggerConfig = { trigger: card, start: "top 80%", end: "top 75%" }
+        scrollTrigger = ScrollTrigger.create(triggerConfig)
+        gsap.from(card, {
+          duration: 0.85,
+          ease: "expo.in",
+          opacity: 0,
+          scrollTrigger: scrollTrigger,
+          stagger: 0.25,
+          onStart: () => {
+            const title = card.querySelector(".we-use__card-title")
+            const toolsParticular = card.querySelectorAll(".we-use__card-tools-particular")
+            const toolsText = card.querySelector(".we-use__card-tools--text")
 
-        gsap.fromTo(
-          card,
-          {
-            opacity: 0,
-          },
-          {
-            duration: 0.85,
-            ease: "expo.in",
-            opacity: 1,
-            scrollTrigger: scrollTrigger,
-            stagger: 0.25,
-            onStart: () => {
-              const title = card.querySelector(".we-use__card-title")
-              gsap.fromTo(
+            const tl = gsap.timeline()
+            tl
+              .fromTo(
                 title,
                 {
                   x: 60,
@@ -99,7 +100,39 @@ const WeUse: FC = () => {
                   x: 0,
                 }
               )
-            },
+              .fromTo(
+                toolsParticular,
+                {
+                  opacity: 0,
+                  y: 20
+                },
+                {
+                  duration: 0.55,
+                  ease: "power4.out",
+                  opacity: 1,
+                  stagger: {
+                    each: 0.25,
+                    from: "random",
+                    grid: "auto",
+                  },
+                  y: 0,
+                },
+                "<0.25"
+            )
+               toolsText
+            && tl.fromTo(
+                toolsText,
+                {
+                  opacity: 0
+                },
+                {
+                  duration: 0.20,
+                  ease: "expo.in",
+                  opacity: 1
+                },
+                ">"
+              )
+            }, // end onStart() callback
           }
         )
       })
@@ -125,12 +158,8 @@ const WeUse: FC = () => {
             their audience and grow their business
           </p>
           <div className={"we-use__card-tools"}>
-            <div className={"we-use__card-tools-particular"}>
-              Python
-            </div>
-            <div className={"we-use__card-tools-particular"}>
-              Rust
-            </div>
+            <div className={"we-use__card-tools-particular"}>Python</div>
+            <div className={"we-use__card-tools-particular"}>Rust</div>
           </div>
         </div>
 
@@ -187,15 +216,9 @@ const WeUse: FC = () => {
             their audience and grow their business
           </p>
           <div className={"we-use__card-tools"}>
-            <div className={"we-use__card-tools-particular"}>
-              Kafka
-            </div>
-            <div className={"we-use__card-tools-particular"}>
-              RabbitMQ
-            </div>
-            <div className={"we-use__card-tools-particular"}>
-              Redis Pub/Sub
-            </div>
+            <div className={"we-use__card-tools-particular"}>Kafka</div>
+            <div className={"we-use__card-tools-particular"}>RabbitMQ</div>
+            <div className={"we-use__card-tools-particular"}>Redis Pub/Sub</div>
           </div>
         </div>
 
@@ -206,15 +229,9 @@ const WeUse: FC = () => {
             their audience and grow their business
           </p>
           <div className={"we-use__card-tools"}>
-            <div className={"we-use__card-tools-particular"}>
-              PyTest
-            </div>
-            <div className={"we-use__card-tools-particular"}>
-              Unittest
-            </div>
-            <div className={"we-use__card-tools-particular"}>
-              Rust Test Module
-            </div>
+            <div className={"we-use__card-tools-particular"}>PyTest</div>
+            <div className={"we-use__card-tools-particular"}>Unittest</div>
+            <div className={"we-use__card-tools-particular"}>Rust Test Module</div>
           </div>
         </div>
 
@@ -225,12 +242,8 @@ const WeUse: FC = () => {
             their audience and grow their business
           </p>
           <div className={"we-use__card-tools"}>
-            <div className={"we-use__card-tools-particular"}>
-              Docker
-            </div>
-            <div className={"we-use__card-tools-particular"}>
-              Kubernetes
-            </div>
+            <div className={"we-use__card-tools-particular"}>Docker</div>
+            <div className={"we-use__card-tools-particular"}>Kubernetes</div>
           </div>
         </div>
 
@@ -241,12 +254,8 @@ const WeUse: FC = () => {
             their audience and grow their business
           </p>
           <div className={"we-use__card-tools"}>
-            <div className={"we-use__card-tools-particular"}>
-              Prometheus
-            </div>
-            <div className={"we-use__card-tools-particular"}>
-              Grafana
-            </div>
+            <div className={"we-use__card-tools-particular"}>Prometheus</div>
+            <div className={"we-use__card-tools-particular"}>Grafana</div>
           </div>
         </div>
       </div>

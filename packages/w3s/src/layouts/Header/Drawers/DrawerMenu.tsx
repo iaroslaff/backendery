@@ -1,7 +1,7 @@
-import { useLenis } from "@studio-freight/react-lenis"
 import { useGSAP } from "@gsap/react"
+import { useLenis } from "@studio-freight/react-lenis"
 import gsap from "gsap"
-import { FC, useRef, useEffect } from "react"
+import { FC, useEffect, useRef } from "react"
 
 import { SvgIcon } from "../../../components/elements/Icon"
 import { useApp } from "../../../contexts/App"
@@ -82,44 +82,38 @@ const DrawerMenu: FC = () => {
 
   /* prettier-ignore */
   useGSAP((_, contextSafe) => {
-    const onMouseClickAtCloseDrawerMenu  =
-         contextSafe
-      && contextSafe(() => { closeDrawerMenu() })
+    const onMouseClick = contextSafe && contextSafe(() => { closeDrawerMenu() })
 
-    const onMouseClickAtLetsStartProject =
-         contextSafe
-      && contextSafe(() => { closeDrawerMenu(); setLetsStartedFormVisibility(true) })
-
-       onMouseClickAtCloseDrawerMenu
+       onMouseClick
     && refCloseDrawerMenuBtn.current
-    && refCloseDrawerMenuBtn.current.addEventListener(
-      "click",
-      onMouseClickAtCloseDrawerMenu
-    );
-
-       onMouseClickAtLetsStartProject
-    && refLetsStartProjectBtn.current
-    && refLetsStartProjectBtn.current.addEventListener(
-      "click",
-      onMouseClickAtLetsStartProject
-    );
+    && refCloseDrawerMenuBtn.current.addEventListener("click", onMouseClick);
 
     return () => {
-         onMouseClickAtCloseDrawerMenu
+         onMouseClick
       && refCloseDrawerMenuBtn.current
       && refCloseDrawerMenuBtn.current.removeEventListener(
         "click",
-        onMouseClickAtCloseDrawerMenu
-      );
-
-         onMouseClickAtLetsStartProject
-      && refLetsStartProjectBtn.current
-      && refLetsStartProjectBtn.current.addEventListener(
-        "click",
-        onMouseClickAtLetsStartProject
+        onMouseClick
       );
     }
-  })
+  });
+
+  /* prettier-ignore */
+  useGSAP((_, contextSafe) => {
+    const onMouseClick =
+         contextSafe
+      && contextSafe(() => { closeDrawerMenu(); setLetsStartedFormVisibility(true) })
+
+         onMouseClick
+      && refLetsStartProjectBtn.current
+      && refLetsStartProjectBtn.current.addEventListener("click", onMouseClick);
+
+    return () => {
+         onMouseClick
+      && refLetsStartProjectBtn.current
+      && refLetsStartProjectBtn.current.addEventListener("click", onMouseClick);
+    }
+  });
 
   /* prettier-ignore */
   useEffect(() => {

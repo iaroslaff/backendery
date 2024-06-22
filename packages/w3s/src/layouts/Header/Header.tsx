@@ -84,26 +84,18 @@ const Header: FC = () => {
 
   /* prettier-ignore */
   useGSAP((_, contextSafe) => {
-    const onMouseClickAtOpenDrawerMenu =
-         contextSafe
-      && contextSafe(() => { openDrawerMenu() })
+    const onMouseClick = contextSafe && contextSafe(() => { openDrawerMenu() })
 
-       onMouseClickAtOpenDrawerMenu
+       onMouseClick
     && refOpenDrawerMenuBtn.current
-    && refOpenDrawerMenuBtn.current.addEventListener(
-      "click",
-      onMouseClickAtOpenDrawerMenu
-    )
+    && refOpenDrawerMenuBtn.current.addEventListener("click", onMouseClick)
 
     return () => {
-         onMouseClickAtOpenDrawerMenu
+         onMouseClick
       && refOpenDrawerMenuBtn.current
-      && refOpenDrawerMenuBtn.current.removeEventListener(
-        "click",
-        onMouseClickAtOpenDrawerMenu
-      )
+      && refOpenDrawerMenuBtn.current.removeEventListener("click", onMouseClick)
     }
-  })
+  });
 
   return (
     <header className={"header"}>

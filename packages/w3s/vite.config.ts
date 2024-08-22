@@ -3,6 +3,39 @@ import { fileURLToPath, URL } from "url"
 
 export default configure(
   {
+    appType: "spa",
+    base: "/",
+    build: {
+      outDir: "dist",
+      assetsInlineLimit: 1024 * 4,
+      chunkSizeWarningLimit: 1024,
+      cssCodeSplit: true,
+      emptyOutDir: true,
+      manifest: true,
+      minify: "terser",
+      modulePreload: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: [
+              "formik",
+              "react",
+              "react-dom",
+              "react-responsive",
+              "react-router",
+              "react-router-dom",
+              "react-use",
+              "yup",
+            ],
+          },
+        },
+      },
+      sourcemap: true,
+      ssr: false,
+      ssrManifest: false,
+      target: "esnext",
+      write: true,
+    },
     resolve: {
       alias: [
         { find: "@", replacement: fileURLToPath(new URL("./src", import.meta.url)) },

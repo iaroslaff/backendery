@@ -6,8 +6,8 @@ const icons = {
   react: ReactIcon,
 } as const
 
-export type IconName = keyof typeof icons
-type SvgIconProps = SVGProps<SVGSVGElement> & { name: IconName }
+export type SvgIconName = keyof typeof icons
+type SvgIconProps = SVGProps<SVGSVGElement> & { name: SvgIconName }
 
 const SvgIcon: FC<SvgIconProps> = ({ name, ...svgProps }) => {
   const Icon = icons[name] ?? null

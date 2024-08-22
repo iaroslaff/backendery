@@ -6,13 +6,14 @@
     "not ie <= 10"
   ],
   "dependencies": {
-    "lodash": "~4.17.21",
+    "formik": "~2.4.6",
     "react": "~18.3.1",
     "react-dom": "~18.3.1",
     "react-responsive": "~10.0.0",
     "react-router": "~6.23.0",
     "react-router-dom": "~6.23.0",
-    "react-use": "~17.5.0"
+    "react-use": "~17.5.0",
+    "yup": "~1.4.0"
   },
   "description": "ReactJS frontend application",
   "devDependencies": {
@@ -50,5 +51,5 @@
     "serve": "npx vite serve --host",
     "tests": "npx vitest run"
   },
-  "version": "2024.1.2"
+  "version": "2024.1.3"
 }

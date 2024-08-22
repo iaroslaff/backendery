@@ -1,42 +1,65 @@
+@import "./types";
+
 /**
- * Removes the unit from a CSS value, returning the numeric part.
+ * Checks if the given container type is supported. This function verifies whether the
+ * provided container type is within the list of supported container types.
  *
- * @param {string} $value - The CSS value from which to remove the unit.
- * @return {number} - The numeric part of the value without the unit.
- * @throws {error} - Throws an error if no unit is found or if the unit is not in the list of units.
-*/
-@function remove-unit ($value) {
-  $units: ("px", "rem", "em", "vh", "vw", "vmin", "vmax", "ch", "%");
-  $unitFound: false;
-
-  @each $unit in $units {
-    @if (str-index($value, $unit) !=null) {
-      // If the value contains the current unit, remove the corresponding number of characters from the end
-      $unitLength: str-length($unit);
-      $unitFound: true;
-
-      @return str-slice($value, 1, -$unitLength - 1);
-    }
+ * @param {string} $value - The container type to check.
+ * @return {boolean} - Returns true if the container type is supported, otherwise false.
+ * @throws {error} - Throws an error if the provided value is not a string.
+ *
+ * @example
+ * // returns true
+ * $result: is-container-supported("less");
+ *
+ * @example
+ * // returns false
+ * $result: is-container-supported("unknown");
+ */
+@function is-container-supported ($value) {
+  @if type-of($value) != "string" {
+    @error "the value <#{$value}> is not a string";
   }
 
-  // If no unit is found, throw an error
-  @if not $unitFound {
-    @error "no unit found in value: #{$value}.";
+  @if index($supported-container-type, $value) {
+    @return true;
   }
 
-  // If the unit is not in the list of units, throw an error
-  @error "unsupported unit found in value: #{$value}.";
+  @return false;
 }
 
 /**
- * Converts a pixel value to a percentage relative to another value.
+ * Removes the unit from a CSS value, returning the numeric part. This function extracts
+ * the numeric part from a CSS value by removing the unit, if the unit is supported.
  *
- * @param {number} $px - The value in pixels to convert to a percentage.
- * @param {number} $from - The value relative to which the conversion is made.
- * @return {number} - The converted value as a percentage.
-*/
-@function to-percent ($px, $from) {
-  $result: calc(($px / $from) * 100%); // Calculate the percentage value
+ * @param {string} $value - The CSS value from which to remove the unit.
+ * @return {number} - The numeric part of the value without the unit.
+ * @throws {error} - Throws an error if no unit is found or if the unit is not in the list of supported units.
+ *
+ * @example
+ * // returns 16
+ * $result: remove-unit("16px");
+ *
+ * @example
+ * // throws an error: no unit found in value
+ * $result: remove-unit("16");
+ *
+ * @example
+ * // throws an error: unsupported unit found in value
+ * $result: remove-unit("16dp");
+ */
+@function remove-unit ($value) {
+  @if type-of($value) != "string" {
+    @error "the value <#{$value}> is not a string";
+  }
 
-  @return $result;
+  @each $unit in $supported-unit-type {
+    @if (str-index($value, $unit) != null) {
+      $unitLenght: str-length($unit);
+
+      @return str-slice($value, 1, -$unitLenght - 1);
+    }
+  }
+
+  @error "the unit of value <#{$value}> is not supported or missing";
 }

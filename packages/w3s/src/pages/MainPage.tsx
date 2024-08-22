@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 
-import { SvgIcon } from "../components/Icon"
+import { SvgIcon } from "../components/elements/Icon"
 
 const MainPage: FC = () => {
   return (

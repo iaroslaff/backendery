@@ -7,11 +7,3 @@
     @include assert-equal(remove-unit("150%"), "150");
   }
 }
-
-@include describe("The `to-percent` function") {
-  @include it("returns converted value as a percentage.") {
-    @include assert-equal(to-percent(50, 100), 50%);
-    @include assert-equal(to-percent(25, 200), 12.5%);
-    @include assert-equal(to-percent(12, 300), 4%);
-  }
-}

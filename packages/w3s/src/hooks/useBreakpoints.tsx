@@ -1,12 +1,11 @@
 import { useMediaQuery } from "react-responsive"
 
 enum Breakpoints {
-  XS = 360,
-  SM = 480,
-  MD = 768,
-  LG = 992,
-  XL = 1280,
-  XXL = 1536,
+  XS = 480,
+  SM = 768,
+  MD = 992,
+  LG = 1200,
+  XL = 1920,
 }
 
 type SizeMap = Readonly<{ [key in keyof typeof Breakpoints]: Breakpoints }>
@@ -17,18 +16,20 @@ const sizes: SizeMap = {
   MD: Breakpoints.MD,
   LG: Breakpoints.LG,
   XL: Breakpoints.XL,
-  XXL: Breakpoints.XXL,
 } as const
 
-type DeviceType = "smartphone" | "tablet" | "desktop"
+type DeviceType = "smartphone" | "smallDevice" | "tablet" | "laptop" | "pC" | "largeDevice"
 
 type BreakpointHook = { [key in `is${Capitalize<DeviceType>}`]: boolean } & { sizes: SizeMap }
 
-function useBreakpoints(): BreakpointHook {
+const useBreakpoints = (): BreakpointHook => {
   return {
     isSmartphone: useMediaQuery({ maxWidth: Breakpoints.XS }),
-    isTablet: useMediaQuery({ minWidth: Breakpoints.XS + 1, maxWidth: Breakpoints.LG - 1 }),
-    isDesktop: useMediaQuery({ minWidth: Breakpoints.LG }),
+    isSmallDevice: useMediaQuery({ minWidth: Breakpoints.XS + 1, maxWidth: Breakpoints.SM - 1 }),
+    isTablet: useMediaQuery({ minWidth: Breakpoints.SM, maxWidth: Breakpoints.MD - 1 }),
+    isLaptop: useMediaQuery({ minWidth: Breakpoints.MD, maxWidth: Breakpoints.LG - 1 }),
+    isPC: useMediaQuery({ minWidth: Breakpoints.LG, maxWidth: Breakpoints.XL - 1 }),
+    isLargeDevice: useMediaQuery({ minWidth: Breakpoints.XL }),
     sizes,
   }
 }

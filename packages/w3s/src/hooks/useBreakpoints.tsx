@@ -22,7 +22,7 @@ type DeviceType = "smartphone" | "smallDevice" | "tablet" | "laptop" | "pC" | "l
 
 type BreakpointHook = { [key in `is${Capitalize<DeviceType>}`]: boolean } & { sizes: SizeMap }
 
-const useBreakpoints = (): BreakpointHook => {
+function useBreakpoints(): BreakpointHook {
   return {
     isSmartphone: useMediaQuery({ maxWidth: Breakpoints.XS }),
     isSmallDevice: useMediaQuery({ minWidth: Breakpoints.XS + 1, maxWidth: Breakpoints.SM - 1 }),

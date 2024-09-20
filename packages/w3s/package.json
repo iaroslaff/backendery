@@ -6,27 +6,31 @@
     "not ie <= 10"
   ],
   "dependencies": {
+    "@gsap/react": "~2.1.1",
     "formik": "~2.4.6",
+    "gsap": "~3.12.5",
     "react": "~18.3.1",
     "react-dom": "~18.3.1",
+    "react-error-boundary": "~4.0.13",
     "react-responsive": "~10.0.0",
-    "react-router": "~6.23.0",
-    "react-router-dom": "~6.23.0",
-    "react-use": "~17.5.0",
+    "react-router": "~6.26.2",
+    "react-router-dom": "~6.26.2",
+    "react-use": "~17.5.1",
+    "typed.js": "~2.1.0",
     "yup": "~1.4.0"
   },
-  "description": "ReactJS frontend application",
+  "description": "ReactJS frontend for a single-page application",
   "devDependencies": {
     "@beardeddudes/vite-config": "~0.1.*",
-    "@testing-library/dom": "~10.1.0",
-    "@testing-library/jest-dom": "~6.4.2",
-    "@testing-library/react": "~15.0.6",
+    "@testing-library/dom": "~10.4.0",
+    "@testing-library/jest-dom": "~6.5.0",
+    "@testing-library/react": "~16.0.1",
     "@testing-library/user-event": "~14.5.2",
-    "@types/react": "~18.3.1",
+    "@types/react": "~18.3.8",
     "@types/react-dom": "~18.3.0",
     "@types/react-responsive": "~8.0.8",
     "@types/react-router": "~5.1.20",
-    "jsdom": "~24.0.0",
+    "jsdom": "~25.0.0",
     "sass-true": "~8.0.0",
     "vitest": "~1.5.3"
   },
@@ -35,21 +39,21 @@
   },
   "maintainers": [
     {
-      "email": "hey@beardeddudes.dev",
-      "name": "Bearded Dudes",
-      "url": "https://github.com/beardeddudes"
+      "email": "hey@backendery.dev",
+      "name": "Backendery",
+      "url": "https://github.com/backendery"
     }
   ],
-  "name": "@nodejs-project-templates-light/w3s",
+  "name": "@backendery/w3s",
   "repository": {
     "directory": "packages/w3s",
     "type": "git",
-    "url": "git+https://github.com/beardeddudes/nodejs-project-templates-light.git"
+    "url": "git+https://github.com/iaroslaff/backendery.git"
   },
   "scripts": {
     "build": "npx vite build",
     "serve": "npx vite serve --host",
     "tests": "npx vitest run"
   },
-  "version": "2024.1.3"
+  "version": "2024.1.1"
 }

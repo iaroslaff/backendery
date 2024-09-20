@@ -53,7 +53,10 @@ export default configure(
     fonts: {
       google: {
         display: "auto",
-        families: [{ name: "Roboto", styles: "wght@400;500;600;700;800;900" }],
+        families: [
+          { name: "Red Hat Display", styles: "wght@400;500;600;700;800;900" },
+          { name: "Space Mono", styles: "wght@400;700" },
+        ],
         preconnect: true,
       },
     },

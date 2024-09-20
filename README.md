@@ -11,30 +11,7 @@
 </div>
 <!-- markdownlint-restore -->
 
-# Brand New App
+# Backendery :: Homepage
+Homepage for **Backendery**, a digital agency specializing in providing high-quality backend development services, including custom server-side solutions, API development, database management, scalable cloud infrastructure, etc. At **Backendery**, we focus on creating robust, secure, and performance-optimized backend systems tailored to meet the unique needs of each client. Our expertise covers a wide range of technologies, enabling businesses to grow and innovate with a reliable backend foundation.
 
-## Table of contents
-
-- [Brand New App](#brand-new-app)
-  - [Table of contents](#table-of-contents)
-  - [Development | Staging rollout](#development--staging-rollout)
-  - [Documentation \& References](#documentation--references)
-
-## Development | Staging rollout
-
-After setting up **_all_**(!) required secrets(`Vault` or `.env`), perform these actions:
-
-1. Clone this repository to kickstart new project
-
-2. After that open code editor of your choice and replace all occurrences of `"nodejs-project-templates"` in all `package.json` files with the name of your project and run `yarn install` from project root
-
-3. Profit 😊
-
-## Documentation & References
-
-- [React Documentation](https://react.dev/reference/react)
-- [GitHub Actions](https://docs.github.com/en/actions)
-
-That's all and have a good coding.
-
-Best wishes,<br>**Bearded Dudes** team!
+Best wishes,<br>**Backendery** team!

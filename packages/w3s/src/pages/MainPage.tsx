@@ -1,7 +1,5 @@
 import React, { FC } from "react"
 
-import { SvgIcon } from "../components/elements/Icon"
-
 const MainPage: FC = () => {
   return (
     <React.Fragment>
@@ -15,17 +13,7 @@ const MainPage: FC = () => {
           justifyContent: "center",
         }}
       >
-        Hey from Bearded Dudes!
-        <div
-          style={{
-            height: "164px",
-            margin: "10px",
-            padding: "10px",
-            width: "164px",
-          }}
-        >
-          <SvgIcon name={"react"} />
-        </div>
+        Coming soon...
       </div>
     </React.Fragment>
   )

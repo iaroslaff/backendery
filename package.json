@@ -1,5 +1,5 @@
 {
-  "description": "Encompasses all the necessary tools and packages to the development of a frontend application using the ReactJS",
+  "description": "Homepage for Backendery, a digital agency specialized in backend development",
   "devDependencies": {
     "@beardeddudes/eslint-config": "~0.1.*",
     "@beardeddudes/postcss-config": "~0.1.*",
@@ -36,18 +36,18 @@
   },
   "maintainers": [
     {
-      "email": "hey@beardeddudes.dev",
-      "name": "Bearded Dudes",
-      "url": "https://github.com/beardeddudes"
+      "email": "hey@backendery.dev",
+      "name": "Backendery",
+      "url": "https://github.com/backendery"
     }
   ],
-  "name": "nodejs-project-templates-light",
-  "packageManager": "yarn@3.6.1",
+  "name": "backendery",
+  "packageManager": "yarn@4.3.1",
   "prettier": "@beardeddudes/prettier-config",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/beardeddudes/nodejs-project-templates-light.git"
+    "url": "git+https://github.com/iaroslaff/backendery.git"
   },
   "scripts": {
     "stylelint": "npx stylelint",
@@ -57,8 +57,8 @@
     "fix": "echo \"Running Prettier...\" && yarn prettier --write packages/*/src && echo \"Running ESLint...\" && yarn eslint packages/*/src --fix && echo \"Running Stylelint...\" && yarn stylelint packages/*/src/**/*.(sass|scss|css) --fix",
     "lint": "echo \"Running Prettier...\" && yarn prettier --check packages/*/src && echo \"Running ESLint...\" && yarn eslint packages/*/src && echo \"Running Stylelint...\" && yarn stylelint packages/*/src/**/*.(sass|scss|css)",
     "build": "yarn workspaces foreach --exclude=root --parallel run build",
-    "test:w3s": "yarn workspace @nodejs-project-templates-light/w3s run tests",
-    "serve:w3s": "yarn workspace @nodejs-project-templates-light/w3s run serve"
+    "test:w3s": "yarn workspace @backendery/w3s run tests",
+    "serve:w3s": "yarn workspace @backendery/w3s run serve"
   },
   "stylelint": {
     "extends": "@beardeddudes/stylelint-config"

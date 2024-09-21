@@ -32,7 +32,7 @@ const NotFoundError: FC = () => {
         </div>
       </div>
       <div className={"not-found-error__what-next"}>
-        Go ahead then
+        Go for it!
         <br />
         Click the terminal message
       </div>

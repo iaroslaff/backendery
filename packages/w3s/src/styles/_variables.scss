@@ -12,6 +12,11 @@ $lg: 1200px;
 $xl: 1920px;
 
 // Theme colors
-$primary-color: rgb(21, 45, 57);
-$secondary-color: rgb(254, 254, 255);
-$accent-color: rgb(247, 173, 25);
+$primary-color: hsl(206, 9%, 15%);
+$secondary-color: hsl(240, 100%, 100%);
+$accent-color: hsl(40, 93%, 53%);
+
+// Tiles animation
+$spacer: 1rem;
+$fast: .3s;
+$easing: cubic-bezier(.55, 0, .1, 1);

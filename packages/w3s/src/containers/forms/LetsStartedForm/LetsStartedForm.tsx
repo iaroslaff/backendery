@@ -2,7 +2,7 @@ import { Field, Form, Formik, FormikHelpers } from "formik"
 import { FC } from "react"
 import * as Yup from "yup"
 
-import FundingDoubleSlider from "../../../components/FundingDoubleSlider/FundingDoubleSlider"
+import FundingRange from "../../../components/FundingRange/FundingRange"
 
 import "./LetsStartedForm.scss"
 
@@ -94,8 +94,8 @@ const LetsStartedForm: FC = () => {
                     "lets-started-form__input lets-started-form-input lets-started-form-input--big lets-started-form-input--slider"
                   }
                 >
-                  <label className={"lets-started-form-input__label"}>What&apos;s your budget?</label>
-                  <FundingDoubleSlider />
+                  <label className={"lets-started-form-input__label"}>What&apos;s the tier of funding?</label>
+                  <FundingRange />
                 </div>
                 <div className={"lets-started-form__input lets-started-form-input lets-started-form-input--big"}>
                   <Field name={"projectDescription"} id={"projectDescription"} className={"lets-started-form-input__field"} />

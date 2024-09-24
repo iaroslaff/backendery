@@ -61,7 +61,7 @@ export function getElementHeight(selector: string): number {
  * const btn = document.querySelector('.button');
  * addClass(btn, 'active');
  */
-export function addClass(element: Element, cls: string): void {
+export function addClass(element: HTMLElement, cls: string): void {
   if (!hasClass(element, cls)) {
     element.className += " " + cls;
   }
@@ -80,7 +80,7 @@ export function addClass(element: Element, cls: string): void {
  * const isActive = hasClass(btn, 'active');
  * console.log(isActive);
  */
-export function hasClass(element: Element, cls: string): boolean {
+export function hasClass(element: HTMLElement, cls: string): boolean {
   return !!element.className.match(new RegExp("(\\s|^)" + cls + "(\\s|$)"));
 };
 
@@ -95,8 +95,8 @@ export function hasClass(element: Element, cls: string): boolean {
  * const btn = document.querySelector('.button');
  * removeClass(btn, 'active');
  */
-export function removeClass(element: Element, cls: string): void {
+export function removeClass(element: HTMLElement, cls: string): void {
   if (hasClass(element, cls)) {
-    element.className = element.className.replace(new RegExp("(\\s|^)" + cls + "(\\s|$)"), " ");
+    element.className = element.className.replace(new RegExp("(\\s|^)" + cls + "(\\s|$)"), "");
   }
 };

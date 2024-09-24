@@ -1,0 +1,184 @@
+@import "@styles/variables";
+
+.main-container {
+  transition: transform ($fast * 2) $easing;
+
+  &.show-all {
+    transform: rotateY(0deg) scale(0.3);
+  }
+}
+
+.tiled-wall {
+  width: 100vw;
+  height: 100vh;
+  perspective: 1920px;
+  transition: transform $fast $easing;
+
+  &.animate--none {
+  }
+
+  &.animate--shrink {
+    transition: transform $fast $easing $fast;
+  }
+}
+
+.tile {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  transition: transform $fast $easing;
+  will-change: transform;
+
+  &::before {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background-color: transparent;
+    transition: background-color $fast $easing;
+    content: "";
+    pointer-events: none;
+
+    .show-all & {
+      pointer-events: all;
+    }
+  }
+
+  &:hover {
+    .show-all & {
+      &::before {
+        background-color: rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .animate & {
+    .animate--shrink & {
+      transform: scale(0.9);
+    }
+  }
+
+  h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    font-size: 14vmin;
+    line-height: 1;
+    text-align: center;
+    transform: translateX(-50%) translateY(-50%);
+    cursor: default;
+    user-select: none;
+  }
+
+  &__navigate {
+    position: absolute;
+    cursor: pointer;
+    opacity: 0.2;
+    transition: opacity $fast $easing;
+    user-select: none;
+    will-change: opacity;
+
+    &--up {
+      top: $spacer;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &--right-top {
+      top: $spacer;
+      right: $spacer;
+    }
+
+    &--right {
+      top: 50%;
+      right: $spacer;
+      transform: translateY(-50%) rotate(90deg) translateX(100%);
+      transform-origin: top right;
+    }
+
+    &--right-down {
+      right: $spacer;
+      bottom: $spacer;
+    }
+
+    &--down {
+      bottom: $spacer;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &--left-down {
+      bottom: $spacer;
+      left: $spacer;
+    }
+
+    &--left {
+      top: 50%;
+      left: $spacer;
+      transform: translateY(-50%) rotate(-90deg) translateX(-100%);
+      transform-origin: top left;
+    }
+
+    &--left-top {
+      top: $spacer;
+      left: $spacer;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__zoom {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+    transform: translateX(-50%) translateY(-50%) translateY(-12vmin);
+    cursor: pointer;
+    opacity: 0.2;
+    transition: opacity $fast $easing;
+    user-select: none;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    .show-all & {
+      pointer-events: none;
+    }
+  }
+
+  &[data-x-position="-2"] {
+    left: -200%;
+  }
+
+  &[data-x-position="-1"] {
+    left: -100%;
+  }
+
+  &[data-x-position="1"] {
+    left: 100%;
+  }
+
+  &[data-x-position="2"] {
+    left: 200%;
+  }
+
+  &[data-y-position="-2"] {
+    top: 200%;
+  }
+
+  &[data-y-position="-1"] {
+    top: 100%;
+  }
+
+  &[data-y-position="1"] {
+    top: -100%;
+  }
+
+  &[data-y-position="2"] {
+    top: -200%;
+  }
+}

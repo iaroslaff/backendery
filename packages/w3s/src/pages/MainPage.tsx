@@ -1,20 +1,11 @@
 import React, { FC } from "react"
 
+import TiledWall from "../containers/TiledWall/TiledWall"
+
 const MainPage: FC = () => {
   return (
     <React.Fragment>
-      <div
-        style={{
-          alignItems: "center",
-          display: "flex",
-          flexDirection: "column",
-          fontSize: "28px",
-          height: "100vh",
-          justifyContent: "center",
-        }}
-      >
-        Coming soon...
-      </div>
+      <TiledWall />
     </React.Fragment>
   )
 }

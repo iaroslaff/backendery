@@ -1,4 +1,5 @@
 import { FC, useEffect, useRef } from "react"
+
 import Typed from "typed.js"
 
 import "./NotFoundError.scss"

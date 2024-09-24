@@ -1,10 +1,11 @@
 import { FC, useEffect, useRef } from "react"
 import { FallbackProps } from "react-error-boundary"
+
 import Typed from "typed.js"
 
 import "./InternalServerError.scss"
 
-const InternalServerError: FC<FallbackProps> = ({ error, resetErrorBoundary }) => {
+const InternalServerError: FC<FallbackProps> = ({ error, resetErrorBoundary }: FallbackProps) => {
   const tagResetErrorAnchorRef = useRef<HTMLAnchorElement>(null)
 
   useEffect(() => {
@@ -21,7 +22,7 @@ const InternalServerError: FC<FallbackProps> = ({ error, resetErrorBoundary }) =
 
   return (
     <div className={"internal-server-error"}>
-      <div className={"internal-server-error__status-code"}>500</div>
+      <div className={"internal-server-error__status-code"}>50X</div>
       <div
         className={
           "internal-server-error__emulator-of-console-text internal-server-error__emulator-of-console-text--console-border"
@@ -33,7 +34,7 @@ const InternalServerError: FC<FallbackProps> = ({ error, resetErrorBoundary }) =
         </div>
       </div>
       <div className={"internal-server-error__what-next"}>
-        Go ahead then
+        Go for it!
         <br />
         Click the terminal message
       </div>

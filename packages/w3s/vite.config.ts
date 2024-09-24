@@ -54,7 +54,7 @@ export default configure(
       google: {
         display: "auto",
         families: [
-          { name: "Red Hat Display", styles: "wght@400;500;600;700;800;900" },
+          { name: "Oswald", styles: "wght@400;500;600;700;800;900" },
           { name: "Space Mono", styles: "wght@400;700" },
         ],
         preconnect: true,

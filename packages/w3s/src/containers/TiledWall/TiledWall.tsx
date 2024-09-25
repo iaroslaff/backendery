@@ -52,6 +52,18 @@ const TiledWall: FC = () => {
     }
   }
 
+  const toggleJsElementsVisibility = (hide: boolean): void => {
+    const allElements = document.querySelectorAll("[class]")
+    allElements.forEach(elt => {
+      const elementClasses = elt.className.split(" ")
+      const hasJsClass = elementClasses.some(cls => cls.startsWith("js-"))
+
+      if (hasJsClass) {
+        ;(elt as HTMLElement).style.display = hide ? "none" : ""
+      }
+    })
+  }
+
   const zoomIn = (): void => {
     if (tilesRef.current) {
       tilesRef.current.forEach(tile => {
@@ -61,6 +73,8 @@ const TiledWall: FC = () => {
 
     if (mainContainerRef.current) {
       removeClass(mainContainerRef.current, "show-all")
+      /* prettier-ignore */
+      setTimeout(() => { toggleJsElementsVisibility(false) }, 450)
     }
   }
 
@@ -69,6 +83,8 @@ const TiledWall: FC = () => {
 
     if (mainContainerRef.current) {
       addClass(mainContainerRef.current, "show-all")
+      /* prettier-ignore */
+      setTimeout(() => { toggleJsElementsVisibility(true) }, 150)
     }
 
     if (tilesRef.current) {
@@ -124,11 +140,7 @@ const TiledWall: FC = () => {
   }, [])
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent): void => {
-      if (event.key === "Escape") {
-        zoomIn()
-      }
-    }
+    const handleKeyDown = ({ key }: KeyboardEvent) => key === "Escape" && zoomIn()
 
     document.addEventListener("keydown", handleKeyDown)
 

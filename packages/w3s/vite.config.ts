@@ -8,7 +8,7 @@ export default configure(
     build: {
       outDir: "dist",
       assetsInlineLimit: 1024 * 4,
-      chunkSizeWarningLimit: 1024,
+      chunkSizeWarningLimit: 256,
       cssCodeSplit: true,
       emptyOutDir: true,
       manifest: true,
@@ -16,17 +16,11 @@ export default configure(
       modulePreload: true,
       rollupOptions: {
         output: {
-          manualChunks: {
-            vendor: [
-              "formik",
-              "react",
-              "react-dom",
-              "react-responsive",
-              "react-router",
-              "react-router-dom",
-              "react-use",
-              "yup",
-            ],
+          manualChunks(id) {
+            if (id.includes("node_modules")) {
+              return "vendor";
+            }
+            return null
           },
         },
       },

@@ -56,7 +56,7 @@
     "husky": "npx husky",
     "fix": "echo \"Running Prettier...\" && yarn prettier --write packages/*/src && echo \"Running ESLint...\" && yarn eslint packages/*/src --fix && echo \"Running Stylelint...\" && yarn stylelint packages/*/src/**/*.(sass|scss|css) --fix",
     "lint": "echo \"Running Prettier...\" && yarn prettier --check packages/*/src && echo \"Running ESLint...\" && yarn eslint packages/*/src && echo \"Running Stylelint...\" && yarn stylelint packages/*/src/**/*.(sass|scss|css)",
-    "build": "yarn workspaces foreach --exclude=root --parallel run build",
+    "build": "yarn workspaces foreach --all --parallel run build",
     "test:w3s": "yarn workspace @backendery/w3s run tests",
     "serve:w3s": "yarn workspace @backendery/w3s run serve"
   },

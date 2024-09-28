@@ -1,9 +1,11 @@
 import { FC, SVGProps } from "react"
 
-import { ReactComponent as ReactIcon } from "./icons/react.svg"
+import { ReactComponent as PythonIcon } from "./icons/python.svg"
+import { ReactComponent as RustIcon } from "./icons/rust.svg"
 
 const icons = {
-  react: ReactIcon,
+  "python": PythonIcon,
+  "rust": RustIcon
 } as const
 
 export type SvgIconName = keyof typeof icons

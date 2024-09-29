@@ -79,7 +79,7 @@
         top: 0;
         left: 0;
         width: 1px;
-        background: linear-gradient(to bottom, rgb(254, 254, 255), rgb(21, 45, 57));
+        background: linear-gradient(to bottom, $secondary-color, $primary-color);
         opacity: 0.06;
         content: "";
       }

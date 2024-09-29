@@ -1,31 +1,26 @@
 @import "@styles/variables";
+@import "@styles/mixin";
 
-.main-container {
+$height-in-dvh: calc(var(--dvh, 1dvh) * 100);
+
+.virtual-scene {
   transition: transform ($fast * 2) $easing;
 
   &.show-all {
-    transform: rotateY(0deg) scale(0.3325);
+    transform: scale(calc(1 / 3));
+  }
+
+  &__wrap {
+    width: 100%;
+    height: $height-in-dvh;
+    transition: transform $fast $easing;
   }
 }
 
-.tiled-wall {
-  width: 100vw;
-  height: 100vh;
-  perspective: 1920px;
-  transition: transform $fast $easing;
-
-  &.animate--none {
-  }
-
-  &.animate--shrink {
-    transition: transform $fast $easing $fast;
-  }
-}
-
-.tile {
+.virtual-space {
   position: absolute;
-  width: calc(var(--vw, 1vw) * 100);
-  height: calc(var(--vh, 1vh) * 100);
+  width: 100%;
+  height: $height-in-dvh;
   transition: transform $fast $easing;
   will-change: transform;
 
@@ -46,26 +41,22 @@
   &:hover {
     .show-all & {
       &::before {
-        background-color: rgba($secondary-color, .1);
+        background-color: rgba($secondary-color, 0.1);
         cursor: pointer;
       }
     }
   }
 
-  .animate & {
-    .animate--shrink & {
-      transform: scale(0.9);
-    }
-  }
+  &__caption {
+    // /* prettier-ignore */
+    @include adaptive-value($property: "font-size", $from: 120, $to: 64);
 
-  h1 {
     position: absolute;
     top: 50%;
     left: 50%;
     margin: 0;
-    font-size: 14vmin;
-    line-height: 1;
     text-align: center;
+    text-transform: uppercase;
     transform: translateX(-50%) translateY(-50%);
     cursor: default;
     user-select: none;
@@ -73,6 +64,11 @@
 
   &__navigate {
     position: absolute;
+    color: $secondary-color;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.2;
+    text-transform: uppercase;
     cursor: pointer;
     opacity: 0.2;
     transition: opacity $fast $easing;

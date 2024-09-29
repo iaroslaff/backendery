@@ -1,11 +1,11 @@
 import React, { FC } from "react"
 
-import TiledWall from "../containers/TiledWall/TiledWall"
+import VirtualScene from "../containers/VirtualScene/VirtualScene"
 
 const MainPage: FC = () => {
   return (
     <React.Fragment>
-      <TiledWall />
+      <VirtualScene />
     </React.Fragment>
   )
 }

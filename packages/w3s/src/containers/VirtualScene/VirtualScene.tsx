@@ -12,8 +12,8 @@ const VirtualScene: FC = () => {
   const spacesRef = useRef<NodeListOf<HTMLDivElement> | null>(null)
 
   /** states */
-  const [positionX, setPositionX] = useState(0)
-  const [positionY, setPositionY] = useState(0)
+  const [positionX, setPositionX] = useState<number>(0)
+  const [positionY, setPositionY] = useState<number>(0)
 
   const setPosition = (): void => {
     if (virtualSceneWrapRef.current) {
@@ -177,7 +177,8 @@ const VirtualScene: FC = () => {
           <span className='virtual-space__navigate virtual-space__navigate--right-top js-up js-right'>steps</span>
           <span className='virtual-space__navigate virtual-space__navigate--left js-left'>let&apos;s start</span>
           <span className='virtual-space__navigate virtual-space__navigate--right js-right'>contacts</span>
-          <div className='virtual-space__caption'>we use</div>
+          {/* <div className='virtual-space__caption'>we use</div> */}
+          <WeUse />
         </div>
         {/* down/left */}
         <div className='virtual-space' data-x-position='-1' data-y-position='-1'>

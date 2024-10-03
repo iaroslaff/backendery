@@ -1,3 +1,29 @@
+type SingleSymbol = string & { __singleSymbolBrand: never }
+
+/**
+ * Ensures the provided string is exactly one symbol (one character).
+ * If the string meets this condition, it is returned as a branded `SingleSymbol` type.
+ * Throws an error if the string length is not exactly one.
+ *
+ * @param {string} symbol - The string to validate.
+ * @returns {SingleSymbol} The input string cast as `SingleSymbol` if it is exactly one character long.
+ * @throws {Error} Throws an error if the string length is not equal to one.
+ *
+ * @example
+ * // valid usage
+ * const validSymbol = assertSingleSymbol('a');
+ *
+ * // invalid usage
+ * const invalidSymbol = assertSingleSymbol('ab');
+ */
+export function assertSingleSymbol(symbol: string): SingleSymbol {
+  if (symbol.length !== 1) {
+    throw new Error("string must be exactly one symbol")
+  }
+  /** convert string to SingleSymbol type after checking */
+  return symbol as SingleSymbol
+}
+
 /**
  * Retrieves the computed width of the first element that matches the given CSS selector.
  *
@@ -17,12 +43,10 @@ export function getElementWidth(selector: string): number {
     throw new Error("the specified selector could not be found")
   }
 
-  const width: number = parseInt(
-    window.getComputedStyle(elt).getPropertyValue("width")
-  )
+  const width: number = parseInt(window.getComputedStyle(elt).getPropertyValue("width"))
 
-  return width;
-};
+  return width
+}
 
 /**
  * Retrieves the computed height of the first element that matches the given CSS selector.
@@ -43,12 +67,10 @@ export function getElementHeight(selector: string): number {
     throw new Error("the specified selector could not be found")
   }
 
-  const height: number = parseInt(
-    window.getComputedStyle(elt).getPropertyValue("height")
-  )
+  const height: number = parseInt(window.getComputedStyle(elt).getPropertyValue("height"))
 
-  return height;
-};
+  return height
+}
 
 /**
  * Adds the specified class to the given element if it does not already have it.
@@ -63,9 +85,9 @@ export function getElementHeight(selector: string): number {
  */
 export function addClass(element: HTMLElement, cls: string): void {
   if (!hasClass(element, cls)) {
-    element.className += " " + cls;
+    element.className += " " + cls
   }
-};
+}
 
 /**
  * Checks if the specified element has the given class.
@@ -81,8 +103,8 @@ export function addClass(element: HTMLElement, cls: string): void {
  * console.log(isActive);
  */
 export function hasClass(element: HTMLElement, cls: string): boolean {
-  return !!element.className.match(new RegExp("(\\s|^)" + cls + "(\\s|$)"));
-};
+  return !!element.className.match(new RegExp("(\\s|^)" + cls + "(\\s|$)"))
+}
 
 /**
  * Removes the specified class from the given element if it exists.
@@ -97,6 +119,6 @@ export function hasClass(element: HTMLElement, cls: string): boolean {
  */
 export function removeClass(element: HTMLElement, cls: string): void {
   if (hasClass(element, cls)) {
-    element.className = element.className.replace(new RegExp("(\\s|^)" + cls + "(\\s|$)"), "");
+    element.className = element.className.replace(new RegExp("(\\s|^)" + cls + "(\\s|$)"), "")
   }
-};
+}

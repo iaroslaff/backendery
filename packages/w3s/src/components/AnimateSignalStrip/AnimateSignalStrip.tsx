@@ -1,15 +1,7 @@
 import { motion } from "framer-motion"
 import React, { FC, useEffect, useState } from "react"
 
-type SingleSymbol = string & { __singleSymbolBrand: never }
-
-function assertSingleSymbol(symbol: string): SingleSymbol {
-  if (symbol.length !== 1) {
-    throw new Error("string must be exactly one symbol")
-  }
-  /** convert string to SingleSymbol type after checking */
-  return symbol as SingleSymbol
-}
+import { assertSingleSymbol } from "../../utils/fn"
 
 interface IAnimateSignalStripProps {
   symbol: string

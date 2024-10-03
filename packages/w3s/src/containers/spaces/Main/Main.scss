@@ -1,0 +1,83 @@
+@import "@styles/variables";
+@import "@styles/mixin";
+
+$height-in-dvh: calc(var(--dvh, 1dvh) * 100);
+
+.virtual-space {
+  &__main {
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "padding-top",
+      $from: 170,
+      $to: 170
+    );
+
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "padding-right",
+      $from: 150,
+      $to: 50
+    );
+
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "padding-bottom",
+      $from: 170,
+      $to: 170
+    );
+
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "padding-left",
+      $from: 150,
+      $to: 50
+    );
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: auto;
+    height: $height-in-dvh;
+
+    &__brand-name {
+      /* prettier-ignore */
+      @include adaptive-value(
+        $property: "font-size",
+        $from: 20,
+        $to: 16
+      );
+
+      color: $accent-color;
+      font-weight: 700;
+    }
+
+    &__title {
+      /* prettier-ignore */
+      @include adaptive-value(
+        $property: "font-size",
+        $from: 96,
+        $to: 28
+      );
+
+      color: $secondary-color;
+      line-height: 100%;
+      text-align: center;
+    }
+
+    &__show-all-spaces {
+      z-index: 10;
+      cursor: pointer;
+      transition: opacity $fast $easing;
+      user-select: none;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      .show-all & {
+        pointer-events: none;
+      }
+    }
+  }
+}

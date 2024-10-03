@@ -1,12 +1,19 @@
 @import "@styles/null";
 @import "@styles/variables";
+@import "@styles/mixin";
 
 body {
+  /* prettier-ignore */
+  @include adaptive-value(
+    $property: "font-size",
+    $from: 14,
+    $to: 13
+  );
+
   overflow: hidden;
   color: $secondary-color;
-  font-size: 14px;
+  font-family: "IBM Plex Mono", sans-serif;
   line-height: 150%;
-  font-family: IBM Plex Mono, sans-serif;
   background-color: $primary-color;
   text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
@@ -14,4 +21,5 @@ body {
 }
 
 div#root {
+  /* identifier stub */
 }

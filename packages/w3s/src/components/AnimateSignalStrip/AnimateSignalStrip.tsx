@@ -11,7 +11,7 @@ function assertSingleSymbol(symbol: string): SingleSymbol {
   return symbol as SingleSymbol
 }
 
-interface IAnimateSymbolProps {
+interface IAnimateSignalStripProps {
   symbol: string
   maxNumberOfSymbols: number
   minInterval: number
@@ -20,7 +20,7 @@ interface IAnimateSymbolProps {
   style?: React.CSSProperties
 }
 
-const AnimateSymbol: FC<IAnimateSymbolProps> = props => {
+const AnimateSignalStrip: FC<IAnimateSignalStripProps> = props => {
   /** check the single and initial symbols */
   const singleSymbol = assertSingleSymbol(props.symbol)
   const validInitialSymbols = props.initialSymbols?.slice(0, props.maxNumberOfSymbols) ?? ""
@@ -82,4 +82,4 @@ const AnimateSymbol: FC<IAnimateSymbolProps> = props => {
   )
 }
 
-export default AnimateSymbol
+export default AnimateSignalStrip

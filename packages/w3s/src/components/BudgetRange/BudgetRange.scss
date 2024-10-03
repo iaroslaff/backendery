@@ -1,12 +1,10 @@
 @import "@styles/variables";
 
-.funding-range {
-  &__container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 36px;
-  }
+.budget-range {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
 
   &__min-limit,
   &__max-limit {

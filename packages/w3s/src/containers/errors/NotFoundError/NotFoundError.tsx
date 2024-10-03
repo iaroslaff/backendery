@@ -1,41 +1,45 @@
-import { FC, useEffect, useRef } from "react"
+import { FC } from "react"
 
-import Typed from "typed.js"
+import AnimateSymbol from "../../../components/AnimateSymbol/AnimateSymbol"
+import { SvgIcon } from "../../../components/elements/Icon"
 
 import "./NotFoundError.scss"
 
 const NotFoundError: FC = () => {
-  const tagResetErrorAnchorRef = useRef(null)
-
-  useEffect(() => {
-    const typed = new Typed(tagResetErrorAnchorRef && tagResetErrorAnchorRef.current, {
-      cursorChar: "_",
-      strings: ["return home?"],
-      typeSpeed: 90,
-    })
-
-    return () => {
-      typed.destroy()
-    }
-  }, [])
-
   return (
-    <div className={"not-found-error"}>
-      <div className={"not-found-error__status-code"}>404</div>
-      <div
-        className={
-          "not-found-error__emulator-of-console-text not-found-error__emulator-of-console-text--console-border"
-        }
-      >
-        <div>{"#>"}&nbsp;uh-oh! page not found...</div>
-        <div>
-          {"#>"}&nbsp;<a ref={tagResetErrorAnchorRef} href={"/"}></a>
+    <div className='not-found-error'>
+      <div className='not-found-error__wrapper'>
+        <div className='not-found-error__status-code'>404</div>
+        <div className='not-found-error__message'>
+          Sorry <br /> Page not found :/
+        </div>
+        <div
+          className='not-found-error__go-to-home'
+          onClick={(_: React.MouseEvent) => {
+            document.location = "/"
+          }}
+        >
+          Go to home page
+          <SvgIcon name='green-arrow-right' />
         </div>
       </div>
-      <div className={"not-found-error__what-next"}>
-        Go for it!
-        <br />
-        Click the terminal message
+      <div className='not-found-error__dots'>
+        <AnimateSymbol
+          symbol={"."}
+          maxNumberOfSymbols={4}
+          minInterval={1_000}
+          maxInterval={2_500}
+          initialSymbols={".."}
+          style={{ color: "#ffffff" }}
+        />
+        <AnimateSymbol
+          symbol={"."}
+          maxNumberOfSymbols={7}
+          minInterval={1_250}
+          maxInterval={2_500}
+          initialSymbols={"....."}
+          style={{ color: "#67df8f" }}
+        />
       </div>
     </div>
   )

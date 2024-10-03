@@ -1,42 +1,46 @@
-import { FC, useEffect, useRef } from "react"
+import { FC } from "react"
 import { FallbackProps } from "react-error-boundary"
 
-import Typed from "typed.js"
+import AnimateSymbol from "../../../components/AnimateSymbol/AnimateSymbol"
+import { SvgIcon } from "../../../components/elements/Icon"
 
 import "./InternalServerError.scss"
 
 const InternalServerError: FC<FallbackProps> = ({ error, resetErrorBoundary }: FallbackProps) => {
-  const tagResetErrorAnchorRef = useRef<HTMLAnchorElement>(null)
-
-  useEffect(() => {
-    const typed = new Typed(tagResetErrorAnchorRef && tagResetErrorAnchorRef.current, {
-      cursorChar: "_",
-      strings: ["reload page?"],
-      typeSpeed: 90,
-    })
-
-    return () => {
-      typed.destroy()
-    }
-  }, [])
-
   return (
-    <div className={"internal-server-error"}>
-      <div className={"internal-server-error__status-code"}>50X</div>
-      <div
-        className={
-          "internal-server-error__emulator-of-console-text internal-server-error__emulator-of-console-text--console-border"
-        }
-      >
-        <div>{"#>"}&nbsp;oops! internal server error...</div>
-        <div>
-          {"#>"}&nbsp;<a onClick={() => resetErrorBoundary()} ref={tagResetErrorAnchorRef}></a>
+    <div className='internal-server-error'>
+      <div className='internal-server-error__wrapper'>
+        <div className='internal-server-error__status-code'>50X</div>
+        <div className='internal-server-error__message'>
+          Uh-oh! <br /> Something went wrong :o
+        </div>
+        <div
+          className='internal-server-error__reload'
+          onClick={(_: React.MouseEvent) => {
+            resetErrorBoundary()
+          }}
+        >
+          Reload
+          <SvgIcon name='green-arrow-right' />
         </div>
       </div>
-      <div className={"internal-server-error__what-next"}>
-        Go for it!
-        <br />
-        Click the terminal message
+      <div className='internal-server-error__dots'>
+        <AnimateSymbol
+          symbol={"."}
+          maxNumberOfSymbols={4}
+          minInterval={1_000}
+          maxInterval={2_500}
+          initialSymbols={".."}
+          style={{ color: "#ffffff" }}
+        />
+        <AnimateSymbol
+          symbol={"."}
+          maxNumberOfSymbols={7}
+          minInterval={1_250}
+          maxInterval={2_500}
+          initialSymbols={"....."}
+          style={{ color: "#67df8f" }}
+        />
       </div>
     </div>
   )

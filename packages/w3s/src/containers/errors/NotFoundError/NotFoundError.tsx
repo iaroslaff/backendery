@@ -1,6 +1,6 @@
 import { FC } from "react"
 
-import AnimateSymbol from "../../../components/AnimateSymbol/AnimateSymbol"
+import AnimateSignalStrip from "../../../components/AnimateSignalStrip/AnimateSignalStrip"
 import { SvgIcon } from "../../../components/elements/Icon"
 
 import "./NotFoundError.scss"
@@ -20,11 +20,11 @@ const NotFoundError: FC = () => {
           }}
         >
           Go to home page
-          <SvgIcon name='green-arrow-right' />
+          <SvgIcon name='arrow-right' />
         </div>
       </div>
       <div className='not-found-error__dots'>
-        <AnimateSymbol
+        <AnimateSignalStrip
           symbol={"."}
           maxNumberOfSymbols={4}
           minInterval={1_000}
@@ -32,7 +32,7 @@ const NotFoundError: FC = () => {
           initialSymbols={".."}
           style={{ color: "#ffffff" }}
         />
-        <AnimateSymbol
+        <AnimateSignalStrip
           symbol={"."}
           maxNumberOfSymbols={7}
           minInterval={1_250}

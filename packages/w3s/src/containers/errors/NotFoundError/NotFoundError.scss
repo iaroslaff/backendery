@@ -51,6 +51,12 @@
     text-transform: uppercase;
     cursor: pointer;
     user-select: none;
+
+    svg {
+      path {
+        fill: $accent-color;
+      }
+    }
   }
 
   &__dots {

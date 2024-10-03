@@ -1,0 +1,18 @@
+@import "@styles/variables";
+
+.animate-binary-grid {
+  display: grid;
+  gap: 10px;
+
+  &__cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba($color: $secondary-color, $alpha: 0.5);
+    user-select: none;
+
+    &.unreachable {
+      /* class stub */
+    }
+  }
+}

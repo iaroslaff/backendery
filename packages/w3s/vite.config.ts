@@ -46,10 +46,9 @@ export default configure(
     react: { swc: { enabled: true }, svg: { enabled: true } },
     fonts: {
       google: {
-        display: "auto",
+        display: "swap",
         families: [
-          { name: "Oswald", styles: "wght@400;500;600;700;800;900" },
-          { name: "Space Mono", styles: "wght@400;700" },
+          { name: "IBM Plex Mono", styles: "wght@100;200;300;400;500;600;700" },
         ],
         preconnect: true,
       },

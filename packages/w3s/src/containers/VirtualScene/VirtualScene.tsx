@@ -1,14 +1,15 @@
 import { FC, useEffect, useRef, useState } from "react"
 
 import { addClass, removeClass } from "../../utils/fn"
-import WeUse from "../WeUse/WeUse"
+import Main from "../spaces/Main/Main"
+import WeUse from "../spaces/WeUse/WeUse"
 
 import "./VirtualScene.scss"
 
 const VirtualScene: FC = () => {
   /** refs */
   const virtualSceneRef = useRef<HTMLDivElement>(null)
-  const virtualSceneWrapRef = useRef<HTMLDivElement>(null)
+  const virtualSceneWrapperRef = useRef<HTMLDivElement>(null)
   const spacesRef = useRef<NodeListOf<HTMLDivElement> | null>(null)
 
   /** states */
@@ -16,8 +17,8 @@ const VirtualScene: FC = () => {
   const [positionY, setPositionY] = useState<number>(0)
 
   const setPosition = (): void => {
-    if (virtualSceneWrapRef.current) {
-      virtualSceneWrapRef.current.style.transform = `translateX(${positionX}00%) translateY(${positionY}00%)`
+    if (virtualSceneWrapperRef.current) {
+      virtualSceneWrapperRef.current.style.transform = `translateX(${positionX}00%) translateY(${positionY}00%)`
     }
   }
 
@@ -32,19 +33,19 @@ const VirtualScene: FC = () => {
   }
 
   const moveUp = (): void => {
-    virtualSceneWrapRef.current && setPositionY(previousY => previousY + 1)
+    virtualSceneWrapperRef.current && setPositionY(prevPositionY => prevPositionY + 1)
   }
 
   const moveRight = (): void => {
-    virtualSceneWrapRef.current && setPositionX(previousX => previousX - 1)
+    virtualSceneWrapperRef.current && setPositionX(prevPositionX => prevPositionX - 1)
   }
 
   const moveDown = (): void => {
-    virtualSceneWrapRef.current && setPositionY(previousY => previousY - 1)
+    virtualSceneWrapperRef.current && setPositionY(prevPositionY => prevPositionY - 1)
   }
 
   const moveLeft = (): void => {
-    virtualSceneWrapRef.current && setPositionX(previousX => previousX + 1)
+    virtualSceneWrapperRef.current && setPositionX(prevPositionX => prevPositionX + 1)
   }
 
   const toggleJsPrefixElementsVisibility = (hide: boolean): void => {
@@ -122,7 +123,7 @@ const VirtualScene: FC = () => {
 
   return (
     <div className='virtual-scene' ref={virtualSceneRef}>
-      <div className="virtual-scene__wrap" ref={virtualSceneWrapRef}>
+      <div className="virtual-scene__wrapper" ref={virtualSceneWrapperRef}>
         {/* main */}
         <div className='virtual-space' data-x-position='0' data-y-position='0'>
           <span className='virtual-space__navigate virtual-space__navigate--up js-up'>we do</span>
@@ -133,10 +134,9 @@ const VirtualScene: FC = () => {
           <span className='virtual-space__navigate virtual-space__navigate--right-down js-down js-right'>contacts</span>
           <span className='virtual-space__navigate virtual-space__navigate--left-down js-down js-left'>let&apos;s start</span>
           <span className='virtual-space__navigate virtual-space__navigate--down js-down'>we use</span>
-          <span className='virtual-space__zoom js-zoom' onClick={zoomOut}>
-            view all
-          </span>
-          <div className='virtual-space__caption'>main</div>
+          <Main zoomOut={zoomOut}>
+          </Main>
+          {/* <span className='virtual-space__caption'>main</span> */}
         </div>
         {/* up */}
         <div className='virtual-space' data-x-position='0' data-y-position='1'>

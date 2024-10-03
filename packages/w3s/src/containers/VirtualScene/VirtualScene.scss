@@ -10,7 +10,7 @@ $height-in-dvh: calc(var(--dvh, 1dvh) * 100);
     transform: scale(calc(1 / 3));
   }
 
-  &__wrap {
+  &__wrapper {
     width: 100%;
     height: $height-in-dvh;
     transition: transform $fast $easing;
@@ -48,8 +48,12 @@ $height-in-dvh: calc(var(--dvh, 1dvh) * 100);
   }
 
   &__caption {
-    // /* prettier-ignore */
-    @include adaptive-value($property: "font-size", $from: 120, $to: 64);
+    /* prettier-ignore */
+    @include adaptive-value(
+      $property: "font-size",
+      $from: 120,
+      $to: 64
+    );
 
     position: absolute;
     top: 50%;
@@ -123,26 +127,6 @@ $height-in-dvh: calc(var(--dvh, 1dvh) * 100);
 
     &:hover {
       opacity: 1;
-    }
-  }
-
-  &__zoom {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 10;
-    transform: translateX(-50%) translateY(-50%) translateY(-12vmin);
-    cursor: pointer;
-    opacity: 0.2;
-    transition: opacity $fast $easing;
-    user-select: none;
-
-    &:hover {
-      opacity: 1;
-    }
-
-    .show-all & {
-      pointer-events: none;
     }
   }
 

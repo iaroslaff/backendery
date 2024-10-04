@@ -23,7 +23,7 @@ interface ILetsStartFormValues {
 const LetsStart: FC = () => {
   const Schema = Yup.object().shape({
     name: Yup.string().required("name is required"),
-    email: Yup.string().email().required("email is required"),
+    email: Yup.string().email().required("@mail is required"),
     projectDescription: Yup.string().required("an about the project is required"),
   })
 
@@ -40,19 +40,21 @@ const LetsStart: FC = () => {
   }
 
   return (
-    <div className={"virtual-space-lets-start"}>
-      <h2 className={"virtual-space-lets-start__title"}>Let&apos;s start_</h2>
-      <h3 className={"virtual-space-lets-start__description"}>Fill in the blanks and we&apos;ll respond in one business day</h3>
+    <div className='virtual-space-lets-start'>
+      <h2 className='virtual-space-lets-start__title'>Let&apos;s start_</h2>
+      <h3 className='virtual-space-lets-start__description'>
+        Fill in the blanks and we&apos;ll respond in one business day
+      </h3>
       <AnimateSignalStrip
-        symbol={"."}
+        symbol='.'
         maxNumberOfSymbols={5}
         minInterval={1_250}
         maxInterval={2_500}
-        initialSymbols={"....."}
+        initialSymbols='.....'
         style={{ color: "#67df8f" }}
       />
-      <p className='virtual-space-lets-start__test-text'>These sessions give you direct</p>
-      <div className='virtual-space-lets-start__deco' />
+      <p className='virtual-space-lets-start__decorative-text'>These sessions give you direct</p>
+      <div className='virtual-space-lets-start__decorative-rectangle' />
 
       <Formik
         validationSchema={Schema}
@@ -62,49 +64,61 @@ const LetsStart: FC = () => {
         {({ values, errors, touched }) => (
           <div className='virtual-space-lets-start__form'>
             <Form>
-              <div className={"virtual-space-lets-start__form-wrapper"}>
-                <div className={"lets-started-form__input lets-started-form-input"}>
-                  <Field name={"name"} id={"name"} className={"lets-started-form-input__field"} />
-                  <label htmlFor={"name"} className={`lets-started-form-input__label ${values.name && "label-top"}`}>
+              <div className='virtual-space-lets-start__form-wrapper'>
+                <div className='virtual-space-lets-start-input'>
+                  <Field name='name' id='name' className='virtual-space-lets-start-input__field' />
+                  <label
+                    htmlFor='name'
+                    className={`virtual-space-lets-start-input__label ${values.name && "label-top"}`}
+                  >
                     What&apos;s your name?
                   </label>
-                  {touched.name && errors.name && <div className={"lets-started-form-input__error"}>{errors.name}</div>}
-                </div>
-
-                <div className={"lets-started-form__input lets-started-form-input"}>
-                  <Field name={"email"} id={"email"} className={"lets-started-form-input__field"} />
-                  <label htmlFor={"email"} className={`lets-started-form-input__label ${values.email && "label-top"}`}>
-                    What&apos;s your Email?
-                  </label>
-                  {touched.email && errors.email && (
-                    <div className={"lets-started-form-input__error"}>{errors.email}</div>
+                  {touched.name && errors.name && (
+                    <div className='virtual-space-lets-start-input__error'>{errors.name}</div>
                   )}
                 </div>
-
-                <div className={"virtual-space-lets-start__budg"}>
-                  <label className={"lets-started-form-input__label"}>What&apos;s your budget?</label>
-                  <BudgetRange currencyUnit={"$"} max={BUDGET_MAX} measureUnit={"k"} min={BUDGET_MIN} />
+                <div className='virtual-space-lets-start-input'>
+                  <Field name='email' id='email' className='virtual-space-lets-start-input__field' />
+                  <label
+                    htmlFor='email'
+                    className={`virtual-space-lets-start-input__label ${values.email && "label-top"}`}
+                  >
+                    Your @mail?
+                  </label>
+                  {touched.email && errors.email && (
+                    <div className='virtual-space-lets-start-input__error'>{errors.email}</div>
+                  )}
                 </div>
-
-                <div className={"virtual-space-lets-start__tell"}>
+                {/**
+                 * here is the place where there are differences from the standard form; a component
+                 * is used to determine the project budget
+                 */}
+                <div className='virtual-space-lets-start__budget'>
+                  {/* <label className={"lets-started-form-input__label"}>What&apos;s your budget?</label> */}
+                  <BudgetRange currencyUnit='$' max={BUDGET_MAX} measureUnit='k' min={BUDGET_MIN} />
+                </div>
+                {/**
+                 * end place
+                 */}
+                <div className='virtual-space-lets-start-input virtual-space-lets-start__project-description'>
                   <Field
-                    name={"projectDescription"}
-                    id={"projectDescription"}
-                    className={"lets-started-form-input__field"}
+                    name='projectDescription'
+                    id='projectDescription'
+                    className='virtual-space-lets-start-input__field'
                   />
                   <label
-                    htmlFor={"projectDescription"}
-                    className={`lets-started-form-input__label ${values.projectDescription && "label-top"}`}
+                    htmlFor='projectDescription'
+                    className={`virtual-space-lets-start-input__label ${values.projectDescription && "label-top"}`}
                   >
                     Tell us about the project
                   </label>
                   {touched.projectDescription && errors.projectDescription && (
-                    <div className={"lets-started-form-input__error"}>{errors.projectDescription}</div>
+                    <div className='virtual-space-lets-start-input__error'>{errors.projectDescription}</div>
                   )}
                 </div>
               </div>
             </Form>
-            <button className={"virtual-space-lets-start__send-message-btn"} type={"submit"}>
+            <button className='virtual-space-lets-start__send-message-btn' type='submit'>
               <span>Send Message</span>
               <SvgIcon name='arrow-right' />
             </button>

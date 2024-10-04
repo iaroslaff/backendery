@@ -10,9 +10,9 @@ const InternalServerError: FC<FallbackProps> = ({ error, resetErrorBoundary }: F
   return (
     <div className='internal-server-error'>
       <div className='internal-server-error__wrapper'>
-        <div className='internal-server-error__status-code'>50X</div>
+        <div className='internal-server-error__status-code'>5XX</div>
         <div className='internal-server-error__message'>
-          Uh-oh! <br /> Something went wrong :o
+          Uh-oh! <br /> Server failure :/
         </div>
         <div
           className='internal-server-error__reload'
@@ -26,19 +26,19 @@ const InternalServerError: FC<FallbackProps> = ({ error, resetErrorBoundary }: F
       </div>
       <div className='internal-server-error__dots'>
         <AnimateSignalStrip
-          symbol={"."}
+          symbol='.'
           maxNumberOfSymbols={4}
           minInterval={1_000}
           maxInterval={2_500}
-          initialSymbols={".."}
+          initialSymbols='..'
           style={{ color: "#ffffff" }}
         />
         <AnimateSignalStrip
-          symbol={"."}
+          symbol='.'
           maxNumberOfSymbols={7}
           minInterval={1_250}
           maxInterval={2_500}
-          initialSymbols={"....."}
+          initialSymbols='.....'
           style={{ color: "#67df8f" }}
         />
       </div>

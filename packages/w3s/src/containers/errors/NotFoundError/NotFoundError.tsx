@@ -19,25 +19,25 @@ const NotFoundError: FC = () => {
             document.location = "/"
           }}
         >
-          Go to home page
+          Go to home
           <SvgIcon name='arrow-right' />
         </div>
       </div>
       <div className='not-found-error__dots'>
         <AnimateSignalStrip
-          symbol={"."}
+          symbol='.'
           maxNumberOfSymbols={4}
           minInterval={1_000}
           maxInterval={2_500}
-          initialSymbols={".."}
+          initialSymbols='..'
           style={{ color: "#ffffff" }}
         />
         <AnimateSignalStrip
-          symbol={"."}
+          symbol='.'
           maxNumberOfSymbols={7}
           minInterval={1_250}
           maxInterval={2_500}
-          initialSymbols={"....."}
+          initialSymbols='.....'
           style={{ color: "#67df8f" }}
         />
       </div>

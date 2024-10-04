@@ -1,0 +1,17 @@
+@import "@styles/variables";
+@import "@styles/mixin";
+
+.we-use {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+
+  /* prettier-ignore */
+  @include adaptive-value(
+    $property: "margin",
+    $from: 70,
+    $to: 50
+  );
+}

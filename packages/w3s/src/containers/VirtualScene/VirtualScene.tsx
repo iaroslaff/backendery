@@ -1,6 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react"
 
 import { addClass, removeClass } from "../../utils/fn"
+import LetsStart from "../spaces/LetsStart/LetsStart"
 import Main from "../spaces/Main/Main"
 import WeUse from "../spaces/WeUse/WeUse"
 
@@ -134,8 +135,7 @@ const VirtualScene: FC = () => {
           <span className='virtual-space__navigate virtual-space__navigate--right-down js-down js-right'>contacts</span>
           <span className='virtual-space__navigate virtual-space__navigate--left-down js-down js-left'>let&apos;s start</span>
           <span className='virtual-space__navigate virtual-space__navigate--down js-down'>we use</span>
-          <Main zoomOut={zoomOut}>
-          </Main>
+          <Main zoomOut={zoomOut} />
           {/* <span className='virtual-space__caption'>main</span> */}
         </div>
         {/* up */}
@@ -185,7 +185,8 @@ const VirtualScene: FC = () => {
           <span className='virtual-space__navigate virtual-space__navigate--up js-up'>cases</span>
           <span className='virtual-space__navigate virtual-space__navigate--right-top js-up js-right'>main</span>
           <span className='virtual-space__navigate virtual-space__navigate--right js-right'>we use</span>
-          <div className='virtual-space__caption'>let&apos;s start</div>
+          <LetsStart />
+          {/* <div className='virtual-space__caption'>let&apos;s start</div> */}
         </div>
         {/* left */}
         <div className='virtual-space' data-x-position='-1' data-y-position='0'>

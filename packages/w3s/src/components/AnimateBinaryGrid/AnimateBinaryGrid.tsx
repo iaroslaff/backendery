@@ -13,9 +13,9 @@ interface IAnimateBinaryGridProps {
   style?: React.CSSProperties
 }
 
-const AnimateBinaryCell: FC<{ symbol: string; isHeld: boolean }> = memo(({ symbol, isHeld }) => {
+const AnimateBinaryCell: FC<{ symbol: string; isUnreachable: boolean }> = memo(({ symbol, isUnreachable }) => {
   /** each cell displays a symbol and applies a "unreachable" class if it is in a unreachable state */
-  return <div className={`animate-binary-grid__cell ${isHeld ? "unreachable" : ""}`}>{symbol}</div>
+  return <div className={`animate-binary-grid__cell ${isUnreachable ? "unreachable" : ""}`}>{symbol}</div>
 })
 
 const AnimateBinaryGrid: FC<IAnimateBinaryGridProps> = props => {
@@ -37,13 +37,13 @@ const AnimateBinaryGrid: FC<IAnimateBinaryGridProps> = props => {
   /** states */
   const [cells, setCells] = useState<string[]>(createInitialCells())
 
-  /** convert unreachableCells to a Set to quickly check whether a cell is held */
+  /** convert unreachableCells to a Set to quickly check whether a cell is unreachable */
   const unreachableSet = new Set(props.unreachableCells?.map(([row, col]) => row * props.cols + col))
 
   const updateRandomCell = () => {
     let randomIndex = -1
 
-    /** find a random index that is not a held cell */
+    /** find a random index that is not a unreachable cell */
     do {
       randomIndex = Math.floor(Math.random() * cells.length)
     } while (unreachableSet.has(randomIndex))
@@ -92,8 +92,8 @@ const AnimateBinaryGrid: FC<IAnimateBinaryGridProps> = props => {
       {cells.map((symbol, index) => (
         <AnimateBinaryCell
           key={index}
-          symbol={unreachableSet.has(index) ? "" : symbol} // if the cell is held, display an empty string
-          isHeld={unreachableSet.has(index)} // pass the held state to the cell
+          symbol={unreachableSet.has(index) ? "" : symbol} // if the cell is unreachable, display an empty string
+          isUnreachable={unreachableSet.has(index)} // pass the unreachable state to the cell
         />
       ))}
     </div>

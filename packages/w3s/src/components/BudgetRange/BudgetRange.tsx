@@ -92,7 +92,7 @@ const BudgetRange: FC<IBudgetRangeProps> = props => {
           [{props.currencyUnit}{minLimit}{props.measureUnit}]
         </div>
       }
-      <div className='budget-range__wrap'>
+      <div className='budget-range__wrapper'>
         <input
           type={"range"}
           min={minLimit}

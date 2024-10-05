@@ -1,9 +1,9 @@
-// Container sizes
+/** container sizes */
 $containerMaxWidth: 2120px;
 $containerMinWidth: 320px;
 $container: 1920px;
 
-// Breakpoints
+/** breakpoints */
 $base: 0;
 $xs: 480px;
 $sm: 768px;
@@ -11,12 +11,16 @@ $md: 992px;
 $lg: 1200px;
 $xl: 1920px;
 
-// Theme colors
+/** theme colors */
 $primary-color: #141519;
 $secondary-color: #ffffff;
 $accent-color: #67df8f;
 
-// Tiles options
+/** spaces options */
 $spacer: 1rem;
 $fast: .3s;
 $easing: cubic-bezier(.55, 0, .1, 1);
+
+/** elements options */
+$width-in-dvw: calc(var(--dvw, 1dvw) * 100);
+$height-in-dvh: calc(var(--dvh, 1dvh) * 100);

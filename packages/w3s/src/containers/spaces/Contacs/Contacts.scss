@@ -1,129 +1,112 @@
 @import "@styles/variables";
 @import "@styles/mixin";
 
-.virtual-space-contacts {
-  width: 100%;
-  height: 100%;
+.contacts {
+  @include adaptive-value($property: "padding", $from: 130, $to: 50);
+
   position: relative;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  @include adaptive-value($property: "padding", $from: 130, $to: 50);
-  @media (max-width: 800px) {
-    grid-template-rows: auto auto auto 1fr;
-  }
+  grid-template-columns: repeat(2, 1fr);
+  width: $width-in-dvw;
+  height: $height-in-dvh;
+  user-select: none;
 
   &__title {
-    font-size: 72px;
+    @include adaptive-value($property: "font-size", $from: 72, $to: 32);
+
     font-weight: 600;
     line-height: 110%;
-    @include adaptive-value($property: "font-size", $from: 72, $to: 32,);
   }
 
-  &__decor {
-    width: 100%;
+  &__decorative-wrapper {
     display: flex;
     flex-direction: column;
     align-items: end;
-    @media (max-width: 800px) {
-      justify-self: end;
+    width: 100%;
+
+    @media screen and (width <= $sm) {
       grid-row: 3;
       grid-column: 1/-1;
+      justify-self: end;
     }
   }
 
-  &__square {
+  &__decorative-square {
     width: 16px;
     height: 16px;
-    background-color: $accent-color;
     margin: 40px 0 100px auto;
-    @media (max-width: 800px) {
+    background-color: $accent-color;
+
+    @media screen and (width <= $sm) {
       margin: 0 auto 50px 0;
     }
   }
 
+  &__decorative-text {
+    letter-spacing: 2px;
+  }
+
   &__email-wrapper {
     align-self: end;
-    @media (max-width: 800px) {
+
+    @media screen and (width <= $sm) {
       grid-row: 4;
     }
   }
 
-  &__description {
+  &__email-description {
     max-width: 320px;
     margin-bottom: 30px;
   }
 
-  &__email {
-    font-size: 36px;
-    color: $accent-color;
+  &__email-address {
     @include adaptive-value($property: "font-size", $from: 36, $to: 24);
+
+    color: $accent-color;
+    cursor: pointer;
   }
 
   &__social-wrapper {
-    justify-self: end;
-    align-self: end;
+    @include adaptive-value($property: "gap", $from: 40, $to: 10);
+
     display: flex;
     align-items: center;
-    @include adaptive-value($property: "gap", $from: 40, $to: 10);
-    @media (max-width: 800px) {
+    align-self: end;
+    justify-self: end;
+
+    @media screen and (width <= $sm) {
       grid-row: 2;
-      margin: 40px 0;
-      justify-self: start;
       gap: 20px;
+      justify-self: start;
+      margin: 40px 0;
     }
   }
 
   &__social-link {
     display: flex;
-    align-items: center;
     gap: 6px;
+    align-items: center;
     color: $secondary-color;
+
     svg {
       width: 10px;
       height: 10px;
+
       path {
         fill: $accent-color;
       }
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  &__decor-matrix-wrapper {
+  &__animate-binary-grid-wrapper {
     position: absolute;
-    left: 50%;
     top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
   }
 
-
-
-
-
-
+  @media screen and (width <= $sm) {
+    grid-template-rows: auto auto auto 1fr;
+  }
 }

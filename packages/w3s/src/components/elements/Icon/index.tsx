@@ -2,12 +2,13 @@ import { FC, SVGProps } from "react"
 
 import { ReactComponent as ArrowRightIcon } from "./icons/arrow-right.svg"
 import { ReactComponent as ArrowTurnIcon } from "./icons/arrow-turn.svg"
-import { ReactComponent as ShowAllIcon } from "./icons/show-all.svg"
 import { ReactComponent as ArrowUpIcon } from "./icons/arrow-up.svg"
+import { ReactComponent as ShowAllIcon } from "./icons/show-all.svg"
 
 const icons = {
   "arrow-right": ArrowRightIcon,
   "arrow-turn": ArrowTurnIcon,
+  "arrow-up": ArrowUpIcon,
   "show-all": ShowAllIcon
 } as const
 

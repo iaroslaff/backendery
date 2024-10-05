@@ -26,13 +26,17 @@
  * // apply an adaptive margin top
  * @include adaptive-value("margin-top", 100, 50);
  */
-@mixin adaptive-value($property, $from, $to, $container-type: nth($supported-container-type, 1), $trigger-at: null) {
-  /** if `trigger-at` is passed, we use it instead of $container */
-  $adaptation-point: if($trigger-at != null, $trigger-at + px, $container);
-
+@mixin adaptive-value ($property, $from, $to, $container-type: nth($supported-container-type, 1), $trigger-at: null) {
   @if not is-container-supported($container-type) {
     @error "got container type <#{$container-type}> is not supported; expected one of <#{$supported-container-type}>";
   }
+
+  /** if `trigger-at` is passed, we use it instead of $container */
+  $adaptation-point: if(
+    $trigger-at != null,
+    if(has-unit($trigger-at), $trigger-at, $trigger-at + px),
+    if(has-unit($container), $container, $container + px)
+  );
 
   /** apply styles only if smaller than container or `trigger-at` */
   @if $container-type == nth($supported-container-type, 1) {

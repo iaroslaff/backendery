@@ -3,12 +3,7 @@
 @import "@styles/mixin";
 
 body {
-  /* prettier-ignore */
-  @include adaptive-value(
-    $property: "font-size",
-    $from: 14,
-    $to: 13
-  );
+  @include adaptive-value($property: "font-size", $from: 14, $to: 13);
 
   overflow: hidden;
   color: $secondary-color;

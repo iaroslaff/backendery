@@ -1,8 +1,6 @@
 @import "@styles/variables";
 @import "@styles/mixin";
 
-$height-in-dvh: calc(var(--dvh, 1dvh) * 100);
-
 .virtual-scene {
   transition: transform ($fast * 2) $easing;
 
@@ -11,7 +9,7 @@ $height-in-dvh: calc(var(--dvh, 1dvh) * 100);
   }
 
   &__wrapper {
-    width: 100%;
+    width: $width-in-dvw;
     height: $height-in-dvh;
     transition: transform $fast $easing;
   }
@@ -48,12 +46,7 @@ $height-in-dvh: calc(var(--dvh, 1dvh) * 100);
   }
 
   &__caption {
-    /* prettier-ignore */
-    @include adaptive-value(
-      $property: "font-size",
-      $from: 120,
-      $to: 64
-    );
+    @include adaptive-value($property: "font-size", $from: 120, $to: 64);
 
     position: absolute;
     top: 50%;
@@ -68,6 +61,7 @@ $height-in-dvh: calc(var(--dvh, 1dvh) * 100);
 
   &__navigate {
     position: absolute;
+    z-index: 999;
     color: $secondary-color;
     font-weight: 600;
     font-size: 16px;
@@ -78,7 +72,6 @@ $height-in-dvh: calc(var(--dvh, 1dvh) * 100);
     transition: opacity $fast $easing;
     user-select: none;
     will-change: opacity;
-    z-index: 999;
 
     &--up {
       top: $spacer;

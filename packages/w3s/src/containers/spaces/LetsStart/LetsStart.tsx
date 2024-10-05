@@ -43,14 +43,19 @@ const LetsStart: FC = () => {
     <div className='lets-start'>
       <h2 className='lets-start__title'>Let&apos;s start_</h2>
       <h3 className='lets-start__description'>Fill in the blanks and we&apos;ll respond in one business day</h3>
-      <AnimateSignalStrip
-        symbol='.'
-        maxNumberOfSymbols={5}
-        minInterval={1_250}
-        maxInterval={2_500}
-        initialSymbols='.....'
-        style={{ color: "#67df8f" }}
-      />
+      <div className="lets-start__ast-wrapper">
+        <AnimateSignalStrip
+          symbol='.'
+          maxNumberOfSymbols={5}
+          minInterval={1_250}
+          maxInterval={2_500}
+          initialSymbols='.....'
+          style={{
+            color: "#67df8f",
+            width: '50px',
+           }}
+        />
+      </div>
       <p className='lets-start__decorative-text'>These sessions give you direct</p>
       <div className='lets-start__decorative-rectangle' />
 
@@ -65,47 +70,53 @@ const LetsStart: FC = () => {
           <div className='lets-start__form'>
             <Form>
               <div className='lets-start__form-wrapper'>
-                <div className='lets-start-input'>
-                  <Field name='name' id='name' className='lets-start-input__field' />
-                  <label htmlFor='name' className={`lets-start-input__label ${values.name && "label-top"}`}>
-                    What&apos;s your name?
-                  </label>
-                  {submitCount > 0 && errors.name && <div className='lets-start-input__error'>{errors.name}</div>}
+                <div className="lets-start__inputs-wrapper">
+                  <div className='lets-start-input'>
+                    <Field name='name' id='name' className='lets-start-input__field' />
+                    <label htmlFor='name' className={`lets-start-input__label ${values.name && "label-top"}`}>
+                      What&apos;s your name?
+                    </label>
+                    {submitCount > 0 && errors.name && <div className='lets-start-input__error'>{errors.name}</div>}
+                  </div>
+                  <div className='lets-start-input'>
+                    <Field name='email' id='email' className='lets-start-input__field' />
+                    <label htmlFor='email' className={`lets-start-input__label ${values.email && "label-top"}`}>
+                      Your @mail?
+                    </label>
+                    {submitCount > 0 && errors.email && <div className='lets-start-input__error'>{errors.email}</div>}
+                  </div>
+                  {/**
+                   * attention! not a standard for a form.
+                   * components are used here to determine the project budget
+                   */}
+                  <div className='lets-start__budget'>
+                    <p className="lets-start__budget-title">
+                      What's your project budget?
+                    </p>
+                    <BudgetRange currencyUnit='$' max={BUDGET_MAX} measureUnit='k' min={BUDGET_MIN} />
+                  </div>
+                  {/**
+                   * end attention
+                   */}
+                  <div className='lets-start-input lets-start__project-description'>
+                    <Field name='projectDescription' id='projectDescription' className='lets-start-input__field' />
+                    <label
+                      htmlFor='projectDescription'
+                      className={`lets-start-input__label ${values.projectDescription && "label-top"}`}
+                    >
+                      Tell us about the project
+                    </label>
+                    {submitCount > 0 && errors.projectDescription && (
+                      <div className='lets-start-input__error'>{errors.projectDescription}</div>
+                    )}
+                  </div>
                 </div>
-                <div className='lets-start-input'>
-                  <Field name='email' id='email' className='lets-start-input__field' />
-                  <label htmlFor='email' className={`lets-start-input__label ${values.email && "label-top"}`}>
-                    Your @mail?
-                  </label>
-                  {submitCount > 0 && errors.email && <div className='lets-start-input__error'>{errors.email}</div>}
-                </div>
-                {/**
-                 * attention! not a standard for a form.
-                 * components are used here to determine the project budget
-                 */}
-                <div className='lets-start__budget'>
-                  <BudgetRange currencyUnit='$' max={BUDGET_MAX} measureUnit='k' min={BUDGET_MIN} />
-                </div>
-                {/**
-                 * end attention
-                 */}
-                <div className='lets-start-input lets-start__project-description'>
-                  <Field name='projectDescription' id='projectDescription' className='lets-start-input__field' />
-                  <label
-                    htmlFor='projectDescription'
-                    className={`lets-start-input__label ${values.projectDescription && "label-top"}`}
-                  >
-                    Tell us about the project
-                  </label>
-                  {submitCount > 0 && errors.projectDescription && (
-                    <div className='lets-start-input__error'>{errors.projectDescription}</div>
-                  )}
-                </div>
+                <button className='lets-start__send-message-btn' type='submit'>
+                  <span>Send Message</span>
+                  <SvgIcon name='arrow-right' />
+                </button>
               </div>
-              <button className='lets-start__send-message-btn' type='submit'>
-                <span>Send Message</span>
-                <SvgIcon name='arrow-right' />
-              </button>
+              
             </Form>
           </div>
         )}

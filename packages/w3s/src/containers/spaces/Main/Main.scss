@@ -2,30 +2,30 @@
 @import "@styles/mixin";
 
 .main {
-  @include adaptive-value($property: "padding-top", $from: 170, $to: 170);
-  @include adaptive-value($property: "padding-right", $from: 150, $to: 50);
-  @include adaptive-value($property: "padding-bottom", $from: 170, $to: 170);
-  @include adaptive-value($property: "padding-left", $from: 150, $to: 50);
+  @include adaptive-value($property: "padding-left", $from: 130, $to: 50);
+  @include adaptive-value($property: "padding-right", $from: 130, $to: 50);
+  padding-top: 40px;
+  padding-bottom: 40px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: auto;
   height: $height-in-dvh;
 
   &__brand-name {
     @include adaptive-value($property: "font-size", $from: 20, $to: 16);
-
+    height: 26px;
     color: $accent-color;
     font-weight: 700;
   }
 
   &__title {
-    @include adaptive-value($property: "font-size", $from: 96, $to: 28);
+    @include adaptive-value($property: "font-size", $from: 96, $to: 24);
 
     color: $secondary-color;
-    line-height: 100%;
+    line-height: 110%;
     text-align: center;
   }
 

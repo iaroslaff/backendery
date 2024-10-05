@@ -1,5 +1,7 @@
-import React, { FC } from "react"
+import React, { FC, useEffect, useRef } from "react"
 import toast, { Toaster } from "react-hot-toast"
+/* @ts-ignore */
+import shuffleLetters from "shuffle-letters"
 
 import AnimateBinaryGrid from "../../../components/AnimateBinaryGrid/AnimateBinaryGrid"
 import { SvgIcon } from "../../../components/elements/Icon"
@@ -7,15 +9,46 @@ import { generateRandomSpecialChars } from "../../../utils/fn"
 
 import "./Contacts.scss"
 
-const RANDOM_SPECIAL_CHARS = 10 as number
+const RANDOM_SPECIAL_CHARS = (1 << 3) as number // 1 byte
+const SHUFFLE_LETTERS_INTERVAL = 9_500 as number
 
 const Contacts: FC = () => {
+  /** refs */
+  const textRef = useRef<HTMLParagraphElement | null>(null)
+
+  useEffect(() => {
+    /** initial chars set */
+    const initialChars = generateRandomSpecialChars(RANDOM_SPECIAL_CHARS)
+    if (textRef.current) {
+      textRef.current.textContent = initialChars
+    }
+
+    const intervalId = setInterval(() => {
+      /** generating a new chars set */
+      const chars = generateRandomSpecialChars(RANDOM_SPECIAL_CHARS)
+
+      if (textRef.current) {
+        /** update element text before animation */
+        textRef.current.textContent = chars
+        /** run animation shuffleLetters */
+        shuffleLetters(textRef.current, {
+          fps: 12,
+          iterations: 20,
+        })
+      }
+    }, SHUFFLE_LETTERS_INTERVAL)
+
+    return () => clearInterval(intervalId)
+  }, [])
+
   return (
     <div className='contacts'>
       <h2 className='contacts__title'>Contacts_</h2>
       <div className='contacts__decorative-wrapper'>
         <div className='contacts__decorative-square'></div>
-        <p className='contacts__decorative-text'>{generateRandomSpecialChars(RANDOM_SPECIAL_CHARS)}</p>
+        <p className='contacts__decorative-text' ref={textRef}>
+          {textRef.current?.textContent}
+        </p>
       </div>
       <div className='contacts__email-wrapper'>
         <p className='contacts__email-description'>Not everybody has an experienced backend developer... write to us</p>
@@ -25,10 +58,10 @@ const Contacts: FC = () => {
             navigator.clipboard
               .writeText(event.currentTarget.textContent?.trim() ?? "")
               .then(() => {
-                toast("Copied!")
+                toast("Address copied")
               })
               .catch(err => {
-                toast("Couldn't copy :/")
+                toast("Address not copied :/")
                 console.log("couldn't copy to clipboard", err)
               })
           }}

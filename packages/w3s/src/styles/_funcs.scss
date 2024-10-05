@@ -29,6 +29,37 @@
 }
 
 /**
+ * Checks if a CSS value contains a supported unit.
+ * This function determines whether the provided value includes
+ * any of the supported units of measurement.
+ *
+ * @param {string | number} $value - The CSS value to check for units.
+ * @return {boolean} - Returns true if a supported unit is found, otherwise false.
+ * @throws {error} - Throws an error if the provided value is not a string.
+ *
+ * @example
+ * // returns true
+ * $result: has-unit("16px");
+ *
+ * @example
+ * // returns false
+ * $result: has-unit("16");
+ */
+@function has-unit ($value) {
+  @if type-of($value) != "string" {
+    $value: #{$value};
+  }
+
+  @each $unit in $supported-unit-type {
+    @if (str-index($value, $unit) != null) {
+      @return true;
+    }
+  }
+
+  @return false;
+}
+
+/**
  * Removes the unit from a CSS value, returning the numeric part. This function extracts
  * the numeric part from a CSS value by removing the unit, if the unit is supported.
  *
@@ -50,14 +81,16 @@
  */
 @function remove-unit ($value) {
   @if type-of($value) != "string" {
-    @error "the value <#{$value}> is not a string";
+    $value: #{$value};
   }
 
-  @each $unit in $supported-unit-type {
-    @if (str-index($value, $unit) != null) {
-      $unitLenght: str-length($unit);
+  @if has-unit($value) {
+    @each $unit in $supported-unit-type {
+      @if (str-index($value, $unit) != null) {
+        $unitLength: str-length($unit);
 
-      @return str-slice($value, 1, -$unitLenght - 1);
+        @return str-slice($value, 1, -$unitLength - 1);
+      }
     }
   }
 

@@ -36,7 +36,7 @@
 
     @media (max-width: $container) {
       // prettier-ignore
-      #{$property}: calc(#{$to + px} + #{$from - $to} * ((100vw - $xs) / (remove-unit(#{$container}) - remove-unit(#{$xs}))));
+      #{$property}: calc(#{$to + px} + #{$from - $to} * ((100dvw - $containerMinWidth) / (remove-unit(#{$container}) - remove-unit(#{$containerMinWidth}))));
     }
   }
 
@@ -46,7 +46,7 @@
 
     @media (min-width: $container) {
       // prettier-ignore
-      #{$property}: calc(#{$to + px} + #{$from - $to} * ((100vw - $xs) / ($containerMaxWidth - $containerMinWidth)));
+      #{$property}: calc(#{$to + px} + #{$from - $to} * ((100dvw - $containerMinWidth) / ($containerMaxWidth - $containerMinWidth)));
     }
   }
 }

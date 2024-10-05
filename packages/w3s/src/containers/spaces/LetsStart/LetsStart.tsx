@@ -60,8 +60,10 @@ const LetsStart: FC = () => {
         validationSchema={Schema}
         initialValues={initialFormValues}
         onSubmit={(values, actions) => handleSendMessage(values, actions)}
+        validateOnBlur={false}
+        validateOnChange={false}
       >
-        {({ values, errors, touched }) => (
+        {({ values, errors, submitCount }) => (
           <div className='virtual-space-lets-start__form'>
             <Form>
               <div className='virtual-space-lets-start__form-wrapper'>
@@ -73,7 +75,7 @@ const LetsStart: FC = () => {
                   >
                     What&apos;s your name?
                   </label>
-                  {touched.name && errors.name && (
+                  {submitCount > 0 && errors.name && (
                     <div className='virtual-space-lets-start-input__error'>{errors.name}</div>
                   )}
                 </div>
@@ -85,20 +87,19 @@ const LetsStart: FC = () => {
                   >
                     Your @mail?
                   </label>
-                  {touched.email && errors.email && (
+                  {submitCount > 0 && errors.email && (
                     <div className='virtual-space-lets-start-input__error'>{errors.email}</div>
                   )}
                 </div>
                 {/**
-                 * here is the place where there are differences from the standard form; a component
-                 * is used to determine the project budget
+                 * attention! not a standard for a form.
+                 * components are used here to determine the project budget
                  */}
                 <div className='virtual-space-lets-start__budget'>
-                  {/* <label className={"lets-started-form-input__label"}>What&apos;s your budget?</label> */}
                   <BudgetRange currencyUnit='$' max={BUDGET_MAX} measureUnit='k' min={BUDGET_MIN} />
                 </div>
                 {/**
-                 * end place
+                 * end attention
                  */}
                 <div className='virtual-space-lets-start-input virtual-space-lets-start__project-description'>
                   <Field
@@ -112,16 +113,16 @@ const LetsStart: FC = () => {
                   >
                     Tell us about the project
                   </label>
-                  {touched.projectDescription && errors.projectDescription && (
+                  {submitCount > 0 && errors.projectDescription && (
                     <div className='virtual-space-lets-start-input__error'>{errors.projectDescription}</div>
                   )}
                 </div>
               </div>
+              <button className='virtual-space-lets-start__send-message-btn' type='submit'>
+                <span>Send Message</span>
+                <SvgIcon name='arrow-right' />
+              </button>
             </Form>
-            <button className='virtual-space-lets-start__send-message-btn' type='submit'>
-              <span>Send Message</span>
-              <SvgIcon name='arrow-right' />
-            </button>
           </div>
         )}
       </Formik>

@@ -13,7 +13,7 @@
   user-select: none;
 
   &__title {
-    @include adaptive-value($property: "font-size", $from: 72, $to: 32, $trigger-at: 1200);
+    @include adaptive-value($property: "font-size", $from: 72, $to: 32, $trigger-at: $lg);
 
     font-weight: 600;
     line-height: 110%;
@@ -56,7 +56,7 @@
   }
 
   &__email-description {
-    @include adaptive-value($property: "margin-bottom", $from: 30, $to: 20, $trigger-at: 800);
+    @include adaptive-value($property: "margin-bottom", $from: 30, $to: 20, $trigger-at: $sm);
 
     max-width: 320px;
     margin-bottom: 30px;
@@ -71,7 +71,7 @@
   }
 
   &__social-wrapper {
-    @include adaptive-value($property: "gap", $from: 40, $to: 20, $trigger-at: 1000);
+    @include adaptive-value($property: "gap", $from: 40, $to: 20, $trigger-at: $md);
 
     display: flex;
     align-items: center;

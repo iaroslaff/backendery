@@ -70,7 +70,7 @@ const Contacts: FC = () => {
         </p>
         <Toaster
           toastOptions={{
-            duration: 3000,
+            duration: 1_000,
             position: "bottom-center",
             style: {
               backgroundColor: "#ffffff",

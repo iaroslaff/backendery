@@ -14,38 +14,42 @@
  * @param {string} $type - The type of adaptation (optional, default: "less"):
  *   - "less": Apply styles only if smaller than the container.
  *   - "over": Apply styles only if larger than the container.
+ * @param {number} $trigger-at - Optional breakpoint to start adaptation from (default: null).
  * @throws {error} - Throws an error if the container values are not defined, if the maximum
  * width is less than the minimum width, or if the unit is not supported.
  *
  * @example
  * // apply an adaptive font size
- * @include adaptive-value("font-size", 16, 12, "less");
+ * @include adaptive-value("font-size", 16, 12, "less", 1280);
  *
  * @example
  * // apply an adaptive margin top
  * @include adaptive-value("margin-top", 100, 50);
  */
-@mixin adaptive-value ($property, $from, $to, $container-type: nth($supported-container-type, 1)) {
+@mixin adaptive-value($property, $from, $to, $container-type: nth($supported-container-type, 1), $trigger-at: null) {
+  /** if `trigger-at` is passed, we use it instead of $container */
+  $adaptation-point: if($trigger-at != null, $trigger-at + px, $container);
+
   @if not is-container-supported($container-type) {
     @error "got container type <#{$container-type}> is not supported; expected one of <#{$supported-container-type}>";
   }
 
-  // Apply styles only if smaller than container
+  /** apply styles only if smaller than container or `trigger-at` */
   @if $container-type == nth($supported-container-type, 1) {
     #{$property}: $from + px;
 
-    @media (max-width: $container) {
-      // prettier-ignore
-      #{$property}: calc(#{$to + px} + #{$from - $to} * ((100dvw - $containerMinWidth) / (remove-unit(#{$container}) - remove-unit(#{$containerMinWidth}))));
+    @media (max-width: $adaptation-point) {
+      /* prettier-ignore */
+      #{$property}: calc(#{$to + px} + #{$from - $to} * ((100dvw - $containerMinWidth) / (remove-unit(#{$adaptation-point}) - remove-unit(#{$containerMinWidth}))));
     }
   }
 
-  // Apply styles only if larger than container
+  /** Apply styles only if larger than container or `trigger-at` */
   @if $container-type == nth($supported-container-type, 2) {
     #{$property}: $from + px;
 
-    @media (min-width: $container) {
-      // prettier-ignore
+    @media (min-width: $adaptation-point) {
+      /* prettier-ignore */
       #{$property}: calc(#{$to + px} + #{$from - $to} * ((100dvw - $containerMinWidth) / ($containerMaxWidth - $containerMinWidth)));
     }
   }

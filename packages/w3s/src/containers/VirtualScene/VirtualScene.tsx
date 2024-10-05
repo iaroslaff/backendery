@@ -1,6 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react"
 
 import { addClass, removeClass } from "../../utils/fn"
+import Contacts from "../spaces/Contacs/Contacts"
 import LetsStart from "../spaces/LetsStart/LetsStart"
 import Main from "../spaces/Main/Main"
 import WeUse from "../spaces/WeUse/WeUse"
@@ -168,7 +169,8 @@ const VirtualScene: FC = () => {
           <span className='virtual-space__navigate virtual-space__navigate--up js-up'>steps</span>
           <span className='virtual-space__navigate virtual-space__navigate--left-top js-up js-left'>main</span>
           <span className='virtual-space__navigate virtual-space__navigate--left js-left'>we use</span>
-          <div className='virtual-space__caption'>contacts</div>
+          {/* <div className='virtual-space__caption'>contacts</div> */}
+          <Contacts />
         </div>
         {/* down */}
         <div className='virtual-space' data-x-position='0' data-y-position='-1'>

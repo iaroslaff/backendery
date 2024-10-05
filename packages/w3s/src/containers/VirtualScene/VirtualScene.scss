@@ -78,6 +78,7 @@ $height-in-dvh: calc(var(--dvh, 1dvh) * 100);
     transition: opacity $fast $easing;
     user-select: none;
     will-change: opacity;
+    z-index: 999;
 
     &--up {
       top: $spacer;

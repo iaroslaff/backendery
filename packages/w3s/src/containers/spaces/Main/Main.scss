@@ -1,9 +1,7 @@
 @import "@styles/variables";
 @import "@styles/mixin";
 
-.virtual-space-main {
-  $height-in-dvh: calc(var(--dvh, 1dvh) * 100);
-
+.main {
   @include adaptive-value($property: "padding-top", $from: 170, $to: 170);
   @include adaptive-value($property: "padding-right", $from: 150, $to: 50);
   @include adaptive-value($property: "padding-bottom", $from: 170, $to: 170);

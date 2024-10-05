@@ -1,7 +1,7 @@
 @import "@styles/variables";
 @import "@styles/mixin";
 
-.virtual-space-lets-start {
+.lets-start {
   $height-in-dvh: calc(var(--dvh, 1dvh) * 100);
 
   @include adaptive-value($property: "padding", $from: 150, $to: 50);
@@ -91,7 +91,7 @@
   }
 }
 
-.virtual-space-lets-start-input {
+.lets-start-input {
   position: relative;
   height: 45px;
   border-bottom: 1px dashed rgba($color: $secondary-color, $alpha: 0.15);
@@ -107,7 +107,7 @@
     &:focus {
       border-bottom: 1px dashed $secondary-color;
 
-      + .virtual-space-lets-start-input__label {
+      + .lets-start-input__label {
         @include adaptive-value($property: "font-size", $from: 12, $to: 12);
 
         bottom: 55px;
@@ -122,7 +122,7 @@
       transition: background-color 0s 600000s !important;
       -webkit-text-fill-color: $secondary-color !important;
 
-      + .virtual-space-lets-start-input__label {
+      + .lets-start-input__label {
         @include adaptive-value($property: "font-size", $from: 12, $to: 12);
 
         bottom: 55px;

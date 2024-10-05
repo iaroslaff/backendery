@@ -129,14 +129,14 @@ export function removeClass(element: HTMLElement, cls: string): void {
  * @param {number} length - The number of characters in the output string.
  * @returns {string} A string consisting of random special characters.
  *
- * The special characters that can be selected: !@#$%^&*()_+[]{}|;:,.<>?/~
+ * The special characters that can be selected: 1234567890ABCDEF!@#$%^&*_+[]{}<>?/~
  *
  * @example
  * const randomString = generateRandomSpecialChars(10);
  * console.log(randomString);
  */
 export function generateRandomSpecialChars(length: number): string {
-  const specialChars = "!@#$%^&*()_+[]{}|;:,.<>?/~"
+  const specialChars = "1234567890ABCDEF!@#$%^&*_+[]{}<>?/~"
   let result = ""
   for (let i = 0; i < length; i++) {
     const randomIndex = Math.floor(Math.random() * specialChars.length)

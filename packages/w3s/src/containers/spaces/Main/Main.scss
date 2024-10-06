@@ -36,6 +36,11 @@
     transition: opacity $fast $easing;
     user-select: none;
 
+    svg {
+      @include adaptive-value($property: "width", $from: 26, $to: 46);
+      @include adaptive-value($property: "height", $from: 26, $to: 46);
+    }
+
     &:hover {
       opacity: 1;
     }

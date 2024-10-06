@@ -124,23 +124,23 @@ export function removeClass(element: HTMLElement, cls: string): void {
 }
 
 /**
- * Generates a string of random special characters of the specified length.
+ * Generates a string of random characters of the specified length.
  *
  * @param {number} length - The number of characters in the output string.
- * @returns {string} A string consisting of random special characters.
+ * @returns {string} A string consisting of random characters.
  *
- * The special characters that can be selected: 1234567890ABCDEF!@#$%^&*_+[]{}<>?/~
+ * The sequence of characters that can be selected: 1234567890ABCDEF!@#$%^&*_+[]{}<>?/~
  *
  * @example
- * const randomString = generateRandomSpecialChars(10);
+ * const randomString = generateRandomChars(10);
  * console.log(randomString);
  */
-export function generateRandomSpecialChars(length: number): string {
-  const specialChars = "1234567890ABCDEF!@#$%^&*_+[]{}<>?/~"
+export function generateRandomChars(length: number): string {
+  const charSequence = "1234567890ABCDEF!@#$%^&*_+[]{}<>?/~"
   let result = ""
   for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * specialChars.length)
-    result += specialChars[randomIndex]
+    const randomIndex = Math.floor(Math.random() * charSequence.length)
+    result += charSequence[randomIndex]
   }
   return result
 }

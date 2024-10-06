@@ -73,9 +73,9 @@ const LetsStart: FC = () => {
         validateOnChange={false}
       >
         {({ values, errors, submitCount }) => (
-          <div className='lets-start__form'>
+          <div className='lets-start__form-wrapper'>
             <Form onKeyDown={handleKeyDown}>
-              <div className='lets-start__form-wrapper'>
+              <div className='lets-start__form'>
                 <div className='lets-start__inputs-wrapper'>
                   <div className='lets-start-input'>
                     <Field name='name' id='name' className='lets-start-input__field' />

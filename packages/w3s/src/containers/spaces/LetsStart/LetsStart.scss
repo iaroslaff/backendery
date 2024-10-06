@@ -55,12 +55,12 @@
     }
   }
 
-  &__form {
+  &__form-wrapper {
     grid-column: 1/4;
     align-self: self-end;
   }
 
-  &__form-wrapper {
+  &__form {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 

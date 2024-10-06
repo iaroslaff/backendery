@@ -57,11 +57,6 @@ const AnimateBinaryGrid: FC<IAnimateBinaryGridProps> = props => {
 
       return newCells
     })
-
-    /** set a new random interval for the next cell update */
-    const randomInterval = Math.random() * (props.maxInterval - props.minInterval) + props.minInterval
-
-    setTimeout(updateRandomCell, randomInterval) // continue updating cells at random intervals
   }
 
   const generateRandomSymbol = () => {
@@ -74,12 +69,24 @@ const AnimateBinaryGrid: FC<IAnimateBinaryGridProps> = props => {
 
   /** starts the random cell update process when the component mounts */
   useEffect(() => {
-    const handle = setTimeout(updateRandomCell, props.minInterval)
+    let intervalId: NodeJS.Timeout
+
+    const setRandomInterval = () => {
+      const randomInterval = Math.floor(Math.random() * (props.maxInterval - props.minInterval + 1)) + props.minInterval
+
+      /** clear the previous interval, if any */
+      clearInterval(intervalId)
+      intervalId = setInterval(updateRandomCell, randomInterval) // create new interval
+    }
+
+    /** call for the first interval */
+    setRandomInterval()
 
     return () => {
-      clearTimeout(handle) // clean up the timeout when the component unmounts
+      clearInterval(intervalId) // clean up the timeout when the component unmounts
     }
   }, [props.symbols, props.minInterval, props.maxInterval])
+
 
   return (
     <div

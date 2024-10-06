@@ -8,6 +8,7 @@
   grid-template-rows: auto auto auto 1fr;
   grid-template-columns: 1fr 120px 270px;
   height: $height-in-dvh;
+  user-select: none;
 
   &__title {
     @include adaptive-value($property: "font-size", $from: 72, $to: 32, $trigger-at: $lg);

@@ -1,5 +1,5 @@
 import { Field, Form, Formik, FormikHelpers } from "formik"
-import { FC } from "react"
+import React, { FC, KeyboardEventHandler } from "react"
 import * as Yup from "yup"
 
 import AnimateSignalStrip from "../../../components/AnimateSignalStrip/AnimateSignalStrip"
@@ -35,7 +35,13 @@ const LetsStart: FC = () => {
     projectDescription: "",
   }
 
-  const handleSendMessage = (values: ILetsStartFormValues, actions: FormikHelpers<ILetsStartFormValues>) => {
+  const handleKeyDown = (event: React.KeyboardEvent): void => {
+    if (event.key === "Enter") {
+      event.preventDefault()
+    }
+  }
+
+  const handleSendMessage = (values: ILetsStartFormValues, actions: FormikHelpers<ILetsStartFormValues>): void => {
     actions.resetForm()
   }
 
@@ -43,7 +49,7 @@ const LetsStart: FC = () => {
     <div className='lets-start'>
       <h2 className='lets-start__title'>Let&apos;s start_</h2>
       <h3 className='lets-start__description'>Fill in the blanks and we&apos;ll respond in one business day</h3>
-      <div className="lets-start__ast-wrapper">
+      <div className='lets-start__animate-signal-strip-wrapper'>
         <AnimateSignalStrip
           symbol='.'
           maxNumberOfSymbols={5}
@@ -52,25 +58,25 @@ const LetsStart: FC = () => {
           initialSymbols='.....'
           style={{
             color: "#67df8f",
-            width: '50px',
-           }}
+            width: "50px",
+          }}
         />
       </div>
       <p className='lets-start__decorative-text'>These sessions give you direct</p>
       <div className='lets-start__decorative-rectangle' />
 
       <Formik
-        validationSchema={Schema}
         initialValues={initialFormValues}
         onSubmit={(values, actions) => handleSendMessage(values, actions)}
+        validationSchema={Schema}
         validateOnBlur={false}
         validateOnChange={false}
       >
         {({ values, errors, submitCount }) => (
           <div className='lets-start__form'>
-            <Form>
+            <Form onKeyDown={handleKeyDown}>
               <div className='lets-start__form-wrapper'>
-                <div className="lets-start__inputs-wrapper">
+                <div className='lets-start__inputs-wrapper'>
                   <div className='lets-start-input'>
                     <Field name='name' id='name' className='lets-start-input__field' />
                     <label htmlFor='name' className={`lets-start-input__label ${values.name && "label-top"}`}>
@@ -90,9 +96,7 @@ const LetsStart: FC = () => {
                    * components are used here to determine the project budget
                    */}
                   <div className='lets-start__budget'>
-                    <p className="lets-start__budget-title">
-                      What's your project budget?
-                    </p>
+                    <p className='lets-start__budget-title'>What's your project budget?</p>
                     <BudgetRange currencyUnit='$' max={BUDGET_MAX} measureUnit='k' min={BUDGET_MIN} />
                   </div>
                   {/**
@@ -116,7 +120,6 @@ const LetsStart: FC = () => {
                   <SvgIcon name='arrow-right' />
                 </button>
               </div>
-              
             </Form>
           </div>
         )}

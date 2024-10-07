@@ -7,7 +7,7 @@ import { randomChars, randomInterval } from "../../../utils/fn"
 import "./AboutUs.scss"
 
 const CHARS_SEQUENCE = "1234567890ABCDEF!@#$%^&*_+[]{}<>?/~" as string
-const RANDOM_CHARS_NUMBER = (1 << 3) as number
+const RANDOM_CHARS_NUMBER = (24 >> 1) as number
 
 const AboutUs: FC = () => {
   /** states */

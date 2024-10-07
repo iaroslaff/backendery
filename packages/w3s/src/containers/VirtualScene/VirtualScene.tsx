@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react"
 
 import { addClass, removeClass } from "../../utils/fn"
-import About from "../spaces/About/About"
+import AboutUs from "../spaces/AboutUs/AboutUs"
 import Contacts from "../spaces/Contacs/Contacts"
 import LetsStart from "../spaces/LetsStart/LetsStart"
 import Main from "../spaces/Main/Main"
@@ -205,7 +205,7 @@ const VirtualScene: FC = () => {
           <span className='virtual-space__navigate virtual-space__navigate--right-down js-down js-right'>main</span>
           <span className='virtual-space__navigate virtual-space__navigate--right js-right'>we do</span>
           <span className='virtual-space__navigate virtual-space__navigate--down js-down'>cases</span>
-          <About />
+          <AboutUs />
           {/* <div className='virtual-space__caption'>about us</div> */}
         </div>
       </div>

@@ -1,9 +1,8 @@
 import { Field, Form, Formik, FormikHelpers } from "formik"
-import React, { FC, KeyboardEventHandler } from "react"
+import React, { FC } from "react"
 import * as Yup from "yup"
 
 import AnimateSignalStrip from "../../../components/AnimateSignalStrip/AnimateSignalStrip"
-import BudgetRange from "../../../components/BudgetRange/BudgetRange"
 import { SvgIcon } from "../../../components/elements/Icon"
 
 import "./LetsStart.scss"
@@ -15,24 +14,38 @@ const BUDGET_MAX = 50_000 as number
 interface ILetsStartFormValues {
   name: string
   email: string
+  projectDescription: string
   budgetMin: number
   budgetMax: number
-  projectDescription: string
 }
 
 const LetsStart: FC = () => {
   const Schema = Yup.object().shape({
     name: Yup.string().required("name is required"),
     email: Yup.string().email().required("@mail is required"),
+    /** clarify the following */
     projectDescription: Yup.string().required("an about the project is required"),
+    budgetMin: Yup.number()
+      .required("min is required")
+      .test("min-gt", `min can't be less than ${BUDGET_MIN}`, function(currentValue: number): boolean {
+        return currentValue >= BUDGET_MIN
+      })
+      .test("min-lt", `min can't be more than max`, function(currentValue: number): boolean {
+        return currentValue <= this.parent.budgetMax
+      }),
+    budgetMax: Yup.number()
+      .required("max is required")
+      .test("max-lt", `max can't be more then ${BUDGET_MAX}`, function(currentValue: number): boolean {
+        return currentValue <= BUDGET_MAX
+      }),
   })
 
   const initialFormValues: ILetsStartFormValues = {
     name: "",
     email: "",
+    projectDescription: "",
     budgetMin: BUDGET_MIN,
     budgetMax: BUDGET_MAX,
-    projectDescription: "",
   }
 
   const handleKeyDown = (event: React.KeyboardEvent): void => {
@@ -91,27 +104,38 @@ const LetsStart: FC = () => {
                     </label>
                     {submitCount > 0 && errors.email && <div className='lets-start-input__error'>{errors.email}</div>}
                   </div>
-                  {/**
-                   * attention! not a standard for a form.
-                   * components are used here to determine the project budget
-                   */}
+
                   <div className='lets-start__budget'>
-                    <p className='lets-start__budget-title'>What's your project budget?</p>
-                    <BudgetRange currencyUnit='$' max={BUDGET_MAX} measureUnit='k' min={BUDGET_MIN} />
+                    <p className='lets-start__budget-title'>May we clarify the following?</p>
                   </div>
-                  {/**
-                   * end attention
-                   */}
                   <div className='lets-start-input lets-start__project-description'>
                     <Field name='projectDescription' id='projectDescription' className='lets-start-input__field' />
                     <label
                       htmlFor='projectDescription'
                       className={`lets-start-input__label ${values.projectDescription && "label-top"}`}
                     >
-                      Tell us about the project
+                      Tell us a little about the project?
                     </label>
                     {submitCount > 0 && errors.projectDescription && (
                       <div className='lets-start-input__error'>{errors.projectDescription}</div>
+                    )}
+                  </div>
+                  <div className='lets-start-input'>
+                    <Field name='budgetMin' id='budgetMin' className='lets-start-input__field' />
+                    <label htmlFor='budgetMin' className={`lets-start-input__label ${values.budgetMin && "label-top"}`}>
+                      Minimum budget limit?
+                    </label>
+                    {submitCount > 0 && errors.budgetMin && (
+                      <div className='lets-start-input__error'>{errors.budgetMin}</div>
+                    )}
+                  </div>
+                  <div className='lets-start-input'>
+                    <Field name='budgetMax' id='budgetMax' className='lets-start-input__field' />
+                    <label htmlFor='budgetMax' className={`lets-start-input__label ${values.budgetMax && "label-top"}`}>
+                      Maximum budget limit?
+                    </label>
+                    {submitCount > 0 && errors.budgetMax && (
+                      <div className='lets-start-input__error'>{errors.budgetMax}</div>
                     )}
                   </div>
                 </div>

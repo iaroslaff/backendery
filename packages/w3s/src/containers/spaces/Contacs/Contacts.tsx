@@ -4,58 +4,54 @@ import { useScramble } from "use-scramble"
 
 import AnimateBinaryGrid from "../../../components/AnimateBinaryGrid/AnimateBinaryGrid"
 import { SvgIcon } from "../../../components/elements/Icon"
-import { generateRandomChars } from "../../../utils/fn"
+import { useRotator } from "../../../hooks/useRotator"
+import { randomChars, randomInterval } from "../../../utils/fn"
 
 import "./Contacts.scss"
 
-const RANDOM_CHARS_NUMBER = (1 << 3) as number // 1 byte
-/* prettier-ignore */
-const RANDOM_CHARS_MAX_INTERVAL =  9_500 as number
-const RANDOM_CHARS_MIN_INTERVAL = 15_000 as number
+const CHARS_SEQUENCE = "1234567890ABCDEF!@#$%^&*_+[]{}<>?/~" as string
+const RANDOM_CHARS_NUMBER = (1 << 3) as number
 
 const Contacts: FC = () => {
-  /** states */
-  const [animationInterval, setAnimationInterval] = useState<number>(0)
-
   /** hooks */
-  const { ref: textRef, replay } = useScramble({
-    text: generateRandomChars(RANDOM_CHARS_NUMBER),
-    speed: 0.65,
-    scramble: 35,
+  const { ref: textRef, replay: scrambleReplay } = useScramble({
+    text: randomChars(CHARS_SEQUENCE, RANDOM_CHARS_NUMBER),
+    speed: 0.25,
+    scramble: 25,
     overflow: true,
     overdrive: false,
-    onAnimationStart: () => {
-      /** function to generate a random interval between updates */
-      const randomInterval = () => {
-        return (
-          Math.floor(Math.random() * (RANDOM_CHARS_MAX_INTERVAL - RANDOM_CHARS_MIN_INTERVAL + 1)) +
-          RANDOM_CHARS_MIN_INTERVAL
-        )
-      }
-
-      /** generate an interval for animating chars */
-      const interval = randomInterval()
-
-      setAnimationInterval(interval)
-    },
     onAnimationFrame: () => {
-      textRef.current.textContent = generateRandomChars(RANDOM_CHARS_NUMBER)
+      textRef.current.textContent = randomChars(CHARS_SEQUENCE, RANDOM_CHARS_NUMBER)
     },
   })
 
+  const { ref: squareRef, replay: squareReplay } = useRotator({
+    duration: 1_100,
+    randomizeRotation: true
+  })
+
   useEffect(() => {
-    /** set an interval for animating chars */
-    const interval = setInterval(replay, animationInterval)
+    /** set an interval for animating */
+    /* prettier-ignore */
+    const scrambleIntervalId = setInterval(() => { scrambleReplay() }, randomInterval(7_500, 15_000))
+
+    /** set an interval for lower square animating */
+    /* prettier-ignore */
+    const  squareIntervalId =  setInterval(() => {   squareReplay() }, randomInterval(5_000, 10_000));
 
     /** clear the interval when the component is unmounted */
-    return () => clearInterval(interval)
-  }, [animationInterval])
+    return () => {
+      ;[scrambleIntervalId, squareIntervalId].forEach(intervalId => {
+        clearInterval(intervalId)
+      })
+    }
+  }, [scrambleReplay, squareReplay])
 
   return (
     <div className='contacts'>
       <h2 className='contacts__title'>Contacts_</h2>
       <div className='contacts__decorative-wrapper'>
-        <div className='contacts__decorative-square'></div>
+        <div className='contacts__decorative-square' ref={squareRef}></div>
         <p className='contacts__decorative-text' ref={textRef}></p>
       </div>
       <div className='contacts__email-wrapper'>

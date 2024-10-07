@@ -10,11 +10,11 @@ type SingleSymbol = string & { __singleSymbolBrand: never }
  * @throws {Error} Throws an error if the string length is not equal to one.
  *
  * @example
- * // valid usage
  * const validSymbol = assertSingleSymbol('a');
+ * console.log(validSymbol);
  *
- * // invalid usage
  * const invalidSymbol = assertSingleSymbol('ab');
+ * console.log(invalidSymbol);
  */
 export function assertSingleSymbol(symbol: string): SingleSymbol {
   if (symbol.length !== 1) {
@@ -29,11 +29,9 @@ export function assertSingleSymbol(symbol: string): SingleSymbol {
  *
  * @param {string} selector - A valid CSS selector string used to identify the target element.
  * @returns {number} - The computed width of the element in pixels as an integer.
- *
  * @throws {Error} - Throws an error if no element matching the selector is found.
  *
  * @example
- * // Assuming an element with id 'my-element' exists with a width of 200px:
  * const width = getElementWidth('#my-element');
  * console.log(width);
  */
@@ -53,13 +51,11 @@ export function getElementWidth(selector: string): number {
  *
  * @param {string} selector - A valid CSS selector string used to identify the target element.
  * @returns {number} - The computed height of the element in pixels as an integer.
- *
  * @throws {Error} - Throws an error if no element matching the selector is found.
  *
  * @example
- * // Assuming an element with id 'my-element' exists with a height of 400px:
  * const height = getElementHeight('#my-element');
- * console.log(height); // 400
+ * console.log(height);
  */
 export function getElementHeight(selector: string): number {
   const elt = document.querySelector(selector) as Element
@@ -79,9 +75,9 @@ export function getElementHeight(selector: string): number {
  * @param {string} cls - The class name to add to the element.
  *
  * @example
- * // Assuming an element with the class 'button' exists:
- * const btn = document.querySelector('.button');
+ * let btn = document.querySelector('.button');
  * addClass(btn, 'active');
+ * console.log(btn);
  */
 export function addClass(element: HTMLElement, cls: string): void {
   if (!hasClass(element, cls)) {
@@ -97,7 +93,6 @@ export function addClass(element: HTMLElement, cls: string): void {
  * @returns {boolean} - Returns true if the element has the specified class, otherwise false.
  *
  * @example
- * // Assuming an element with class 'button' and 'active' exists:
  * const btn = document.querySelector('.button');
  * const isActive = hasClass(btn, 'active');
  * console.log(isActive);
@@ -113,9 +108,9 @@ export function hasClass(element: HTMLElement, cls: string): boolean {
  * @param {string} cls - The class name to remove from the element.
  *
  * @example
- * // Assuming an element with classes 'button active' exists:
- * const btn = document.querySelector('.button');
+ * let btn = document.querySelector('.button');
  * removeClass(btn, 'active');
+ * console.log(btn);
  */
 export function removeClass(element: HTMLElement, cls: string): void {
   if (hasClass(element, cls)) {
@@ -124,23 +119,36 @@ export function removeClass(element: HTMLElement, cls: string): void {
 }
 
 /**
- * Generates a string of random characters of the specified length.
+ * Generates a string of random characters based on a specified character sequence and length.
  *
- * @param {number} length - The number of characters in the output string.
- * @returns {string} A string consisting of random characters.
- *
- * The sequence of characters that can be selected: 1234567890ABCDEF!@#$%^&*_+[]{}<>?/~
+ * @param {string} charsSequence - A string containing the characters that can be used in the output.
+ * @param {number} length - The desired length of the output string.
+ * @returns {string} A string consisting of randomly selected characters from the provided character sequence.
  *
  * @example
- * const randomString = generateRandomChars(10);
+ * const randomString = randomChars('1234567890ABCDEF!@#$%^&*_+[]{}<>?/~', 10);
  * console.log(randomString);
  */
-export function generateRandomChars(length: number): string {
-  const charSequence = "1234567890ABCDEF!@#$%^&*_+[]{}<>?/~"
-  let result = ""
+export function randomChars(charsSequence: string, length: number): string {
+  let randomSeq = ""
   for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * charSequence.length)
-    result += charSequence[randomIndex]
+    const randomIndex = Math.floor(Math.random() * charsSequence.length)
+    randomSeq += charsSequence[randomIndex]
   }
-  return result
+  return randomSeq
+}
+
+/**
+ * Generates a random integer within a specified range.
+ *
+ * @param {number} minInterval - The minimum value of the range (inclusive).
+ * @param {number} maxInterval - The maximum value of the range (inclusive).
+ * @returns {number} A random integer between `min` and `max`, inclusive.
+ *
+ * @example
+ * const randomNumber = randomInterval(1, 10);
+ * console.log(randomNumber);
+ */
+export function randomInterval(minInterval: number, maxInterval: number): number {
+  return Math.floor(Math.random() * (maxInterval - minInterval + 1)) + minInterval
 }

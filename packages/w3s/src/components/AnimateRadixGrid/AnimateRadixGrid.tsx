@@ -76,9 +76,13 @@ const AnimateRadixGrid: FC<IAnimateRadixGridProps> = props => {
   /** states */
   /** state to hold the current symbols in the grid */
   const [cells, setCells] = useState<string[]>(createInitialCells())
+  /** track if the component is visible */
+  const [isVisible, setIsVisible] = useState<boolean>(false)
 
   /** refs */
-  /** store the last update time for controlling animation timing */
+  /** ref to the grid container */
+  const gridRef = useRef<HTMLDivElement | null>(null)
+  /** ref to store the last update time for controlling animation timing */
   const lastTimeRef = useRef<number | null>(null)
 
   /** set of unreachable cell indices */
@@ -114,8 +118,30 @@ const AnimateRadixGrid: FC<IAnimateRadixGridProps> = props => {
     return props.symbols[Math.floor(Math.random() * props.symbols.length)]
   }
 
+  /** intersection Observer to detect when the component is in view */
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting)
+      },
+      { threshold: 0.1 } // trigger when at least 10% of the component is visible
+    )
+
+    if (gridRef.current) {
+      observer.observe(gridRef.current)
+    }
+
+    return () => {
+      if (gridRef.current) {
+        observer.unobserve(gridRef.current)
+      }
+    }
+  }, [])
+
   /** starts the random cell update process when the component mounts */
   useEffect(() => {
+    if (!isVisible) return // don't animate if the component is not visible
+
     /** animation loop that updates cells at random intervals */
     const step = (currentTime: number) => {
       if (lastTimeRef.current === null) {
@@ -139,7 +165,7 @@ const AnimateRadixGrid: FC<IAnimateRadixGridProps> = props => {
 
     /** clean up the animation on component unmount */
     return () => cancelAnimationFrame(animationFrame)
-  }, [props.symbols, props.minInterval, props.maxInterval]) // re-run the effect if props change
+  }, [isVisible, props.minInterval, props.maxInterval, updateRandomCell]) // re-run the effect if props change
 
   return (
     <div
@@ -148,6 +174,7 @@ const AnimateRadixGrid: FC<IAnimateRadixGridProps> = props => {
         gridTemplateColumns: `repeat(${props.cols}, 1fr)`, // set the grid layout based on columns
         ...props.style, // spread any additional styles
       }}
+      ref={gridRef} // assign the ref to the grid container
     >
       {cells.map((symbol, index) => (
         <AnimateRadixCell

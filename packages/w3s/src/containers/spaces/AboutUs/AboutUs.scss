@@ -134,7 +134,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    color: rgba($secondary-color, 0.3);
+    color: rgba($color: $secondary-color, $alpha: 0.3);
     transform: translate(-50%, -50%);
 
     @media screen and (width <= 1400px) {

@@ -2,12 +2,12 @@ import React, { FC, memo, useEffect, useRef, useState } from "react"
 
 import { randomInterval } from "../../utils/fn"
 
-import "./AnimateBinaryGrid.scss"
+import "./AnimateRadixGrid.scss"
 
 /**
- * define the props for the AnimateBinaryGrid component
+ * define the props for the AnimateRadixGrid component
  */
-interface IAnimateBinaryGridProps {
+interface IAnimateRadixGridProps {
   /**
    * @property {string[]} array of symbols to display
    */
@@ -45,17 +45,17 @@ interface IAnimateBinaryGridProps {
 }
 
 /**
- * сomponent for individual cells in the binary grid
+ * сomponent for individual cells in the radix grid
  */
-const AnimateBinaryCell: FC<{ symbol: string; isUnreachable: boolean }> = memo(({ symbol, isUnreachable }) => {
+const AnimateRadixCell: FC<{ symbol: string; isUnreachable: boolean }> = memo(({ symbol, isUnreachable }) => {
   /** each cell displays a symbol and applies a "unreachable" class if it is in a unreachable state */
-  return <div className={`animate-binary-grid__cell ${isUnreachable ? "unreachable" : ""}`}>{symbol}</div>
+  return <div className={`animate-radix-grid__cell ${isUnreachable ? "unreachable" : ""}`}>{symbol}</div>
 })
 
 /**
- * main component for the animated binary grid
+ * main component for the animated radix grid
  */
-const AnimateBinaryGrid: FC<IAnimateBinaryGridProps> = props => {
+const AnimateRadixGrid: FC<IAnimateRadixGridProps> = props => {
   /** validate unreachableCells to ensure that they are within bounds of the grid */
   props.unreachableCells?.forEach(([row, col]) => {
     if (row < 0 || row >= props.rows || col < 0 || col >= props.cols) {
@@ -143,14 +143,14 @@ const AnimateBinaryGrid: FC<IAnimateBinaryGridProps> = props => {
 
   return (
     <div
-      className='animate-binary-grid'
+      className='animate-radix-grid'
       style={{
         gridTemplateColumns: `repeat(${props.cols}, 1fr)`, // set the grid layout based on columns
         ...props.style, // spread any additional styles
       }}
     >
       {cells.map((symbol, index) => (
-        <AnimateBinaryCell
+        <AnimateRadixCell
           key={index}
           symbol={unreachableSet.has(index) ? "" : symbol} // show an empty string if the cell is unreachable
           isUnreachable={unreachableSet.has(index)} // pass the unreachable state to the cell
@@ -160,4 +160,4 @@ const AnimateBinaryGrid: FC<IAnimateBinaryGridProps> = props => {
   )
 }
 
-export default AnimateBinaryGrid
+export default AnimateRadixGrid

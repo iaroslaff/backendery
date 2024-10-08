@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from "react"
+import { ReactTyped as Typed } from "react-typed"
 import { useScramble } from "use-scramble"
 
 import { useRotator } from "../../../hooks/useRotator"
@@ -66,7 +67,9 @@ const AboutUs: FC = () => {
 
   return (
     <div className='about-us'>
-      <h2 className='about-us__title'>About_</h2>
+      <h2 className='about-us__title'>
+        <Typed strings={["About Us"]} typeSpeed={50} cursorChar='_' showCursor={true} startWhenVisible />
+      </h2>
       <div className='about-us__description-wrapper'>
         <p ref={textRef}></p>
         <p className='about-us__description'>

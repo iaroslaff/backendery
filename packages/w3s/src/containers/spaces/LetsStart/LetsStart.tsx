@@ -1,5 +1,6 @@
 import { Field, Form, Formik, FormikHelpers } from "formik"
 import React, { FC } from "react"
+import { ReactTyped as Typed } from "react-typed"
 import * as Yup from "yup"
 
 import AnimateSignalStrip from "../../../components/AnimateSignalStrip/AnimateSignalStrip"
@@ -77,7 +78,9 @@ const LetsStart: FC = () => {
 
   return (
     <div className='lets-start'>
-      <h2 className='lets-start__title'>Let&apos;s start_</h2>
+      <h2 className='lets-start__title'>
+        <Typed strings={["Let's start"]} typeSpeed={50} cursorChar='_' showCursor={true} startWhenVisible />
+      </h2>
       <h3 className='lets-start__description'>Fill in the blanks and we&apos;ll respond in one business day</h3>
       <div className='lets-start__animate-signal-strip-wrapper'>
         <AnimateSignalStrip

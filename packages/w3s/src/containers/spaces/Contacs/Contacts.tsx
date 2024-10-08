@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react"
 import toast, { Toaster } from "react-hot-toast"
+import { ReactTyped as Typed } from "react-typed"
 import { useScramble } from "use-scramble"
 
 import AnimateBinaryGrid from "../../../components/AnimateBinaryGrid/AnimateBinaryGrid"
@@ -49,7 +50,9 @@ const Contacts: FC = () => {
 
   return (
     <div className='contacts'>
-      <h2 className='contacts__title'>Contacts_</h2>
+      <h2 className='contacts__title'>
+        <Typed strings={["Contacts"]} typeSpeed={50} cursorChar='_' startWhenVisible />
+      </h2>
       <div className='contacts__decorative-wrapper'>
         <div className='contacts__decorative-square' ref={squareRef}></div>
         <p className='contacts__decorative-text' ref={textRef}></p>

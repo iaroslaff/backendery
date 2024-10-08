@@ -80,9 +80,9 @@ const AnimateRadixGrid: FC<IAnimateRadixGridProps> = props => {
   const [isVisible, setIsVisible] = useState<boolean>(false)
 
   /** refs */
-  /** ref to the grid container */
+  /** reference to the grid container */
   const gridRef = useRef<HTMLDivElement | null>(null)
-  /** ref to store the last update time for controlling animation timing */
+  /** reference to store the last update time for controlling animation timing */
   const lastTimeRef = useRef<number | null>(null)
 
   /** set of unreachable cell indices */

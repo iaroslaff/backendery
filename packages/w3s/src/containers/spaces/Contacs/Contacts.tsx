@@ -1,9 +1,9 @@
-import React, { FC, useEffect, useState } from "react"
+import React, { FC, useEffect } from "react"
 import toast, { Toaster } from "react-hot-toast"
 import { ReactTyped as Typed } from "react-typed"
 import { useScramble } from "use-scramble"
 
-import AnimateBinaryGrid from "../../../components/AnimateBinaryGrid/AnimateBinaryGrid"
+import AnimateRadixGrid from "../../../components/AnimateRadixGrid/AnimateRadixGrid"
 import { SvgIcon } from "../../../components/elements/Icon"
 import { useRotator } from "../../../hooks/useRotator"
 import { randomChars, randomInterval } from "../../../utils/fn"
@@ -99,12 +99,12 @@ const Contacts: FC = () => {
         </a>
       </div>
       <div className='contacts__animate-binary-grid-wrapper'>
-        <AnimateBinaryGrid
+        <AnimateRadixGrid
           symbols={["0", "1"]}
           rows={7}
           cols={3}
-          minInterval={300}
-          maxInterval={950}
+          minInterval={1_200}
+          maxInterval={2_550}
           unreachableCells={[
             [3, 1],
             [4, 1],

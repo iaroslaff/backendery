@@ -1,7 +1,7 @@
 import { motion } from "framer-motion"
 import React, { FC, useEffect, useState } from "react"
 
-import { assertSingleSymbol } from "../../utils/fn"
+import { assertSingleSymbol, randomInterval } from "../../utils/fn"
 
 interface IAnimateSignalStripProps {
   symbol: string
@@ -57,11 +57,8 @@ const AnimateSignalStrip: FC<IAnimateSignalStripProps> = props => {
       }
     }
 
-    /** function to generate a random interval between updates */
-    const randomInterval = () => Math.random() * (props.maxInterval - props.minInterval) + props.minInterval
-
     /** set an interval for animating symbols */
-    const interval = setInterval(animateSymbols, randomInterval())
+    const interval = setInterval(animateSymbols, randomInterval(props.minInterval, props.maxInterval))
 
     /** clear the interval when the component is unmounted */
     return () => clearInterval(interval)

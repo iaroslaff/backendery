@@ -11,34 +11,36 @@ type RotateDirection = "left" | "right"
  */
 type UseRotatorProps = {
   /**
-   * The angle of rotation in degrees
+   * @property {number} the angle of rotation in degrees
+   * @default 45
    */
   angle?: number
 
   /**
-   * Direction of the rotation: "left" for counterclockwise, "right" for clockwise
+   * @property {RotateDirection} direction of the rotation
+   * @default "right"
    */
   direction?: RotateDirection
 
   /**
-   * Duration of the rotation animation in milliseconds
-   *
+   * @property {number} duration of the rotation animation in milliseconds
+   * @default 800
    */
   duration?: number
 
   /**
-   * Optional flag to randomize both angle and direction of rotation
+   * @property {boolean} flag to randomize both angle and direction of rotation
    * @default false
    */
   randomizeRotation?: boolean
 
   /**
-   * Callback when animation starts rendering
+   * @property {Function} callback when animation starts rendering
    */
   onAnimationStart?: () => void
 
   /**
-   * Callback for when the animation finished
+   * @property {Function} callback for when the animation finished
    */
   onAnimationEnd?: () => void
 }

@@ -1,0 +1,121 @@
+@import "@styles/variables";
+@import "@styles/mixin";
+
+.wedo {
+  @include adaptive-value($property: "padding", $from: 130, $to: 50);
+
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  grid-template-rows: auto 10% 1fr auto;
+
+  width: $width-in-dvw;
+  height: $height-in-dvh;
+  user-select: none;
+
+  @media screen and (width <=$md) {
+    grid-template-columns: 1fr auto auto;
+    grid-template-rows: auto auto 1fr auto;
+  }
+
+  &__title {
+    @include adaptive-value($property: "font-size", $from: 72, $to: 32, $trigger-at: $lg);
+    font-weight: 600;
+    line-height: 110%;
+  }
+
+  &__decorative-square {
+    width: 16px;
+    height: 16px;
+    border-left: 2px solid $accent-color;
+    border-bottom: 2px solid $accent-color;
+    grid-column: 3;
+    align-self: end;
+  }
+
+  &__tabs-container {
+    display: flex;
+    flex-direction: column;
+    @include adaptive-value($property: "gap", $from: 30, $to: 20);
+    grid-row: 3;
+
+    @media screen and (width <=$md) {
+      grid-row: 2;
+      margin: 40px 0;
+    }
+
+    &__tab {
+      display: flex;
+      gap: 20px;
+      line-height: 120%;
+      @include adaptive-value($property: "font-size", $from: 28, $to: 18);
+
+      &__symbol {
+        color: rgba($color: $secondary-color, $alpha: 0.3);
+      }
+    }
+  }
+
+  &__description-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    grid-column: 2;
+    grid-row: 3;
+
+    @media screen and (width <=$md) {
+      grid-column: 1/-1;
+      grid-row: 3;
+    }
+
+    &__animation-dots {
+      @media screen and (width <=$md) {
+        display: none;
+      }
+    }
+
+    &__description {
+      max-width: 450px;
+
+      @media screen and (width <=$md) {
+        margin-right: 20px;
+      }
+
+      &__highlighter {
+        color: $accent-color;
+      }
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: rgba($color: $secondary-color, $alpha: 0.5);
+    }
+  }
+
+  &__decorative-symbols {
+    color: $accent-color;
+    grid-row: 4;
+    align-self: end;
+
+    @media screen and (width <=$xs) {
+      display: none;
+    }
+  }
+
+  &__matrix {
+    color: rgba($color: $secondary-color, $alpha: 0.1);
+    grid-column: 3;
+    grid-row: 3/5;
+    display: flex;
+    align-self: end;
+
+    @media screen and (width <=$sm) {
+      display: none;
+    }
+
+    &>p {
+      writing-mode: vertical-rl;
+    }
+  }
+}

@@ -7,6 +7,7 @@ import LetsStart from "../spaces/LetsStart/LetsStart"
 import Main from "../spaces/Main/Main"
 import WeUse from "../spaces/WeUse/WeUse"
 import Steps from "../spaces/Steps/Steps"
+import WeDo from "../spaces/WeDo/WeDo"
 
 import "./VirtualScene.scss"
 
@@ -148,7 +149,8 @@ const VirtualScene: FC = () => {
           <span className='virtual-space__navigate virtual-space__navigate--right-down js-down js-right'>steps</span>
           <span className='virtual-space__navigate virtual-space__navigate--left-down js-down js-left'>cases</span>
           <span className='virtual-space__navigate virtual-space__navigate--down js-down'>main</span>
-          <div className='virtual-space__caption'>we do</div>
+          {/* <div className='virtual-space__caption'>we do</div> */}
+          <WeDo />
         </div>
         {/* up/right */}
         <div className='virtual-space' data-x-position='1' data-y-position='1'>

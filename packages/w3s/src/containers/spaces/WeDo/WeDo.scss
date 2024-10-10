@@ -53,6 +53,8 @@
   }
 
   &__tab-name {
+    cursor: pointer;
+
     &.active {
       color: $primary-color;
       background-color: $secondary-color;

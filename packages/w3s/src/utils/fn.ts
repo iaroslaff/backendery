@@ -141,14 +141,36 @@ export function randomChars(charsSequence: string, length: number): string {
 /**
  * Generates a random integer within a specified range.
  *
- * @param {number} minInterval - The minimum value of the range (inclusive).
- * @param {number} maxInterval - The maximum value of the range (inclusive).
+ * @param {number} from - The minimum value of the range (inclusive).
+ * @param {number} to - The maximum value of the range (inclusive).
  * @returns {number} A random integer between `min` and `max`, inclusive.
  *
  * @example
- * const randomNumber = randomInterval(1, 10);
+ * const randomNumber = randomBetween(1, 10);
  * console.log(randomNumber);
  */
-export function randomInterval(minInterval: number, maxInterval: number): number {
-  return Math.floor(Math.random() * (maxInterval - minInterval + 1)) + minInterval
+export function randomBetween(from: number, to: number): number {
+  return Math.floor(Math.random() * (to - from + 1)) + from
+}
+
+/**
+ * Schedules the execution of a function after a specified timeout.
+ * If a previous timeout is active, it will be cleared before setting a new one.
+ *
+ * @param {import("react").MutableRefObject<number | null>} timeoutRef - A reference to store the current timeout ID.
+ * @param {() => void} [triggerFn=() => {}] - The function to be executed after the timeout. Defaults to a no-op function.
+ * @param {number} [timeout=300] - The time in milliseconds to wait before executing the function. Defaults to 300 ms.
+ */
+export function runWithTimeout(
+  timeoutRef: import("react").MutableRefObject<number | null>,
+  triggerFn: () => void = () => {},
+  timeout: number = 300
+): void {
+  timeoutRef.current && clearTimeout(timeoutRef.current)
+
+  /** set a new timeout and store its ID in the reference */
+  timeoutRef.current = window.setTimeout(() => {
+    /** execute the provided function after the timeout */
+    triggerFn && triggerFn()
+  }, timeout)
 }

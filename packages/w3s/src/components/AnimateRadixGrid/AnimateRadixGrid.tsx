@@ -1,6 +1,6 @@
 import React, { FC, memo, useEffect, useRef, useState } from "react"
 
-import { randomInterval } from "../../utils/fn"
+import { randomBetween } from "../../utils/fn"
 
 import "./AnimateRadixGrid.scss"
 
@@ -149,7 +149,7 @@ const AnimateRadixGrid: FC<IAnimateRadixGridProps> = props => {
       }
 
       const elapsed = currentTime - lastTimeRef.current // calculate elapsed time since last update
-      const nextInterval = randomInterval(props.minInterval, props.maxInterval) // get a random interval between min and max
+      const nextInterval = randomBetween(props.minInterval, props.maxInterval) // get a random interval between min and max
 
       /** if enough time has elapsed, update a random cell */
       if (elapsed >= nextInterval) {

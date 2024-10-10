@@ -89,9 +89,14 @@ const WeDo: FC = () => {
             key={wd.id}
             className='wedo__tab'
             onClick={() => {
-              setActiveTab(wd.id)
-              setDescription(wd.description)
-              scrambleReplay()
+              if (activeTab !== wd.id) {
+                /** activate the selected tab */
+                setActiveTab(wd.id)
+                /** change the description */
+                setDescription(wd.description)
+                /** run animation `scramble` for the description */
+                scrambleReplay()
+              }
             }}
           >
             <p className='wedo__tab-symbol'>{wd.symbol}</p>

@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react"
+import React, { FC, useEffect, useRef } from "react"
 import toast, { Toaster } from "react-hot-toast"
 import { ReactTyped as Typed } from "react-typed"
 import { useScramble } from "use-scramble"
@@ -6,52 +6,72 @@ import { useScramble } from "use-scramble"
 import AnimateRadixGrid from "../../../components/AnimateRadixGrid/AnimateRadixGrid"
 import { SvgIcon } from "../../../components/elements/Icon"
 import { useRotator } from "../../../hooks/useRotator"
-import { randomChars, randomInterval } from "../../../utils/fn"
+import { randomBetween, randomChars, runWithTimeout } from "../../../utils/fn"
 
 import "./Contacts.scss"
 
 const CHARS_SEQUENCE = "1234567890ABCDEF!@#$%^&*_+[]{}<>?/~" as string
 const RANDOM_CHARS_NUMBER = (1 << 3) as number
 
+const SCRAMBLE_CHARS = randomChars(CHARS_SEQUENCE, RANDOM_CHARS_NUMBER)
+
 const Contacts: FC = () => {
-  /** hooks */
+  /** refs */
+  const scrambleTimeoutRef = useRef<number | null>(null)
+  const squareTimeoutRef = useRef<number | null>(null)
+
   const { ref: textRef, replay: scrambleReplay } = useScramble({
-    text: randomChars(CHARS_SEQUENCE, RANDOM_CHARS_NUMBER),
-    speed: 0.25,
-    scramble: 25,
+    text: SCRAMBLE_CHARS,
+    speed: 0.45,
+    tick: 1,
+    step: 1,
+    scramble: 12,
+    seed: 0,
     overflow: true,
     overdrive: false,
-    onAnimationFrame: () => {
-      textRef.current.textContent = randomChars(CHARS_SEQUENCE, RANDOM_CHARS_NUMBER)
+    onAnimationEnd: () => {
+      const timeout = randomBetween(4_100, 7_550)
+      runWithTimeout(scrambleTimeoutRef, scrambleReplay, timeout)
     },
   })
 
   const { ref: squareRef, replay: squareReplay } = useRotator({
     duration: 1_100,
-    randomizeRotation: true
+    randomizeRotation: true,
+    onAnimationEnd: () => {
+      const timeout = randomBetween(4_000, 9_700)
+      runWithTimeout(squareTimeoutRef, squareReplay, timeout)
+    },
   })
 
   useEffect(() => {
-    /** set an interval for animating */
-    /* prettier-ignore */
-    const scrambleIntervalId = setInterval(() => { scrambleReplay() }, randomInterval(7_500, 15_000))
+    /** schedule the first animation when mounting the component */
+    runWithTimeout(scrambleTimeoutRef, scrambleReplay)
 
-    /** set an interval for lower square animating */
-    /* prettier-ignore */
-    const  squareIntervalId =  setInterval(() => {   squareReplay() }, randomInterval(5_000, 10_000));
-
-    /** clear the interval when the component is unmounted */
+    /** clear the timeout when the component is unmounted */
     return () => {
-      ;[scrambleIntervalId, squareIntervalId].forEach(intervalId => {
-        clearInterval(intervalId)
-      })
+      if (scrambleTimeoutRef.current) {
+        clearTimeout(scrambleTimeoutRef.current)
+      }
     }
-  }, [scrambleReplay, squareReplay])
+  }, [])
+
+  useEffect(() => {
+    /** schedule the first animation when mounting the component */
+    runWithTimeout(squareTimeoutRef, squareReplay)
+
+    /** clear the timeout when the component is unmounted */
+    return () => {
+      if (squareTimeoutRef.current) {
+        clearTimeout(squareTimeoutRef.current)
+      }
+    }
+  }, [])
 
   return (
     <div className='contacts'>
       <h2 className='contacts__title'>
-        <Typed strings={["Contacts"]} typeSpeed={50} cursorChar='_' startWhenVisible />
+        <Typed strings={["Contacts"]} typeSpeed={50} cursorChar='_' showCursor={true} startWhenVisible />
       </h2>
       <div className='contacts__decorative-wrapper'>
         <div className='contacts__decorative-square' ref={squareRef}></div>
@@ -98,7 +118,7 @@ const Contacts: FC = () => {
           <SvgIcon name='arrow-up' />
         </a>
       </div>
-      <div className='contacts__animate-binary-grid-wrapper'>
+      <div className='contacts__animate-radix-grid-wrapper'>
         <AnimateRadixGrid
           symbols={["0", "1"]}
           rows={7}

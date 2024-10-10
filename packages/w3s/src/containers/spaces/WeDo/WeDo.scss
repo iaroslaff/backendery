@@ -102,6 +102,10 @@
     flex-direction: column;
     gap: 8px;
     color: rgba($color: $secondary-color, $alpha: 0.5);
+
+    &--item {
+      color: $accent-color;
+    }
   }
 
   &__decorative-symbols {

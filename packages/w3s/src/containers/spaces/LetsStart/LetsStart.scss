@@ -7,6 +7,7 @@
   display: grid;
   grid-template-rows: auto auto auto 1fr;
   grid-template-columns: 1fr 120px 270px;
+  width: $width-in-dvw;
   height: $height-in-dvh;
   user-select: none;
 

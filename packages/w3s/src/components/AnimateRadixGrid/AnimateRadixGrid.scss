@@ -10,7 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba($color: $secondary-color, $alpha: 0.1);
+    color: rgba($color: $secondary-color, $alpha: 0.20);
     user-select: none;
 
     &.unreachable {

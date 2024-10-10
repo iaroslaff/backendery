@@ -1,63 +1,93 @@
-import { FC, useEffect, useState } from "react"
+import React, { FC, useEffect, useRef, useState } from "react"
 import { ReactTyped as Typed } from "react-typed"
 import { useScramble } from "use-scramble"
 
 import { useRotator } from "../../../hooks/useRotator"
-import { randomChars, randomInterval } from "../../../utils/fn"
+import { randomBetween, randomChars, runWithTimeout } from "../../../utils/fn"
 
 import "./AboutUs.scss"
 
 const CHARS_SEQUENCE = "1234567890ABCDEF!@#$%^&*_+[]{}<>?/~" as string
 const RANDOM_CHARS_NUMBER = (24 >> 1) as number
 
+const SCRAMBLE_CHARS = randomChars(CHARS_SEQUENCE, RANDOM_CHARS_NUMBER)
+
 const AboutUs: FC = () => {
+  /** refs */
+  const scrambleTimeoutRef = useRef<number | null>(null)
+  const lowerSquareTimeoutRef = useRef<number | null>(null)
+  const upperSquareTimeoutRef = useRef<number | null>(null)
+
   /** states */
   const [imageSrc, setImageSrc] = useState<string>("")
 
-  /** hooks */
   const { ref: textRef, replay: scrambleReplay } = useScramble({
-    text: randomChars(CHARS_SEQUENCE, RANDOM_CHARS_NUMBER),
-    speed: 0.25,
-    scramble: 15,
+    text: SCRAMBLE_CHARS,
+    speed: 0.55,
+    scramble: 10,
     overflow: true,
     overdrive: false,
-    onAnimationFrame: () => {
-      textRef.current.textContent = randomChars(CHARS_SEQUENCE, RANDOM_CHARS_NUMBER)
+    onAnimationEnd: () => {
+      const timeout = randomBetween(7_500, 12_000)
+      runWithTimeout(scrambleTimeoutRef, scrambleReplay, timeout)
     },
   })
 
-  const { ref: lwSquareRef, replay: lwSquareReplay } = useRotator({
+  const { ref: lowerSquareRef, replay: lowerSquareReplay } = useRotator({
     angle: 90,
     direction: "right",
-    duration: 1_350,
+    duration: 200,
+    onAnimationEnd: () => {
+      const timeout = randomBetween(3_500, 7_000)
+      runWithTimeout(lowerSquareTimeoutRef, lowerSquareReplay, timeout)
+    },
   })
 
-  const { ref: upSquareRef, replay: upSquareReplay } = useRotator({
-    angle: 270,
+  const { ref: upperSquareRef, replay: upperSquareReplay } = useRotator({
+    angle: 180,
     direction: "left",
-    duration: 1_700,
+    duration: 400,
+    onAnimationEnd: () => {
+      const timeout = randomBetween(2_200, 5_800)
+      runWithTimeout(upperSquareTimeoutRef, upperSquareReplay, timeout)
+    },
   })
 
   useEffect(() => {
-    /** set an interval for scramble animating */
-    /* prettier-ignore */
-    const scrambleIntervalId = setInterval(() => { scrambleReplay() }, randomInterval(7_000, 15_000))
+    /** schedule the first animation when mounting the component */
+    runWithTimeout(scrambleTimeoutRef, scrambleReplay)
 
-    /** set an interval for lower square animating */
-    /* prettier-ignore */
-    const lwSquareIntervalId = setInterval(() => { lwSquareReplay() }, randomInterval(4_000, 7_000));
-
-    /** set an interval for lower square animating */
-    /* prettier-ignore */
-    const upSquareIntervalId = setInterval(() => { upSquareReplay() }, randomInterval(3_500, 8_200));
-
-    /** clear the interval when the component is unmounted */
+    /** clear the timeout when the component is unmounted */
     return () => {
-      ;[scrambleIntervalId, lwSquareIntervalId, upSquareIntervalId].forEach(intervalId => {
-        clearInterval(intervalId)
-      })
+      if (scrambleTimeoutRef.current) {
+        clearTimeout(scrambleTimeoutRef.current)
+      }
     }
-  }, [scrambleReplay, lwSquareReplay, upSquareReplay])
+  }, [])
+
+  useEffect(() => {
+    /** schedule the first animation when mounting the component */
+    runWithTimeout(lowerSquareTimeoutRef, lowerSquareReplay)
+
+    /** clear the timeout when the component is unmounted */
+    return () => {
+      if (lowerSquareTimeoutRef.current) {
+        clearTimeout(lowerSquareTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    /** schedule the first animation when mounting the component */
+    runWithTimeout(upperSquareTimeoutRef, upperSquareReplay)
+
+    /** clear the timeout when the component is unmounted */
+    return () => {
+      if (upperSquareTimeoutRef.current) {
+        clearTimeout(upperSquareTimeoutRef.current)
+      }
+    }
+  }, [])
 
   useEffect(() => {
     import("../../../assets/images/founder.jpg").then(image => {
@@ -85,8 +115,8 @@ const AboutUs: FC = () => {
       </div>
       <div className='about-us__founder'>
         <div className='about-us__decorative-square-wrapper'>
-          <div className='about-us__decorative-square' ref={lwSquareRef}></div>
-          <div className='about-us__decorative-square' ref={upSquareRef}></div>
+          <div className='about-us__decorative-square' ref={lowerSquareRef}></div>
+          <div className='about-us__decorative-square' ref={upperSquareRef}></div>
         </div>
         <div className='about-us__founder-bio'>
           <p className='about-us__founder-bio-name'>Jaroslav</p>

@@ -82,7 +82,7 @@ const WeDo: FC = () => {
       <h2 className='wedo__title'>
         <Typed strings={["We Do"]} typeSpeed={50} cursorChar='_' showCursor={true} startWhenVisible />
       </h2>
-      <div className='wedo__decorative-square'></div>
+      <div className='wedo__decorative-corner'></div>
       <div className='wedo__tabs-wrapper'>
         {__weDoContent.map(wd => (
           <div
@@ -124,9 +124,9 @@ const WeDo: FC = () => {
           <span className='wedo__description-highlight'> */</span>
         </p>
         <div className='wedo__decorative-stdout'>
-          <p className='wedo__decorative-stdout--item'>{"Learning to find.............[ OK ]"}</p>
+          <p className='wedo__decorative-stdout--item'>{"Continuous learning..........[ OK ]"}</p>
+          <p className='wedo__decorative-stdout--item'>{"Best practices...............[ OK ]"}</p>
           <p className='wedo__decorative-stdout--item'>{"Mentorships..................[ OK ]"}</p>
-          <p className='wedo__decorative-stdout--item'>{"Access to....................[ OK ]"}</p>
         </div>
       </div>
       <div className='wedo__decorative-symbols'>../../</div>

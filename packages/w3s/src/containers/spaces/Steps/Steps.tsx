@@ -1,13 +1,15 @@
 import { FC } from "react"
+import { ReactTyped as Typed } from "react-typed"
+
 import "./Steps.scss"
 
-const Steps: FC = () => { 
+const Steps: FC = () => {
   return (
     <div className="steps">
-      <h2 className="steps__title">Steps_</h2>
-
+      <h2 className="steps__title">
+        <Typed strings={["Steps"]} typeSpeed={50} cursorChar='_' showCursor={true} startWhenVisible />
+      </h2>
       <p className="steps__decorative-text-1">{'&//='}</p>
-
       <div className="steps__slider-navigation">
         <div className="steps__slider-navigation__btn">01</div>
         <div className="steps__slider-navigation__btn">02</div>

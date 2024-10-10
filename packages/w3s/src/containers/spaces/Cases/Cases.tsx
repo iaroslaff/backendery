@@ -1,13 +1,15 @@
 import { FC } from "react"
+import { ReactTyped as Typed } from "react-typed"
+
 import "./Cases.scss"
 
 const Cases: FC = () => { 
   return (
     <div className="cases">
-
-      <h2 className="cases__title">Cases_</h2>
+      <h2 className="cases__title">
+        <Typed strings={["Cases"]} typeSpeed={50} cursorChar='_' showCursor={true} startWhenVisible />
+      </h2>
       <div className="cases__decorative-square"></div>
-
       <div className="cases__moving-string">
         <span className="cases__moving-string__brace">{'['}</span>
         <div className="cases__moving-string__string-box">

@@ -1,10 +1,14 @@
 import { FC } from "react"
+import { ReactTyped as Typed } from "react-typed"
+
 import "./WeDo.scss"
 
-const WeDo: FC = () => { 
+const WeDo: FC = () => {
   return (
     <div className="wedo">
-      <h2 className="wedo__title">We Do_</h2>
+      <h2 className="wedo__title">
+        <Typed strings={["We Do"]} typeSpeed={50} cursorChar='_' showCursor={true} startWhenVisible />
+      </h2>
       <div className="wedo__decorative-square">
       </div>
 

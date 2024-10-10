@@ -24,6 +24,8 @@ const AboutUs: FC = () => {
   const { ref: textRef, replay: scrambleReplay } = useScramble({
     text: SCRAMBLE_CHARS,
     speed: 0.55,
+    tick: 3,
+    step: 1,
     scramble: 10,
     overflow: true,
     overdrive: false,

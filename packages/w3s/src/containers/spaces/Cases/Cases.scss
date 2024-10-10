@@ -1,0 +1,206 @@
+@import "@styles/variables";
+@import "@styles/mixin";
+
+.cases {
+  @include adaptive-value($property: "padding", $from: 130, $to: 50);
+  display: grid;
+  grid-template-columns: 20% 1fr auto;
+  grid-template-rows: auto 15% 1fr auto;
+  width: $width-in-dvw;
+  height: $height-in-dvh;
+  user-select: none;
+
+  @media screen and (width <=$lg) {
+    grid-template-columns: 1fr auto auto;
+    grid-template-rows: auto auto 1fr auto;
+  }
+
+  &__title {
+    @include adaptive-value($property: "font-size", $from: 72, $to: 32, $trigger-at: $lg);
+    font-weight: 600;
+    line-height: 110%;
+    grid-column: 1/3;
+  }
+
+  &__decorative-square {
+    width: 16px;
+    height: 16px;
+    border-left: 2px solid $accent-color;
+    border-top: 2px solid $accent-color;
+    grid-column: 3;
+    align-self: end;
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  &__moving-string {
+    display: flex;
+    align-items: center;
+    grid-row: 3;
+    align-self: flex-start;
+
+    @media screen and (width <=$lg) {
+      grid-column: 1;
+      grid-row: 2;
+      margin: 40px 0px 40px -4px;
+    }
+
+    &__brace {
+      font-size: 28px;
+      font-weight: 300;
+    }
+
+    &__string-box {
+      padding-top: 3px;
+      overflow: hidden;
+      width: 130px;
+      color: rgba($color: $secondary-color, $alpha: 0.2);
+      white-space: nowrap;
+    }
+  }
+
+  &__cases-container {
+    grid-column: 2/4;
+    grid-row: 3/5;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 5%;
+    align-items: end;
+
+    @media screen and (width <=$lg) {
+      display: none;
+    }
+  }
+
+  &__cases-slider-container {
+    display: none;
+
+    @media screen and (width <=$lg) {
+      display: block;
+      grid-column: 1;
+      grid-row: 3/5;
+    }
+
+    @media screen and (width <=$sm) {
+      grid-row: 3;
+      margin-bottom: 15%;
+    }
+  }
+
+  &__single-case {
+    height: 100%;
+    max-width: 300px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto auto;
+    row-gap: 20px;
+    @include adaptive-value($property: "padding-left", $from: 30, $to: 20);
+    border-left: 6px solid $secondary-color;
+
+    &__category {
+      color: $accent-color;
+    }
+
+    &__title {
+      @include adaptive-value($property: "font-size", $from: 28, $to: 24);
+      font-weight: 600;
+      line-height: 120%;
+    }
+
+    &__description {
+      color: rgba($color: $secondary-color, $alpha: 0.5);
+      margin-top: -5px;
+    }
+
+    &__tech-title {
+      font-size: 13px;
+      color: $accent-color;
+      text-transform: uppercase;
+      margin-bottom: -10px;
+    }
+  }
+
+  &__multi-container {
+    grid-column: 1;
+    grid-row: 4;
+    display: flex;
+    gap: 10px;
+    align-items: end;
+
+    @media screen and (width <=$lg) {
+      grid-column: 3;
+      grid-row: 4;
+    }
+
+    @media screen and (width <=$sm) {
+      grid-column: 1;
+      grid-row: 4;
+    }
+
+    @media screen and (width <=$xs) {
+      grid-column: 1/4;
+      justify-content: space-between;
+    }
+
+    &__indicators {
+      display: flex;
+      flex-direction: column;
+
+      @media screen and (width <=$lg) {
+        display: none;
+      }
+    }
+
+    &__indicator {
+      font-weight: 600;
+      color: $accent-color;
+      background-color: $primary-color;
+      margin-top: -12px;
+    }
+
+    &__indicator:nth-child(3) {
+      animation: pulsatile-indicator 0.1s linear forwards infinite;
+    }
+
+    @keyframes pulsatile-indicator {
+      0% {
+        color: rgba($color: $accent-color, $alpha: 1);
+      }
+
+      100% {
+        color: rgba($color: $accent-color, $alpha: 0.3);
+      }
+    }
+
+    &__slider-navigation {
+      display: none;
+      margin-left: 40px;
+      color: rgba($color: $secondary-color, $alpha: 0.3);
+
+      @media screen and (width <=$lg) {
+        display: flex;
+        gap: 30px;
+      }
+    }
+  }
+
+  &__decorative-symbols {
+    display: none;
+    color: rgba($color: $secondary-color, $alpha: 0.3);
+
+    @media screen and (width <=$lg) {
+      display: block;
+      grid-column: 3;
+      grid-row: 3;
+    }
+
+    @media screen and (width <=$sm) {
+      grid-row: 4;
+    }
+
+    @media screen and (width <=$xs) {
+      display: none;
+    }
+  }
+}

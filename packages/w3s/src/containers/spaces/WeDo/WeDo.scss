@@ -5,117 +5,131 @@
   @include adaptive-value($property: "padding", $from: 130, $to: 50);
 
   display: grid;
-  grid-template-columns: 1fr 1fr auto;
   grid-template-rows: auto 10% 1fr auto;
-
+  grid-template-columns: 1fr 1fr auto;
   width: $width-in-dvw;
   height: $height-in-dvh;
   user-select: none;
 
-  @media screen and (width <=$md) {
-    grid-template-columns: 1fr auto auto;
-    grid-template-rows: auto auto 1fr auto;
-  }
-
   &__title {
     @include adaptive-value($property: "font-size", $from: 72, $to: 32, $trigger-at: $lg);
+
     font-weight: 600;
     line-height: 110%;
   }
 
   &__decorative-square {
-    width: 16px;
-    height: 16px;
-    border-left: 2px solid $accent-color;
-    border-bottom: 2px solid $accent-color;
     grid-column: 3;
     align-self: end;
+    width: 16px;
+    height: 16px;
+    border-bottom: 2px solid $accent-color;
+    border-left: 2px solid $accent-color;
   }
 
-  &__tabs-container {
+  &__tabs-wrapper {
+    @include adaptive-value($property: "gap", $from: 30, $to: 20);
+
     display: flex;
     flex-direction: column;
-    @include adaptive-value($property: "gap", $from: 30, $to: 20);
     grid-row: 3;
 
-    @media screen and (width <=$md) {
+    @media screen and (width <= $md) {
       grid-row: 2;
       margin: 40px 0;
     }
+  }
 
-    &__tab {
-      display: flex;
-      gap: 20px;
-      line-height: 120%;
-      @include adaptive-value($property: "font-size", $from: 28, $to: 18);
+  &__tab {
+    @include adaptive-value($property: "font-size", $from: 28, $to: 18);
 
-      &__symbol {
-        color: rgba($color: $secondary-color, $alpha: 0.3);
-      }
+    display: flex;
+    gap: 20px;
+    line-height: 120%;
+  }
+
+  &__tab-symbol {
+    color: rgba($color: $secondary-color, $alpha: 0.3);
+  }
+
+  &__tab-name {
+    &.active {
+      color: $primary-color;
+      background-color: $secondary-color;
     }
   }
 
-  &__description-container {
+  &__description-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    grid-column: 2;
     grid-row: 3;
+    grid-column: 2;
+    gap: 40px;
 
-    @media screen and (width <=$md) {
-      grid-column: 1/-1;
+    @media screen and (width <= $md) {
       grid-row: 3;
+      grid-column: 1/-1;
     }
+  }
 
-    &__animation-dots {
-      @media screen and (width <=$md) {
-        display: none;
-      }
+  &__dots {
+    @include adaptive-value($property: "font-size", $from: 14, $to: 16);
+
+    font-weight: 500;
+    user-select: none;
+
+    @media screen and (width <= $md) {
+      display: none;
     }
+  }
 
-    &__description {
-      max-width: 450px;
+  &__description {
+    max-width: 450px;
 
-      @media screen and (width <=$md) {
-        margin-right: 20px;
-      }
-
-      &__highlighter {
-        color: $accent-color;
-      }
+    @media screen and (width <= $md) {
+      margin-right: 20px;
     }
+  }
 
-    &__list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      color: rgba($color: $secondary-color, $alpha: 0.5);
-    }
+  &__description-highlight {
+    color: $accent-color;
+  }
+
+  &__decorative-stdout {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: rgba($color: $secondary-color, $alpha: 0.5);
   }
 
   &__decorative-symbols {
-    color: $accent-color;
     grid-row: 4;
     align-self: end;
+    color: $accent-color;
 
-    @media screen and (width <=$xs) {
+    @media screen and (width <= $xs) {
       display: none;
     }
   }
 
-  &__matrix {
-    color: rgba($color: $secondary-color, $alpha: 0.1);
-    grid-column: 3;
-    grid-row: 3/5;
+  &__animate-radix-grid-wrapper {
     display: flex;
+    grid-row: 3/5;
+    grid-column: 3;
     align-self: end;
+    color: rgba($color: $secondary-color, $alpha: 0.1);
 
-    @media screen and (width <=$sm) {
-      display: none;
-    }
-
-    &>p {
+    & > p {
       writing-mode: vertical-rl;
     }
+
+    @media screen and (width <= $sm) {
+      display: none;
+    }
+  }
+
+  @media screen and (width <= $md) {
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-columns: 1fr auto auto;
   }
 }

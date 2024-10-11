@@ -27,7 +27,7 @@
     border-left: 2px solid $accent-color;
   }
 
-  &__tabs-wrapper {
+  &__menu {
     @include adaptive-value($property: "gap", $from: 24, $to: 14);
 
     display: flex;
@@ -40,16 +40,16 @@
     }
   }
 
-  &__tab {
+  &__menu-item {
     @include adaptive-value($property: "font-size", $from: 28, $to: 18);
 
     display: flex;
-    align-items: center;
     gap: 15px;
+    align-items: center;
     line-height: 120%;
   }
 
-  &__tab-symbol {
+  &__menu-item-symbols {
     color: rgba($color: $secondary-color, $alpha: 0.3);
 
     &.active {
@@ -57,10 +57,10 @@
     }
   }
 
-  &__tab-name {
+  &__menu-item-name {
     padding: 4px 6px;
-    cursor: pointer;
     color: rgba($color: $secondary-color, $alpha: 0.3);
+    cursor: pointer;
 
     &:hover {
       color: rgba($color: $secondary-color, $alpha: 1);
@@ -68,18 +68,19 @@
 
     &.active {
       color: $primary-color;
-      background-color: $secondary-color;
       font-weight: 500;
+      background-color: $secondary-color;
     }
   }
 
   &__description-wrapper {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto 1fr;
     @include adaptive-value($property: "row-gap", $from: 30, $to: 20);
+
+    display: grid;
     grid-row: 3/-1;
     grid-column: 2;
+    grid-template-rows: auto auto 1fr;
+    grid-template-columns: 1fr;
 
     @media screen and (width <= $md) {
       grid-row: 3;
@@ -87,7 +88,7 @@
     }
   }
 
-  &__dots {
+  &__decorative-dots {
     @include adaptive-value($property: "font-size", $from: 14, $to: 16);
 
     font-weight: 500;
@@ -110,15 +111,16 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    color: rgba($color: $secondary-color, $alpha: 0.3);
     align-self: end;
-
-    @media screen and (width <=$md) {
-      margin-bottom: 30px;
-    }
+    color: rgba($color: $secondary-color, $alpha: 0.3);
+    text-transform: uppercase;
 
     &--item {
       color: $accent-color;
+    }
+
+    @media screen and (width <= $md) {
+      margin-bottom: 30px;
     }
   }
 
@@ -132,7 +134,7 @@
     }
   }
 
-  &__animate-radix-grid-wrapper {
+  &__decorative-animate-radix-grid-wrapper {
     display: flex;
     grid-row: 3/5;
     grid-column: 3;

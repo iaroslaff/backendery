@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from "react"
 import { ReactTyped as Typed } from "react-typed"
+import { ulid } from "ulid"
 import { useScramble } from "use-scramble"
 
 import AnimateRadixGrid from "../../../components/AnimateRadixGrid/AnimateRadixGrid"
@@ -9,7 +10,7 @@ import "./WeDo.scss"
 
 interface IWeDoContents {
   id: string
-  symbol: string
+  symbols: string
   name: string
   description: string
 }
@@ -23,48 +24,48 @@ interface IWeDoContents {
  * @constant
  *
  * Each service object includes:
- * - id: A unique identifier for the service.
- * - symbol: A visual symbol representing the service.
+ * - id: A unique ULID identifier for the service.
+ * - symbols: A visual symbol representing the service.
  * - name: The name of the service.
  * - description: A detailed description of the service's purpose and benefits.
  */
 const WE_DO_CONTENTS: IWeDoContents[] = [
   {
-    id: "server-apps-and-api",
-    symbol: "=>",
+    id: ulid(),
+    symbols: "=>",
     name: "Server Apps & API",
     description:
       "We develop high-performance server applications and APIs that ensure reliable interaction between systems. Our solutions are tailored to meet specific business needs, enhancing operational efficiency and scalability",
   },
   {
-    id: "services-integration",
-    symbol: "@;",
+    id: ulid(),
+    symbols: "@;",
     name: "Services Integration",
     description:
       "We integrate diverse services to create seamless and effective workflows. By ensuring compatibility and efficiency, we help businesses streamline their processes and improve overall productivity",
   },
   {
-    id: "cli-and-automation-tools",
-    symbol: "&*",
+    id: ulid(),
+    symbols: "&*",
     name: "CLI & Automation Tools",
     description:
       "We create command-line tools and automation solutions to simplify routine tasks and boost productivity. Our tools are designed to enhance user experience, allowing teams to focus on more strategic initiatives",
   },
   {
-    id: "bots",
-    symbol: "==",
+    id: ulid(),
+    symbols: "==",
     name: "Bots",
     description:
       "We develop bots for various platforms, including chatbots and user interaction automation. These solutions enhance customer experience and engagement, providing quick responses and improving service quality",
   },
 ] as const
 
-const INITIAL_ACTIVE_TAB = 0 as number
+const INITIAL_ACTIVE_MENU_ITEM = 0 as number
 
 const WeDo: FC = () => {
   /** states */
-  const [activeTab, setActiveTab] = useState<string>(WE_DO_CONTENTS[INITIAL_ACTIVE_TAB].id)
-  const [description, setDescription] = useState<string>(WE_DO_CONTENTS[INITIAL_ACTIVE_TAB].description)
+  const [activeMenuItem, setActiveMenuItem] = useState<string>(WE_DO_CONTENTS[INITIAL_ACTIVE_MENU_ITEM].id)
+  const [description, setDescription] = useState<string>(WE_DO_CONTENTS[INITIAL_ACTIVE_MENU_ITEM].description)
 
   const { ref: descriptionRef, replay: scrambleReplay } = useScramble({
     text: description,
@@ -78,14 +79,14 @@ const WeDo: FC = () => {
   })
 
   useEffect(() => {
-    const currentContent = WE_DO_CONTENTS.find(wd => wd.id === activeTab)
+    const currentContent = WE_DO_CONTENTS.find(wd => wd.id === activeMenuItem)
     if (currentContent) {
       setDescription(currentContent.description)
     } else {
-      console.warn(`content not found for id: ${activeTab}`)
+      console.warn(`content not found for id: ${activeMenuItem}`)
       setDescription("Opps! Description not available")
     }
-  }, [activeTab])
+  }, [activeMenuItem])
 
   return (
     <div className='wedo'>
@@ -93,28 +94,28 @@ const WeDo: FC = () => {
         <Typed strings={["We Do"]} typeSpeed={50} cursorChar='_' showCursor={true} startWhenVisible />
       </h2>
       <div className='wedo__decorative-corner'></div>
-      <div className='wedo__tabs-wrapper'>
+      <div className='wedo__menu'>
         {WE_DO_CONTENTS.map(wd => (
           <div
             key={wd.id}
-            className='wedo__tab'
+            className='wedo__menu-item'
             onClick={() => {
-              if (activeTab !== wd.id) {
-                /** activate the selected tab */
-                setActiveTab(wd.id)
+              if (activeMenuItem !== wd.id) {
+                /** activate the selected menu-item */
+                setActiveMenuItem(wd.id)
                 /** run animation `scramble` for the description */
                 scrambleReplay()
               }
             }}
-            aria-pressed={activeTab === wd.id}
+            aria-pressed={activeMenuItem === wd.id}
           >
-            <p className={`wedo__tab-symbol ${activeTab === wd.id ? "active" : ""}`}>{wd.symbol}</p>
-            <p className={`wedo__tab-name ${activeTab === wd.id ? "active" : ""}`}>{wd.name}</p>
+            <p className={`wedo__menu-item-symbols ${activeMenuItem === wd.id ? "active" : ""}`}>{wd.symbols}</p>
+            <p className={`wedo__menu-item-name ${activeMenuItem === wd.id ? "active" : ""}`}>{wd.name}</p>
           </div>
         ))}
       </div>
       <div className='wedo__description-wrapper'>
-        <div className='wedo__dots'>
+        <div className='wedo__decorative-dots'>
           <AnimateSignalStrip
             symbol='.'
             maxNumberOfSymbols={7}
@@ -132,40 +133,37 @@ const WeDo: FC = () => {
             style={{ color: "#ffffff" }}
           />
         </div>
-        <div className='wedo__description' ref={descriptionRef}>
+        <div className='wedo__description'>
           <span className='wedo__description-highlight'>{"/** "}</span>
-          <p>{description}</p>
+          <p ref={descriptionRef}>{description}</p>
           <span className='wedo__description-highlight'>{" */"}</span>
         </div>
         <div className='wedo__decorative-stdout'>
           <p>
-            Continuous learning...
-            <span className='wedo__decorative-stdout--item'>
-              {'[ OK ]'}
-            </span>
+            Continuous learning...{"["}
+            <span className='wedo__decorative-stdout--item'>{" ok "}</span>
+            {"]"}
           </p>
           <p>
-            Best practices........
-            <span className='wedo__decorative-stdout--item'>
-              {'[ OK ]'}
-            </span>
+            Best practices........{"["}
+            <span className='wedo__decorative-stdout--item'>{" ok "}</span>
+            {"]"}
           </p>
           <p>
-            Mentorships...........
-            <span className='wedo__decorative-stdout--item'>
-              {'[ OK ]'}
-            </span>
+            Mentorships...........{"["}
+            <span className='wedo__decorative-stdout--item'>{" ok "}</span>
+            {"]"}
           </p>
         </div>
       </div>
       <div className='wedo__decorative-symbols'>../../</div>
-      <div className='wedo__animate-radix-grid-wrapper'>
+      <div className='wedo__decorative-animate-radix-grid-wrapper'>
         <AnimateRadixGrid
           symbols={["0", "1"]}
           rows={7}
           cols={2}
-          minInterval={700}
-          maxInterval={1_150}
+          minInterval={300}
+          maxInterval={750}
           unreachableCells={[
             [3, 0],
             [4, 0],

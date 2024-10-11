@@ -28,7 +28,7 @@
   }
 
   &__tabs-wrapper {
-    @include adaptive-value($property: "gap", $from: 30, $to: 20);
+    @include adaptive-value($property: "gap", $from: 24, $to: 14);
 
     display: flex;
     flex-direction: column;
@@ -44,29 +44,42 @@
     @include adaptive-value($property: "font-size", $from: 28, $to: 18);
 
     display: flex;
-    gap: 20px;
+    align-items: center;
+    gap: 15px;
     line-height: 120%;
   }
 
   &__tab-symbol {
     color: rgba($color: $secondary-color, $alpha: 0.3);
+
+    &.active {
+      color: rgba($color: $secondary-color, $alpha: 1);
+    }
   }
 
   &__tab-name {
+    padding: 4px 6px;
     cursor: pointer;
+    color: rgba($color: $secondary-color, $alpha: 0.3);
+
+    &:hover {
+      color: rgba($color: $secondary-color, $alpha: 1);
+    }
 
     &.active {
       color: $primary-color;
       background-color: $secondary-color;
+      font-weight: 500;
     }
   }
 
   &__description-wrapper {
-    display: flex;
-    flex-direction: column;
-    grid-row: 3;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    @include adaptive-value($property: "row-gap", $from: 30, $to: 20);
+    grid-row: 3/-1;
     grid-column: 2;
-    gap: 40px;
 
     @media screen and (width <= $md) {
       grid-row: 3;
@@ -79,10 +92,6 @@
 
     font-weight: 500;
     user-select: none;
-
-    @media screen and (width <= $md) {
-      display: none;
-    }
   }
 
   &__description {
@@ -101,7 +110,12 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    color: rgba($color: $secondary-color, $alpha: 0.5);
+    color: rgba($color: $secondary-color, $alpha: 0.3);
+    align-self: end;
+
+    @media screen and (width <=$md) {
+      margin-bottom: 30px;
+    }
 
     &--item {
       color: $accent-color;
@@ -124,10 +138,6 @@
     grid-column: 3;
     align-self: end;
     color: rgba($color: $secondary-color, $alpha: 0.1);
-
-    & > p {
-      writing-mode: vertical-rl;
-    }
 
     @media screen and (width <= $sm) {
       display: none;

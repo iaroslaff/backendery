@@ -108,7 +108,7 @@ const WeDo: FC = () => {
             }}
             aria-pressed={activeTab === wd.id}
           >
-            <p className='wedo__tab-symbol'>{wd.symbol}</p>
+            <p className={`wedo__tab-symbol ${activeTab === wd.id ? "active" : ""}`}>{wd.symbol}</p>
             <p className={`wedo__tab-name ${activeTab === wd.id ? "active" : ""}`}>{wd.name}</p>
           </div>
         ))}
@@ -132,15 +132,30 @@ const WeDo: FC = () => {
             style={{ color: "#ffffff" }}
           />
         </div>
-        <p className='wedo__description' ref={descriptionRef}>
+        <div className='wedo__description' ref={descriptionRef}>
           <span className='wedo__description-highlight'>{"/** "}</span>
-          {description}
+          <p>{description}</p>
           <span className='wedo__description-highlight'>{" */"}</span>
-        </p>
+        </div>
         <div className='wedo__decorative-stdout'>
-          <p className='wedo__decorative-stdout--item'>{"Continuous learning..........[ OK ]"}</p>
-          <p className='wedo__decorative-stdout--item'>{"Best practices...............[ OK ]"}</p>
-          <p className='wedo__decorative-stdout--item'>{"Mentorships..................[ OK ]"}</p>
+          <p>
+            Continuous learning...
+            <span className='wedo__decorative-stdout--item'>
+              {'[ OK ]'}
+            </span>
+          </p>
+          <p>
+            Best practices........
+            <span className='wedo__decorative-stdout--item'>
+              {'[ OK ]'}
+            </span>
+          </p>
+          <p>
+            Mentorships...........
+            <span className='wedo__decorative-stdout--item'>
+              {'[ OK ]'}
+            </span>
+          </p>
         </div>
       </div>
       <div className='wedo__decorative-symbols'>../../</div>

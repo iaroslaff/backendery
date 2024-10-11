@@ -7,12 +7,19 @@ import AnimateSignalStrip from "../../../components/AnimateSignalStrip/AnimateSi
 
 import "./WeDo.scss"
 
+interface IWeDoContents {
+  id: string;
+  symbol: string;
+  name: string;
+  description: string;
+}
+
 /**
  * An array of content objects representing the services offered by the company.
  * Each object contains details about a specific service, including its identifier,
  * visual symbol, name, and a description that outlines the service's features and benefits.
  *
- * @type {Array<WeDoContent>}
+ * @type {Array<IWeDoContents>}
  * @constant
  *
  * Each service object includes:
@@ -21,7 +28,7 @@ import "./WeDo.scss"
  * - name: The name of the service.
  * - description: A detailed description of the service's purpose and benefits.
  */
-const __weDoContent: Record<string, string>[] = [
+const WE_DO_CONTENTS: IWeDoContents[] = [
   {
     id: "server-apps-and-api",
     symbol: "=>",
@@ -56,8 +63,8 @@ const INITIAL_ACTIVE_TAB = 0 as number
 
 const WeDo: FC = () => {
   /** states */
-  const [activeTab, setActiveTab] = useState<string>(__weDoContent[INITIAL_ACTIVE_TAB].id)
-  const [description, setDescription] = useState<string>(__weDoContent[INITIAL_ACTIVE_TAB].description)
+  const [activeTab, setActiveTab] = useState<string>(WE_DO_CONTENTS[INITIAL_ACTIVE_TAB].id)
+  const [description, setDescription] = useState<string>(WE_DO_CONTENTS[INITIAL_ACTIVE_TAB].description)
 
   const { ref: descriptionRef, replay: scrambleReplay } = useScramble({
     text: description,
@@ -71,9 +78,12 @@ const WeDo: FC = () => {
   })
 
   useEffect(() => {
-    const currentContent = __weDoContent.find(wd => wd.id === activeTab)
+    const currentContent = WE_DO_CONTENTS.find(wd => wd.id === activeTab)
     if (currentContent) {
       setDescription(currentContent.description)
+    } else {
+      console.error(`content not found for id: ${activeTab}`);
+      setDescription("Opps! Description not available");
     }
   }, [activeTab])
 
@@ -84,7 +94,7 @@ const WeDo: FC = () => {
       </h2>
       <div className='wedo__decorative-corner'></div>
       <div className='wedo__tabs-wrapper'>
-        {__weDoContent.map(wd => (
+        {WE_DO_CONTENTS.map(wd => (
           <div
             key={wd.id}
             className='wedo__tab'
@@ -92,12 +102,11 @@ const WeDo: FC = () => {
               if (activeTab !== wd.id) {
                 /** activate the selected tab */
                 setActiveTab(wd.id)
-                /** change the description */
-                setDescription(wd.description)
                 /** run animation `scramble` for the description */
                 scrambleReplay()
               }
             }}
+            aria-pressed={activeTab === wd.id}
           >
             <p className='wedo__tab-symbol'>{wd.symbol}</p>
             <p className={`wedo__tab-name ${activeTab === wd.id ? "active" : ""}`}>{wd.name}</p>

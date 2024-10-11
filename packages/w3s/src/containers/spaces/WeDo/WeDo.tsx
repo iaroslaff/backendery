@@ -8,10 +8,10 @@ import AnimateSignalStrip from "../../../components/AnimateSignalStrip/AnimateSi
 import "./WeDo.scss"
 
 interface IWeDoContents {
-  id: string;
-  symbol: string;
-  name: string;
-  description: string;
+  id: string
+  symbol: string
+  name: string
+  description: string
 }
 
 /**
@@ -82,8 +82,8 @@ const WeDo: FC = () => {
     if (currentContent) {
       setDescription(currentContent.description)
     } else {
-      console.error(`content not found for id: ${activeTab}`);
-      setDescription("Opps! Description not available");
+      console.warn(`content not found for id: ${activeTab}`)
+      setDescription("Opps! Description not available")
     }
   }, [activeTab])
 
@@ -133,9 +133,9 @@ const WeDo: FC = () => {
           />
         </div>
         <p className='wedo__description' ref={descriptionRef}>
-          <span className='wedo__description-highlight'>/* </span>
+          <span className='wedo__description-highlight'>{"/** "}</span>
           {description}
-          <span className='wedo__description-highlight'> */</span>
+          <span className='wedo__description-highlight'>{" */"}</span>
         </p>
         <div className='wedo__decorative-stdout'>
           <p className='wedo__decorative-stdout--item'>{"Continuous learning..........[ OK ]"}</p>

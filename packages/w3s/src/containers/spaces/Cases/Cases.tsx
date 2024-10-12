@@ -1,102 +1,174 @@
-import { FC } from "react"
+import { FC, useMemo, useState } from "react"
 import { ReactTyped as Typed } from "react-typed"
+import { useScramble } from "use-scramble"
+
+import Marquee from "../../../components/Marquee/Marquee"
+import { randomChars } from "../../../utils/fn"
 
 import "./Cases.scss"
 
-const Cases: FC = () => { 
+interface ICasesContents {
+  id: number
+  category: string
+  title: string
+  description: string
+  technologies: string
+}
+
+const CASES_CONTENTS: ICasesContents[] = [
+  {
+    id: 0,
+    category: "../Sport Betting",
+    title: "Server Apps & API",
+    description:
+      "We develop high-performance server applications and APIs that ensure reliable interaction between systems. Our solutions are tailored to meet specific business needs, enhancing operational efficiency and scalability.",
+    technologies: "Python, GitLab, NGINX, Docker, Stack, Bitbucket...",
+  },
+  {
+    id: 1,
+    category: "../Sport Betting",
+    title: "Services Integration",
+    description:
+      "We develop bots for various platforms, including chatbots and user interaction automation. These solutions enhance customer experience and engagement, providing quick responses and improving service quality",
+    technologies: "Python, GitLab, NGINX, Docker, Stack, Bitbucket...",
+  },
+  {
+    id: 2,
+    category: "../Sport Betting",
+    title: "CLI & Automation Tools",
+    description:
+      "We create command-line tools and automation solutions to simplify routine tasks and boost productivity. Our tools are designed to enhance user experience, allowing teams to focus on more strategic initiatives.",
+    technologies: "Python, GitLab, NGINX, Docker, Stack, Bitbucket...",
+  },
+] as const
+
+const CHARS_SEQUENCE = "1234567890ABCDEF" as string
+const RANDOM_CHARS_NUMBER = (1 << 3) as number
+
+const INITIAL_ACTIVE_NAVIGATE_ITEM = 0 as number
+
+const SCRAMBLE_PARAMS = {
+  speed: 0.85,
+  scramble: 3,
+  step: 5,
+  seed: 3,
+  overflow: true,
+  overdrive: false,
+  playOnMount: false,
+}
+
+/**
+ * CaseDetails Component
+ *
+ * The `CaseDetails` component is responsible for displaying detailed information about a specific company case.
+ * It accepts case data through props and presents it on the screen.
+ * Additionally, an optional reference to the description element can be passed for manipulation (e.g., for animations).
+ *
+ * @component
+ * @param {ICasesContents} caseContent - An object containing the details of the case, including its category, title, description, and technologies used.
+ * @param {React.RefObject<HTMLParagraphElement>} [descriptionRef] - An optional reference to the paragraph element for the description to interact with it (e.g., for text animation).
+ *
+ * @example
+ * // Example usage of the CaseDetails component:
+ * const caseContent = {
+ *   id: 0,
+ *   category: "../My category",
+ *   title: "Title",
+ *   description: "Here's a description",
+ *   technologies: "And here are the technologies used",
+ * };
+ *
+ * <CaseDetails caseContent={caseContent} descriptionRef={myRef} />
+ *
+ * @remarks
+ * - The component can be reused for various cases by passing different `caseContent` objects.
+ * - `descriptionRef` is useful for animations or other interactions with the description element.
+ *
+ * @param {Object} props - Props for the component.
+ * @param {ICasesContents} props.caseContent - The object containing the details of the specific case.
+ * @param {React.RefObject<HTMLParagraphElement>} [props.descriptionRef] - An optional reference to the paragraph element for the description.
+ *
+ * @returns {JSX.Element} Returns JSX markup for displaying case details.
+ */
+const CaseDetails: FC<{ caseContent: ICasesContents; descriptionRef?: React.RefObject<HTMLParagraphElement> }> = ({
+  caseContent,
+  descriptionRef,
+}) => (
+  <div className='cases__case'>
+    <p className='cases__case-category'>{caseContent.category}</p>
+    <h3 className='cases__case-title'>{caseContent.title}</h3>
+    <p className='cases__case-description' ref={descriptionRef}>
+      {caseContent.description}
+    </p>
+    <p className='cases__case-technologies-title'>Used technologies</p>
+    <p>{caseContent.technologies}</p>
+  </div>
+)
+
+const Cases: FC = () => {
+  /** States */
+  const [activeNavigateItem, setActiveNavigateItem] = useState<number>(INITIAL_ACTIVE_NAVIGATE_ITEM)
+
+  /** Memoize the active case for search optimization */
+  const activeCase = useMemo(() => CASES_CONTENTS.find(cs => cs.id === activeNavigateItem), [activeNavigateItem])
+
+  /** Use ref for Scramble animation */
+  const { ref: descriptionRef } = useScramble({
+    text: activeCase?.description || "",
+    ...SCRAMBLE_PARAMS,
+  })
+
   return (
-    <div className="cases">
-      <h2 className="cases__title">
+    <div className='cases'>
+      <h2 className='cases__title'>
         <Typed strings={["Cases"]} typeSpeed={50} cursorChar='_' showCursor={true} startWhenVisible />
       </h2>
-      <div className="cases__decorative-square"></div>
-      <div className="cases__moving-string">
-        <span className="cases__moving-string__brace">{'['}</span>
-        <div className="cases__moving-string__string-box">
-          <p>scale your code width</p>
+      <div className='cases__decorative-corner'></div>
+      <div className='cases__decorative-marquee-str-wrapper'>
+        <span className='cases__decorative-marquee-str-wrapper--brace'>{"["}</span>
+        <div className='cases__decorative-marquee-str'>
+          <Marquee text='scale your code width scale your code width scale your code width' speed={10} />
         </div>
-        <span className="cases__moving-string__brace">{']'}</span>
+        <span className='cases__decorative-marquee-str-wrapper--brace'>{"]"}</span>
       </div>
-
-      <div className="cases__cases-container">
-        <div className="cases__single-case">
-          <p className="cases__single-case__category">../Sport Betting</p>
-          <h3 className="cases__single-case__title">Trading system</h3>
-          <p className="cases__single-case__description">
-            Choose how you want to add, edit, and update content at scale:
-            visually in our plaheadless APIs. Optimize your SEO and improve
-            discoverability with fine-tuned controls.
-          </p>
-          <p className="cases__single-case__tech-title">used technologies</p>
-          <p className="cases__single-case__tech-list">
-            Python, GitLab, NGINX, Docker, Stack, Bitbucket...
-          </p>
+      {/* Normal view of the display case */}
+      <div className='cases__case-wrapper'>
+        {CASES_CONTENTS.map(caseContent => (
+          <CaseDetails key={caseContent.id} caseContent={caseContent} />
+        ))}
+      </div>
+      {/* Shrinked view of the case display */}
+      <div className='cases__shrinked-case-wrapper'>
+        {activeCase && <CaseDetails caseContent={activeCase} descriptionRef={descriptionRef} />}
+      </div>
+      {/* Navigating through the cases */}
+      <div className='cases__multi-wrapper'>
+        <div className='cases__decorative-indicators'>
+          <div className='cases__decorative-indicator'>{"[03]"}</div>
+          <div className='cases__decorative-indicator'>{"[03]"}</div>
+          <div className='cases__decorative-indicator'>{"[03]"}</div>
+          <div className='cases__decorative-indicator'>{"[03]"}</div>
+          <div className='cases__decorative-indicator'>{"[03]"}</div>
+          <div className='cases__decorative-indicator'>{"[03]"}</div>
+          <div className='cases__decorative-indicator'>{"[03]"}</div>
         </div>
-
-        <div className="cases__single-case">
-          <p className="cases__single-case__category">../Sport Betting</p>
-          <h3 className="cases__single-case__title">Trading system</h3>
-          <p className="cases__single-case__description">
-            Choose how you want to add, edit, and update content at scale:
-            visually in our plaheadless APIs. Optimize your SEO and improve
-            discoverability with fine-tuned controls.
-          </p>
-          <p className="cases__single-case__tech-title">used technologies</p>
-          <p className="cases__single-case__tech-list">
-            Python, GitLab, NGINX, Docker, Stack, Bitbucket...
-          </p>
-        </div>
-
-        <div className="cases__single-case">
-          <p className="cases__single-case__category">../Sport Betting</p>
-          <h3 className="cases__single-case__title">Trading system</h3>
-          <p className="cases__single-case__description">
-            Choose how you want to add, edit, and update content at scale:
-            visually in our plaheadless APIs. Optimize your SEO and improve
-            discoverability with fine-tuned controls.
-          </p>
-          <p className="cases__single-case__tech-title">used technologies</p>
-          <p className="cases__single-case__tech-list">
-            Python, GitLab, NGINX, Docker, Stack, Bitbucket...
-          </p>
+        <p>Our last cases</p>
+        <div className='cases__navigate'>
+          {CASES_CONTENTS.map((caseContent, _) => (
+            <div
+              key={caseContent.id}
+              className={`cases__navigate-btn ${activeNavigateItem === caseContent.id ? "active" : ""}`}
+              onClick={() => setActiveNavigateItem(caseContent.id)}
+            >
+              {`0${caseContent.id + 1}`}
+            </div>
+          ))}
         </div>
       </div>
-
-      <div className="cases__cases-slider-container">
-        <div className="cases__single-case">
-          <p className="cases__single-case__category">../Sport Betting</p>
-          <h3 className="cases__single-case__title">Trading system</h3>
-          <p className="cases__single-case__description">
-            Choose how you want to add, edit, and update content at scale:
-            visually in our plaheadless APIs. Optimize your SEO and improve
-            discoverability with fine-tuned controls.
-          </p>
-          <p className="cases__single-case__tech-title">used technologies</p>
-          <p className="cases__single-case__tech-list">
-            Python, GitLab, NGINX, Docker, Stack, Bitbucket...
-          </p>
-        </div>
+      <div className='cases__decorative-symbols'>
+        {"0x"}
+        {randomChars(CHARS_SEQUENCE, RANDOM_CHARS_NUMBER)}
       </div>
-
-      <div className="cases__multi-container">
-        <div className="cases__multi-container__indicators">
-          <div className="cases__multi-container__indicator">{'[03]'}</div>
-          <div className="cases__multi-container__indicator">{'[03]'}</div>
-          <div className="cases__multi-container__indicator">{'[03]'}</div>
-          <div className="cases__multi-container__indicator">{'[03]'}</div>
-          <div className="cases__multi-container__indicator">{'[03]'}</div>
-          <div className="cases__multi-container__indicator">{'[03]'}</div>
-          <div className="cases__multi-container__indicator">{'[03]'}</div>
-        </div>
-        <p className="cases__multi-container__text">Our last cases</p>
-        <div className="cases__multi-container__slider-navigation">
-          <div className="steps__multi-container__slider-navigation__btn">01</div>
-          <div className="steps__multi-container__slider-navigation__btn">02</div>
-          <div className="steps__multi-container__slider-navigation__btn">03</div>
-        </div>
-      </div>
-
-      <div className="cases__decorative-symbols">{'@#+=>??'}</div>
     </div>
   )
 }

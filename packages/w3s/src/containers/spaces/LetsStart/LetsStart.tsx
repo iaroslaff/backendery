@@ -21,6 +21,34 @@ interface ILetsStartFormValues {
 }
 
 const LetsStart: FC = () => {
+  /**
+   * Event handler to prevent form submission when the "Enter" key is pressed.
+   * @function
+   */
+  const handleKeyDown = (event: React.KeyboardEvent): void => {
+    if (event.key === "Enter") {
+      event.preventDefault() // Prevent default form submit behavior when Enter is pressed
+    }
+  }
+
+  /**
+   * Handler for form submission.
+   * Resets the form after sending the message (or performing the desired action). This method
+   * could also handle actual submission logic, like sending data to an API.
+   *
+   * @param {ILetsStartFormValues} values - The form values submitted by the user.
+   * @param {FormikHelpers<ILetsStartFormValues>} actions - Formik helper methods to manage the
+   * form state. These helpers allow you to reset, validate, or set specific form field values.
+   *
+   * @function
+   */
+  /* prettier-ignore */
+  const handleSendMessage = (
+    values: ILetsStartFormValues, actions: FormikHelpers<ILetsStartFormValues>
+  ): void => {
+    actions.resetForm() // Reset the form fields to their initial values after submission
+  }
+
   /* prettier-ignore */
   const Schema = Yup.object().shape({
     name: Yup.string().required("name is required"),
@@ -45,35 +73,15 @@ const LetsStart: FC = () => {
   })
 
   /**
-   * initial form values with predefined structure (interface ILetsStartFormValues), including
+   * Initial form values with predefined structure (interface `ILetsStartFormValues`), including
    * default values for name, email, projectDescription, and budget ranges.
    */
   const initialFormValues: ILetsStartFormValues = {
     name: "",
     email: "",
     projectDescription: "",
-    budgetMin: BUDGET_MIN, // default minimum budget value
-    budgetMax: BUDGET_MAX, // default maximum budget value
-  }
-
-  /**
-   * event handler to prevent form submission when the "Enter" key is pressed
-   */
-  const handleKeyDown = (event: React.KeyboardEvent): void => {
-    if (event.key === "Enter") {
-      event.preventDefault() // prevent default form submit behavior when Enter is pressed
-    }
-  }
-
-  /** handler for form submission; resets the form after sending the message
-   * (or performing the desired action); this method could also handle actual submission
-   * logic, like sending data to an API.
-   */
-  /* prettier-ignore */
-  const handleSendMessage = (
-    values: ILetsStartFormValues, actions: FormikHelpers<ILetsStartFormValues>
-  ): void => {
-    actions.resetForm() // reset the form fields to their initial values after submission
+    budgetMin: BUDGET_MIN, // Default minimum budget value
+    budgetMax: BUDGET_MAX, // Default maximum budget value
   }
 
   return (

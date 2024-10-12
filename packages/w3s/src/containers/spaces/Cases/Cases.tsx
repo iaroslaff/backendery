@@ -106,13 +106,12 @@ const CaseDetails: FC<{ caseContent: ICasesContents; descriptionRef?: React.RefO
 )
 
 const Cases: FC = () => {
-  /** States */
-  const [activeNavigateItem, setActiveNavigateItem] = useState<number>(INITIAL_ACTIVE_NAVIGATE_ITEM)
+  /** @states */
+  const [activeNavigateItem, setActiveNavigateItem] = useState<number>(INITIAL_ACTIVE_NAVIGATE_ITEM) // Stores the active state of the case
 
-  /** Memoize the active case for search optimization */
+  // Memoize the active case for search optimization
   const activeCase = useMemo(() => CASES_CONTENTS.find(cs => cs.id === activeNavigateItem), [activeNavigateItem])
 
-  /** Use ref for Scramble animation */
   const { ref: descriptionRef } = useScramble({
     text: activeCase?.description || "",
     ...SCRAMBLE_PARAMS,

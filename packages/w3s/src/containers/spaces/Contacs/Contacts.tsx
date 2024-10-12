@@ -14,25 +14,28 @@ const CHARS_SEQUENCE = "1234567890ABCDEF!@#$%^&*_+[]{}<>?/~" as string
 const RANDOM_CHARS_NUMBER = (1 << 3) as number
 
 const SCRAMBLE_CHARS = randomChars(CHARS_SEQUENCE, RANDOM_CHARS_NUMBER)
+const SCRAMBLE_PARAMS = {
+  speed: 0.45,
+  tick: 1,
+  step: 1,
+  scramble: 12,
+  seed: 0,
+  overflow: true,
+  overdrive: false,
+}
 
 const Contacts: FC = () => {
-  /** refs */
-  const scrambleTimeoutRef = useRef<number | null>(null)
-  const squareTimeoutRef = useRef<number | null>(null)
+  /** @references */
+  const scrambleTimeoutRef = useRef<number | null>(null) // Ref to animation timeout for text
+  const squareTimeoutRef = useRef<number | null>(null) // Ref to animation timeout for square
 
   const { ref: textRef, replay: scrambleReplay } = useScramble({
     text: SCRAMBLE_CHARS,
-    speed: 0.45,
-    tick: 1,
-    step: 1,
-    scramble: 12,
-    seed: 0,
-    overflow: true,
-    overdrive: false,
     onAnimationEnd: () => {
       const timeout = randomBetween(4_100, 7_550)
       runWithTimeout(scrambleTimeoutRef, scrambleReplay, timeout)
     },
+    ...SCRAMBLE_PARAMS
   })
 
   const { ref: squareRef, replay: squareReplay } = useRotator({
@@ -45,10 +48,10 @@ const Contacts: FC = () => {
   })
 
   useEffect(() => {
-    /** schedule the first animation when mounting the component */
+    // Schedule the first animation when mounting the component
     runWithTimeout(scrambleTimeoutRef, scrambleReplay)
 
-    /** clear the timeout when the component is unmounted */
+    // Clear the timeout when the component is unmounted
     return () => {
       if (scrambleTimeoutRef.current) {
         clearTimeout(scrambleTimeoutRef.current)
@@ -57,10 +60,10 @@ const Contacts: FC = () => {
   }, [])
 
   useEffect(() => {
-    /** schedule the first animation when mounting the component */
+    // Schedule the first animation when mounting the component
     runWithTimeout(squareTimeoutRef, squareReplay)
 
-    /** clear the timeout when the component is unmounted */
+    // Clear the timeout when the component is unmounted
     return () => {
       if (squareTimeoutRef.current) {
         clearTimeout(squareTimeoutRef.current)

@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from "react"
+import { useGlitch } from "react-powerglitch"
 import { ReactTyped as Typed } from "react-typed"
 import { useScramble } from "use-scramble"
 
@@ -11,28 +12,31 @@ const CHARS_SEQUENCE = "1234567890ABCDEF!@#$%^&*_+[]{}<>?/~" as string
 const RANDOM_CHARS_NUMBER = (24 >> 1) as number
 
 const SCRAMBLE_CHARS = randomChars(CHARS_SEQUENCE, RANDOM_CHARS_NUMBER)
+const SCRAMBLE_PARAMS = {
+  speed: 0.55,
+  tick: 3,
+  step: 1,
+  scramble: 10,
+  overflow: true,
+  overdrive: false,
+}
 
 const AboutUs: FC = () => {
-  /** refs */
-  const scrambleTimeoutRef = useRef<number | null>(null)
-  const lowerSquareTimeoutRef = useRef<number | null>(null)
-  const upperSquareTimeoutRef = useRef<number | null>(null)
+  /** @references */
+  const scrambleTimeoutRef = useRef<number | null>(null) // Ref to animation timeout for text
+  const lowerSquareTimeoutRef = useRef<number | null>(null) // Ref to animation timeout for lower square
+  const upperSquareTimeoutRef = useRef<number | null>(null) // Ref to animation timeout for upper square
 
-  /** states */
-  const [imageSrc, setImageSrc] = useState<string>("")
+  /** @states */
+  const [imageSrc, setImageSrc] = useState<string>("") // Stores the loaded image
 
   const { ref: textRef, replay: scrambleReplay } = useScramble({
     text: SCRAMBLE_CHARS,
-    speed: 0.55,
-    tick: 3,
-    step: 1,
-    scramble: 10,
-    overflow: true,
-    overdrive: false,
     onAnimationEnd: () => {
       const timeout = randomBetween(7_500, 12_000)
       runWithTimeout(scrambleTimeoutRef, scrambleReplay, timeout)
     },
+    ...SCRAMBLE_PARAMS
   })
 
   const { ref: lowerSquareRef, replay: lowerSquareReplay } = useRotator({
@@ -55,11 +59,37 @@ const AboutUs: FC = () => {
     },
   })
 
+  const { ref: glitchRef } = useGlitch({
+    playMode: "always",
+    hideOverflow: true,
+    timing: {
+      duration: 5000,
+      iterations: 10,
+      easing: "ease-in-out",
+    },
+    glitchTimeSpan: {
+      start: 0.4,
+      end: 0.7,
+    },
+    shake: {
+      velocity: 13,
+      amplitudeX: 0.02,
+      amplitudeY: 0.02,
+    },
+    slice: {
+      count: 5,
+      velocity: 60,
+      minHeight: 0.02,
+      maxHeight: 0.04,
+      hueRotate: true,
+    },
+  })
+
   useEffect(() => {
-    /** schedule the first animation when mounting the component */
+    // Schedule the first animation when mounting the component
     runWithTimeout(scrambleTimeoutRef, scrambleReplay)
 
-    /** clear the timeout when the component is unmounted */
+    // Clear the timeout when the component is unmounted
     return () => {
       if (scrambleTimeoutRef.current) {
         clearTimeout(scrambleTimeoutRef.current)
@@ -68,10 +98,10 @@ const AboutUs: FC = () => {
   }, [])
 
   useEffect(() => {
-    /** schedule the first animation when mounting the component */
+    // Schedule the first animation when mounting the component
     runWithTimeout(lowerSquareTimeoutRef, lowerSquareReplay)
 
-    /** clear the timeout when the component is unmounted */
+    // Clear the timeout when the component is unmounted
     return () => {
       if (lowerSquareTimeoutRef.current) {
         clearTimeout(lowerSquareTimeoutRef.current)
@@ -80,10 +110,10 @@ const AboutUs: FC = () => {
   }, [])
 
   useEffect(() => {
-    /** schedule the first animation when mounting the component */
+    // Schedule the first animation when mounting the component */
     runWithTimeout(upperSquareTimeoutRef, upperSquareReplay)
 
-    /** clear the timeout when the component is unmounted */
+    // Clear the timeout when the component is unmounted */
     return () => {
       if (upperSquareTimeoutRef.current) {
         clearTimeout(upperSquareTimeoutRef.current)
@@ -126,7 +156,7 @@ const AboutUs: FC = () => {
         </div>
         <div className='about-us__founder-image-wrapper'>
           {imageSrc ? (
-            <img className='about-us__founder-image' src={imageSrc} alt="It's me" />
+            <img className='about-us__founder-image' src={imageSrc} alt="It's me" ref={glitchRef} />
           ) : (
             <p>Uh, just a minute! Loading...</p>
           )}

@@ -1,6 +1,5 @@
-import { FC, useEffect, useState } from "react"
+import { FC, useMemo, useState } from "react"
 import { ReactTyped as Typed } from "react-typed"
-import { ulid } from "ulid"
 import { useScramble } from "use-scramble"
 
 import AnimateRadixGrid from "../../../components/AnimateRadixGrid/AnimateRadixGrid"
@@ -9,84 +8,66 @@ import AnimateSignalStrip from "../../../components/AnimateSignalStrip/AnimateSi
 import "./WeDo.scss"
 
 interface IWeDoContents {
-  id: string
+  id: number
   symbols: string
   name: string
   description: string
 }
 
-/**
- * An array of content objects representing the services offered by the company.
- * Each object contains details about a specific service, including its identifier,
- * visual symbol, name, and a description that outlines the service's features and benefits.
- *
- * @type {Array<IWeDoContents>}
- * @constant
- *
- * Each service object includes:
- * - id: A unique ULID identifier for the service.
- * - symbols: A visual symbol representing the service.
- * - name: The name of the service.
- * - description: A detailed description of the service's purpose and benefits.
- */
 const WE_DO_CONTENTS: IWeDoContents[] = [
   {
-    id: ulid(),
+    id: 0,
     symbols: "=>",
     name: "Server Apps & API",
     description:
-      "We develop high-performance server applications and APIs that ensure reliable interaction between systems. Our solutions are tailored to meet specific business needs, enhancing operational efficiency and scalability",
+      "We develop high-performance server applications and APIs that ensure reliable interaction between systems. Our solutions are tailored to meet specific business needs, enhancing operational efficiency and scalability.",
   },
   {
-    id: ulid(),
+    id: 1,
     symbols: "@;",
     name: "Services Integration",
     description:
-      "We integrate diverse services to create seamless and effective workflows. By ensuring compatibility and efficiency, we help businesses streamline their processes and improve overall productivity",
+      "We integrate diverse services to create seamless and effective workflows. By ensuring compatibility and efficiency, we help businesses streamline their processes and improve overall productivity.",
   },
   {
-    id: ulid(),
+    id: 2,
     symbols: "&*",
     name: "CLI & Automation Tools",
     description:
-      "We create command-line tools and automation solutions to simplify routine tasks and boost productivity. Our tools are designed to enhance user experience, allowing teams to focus on more strategic initiatives",
+      "We create command-line tools and automation solutions to simplify routine tasks and boost productivity. Our tools are designed to enhance user experience, allowing teams to focus on more strategic initiatives.",
   },
   {
-    id: ulid(),
+    id: 3,
     symbols: "==",
     name: "Bots",
     description:
-      "We develop bots for various platforms, including chatbots and user interaction automation. These solutions enhance customer experience and engagement, providing quick responses and improving service quality",
+      "We develop bots for various platforms, including chatbots and user interaction automation. These solutions enhance customer experience and engagement, providing quick responses and improving service quality.",
   },
 ] as const
 
 const INITIAL_ACTIVE_MENU_ITEM = 0 as number
 
+const SCRAMBLE_PARAMS = {
+  speed: 0.85,
+  scramble: 3,
+  step: 5,
+  seed: 3,
+  overflow: true,
+  overdrive: false,
+  playOnMount: false,
+}
+
 const WeDo: FC = () => {
-  /** states */
-  const [activeMenuItem, setActiveMenuItem] = useState<string>(WE_DO_CONTENTS[INITIAL_ACTIVE_MENU_ITEM].id)
-  const [description, setDescription] = useState<string>(WE_DO_CONTENTS[INITIAL_ACTIVE_MENU_ITEM].description)
+  /** @states */
+  const [activeMenuItem, setActiveMenuItem] = useState<number>(INITIAL_ACTIVE_MENU_ITEM) // Stores the active state of the We Do
 
-  const { ref: descriptionRef, replay: scrambleReplay } = useScramble({
-    text: description,
-    speed: 0.85,
-    scramble: 3,
-    step: 5,
-    seed: 3,
-    overflow: true,
-    overdrive: false,
-    playOnMount: false,
+  // Memoize the active `We Do` for search optimization
+  const activeWeDo = useMemo(() => WE_DO_CONTENTS.find(wd => wd.id === activeMenuItem), [activeMenuItem])
+
+  const { ref: descriptionRef } = useScramble({
+    text: activeWeDo?.description || "",
+    ...SCRAMBLE_PARAMS,
   })
-
-  useEffect(() => {
-    const currentContent = WE_DO_CONTENTS.find(wd => wd.id === activeMenuItem)
-    if (currentContent) {
-      setDescription(currentContent.description)
-    } else {
-      console.warn(`content not found for id: ${activeMenuItem}`)
-      setDescription("Opps! Description not available")
-    }
-  }, [activeMenuItem])
 
   return (
     <div className='wedo'>
@@ -95,22 +76,17 @@ const WeDo: FC = () => {
       </h2>
       <div className='wedo__decorative-corner'></div>
       <div className='wedo__menu'>
-        {WE_DO_CONTENTS.map(wd => (
-          <div
-            key={wd.id}
-            className='wedo__menu-item'
-            onClick={() => {
-              if (activeMenuItem !== wd.id) {
-                /** activate the selected menu-item */
-                setActiveMenuItem(wd.id)
-                /** run animation `scramble` for the description */
-                scrambleReplay()
-              }
-            }}
-            aria-pressed={activeMenuItem === wd.id}
-          >
-            <p className={`wedo__menu-item-symbols ${activeMenuItem === wd.id ? "active" : ""}`}>{wd.symbols}</p>
-            <p className={`wedo__menu-item-name ${activeMenuItem === wd.id ? "active" : ""}`}>{wd.name}</p>
+        {WE_DO_CONTENTS.map((wedoContent, _) => (
+          <div key={wedoContent.id} className={`wedo__menu-item ${activeMenuItem === wedoContent.id ? "active" : ""}`}>
+            <p className={`wedo__menu-item-symbols ${activeMenuItem === wedoContent.id ? "active" : ""}`}>
+              {wedoContent.symbols}
+            </p>
+            <p
+              className={`wedo__menu-item-name ${activeMenuItem === wedoContent.id ? "active" : ""}`}
+              onClick={() => setActiveMenuItem(wedoContent.id)}
+            >
+              {wedoContent.name}
+            </p>
           </div>
         ))}
       </div>
@@ -119,39 +95,39 @@ const WeDo: FC = () => {
           <AnimateSignalStrip
             symbol='.'
             maxNumberOfSymbols={7}
-            minInterval={1_250}
-            maxInterval={2_500}
+            minInterval={1250}
+            maxInterval={2500}
             initialSymbols='.....'
             style={{ color: "#67df8f" }}
           />
           <AnimateSignalStrip
             symbol='.'
             maxNumberOfSymbols={4}
-            minInterval={1_000}
-            maxInterval={2_500}
+            minInterval={1000}
+            maxInterval={2500}
             initialSymbols='..'
             style={{ color: "#ffffff" }}
           />
         </div>
         <div className='wedo__description'>
           <span className='wedo__description-highlight'>{"/** "}</span>
-          <p ref={descriptionRef}>{description}</p>
+          <p ref={descriptionRef}>{activeWeDo && activeWeDo.description}</p>
           <span className='wedo__description-highlight'>{" */"}</span>
         </div>
         <div className='wedo__decorative-stdout'>
           <p>
             Continuous learning...{"["}
-            <span className='wedo__decorative-stdout--item'>{" ok "}</span>
+            <span className='wedo__decorative-stdout--item'>{" OK "}</span>
             {"]"}
           </p>
           <p>
             Best practices........{"["}
-            <span className='wedo__decorative-stdout--item'>{" ok "}</span>
+            <span className='wedo__decorative-stdout--item'>{" OK "}</span>
             {"]"}
           </p>
           <p>
             Mentorships...........{"["}
-            <span className='wedo__decorative-stdout--item'>{" ok "}</span>
+            <span className='wedo__decorative-stdout--item'>{" OK "}</span>
             {"]"}
           </p>
         </div>

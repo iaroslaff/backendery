@@ -93,6 +93,10 @@
 
     font-weight: 500;
     user-select: none;
+
+    @media screen and (width <= $sm) {
+      display: none;
+    }
   }
 
   &__description {
@@ -113,7 +117,6 @@
     gap: 8px;
     align-self: end;
     color: rgba($color: $secondary-color, $alpha: 0.3);
-    text-transform: uppercase;
 
     &--item {
       color: $accent-color;

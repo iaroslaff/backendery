@@ -35,16 +35,18 @@
     grid-row: 3;
 
     @media screen and (width <= $md) {
+      grid-column: 1/-1;
       grid-row: 2;
-      margin: 40px 0;
+      @include adaptive-value($property: "margin-top", $from: 40, $to: 30);
+      @include adaptive-value($property: "margin-bottom", $from: 40, $to: 20);
     }
   }
 
   &__menu-item {
-    @include adaptive-value($property: "font-size", $from: 28, $to: 18);
+    @include adaptive-value($property: "font-size", $from: 28, $to: 16);
 
     display: flex;
-    gap: 15px;
+    @include adaptive-value($property: "gap", $from: 15, $to: 8);
     align-items: center;
     line-height: 120%;
   }
@@ -83,8 +85,8 @@
     grid-template-columns: 1fr;
 
     @media screen and (width <= $md) {
-      grid-row: 3;
       grid-column: 1/-1;
+      grid-template-rows: auto 1fr;
     }
   }
 
@@ -94,7 +96,7 @@
     font-weight: 500;
     user-select: none;
 
-    @media screen and (width <= $sm) {
+    @media screen and (width <= $md) {
       display: none;
     }
   }
@@ -117,14 +119,34 @@
     gap: 8px;
     align-self: end;
     color: rgba($color: $secondary-color, $alpha: 0.3);
+  }
 
+  &__decorative-stdout-wrapper {
+    display: flex;
+    text-wrap: nowrap;
+    max-width: 450px;
+    margin-right: 100px;
+
+    @media screen and (width <=$sm) {
+      margin-right: 0;
+    }
+    
     &--item {
       color: $accent-color;
+      text-transform: uppercase;
     }
+  }
 
-    @media screen and (width <= $md) {
-      margin-bottom: 30px;
-    }
+  &__decorative-stdout-dots-container {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__decorative-stdout-dots {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   &__decorative-symbols {
@@ -132,7 +154,7 @@
     align-self: end;
     color: $accent-color;
 
-    @media screen and (width <= $xs) {
+    @media screen and (width <= $md) {
       display: none;
     }
   }

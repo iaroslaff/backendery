@@ -115,21 +115,34 @@ const WeDo: FC = () => {
           <span className='wedo__description-highlight'>{" */"}</span>
         </div>
         <div className='wedo__decorative-stdout'>
-          <p>
-            Continuous learning...{"["}
-            <span className='wedo__decorative-stdout--item'>{" OK "}</span>
-            {"]"}
-          </p>
-          <p>
-            Best practices........{"["}
-            <span className='wedo__decorative-stdout--item'>{" OK "}</span>
-            {"]"}
-          </p>
-          <p>
-            Mentorships...........{"["}
-            <span className='wedo__decorative-stdout--item'>{" OK "}</span>
-            {"]"}
-          </p>
+
+          <div className="wedo__decorative-stdout-wrapper">
+            <p className="wedo__decorative-stdout-name">Continuous learning</p>
+            <div className="wedo__decorative-stdout-dots-container">
+              <p className="wedo__decorative-stdout-dots">.......................................</p>
+            </div>
+            <p> {"["} <span className='wedo__decorative-stdout-wrapper--item'>{"ok"} </span>{"]"}
+            </p>
+          </div>
+
+          <div className="wedo__decorative-stdout-wrapper">
+            <p className="wedo__decorative-stdout-name">Best practices</p>
+            <div className="wedo__decorative-stdout-dots-container">
+              <p className="wedo__decorative-stdout-dots">.......................................</p>
+            </div>
+            <p> {"["} <span className='wedo__decorative-stdout-wrapper--item'>{"ok"} </span>{"]"}
+            </p>
+          </div>
+
+          <div className="wedo__decorative-stdout-wrapper">
+            <p className="wedo__decorative-stdout-name">Mentorships</p>
+            <div className="wedo__decorative-stdout-dots-container">
+              <p className="wedo__decorative-stdout-dots">.......................................</p>
+            </div>
+            <p> {"["} <span className='wedo__decorative-stdout-wrapper--item'>{"ok"} </span>{"]"}
+            </p>
+          </div>
+
         </div>
       </div>
       <div className='wedo__decorative-symbols'>../../</div>

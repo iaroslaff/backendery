@@ -10,18 +10,18 @@ import { randomBetween, randomChars, runWithTimeout } from "../../../utils/fn"
 
 import "./Contacts.scss"
 
-const CHARS_SEQUENCE = "1234567890ABCDEF!@#$%^&*_+[]{}<>?/~" as string
+const CHARS_SEQUENCE = "1234567890ABCDEF" as string
 const RANDOM_CHARS_NUMBER = (1 << 3) as number
 
-const SCRAMBLE_CHARS = randomChars(CHARS_SEQUENCE, RANDOM_CHARS_NUMBER)
 const SCRAMBLE_PARAMS = {
+  text: `0x${randomChars(CHARS_SEQUENCE, RANDOM_CHARS_NUMBER)}`,
   speed: 0.45,
   tick: 1,
   step: 1,
   scramble: 12,
   seed: 0,
   overflow: true,
-  overdrive: false,
+  overdrive: 45,
 }
 
 const Contacts: FC = () => {
@@ -30,7 +30,8 @@ const Contacts: FC = () => {
   const squareTimeoutRef = useRef<number | null>(null) // Ref to animation timeout for square
 
   const { ref: textRef, replay: scrambleReplay } = useScramble({
-    text: SCRAMBLE_CHARS,
+    ignore: ["0", "x"],
+    range: [48, 57, 65, 70],
     onAnimationEnd: () => {
       const timeout = randomBetween(4_100, 7_550)
       runWithTimeout(scrambleTimeoutRef, scrambleReplay, timeout)

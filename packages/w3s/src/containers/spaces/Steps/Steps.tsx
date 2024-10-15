@@ -135,7 +135,7 @@ const Steps: FC = () => {
         </p>
       </div>
       <p className='steps__decorative-text--scramble' ref={scrambleDecorativeTextRef}></p>
-      <p className='steps__abstract-phrase'>These sessions give you direct</p>
+      <p className='steps__decorative-abstract-phrase'>These sessions give you direct</p>
     </div>
   )
 }

@@ -127,6 +127,42 @@
     max-width: 450px;
   }
 
+  &__decorative-stdout-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-self: end;
+    color: rgba($color: $secondary-color, $alpha: 0.3);
+  }
+
+  &__decorative-stdout {
+    display: flex;
+    max-width: 450px;
+    margin-right: 100px;
+    text-transform: uppercase;
+    text-wrap: nowrap;
+
+    &--success {
+      color: $accent-color;
+    }
+
+    @media screen and (width <= $sm) {
+      margin-right: 0;
+    }
+  }
+
+  &__decorative-stdout-filler-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &__decorative-stdout-filler {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
   &__decorative-text {
     align-self: end;
 
@@ -134,11 +170,11 @@
       grid-column: 3;
       justify-self: end;
       color: $accent-color;
-  
+
       @media screen and (width <= $lg) {
         grid-column: 4;
       }
-  
+
       @media screen and (width <= $sm) {
         grid-column: 2;
       }

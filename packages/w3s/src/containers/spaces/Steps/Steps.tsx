@@ -1,4 +1,4 @@
-import { FC, useMemo, useRef, useState } from "react"
+import React, { FC, useMemo, useRef, useState } from "react"
 import { ReactTyped as Typed } from "react-typed"
 import { useScramble } from "use-scramble"
 
@@ -13,44 +13,44 @@ interface IStepsContents {
   description: string
 }
 
-const STEPS_CONTENTS: IStepsContents[] = [
+const stepsContents: IStepsContents[] = [
   {
     id: 1,
     title: "Analysis",
     description:
-      "At this stage, we analyze the task at hand, select the best ideas, solutions and tools to implement the project",
+      "At this stage, we analyze the task at hand, select the best ideas, solutions and tools to implement the project 1",
   },
   {
     id: 2,
     title: "Development",
     description:
-      "At this stage, we analyze the task at hand, select the best ideas, solutions and tools to implement the project",
+      "At this stage, we analyze the task at hand, select the best ideas, solutions and tools to implement the project 2",
   },
   {
     id: 3,
     title: "Testing",
     description:
-      "At this stage, we analyze the task at hand, select the best ideas, solutions and tools to implement the project",
+      "At this stage, we analyze the task at hand, select the best ideas, solutions and tools to implement the project 3",
   },
   {
     id: 4,
     title: "Staging",
     description:
-      "At this stage, we analyze the task at hand, select the best ideas, solutions and tools to implement the project",
+      "At this stage, we analyze the task at hand, select the best ideas, solutions and tools to implement the project 4",
   },
   {
     id: 5,
     title: "Release",
     description:
-      "At this stage, we analyze the task at hand, select the best ideas, solutions and tools to implement the project",
+      "At this stage, we analyze the task at hand, select the best ideas, solutions and tools to implement the project 5",
   },
 ] as const
 
-const CHARS_SEQUENCE = "*<>_{}" as string
-const RANDOM_CHARS_NUMBER = (1 << 3) as number
+const charsSequence = "*<>_{}" as string
+const randomCharsNumber = (1 << 3) as number
 
-const SCRAMBLE_DECORATIVE_TEXT = randomChars(CHARS_SEQUENCE, RANDOM_CHARS_NUMBER)
-const SCRAMBLE_DECORATIVE_TEXT_PARAMS = {
+const scrambleDecorativeText = randomChars(charsSequence, randomCharsNumber)
+const scrambleDecorativeTextParams = {
   speed: 0.55,
   tick: 3,
   step: 1,
@@ -59,7 +59,7 @@ const SCRAMBLE_DECORATIVE_TEXT_PARAMS = {
   overdrive: false,
 } as const
 
-const SCRAMBLE_DESCRIPTION_PARAMS = {
+const scrambleDescriptionParams = {
   speed: 0.85,
   scramble: 3,
   step: 5,
@@ -69,7 +69,7 @@ const SCRAMBLE_DESCRIPTION_PARAMS = {
   playOnMount: false,
 } as const
 
-const INITIAL_ACTIVE_NAVIGATE_ITEM = 1 as number
+const initialActiveNavigateItem = 1 as number
 
 const Steps: FC = () => {
   /** @references */
@@ -77,24 +77,24 @@ const Steps: FC = () => {
   const squareTimeoutRef = useRef<number | null>(null) // Ref to animation timeout for square
 
   /** @states */
-  const [activeNavigateItem, setActiveNavigateItem] = useState<number>(INITIAL_ACTIVE_NAVIGATE_ITEM) // Stores the active state of the `Step`
+  const [activeNavigateItem, setActiveNavigateItem] = useState<number>(initialActiveNavigateItem) // Stores the active state of the `Step`
 
   // Memoize the active `Step` for search optimization
-  const activeStep = useMemo(() => STEPS_CONTENTS.find(sp => sp.id === activeNavigateItem), [activeNavigateItem])
+  const activeStep = useMemo(() => stepsContents.find(sp => sp.id === activeNavigateItem), [activeNavigateItem])
 
-  const { ref: decorativeTextRef, replay: scrambleReplay } = useScramble({
-    text: SCRAMBLE_DECORATIVE_TEXT,
+  const { ref: scrambleDecorativeTextRef, replay: scrambleReplay } = useScramble({
+    text: scrambleDecorativeText,
     range: [33, 43],
     onAnimationEnd: () => {
       const timeout = randomBetween(10_500, 14_000)
       runWithTimeout(scrambleTimeoutRef, scrambleReplay, timeout)
     },
-    ...SCRAMBLE_DECORATIVE_TEXT_PARAMS,
+    ...scrambleDecorativeTextParams,
   })
 
   const { ref: descriptionRef } = useScramble({
     text: activeStep?.description || "",
-    ...SCRAMBLE_DESCRIPTION_PARAMS,
+    ...scrambleDescriptionParams,
   })
 
   const { ref: squareRef, replay: squareReplay } = useRotator({
@@ -112,9 +112,9 @@ const Steps: FC = () => {
       <h2 className='steps__title'>
         <Typed strings={["Steps"]} typeSpeed={50} cursorChar='_' showCursor={true} startWhenVisible />
       </h2>
-      <p className='steps__decorative-text-1'>{"&//="}</p>
+      <p className='steps__decorative-text--static'>{"&//="}</p>
       <div className='steps__navigate'>
-        {STEPS_CONTENTS.map((stepContent, _) => (
+        {stepsContents.map((stepContent, _) => (
           <div
             key={stepContent.id}
             className={`steps__navigate-btn ${activeNavigateItem === stepContent.id ? "active" : ""}`}
@@ -125,28 +125,17 @@ const Steps: FC = () => {
         ))}
       </div>
       <div className='steps__decorative-square' ref={squareRef}></div>
-
-      <div className='steps__slider-title-container'>
-        <p className='steps__slider-title-value'>{`/0${activeNavigateItem}`}</p>
-        <h3 className='steps__slider-title'>Development</h3>
+      <div className='steps__step-title-wrapper'>
+        <p className='steps__step-title-navigate-item'>{`/0${activeStep?.id}`}</p>
+        <h3 className='steps__step-title'>{activeStep?.title}</h3>
       </div>
-
-      <div className='steps__slider-description-container'>
-        <p className='steps__slider-description'>
-          Not everybody has an experienced frontend developer on their team. By joining our Discord server you can pick
-          my brain with any frontend related questions. These one-on-one sessions give you direct access to my time and
-          knowledge
+      <div className='steps__step-description-wrapper'>
+        <p className='steps__step-description' ref={descriptionRef}>
+          {activeStep?.description}
         </p>
-        <div className='steps__slider-description-list'>
-          <p>{"Learning to find.............[ ok ]"}</p>
-          <p>{"Learning to find.............[ ok ]"}</p>
-          <p>{"Learning to find.............[ ok ]"}</p>
-        </div>
       </div>
-
-      <p className='steps__decorative-text-2' ref={decorativeTextRef}></p>
-
-      <p className='steps__abstract-description'>These sessions give you direct</p>
+      <p className='steps__decorative-text--scramble' ref={scrambleDecorativeTextRef}></p>
+      <p className='steps__abstract-phrase'>These sessions give you direct</p>
     </div>
   )
 }

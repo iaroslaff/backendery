@@ -15,29 +15,42 @@ interface ICasesContents {
   technologies: string
 }
 
+interface ICaseDetailsProps {
+  caseContent: ICasesContents
+  descriptionRef?: React.RefObject<HTMLParagraphElement>
+}
+
 const CASES_CONTENTS: ICasesContents[] = [
-  {
-    id: 0,
-    category: "../Sport Betting",
-    title: "Server Apps & API",
-    description:
-      "We develop high-performance server applications and APIs that ensure reliable interaction between systems. Our solutions are tailored to meet specific business needs, enhancing operational efficiency and scalability.",
-    technologies: "Python, GitLab, NGINX, Docker, Stack, Bitbucket...",
-  },
   {
     id: 1,
     category: "../Sport Betting",
-    title: "Services Integration",
-    description:
-      "We develop bots for various platforms, including chatbots and user interaction automation. These solutions enhance customer experience and engagement, providing quick responses and improving service quality",
+    title: "Server Apps & API",
+    description: `
+      We develop high-performance server applications and APIs that ensure reliable interaction
+      between systems. Our solutions are tailored to meet specific business needs, enhancing operational
+      efficiency and scalability.
+    `,
     technologies: "Python, GitLab, NGINX, Docker, Stack, Bitbucket...",
   },
   {
     id: 2,
     category: "../Sport Betting",
+    title: "Services Integration",
+    description: `
+      We develop bots for various platforms, including chatbots and user interaction automation.
+      These solutions enhance customer experience and engagement, providing quick responses and improving
+      service quality
+    `,
+    technologies: "Python, GitLab, NGINX, Docker, Stack, Bitbucket...",
+  },
+  {
+    id: 3,
+    category: "../Sport Betting",
     title: "CLI & Automation Tools",
-    description:
-      "We create command-line tools and automation solutions to simplify routine tasks and boost productivity. Our tools are designed to enhance user experience, allowing teams to focus on more strategic initiatives.",
+    description: `
+      We create command-line tools and automation solutions to simplify routine tasks and boost productivity.
+      Our tools are designed to enhance user experience, allowing teams to focus on more strategic initiatives.
+    `,
     technologies: "Python, GitLab, NGINX, Docker, Stack, Bitbucket...",
   },
 ] as const
@@ -45,9 +58,7 @@ const CASES_CONTENTS: ICasesContents[] = [
 const CHARS_SEQUENCE = "1234567890ABCDEF" as string
 const RANDOM_CHARS_NUMBER = (1 << 3) as number
 
-const INITIAL_ACTIVE_NAVIGATE_ITEM = 0 as number
-
-const SCRAMBLE_PARAMS = {
+const SCRAMBLE_DESCRIPTION_PARAMS = {
   speed: 0.85,
   scramble: 3,
   step: 5,
@@ -55,7 +66,11 @@ const SCRAMBLE_PARAMS = {
   overflow: true,
   overdrive: false,
   playOnMount: false,
-}
+} as const
+
+const INITIAL_ACTIVE_NAVIGATE_ITEM = 1 as number
+
+const DECORATIVE_INDICATORS_NUMBER = 7 as number
 
 /**
  * CaseDetails Component
@@ -69,20 +84,25 @@ const SCRAMBLE_PARAMS = {
  * @param {React.RefObject<HTMLParagraphElement>} [descriptionRef] - An optional reference to the paragraph element for the description to interact with it (e.g., for text animation).
  *
  * @example
- * // Example usage of the CaseDetails component:
+ * ```tsx
  * const caseContent = {
- *   id: 0,
+ *   id: 1,
  *   category: "../My category",
  *   title: "Title",
  *   description: "Here's a description",
  *   technologies: "And here are the technologies used",
  * };
  *
- * <CaseDetails caseContent={caseContent} descriptionRef={myRef} />
+ * <div>
+ *   ...
+ *   <CaseDetails caseContent={caseContent} descriptionRef={myRef} />
+ *   ...
+ * </div>
+ *```
  *
  * @remarks
  * - The component can be reused for various cases by passing different `caseContent` objects.
- * - `descriptionRef` is useful for animations or other interactions with the description element.
+ * - The `descriptionRef` is useful for animations or other interactions with the description element.
  *
  * @param {Object} props - Props for the component.
  * @param {ICasesContents} props.caseContent - The object containing the details of the specific case.
@@ -90,31 +110,33 @@ const SCRAMBLE_PARAMS = {
  *
  * @returns {JSX.Element} Returns JSX markup for displaying case details.
  */
-const CaseDetails: FC<{ caseContent: ICasesContents; descriptionRef?: React.RefObject<HTMLParagraphElement> }> = ({
-  caseContent,
-  descriptionRef,
-}) => (
-  <div className='cases__case'>
-    <p className='cases__case-category'>{caseContent.category}</p>
-    <h3 className='cases__case-title'>{caseContent.title}</h3>
-    <p className='cases__case-description' ref={descriptionRef}>
-      {caseContent.description}
-    </p>
-    <p className='cases__case-technologies-title'>Used technologies</p>
-    <p>{caseContent.technologies}</p>
-  </div>
-)
+const CaseDetails: FC<ICaseDetailsProps> = props => {
+  // Props de-structurization
+  const { caseContent, descriptionRef = null } = props
+
+  return (
+    <div className='cases__case'>
+      <p className='cases__case-category'>{caseContent.category}</p>
+      <h3 className='cases__case-title'>{caseContent.title}</h3>
+      <p className='cases__case-description' ref={descriptionRef}>
+        {caseContent.description}
+      </p>
+      <p className='cases__case-technologies-title'>Used technologies</p>
+      <p>{caseContent.technologies}</p>
+    </div>
+  )
+}
 
 const Cases: FC = () => {
   /** @states */
-  const [activeNavigateItem, setActiveNavigateItem] = useState<number>(INITIAL_ACTIVE_NAVIGATE_ITEM) // Stores the active state of the case
+  const [activeNavigateItem, setActiveNavigateItem] = useState<number>(INITIAL_ACTIVE_NAVIGATE_ITEM) // Stores the active state of the `Case`
 
-  // Memoize the active case for search optimization
+  // Memoize the active `Case` for search optimization
   const activeCase = useMemo(() => CASES_CONTENTS.find(cs => cs.id === activeNavigateItem), [activeNavigateItem])
 
   const { ref: descriptionRef } = useScramble({
     text: activeCase?.description || "",
-    ...SCRAMBLE_PARAMS,
+    ...SCRAMBLE_DESCRIPTION_PARAMS,
   })
 
   return (
@@ -143,13 +165,9 @@ const Cases: FC = () => {
       {/* Navigating through the cases */}
       <div className='cases__multi-wrapper'>
         <div className='cases__decorative-indicators'>
-          <div className='cases__decorative-indicator'>{"[03]"}</div>
-          <div className='cases__decorative-indicator'>{"[03]"}</div>
-          <div className='cases__decorative-indicator'>{"[03]"}</div>
-          <div className='cases__decorative-indicator'>{"[03]"}</div>
-          <div className='cases__decorative-indicator'>{"[03]"}</div>
-          <div className='cases__decorative-indicator'>{"[03]"}</div>
-          <div className='cases__decorative-indicator'>{"[03]"}</div>
+          {Array.from({ length: DECORATIVE_INDICATORS_NUMBER }).map((_, index) => (
+            <div key={index} className='cases__decorative-indicator'>{`[0${CASES_CONTENTS.length}]`}</div>
+          ))}
         </div>
         <p>Our last cases</p>
         <div className='cases__navigate'>
@@ -159,7 +177,7 @@ const Cases: FC = () => {
               className={`cases__navigate-btn ${activeNavigateItem === caseContent.id ? "active" : ""}`}
               onClick={() => setActiveNavigateItem(caseContent.id)}
             >
-              {`0${caseContent.id + 1}`}
+              {`0${caseContent.id}`}
             </div>
           ))}
         </div>

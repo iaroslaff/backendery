@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import { Outlet } from "react-router-dom"
 
-import OrientationHold from "../containers/OrientationHold/OrientationHold"
+import ScreenSentinel from "../containers/ScreenSentinel/ScreenSentinel"
 import { useBreakpoints } from "../hooks/useBreakpoints"
 
 const DefaultLayout: FC = () => {
@@ -10,7 +10,7 @@ const DefaultLayout: FC = () => {
 
   return (
     <React.Fragment>
-      {(isSmartphone || isSmallDevice || isTablet) && <OrientationHold />}
+      {(isSmartphone || isSmallDevice || isTablet) && <ScreenSentinel />}
       <Outlet />
     </React.Fragment>
   )

@@ -11,15 +11,6 @@
   height: $height-in-dvh;
   user-select: none;
 
-  @media screen and (width <= 1400px) {
-    grid-template-columns: 1fr 1fr auto;
-  }
-
-  @media screen and (width <= $md) {
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto 1fr auto;
-  }
-
   &__title {
     @include adaptive-value($property: "font-size", $from: 72, $to: 32, $trigger-at: $lg);
 
@@ -37,8 +28,8 @@
 
     @media screen and (width <= 1400px) {
       flex-direction: row;
-      grid-column: 1;
       grid-row: 4;
+      grid-column: 1;
       align-self: end;
       justify-content: start;
     }
@@ -66,8 +57,8 @@
     background-color: $accent-color;
 
     @media screen and (width <= $md) {
-      grid-column: 2;
       grid-row: 4;
+      grid-column: 2;
       justify-self: end;
     }
 
@@ -83,10 +74,11 @@
     gap: 20px;
 
     @media screen and (width <= $md) {
-      grid-row: 2;
-      grid-column: 1/-1;
       @include adaptive-value($property: "margin-top", $from: 40, $to: 30);
       @include adaptive-value($property: "margin-bottom", $from: 40, $to: 30);
+
+      grid-row: 2;
+      grid-column: 1/-1;
     }
   }
 
@@ -110,16 +102,16 @@
   &__step-description-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     grid-row: 3/-1;
     grid-column: 2/4;
     gap: 30px;
-    margin: 35px 0 0 0 ;
+    justify-content: space-between;
+    margin: 35px 0 0;
 
     @media screen and (width <= $md) {
       grid-row: 3;
       grid-column: 1/-1;
-      margin: 0 0 40px 0;
+      margin: 0 0 40px;
     }
   }
 
@@ -162,8 +154,8 @@
 
     &--static {
       grid-column: 3;
-      justify-self: end;
       align-self: end;
+      justify-self: end;
       color: $accent-color;
 
       @media screen and (width <=$md) {
@@ -193,5 +185,14 @@
     @media screen and (width <= 1400px) {
       display: none;
     }
+  }
+
+  @media screen and (width <= 1400px) {
+    grid-template-columns: 1fr 1fr auto;
+  }
+
+  @media screen and (width <= $md) {
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-columns: 1fr auto;
   }
 }

@@ -1,0 +1,22 @@
+@import "@styles/variables";
+@import "@styles/mixin";
+
+.screen-sentinel {
+  &__overlay {
+    position: fixed;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $width-in-dvw;
+    height: $height-in-dvh;
+    overflow: hidden;
+    color: $secondary-color;
+    background: $primary-color;
+    pointer-events: none;
+  }
+
+  &__message {
+    font-size: 1.2em;
+  }
+}

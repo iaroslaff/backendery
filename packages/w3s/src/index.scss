@@ -11,12 +11,20 @@ body {
   line-height: 150%;
   background-color: $primary-color;
   text-size-adjust: 100%;
+
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+
+  &.no-orientation {
+    overflow: hidden;
+    touch-action: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
 div#root {
-  /* Identifier stub */
+  display: flex;
 }
 
 // Override default cursor blink animation with a sharp, stepwise effect
@@ -31,6 +39,7 @@ div#root {
   100% {
     opacity: 1; // Show cursor
   }
+
   50% {
     opacity: 0; // Hide cursor
   }

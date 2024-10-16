@@ -244,7 +244,7 @@ const Steps: FC = () => {
     ...scrambleDescriptionParams,
   })
 
-  const { ref: squareRef, replay: squareReplay } = useRotator({
+  const { ref: decorativeSquareRef, replay: squareReplay } = useRotator({
     angle: 270,
     direction: "right",
     duration: 600,
@@ -271,7 +271,7 @@ const Steps: FC = () => {
           </div>
         ))}
       </div>
-      <div className='steps__decorative-square' ref={squareRef}></div>
+      <div className='steps__decorative-square' ref={decorativeSquareRef}></div>
       <div className='steps__step-title-wrapper'>
         <p className='steps__step-title-navigate-item'>{`/0${activeStep?.id}`}</p>
         <h3 className='steps__step-title'>{activeStep?.title}</h3>

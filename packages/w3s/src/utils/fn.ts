@@ -81,7 +81,7 @@ export function getElementHeight(selector: string): number {
  */
 export function addClass(element: HTMLElement, cls: string): void {
   if (!hasClass(element, cls)) {
-    element.className += " " + cls
+    element.className += element.className ? ` ${cls}` : cls
   }
 }
 
@@ -115,6 +115,11 @@ export function hasClass(element: HTMLElement, cls: string): boolean {
 export function removeClass(element: HTMLElement, cls: string): void {
   if (hasClass(element, cls)) {
     element.className = element.className.replace(new RegExp("(\\s|^)" + cls + "(\\s|$)"), "")
+
+    // If there are no more classes after deleting the class, remove the `class` attribute
+    if (!element.className) {
+      element.removeAttribute("class")
+    }
   }
 }
 

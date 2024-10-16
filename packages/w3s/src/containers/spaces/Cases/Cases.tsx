@@ -1,9 +1,9 @@
-import { FC, useMemo, useState } from "react"
+import { FC, useMemo, useRef, useState } from "react"
 import { ReactTyped as Typed } from "react-typed"
 import { useScramble } from "use-scramble"
 
 import Marquee from "../../../components/Marquee/Marquee"
-import { randomChars } from "../../../utils/fn"
+import { randomBetween, randomChars, runWithTimeout } from "../../../utils/fn"
 
 import "./Cases.scss"
 
@@ -20,7 +20,7 @@ interface ICaseDetailsProps {
   descriptionRef?: React.RefObject<HTMLParagraphElement>
 }
 
-const CASES_CONTENTS: ICasesContents[] = [
+const casesContents: ICasesContents[] = [
   {
     id: 1,
     category: "../Sport Betting",
@@ -55,10 +55,20 @@ const CASES_CONTENTS: ICasesContents[] = [
   },
 ] as const
 
-const CHARS_SEQUENCE = "1234567890ABCDEF" as string
-const RANDOM_CHARS_NUMBER = (1 << 3) as number
+const charsSequence = "1234567890ABCDEF" as string
+const randomCharsNumber = (1 << 3) as number
 
-const SCRAMBLE_DESCRIPTION_PARAMS = {
+const scrambleDecorativeTextParams = {
+  speed: 0.45,
+  tick: 1,
+  step: 1,
+  scramble: 12,
+  seed: 0,
+  overflow: true,
+  overdrive: 45,
+}
+
+const scrambleDescriptionParams = {
   speed: 0.85,
   scramble: 3,
   step: 5,
@@ -68,9 +78,9 @@ const SCRAMBLE_DESCRIPTION_PARAMS = {
   playOnMount: false,
 } as const
 
-const INITIAL_ACTIVE_NAVIGATE_ITEM = 1 as number
+const initialActiveNavigateItem = 1 as number
 
-const DECORATIVE_INDICATORS_NUMBER = 7 as number
+const decorativeIndicatorsNumber = 7 as number
 
 /**
  * CaseDetails Component
@@ -128,15 +138,29 @@ const CaseDetails: FC<ICaseDetailsProps> = props => {
 }
 
 const Cases: FC = () => {
+  /** @references */
+  const scrambleTimeoutRef = useRef<number | null>(null) // Ref to animation timeout for text
+
   /** @states */
-  const [activeNavigateItem, setActiveNavigateItem] = useState<number>(INITIAL_ACTIVE_NAVIGATE_ITEM) // Stores the active state of the `Case`
+  const [activeNavigateItem, setActiveNavigateItem] = useState<number>(initialActiveNavigateItem) // Stores the active state of the `Case`
 
   // Memoize the active `Case` for search optimization
-  const activeCase = useMemo(() => CASES_CONTENTS.find(cs => cs.id === activeNavigateItem), [activeNavigateItem])
+  const activeCase = useMemo(() => casesContents.find(cs => cs.id === activeNavigateItem), [activeNavigateItem])
 
   const { ref: descriptionRef } = useScramble({
     text: activeCase?.description || "",
-    ...SCRAMBLE_DESCRIPTION_PARAMS,
+    ...scrambleDescriptionParams,
+  })
+
+  const { ref: scrambleDecorativeTextRef, replay: scrambleReplay } = useScramble({
+    text: `0x${randomChars(charsSequence, randomCharsNumber)}`,
+    ignore: ["0", "x"],
+    range: [48, 57, 65, 70],
+    onAnimationEnd: () => {
+      const timeout = randomBetween(4_100, 7_550)
+      runWithTimeout(scrambleTimeoutRef, scrambleReplay, timeout)
+    },
+    ...scrambleDecorativeTextParams,
   })
 
   return (
@@ -154,7 +178,7 @@ const Cases: FC = () => {
       </div>
       {/* Normal view of the display case */}
       <div className='cases__case-wrapper'>
-        {CASES_CONTENTS.map(caseContent => (
+        {casesContents.map(caseContent => (
           <CaseDetails key={caseContent.id} caseContent={caseContent} />
         ))}
       </div>
@@ -165,13 +189,13 @@ const Cases: FC = () => {
       {/* Navigating through the cases */}
       <div className='cases__multi-wrapper'>
         <div className='cases__decorative-indicators'>
-          {Array.from({ length: DECORATIVE_INDICATORS_NUMBER }).map((_, index) => (
-            <div key={index} className='cases__decorative-indicator'>{`[0${CASES_CONTENTS.length}]`}</div>
+          {Array.from({ length: decorativeIndicatorsNumber }).map((_, index) => (
+            <div key={index} className='cases__decorative-indicator'>{`[0${casesContents.length}]`}</div>
           ))}
         </div>
         <p>Our last cases</p>
         <div className='cases__navigate'>
-          {CASES_CONTENTS.map((caseContent, _) => (
+          {casesContents.map((caseContent, _) => (
             <div
               key={caseContent.id}
               className={`cases__navigate-btn ${activeNavigateItem === caseContent.id ? "active" : ""}`}
@@ -182,10 +206,7 @@ const Cases: FC = () => {
           ))}
         </div>
       </div>
-      <div className='cases__decorative-symbols'>
-        {"0x"}
-        {randomChars(CHARS_SEQUENCE, RANDOM_CHARS_NUMBER)}
-      </div>
+      <div className='cases__decorative-text' ref={scrambleDecorativeTextRef}></div>
     </div>
   )
 }

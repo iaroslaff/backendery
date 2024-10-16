@@ -35,7 +35,10 @@
     }
 
     @media screen and (width <=$xs) {
-      gap: 40px;
+      grid-column: 1/-1;
+      gap: auto;
+      justify-content: space-between;
+      margin-bottom: 20px;
     }
   }
 

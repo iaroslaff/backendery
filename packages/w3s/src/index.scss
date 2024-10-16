@@ -16,22 +16,22 @@ body {
 }
 
 div#root {
-  /* identifier stub */
+  /* Identifier stub */
 }
 
-/* override default cursor blink animation with a sharp, stepwise effect */
+// Override default cursor blink animation with a sharp, stepwise effect
 .typed-cursor.typed-cursor--blink {
-  /* use 'steps(1, start)' to make the cursor blink without any fade effect */
+  // Use 'steps(1, start)' to make the cursor blink without any fade effect
   animation: blink 1s steps(1, start) infinite !important;
 }
 
-/* keyframes for the blink animation: fully visible at 0% and 100%, invisible at 50% */
+// Keyframes for the blink animation: fully visible at 0% and 100%, invisible at 50%
 @keyframes blink {
   0%,
   100% {
-    opacity: 1; /* show cursor */
+    opacity: 1; // Show cursor
   }
   50% {
-    opacity: 0; /* hide cursor */
-  } 
+    opacity: 0; // Hide cursor
+  }
 }

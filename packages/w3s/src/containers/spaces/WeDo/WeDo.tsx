@@ -103,14 +103,14 @@ const Stdout: FC<IStdoutProps> = React.memo(props => {
     return () => {
       resizeObserver.disconnect() // Disconnect the observer to prevent memory leaks
     }
-  }, [])
+  }, [highlights])
 
   useEffect(() => {
     // Re-calculate fillers whenever the highlights prop changes
     const newFillerCounts = highlights.map(() => 0) // Initialize to 0
     // Update state with the new filler counts
     setFillerCounts(newFillerCounts)
-  }, [])
+  }, [highlights])
 
   // Memoizing the dot counts so they are only recalculated when 'ourValuables' changes
   const memoizedFillerCounts = useMemo(() => fillerCounts, [fillerCounts]);
@@ -141,9 +141,10 @@ interface IWeDoContents {
   symbols: string
   service: string
   description: string
+  highlights: string[]
 }
 
-const weDoContents: IWeDoContents[] = [
+const wedoContents: IWeDoContents[] = [
   {
     id: 1,
     symbols: "=>",
@@ -153,6 +154,7 @@ const weDoContents: IWeDoContents[] = [
       interaction between systems. Our solutions are tailored to meet specific business
       needs, enhancing operational efficiency and scalability
   `,
+    highlights: ["High-performance server apps", "Reliable system interaction", "Scalability and operational"]
   },
   {
     id: 2,
@@ -163,6 +165,7 @@ const weDoContents: IWeDoContents[] = [
       compatibility and efficiency, we help businesses streamline their processes and improve
       overall productivity
     `,
+    highlights: ["Seamless integration", "Compatibility and efficiency", "Streamlined processes"]
   },
   {
     id: 3,
@@ -173,6 +176,7 @@ const weDoContents: IWeDoContents[] = [
       productivity. Our tools are designed to enhance user experience, allowing teams to focus
       on more strategic initiatives
     `,
+    highlights: ["Command-line tools", "Routine task automation", "Enhanced productivity"]
   },
   {
     id: 4,
@@ -183,6 +187,7 @@ const weDoContents: IWeDoContents[] = [
       These solutions enhance customer experience and engagement, providing quick responses and
       improving service quality
     `,
+    highlights: ["Multibots", "Customer enhancement", "Improved engagement"]
   },
 ] as const
 
@@ -203,7 +208,7 @@ const WeDo: FC = () => {
   const [activeMenuItem, setActiveMenuItem] = useState<number>(initialActiveMenuItem) // Stores the active state of the `WeDo`
 
   // Memoize the active `WeDo` for search optimization
-  const activeWeDo = useMemo(() => weDoContents.find(wd => wd.id === activeMenuItem), [activeMenuItem])
+  const activeWeDo = useMemo(() => wedoContents.find(wd => wd.id === activeMenuItem), [activeMenuItem])
 
   const { ref: descriptionRef } = useScramble({
     text: activeWeDo?.description || "",
@@ -217,7 +222,7 @@ const WeDo: FC = () => {
       </h2>
       <div className='wedo__decorative-corner'></div>
       <div className='wedo__menu'>
-        {weDoContents.map((wedoContent, _) => (
+        {wedoContents.map((wedoContent, _) => (
           <div key={wedoContent.id} className={`wedo__menu-item ${activeMenuItem === wedoContent.id ? "active" : ""}`}>
             <p className={`wedo__menu-item-symbols ${activeMenuItem === wedoContent.id ? "active" : ""}`}>
               {wedoContent.symbols}
@@ -251,13 +256,13 @@ const WeDo: FC = () => {
           />
         </div>
         <div className='wedo__description'>
-          <span className='wedo__description-highlight'>{"/** "}</span>
+          <span className='wedo__description-highlight'>{"/** description"}</span>
           <p ref={descriptionRef}>{activeWeDo && activeWeDo.description}</p>
-          <span className='wedo__description-highlight'>{" */"}</span>
+          <span className='wedo__description-highlight'>{"*/"}</span>
         </div>
-        <Stdout highlights={["Continuous learning", "Best practices", "Reliability", "Mentorships"]} />
+        <Stdout highlights={activeWeDo?.highlights || []} />
       </div>
-      <div className='wedo__decorative-symbols'>../../</div>
+      <div className='wedo__decorative-text'>~/../..</div>
       <div className='wedo__decorative-animate-radix-grid-wrapper'>
         <AnimateRadixGrid
           symbols={["0", "1"]}

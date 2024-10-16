@@ -131,39 +131,45 @@ const LetsStart: FC = () => {
                     </label>
                     {submitCount > 0 && errors.email && <div className='lets-start-input__error'>{errors.email}</div>}
                   </div>
-                  <div className='lets-start__budget'>
-                    <p className='lets-start__budget-title'>May we clarify the following?</p>
-                  </div>
+
                   <div className='lets-start-input lets-start__project-description'>
                     <Field name='projectDescription' id='projectDescription' className='lets-start-input__field' />
                     <label
                       htmlFor='projectDescription'
                       className={`lets-start-input__label ${values.projectDescription && "label-top"}`}
                     >
-                      Tell us a little about the project?
+                      Tell us a little about the project
                     </label>
                     {submitCount > 0 && errors.projectDescription && (
                       <div className='lets-start-input__error'>{errors.projectDescription}</div>
                     )}
                   </div>
-                  <div className='lets-start-input'>
-                    <Field name='budgetMin' id='budgetMin' className='lets-start-input__field' />
-                    <label htmlFor='budgetMin' className={`lets-start-input__label ${values.budgetMin && "label-top"}`}>
-                      Minimum budget limit?
-                    </label>
-                    {submitCount > 0 && errors.budgetMin && (
-                      <div className='lets-start-input__error'>{errors.budgetMin}</div>
-                    )}
+
+                  <div className='lets-start__budget'>
+                    <p className='lets-start__budget-title'>What is the budget range for your project?</p>
+
+                    <div className='lets-start-input'>
+                      <Field name='budgetMin' id='budgetMin' className='lets-start-input__field' />
+                      <label htmlFor='budgetMin' className={`lets-start-input__label ${values.budgetMin && "label-top"}`}>
+                        $ Min
+                      </label>
+                      {submitCount > 0 && errors.budgetMin && (
+                        <div className='lets-start-input__error'>{errors.budgetMin}</div>
+                      )}
+                    </div>
+                  
+                    <div className='lets-start-input'>
+                      <Field name='budgetMax' id='budgetMax' className='lets-start-input__field' />
+                      <label htmlFor='budgetMax' className={`lets-start-input__label ${values.budgetMax && "label-top"}`}>
+                        $ Max
+                      </label>
+                      {submitCount > 0 && errors.budgetMax && (
+                        <div className='lets-start-input__error'>{errors.budgetMax}</div>
+                      )}
+                    </div>
+                    
                   </div>
-                  <div className='lets-start-input'>
-                    <Field name='budgetMax' id='budgetMax' className='lets-start-input__field' />
-                    <label htmlFor='budgetMax' className={`lets-start-input__label ${values.budgetMax && "label-top"}`}>
-                      Maximum budget limit?
-                    </label>
-                    {submitCount > 0 && errors.budgetMax && (
-                      <div className='lets-start-input__error'>{errors.budgetMax}</div>
-                    )}
-                  </div>
+                  
                 </div>
                 <button className='lets-start__send-message-btn' type='submit'>
                   <span>Send Message</span>

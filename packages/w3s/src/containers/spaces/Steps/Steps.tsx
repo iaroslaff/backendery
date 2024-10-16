@@ -280,9 +280,9 @@ const Steps: FC = () => {
         <p className='steps__step-description' ref={descriptionRef}>
           {activeStep?.description}
         </p>
-      </div>
-      <div className='steps__decorative-stdout-wrapper'>
-        <Stdout highlights={activeStep?.highlights || []} />
+        <div className='steps__decorative-stdout-wrapper'>
+          <Stdout highlights={activeStep?.highlights || []} />
+        </div>
       </div>
       <p className='steps__decorative-text--scramble' ref={scrambleDecorativeTextRef}></p>
       <p className='steps__decorative-abstract-phrase'>These sessions give you direct</p>

@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useState } from "react"
 
+import { SvgIcon } from "../../components/elements/Icon"
 import { useBreakpoints } from "../../hooks/useBreakpoints"
 import { addClass, removeClass } from "../../utils/fn"
-import { SvgIcon } from "../../components/elements/Icon"
 
 import "./ScreenSentinel.scss"
 
@@ -66,7 +66,7 @@ const ScreenSentinel: FC = () => {
           <div className='screen-sentinel__overlay'>
             <div className='screen-sentinel__message'>
               <SvgIcon name='rotate-device' />
-              <p>Please rotate your device to portrait orientation.</p>
+              <p>Please, rotate your device</p>
             </div>
           </div>
         </div>

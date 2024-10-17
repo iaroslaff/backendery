@@ -2,6 +2,8 @@
 @import "@styles/mixin";
 
 .screen-sentinel {
+  user-select: none;
+
   &__overlay {
     position: fixed;
     z-index: 9999;
@@ -17,11 +19,10 @@
   }
 
   &__message {
-    font-size: 1.2em;
     display: flex;
     flex-direction: column;
+    gap: 30px;
     align-items: center;
     justify-content: center;
-    gap: 30px;
   }
 }

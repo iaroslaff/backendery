@@ -10,8 +10,9 @@ body {
   font-family: "IBM Plex Mono", sans-serif;
   line-height: 150%;
   background-color: $primary-color;
+  user-select: none;
+  touch-action: none;
   text-size-adjust: 100%;
-
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 

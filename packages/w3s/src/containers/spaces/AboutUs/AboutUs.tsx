@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react"
+import { FC, useEffect, useRef, useState } from "react"
 import { useGlitch } from "react-powerglitch"
 import { ReactTyped as Typed } from "react-typed"
 import { useScramble } from "use-scramble"
@@ -8,11 +8,10 @@ import { randomBetween, randomChars, runWithTimeout } from "../../../utils/fn"
 
 import "./AboutUs.scss"
 
-const CHARS_SEQUENCE = "1234567890ABCDEF!@#$%^&*_+[]{}<>?/~" as string
-const RANDOM_CHARS_NUMBER = (24 >> 1) as number
+const charsSequence = "1234567890ABCDEF!@#$%^&*_+[]{}<>?/~" as string
+const randomCharsNumber = (24 >> 1) as number
 
-const SCRAMBLE_CHARS = randomChars(CHARS_SEQUENCE, RANDOM_CHARS_NUMBER)
-const SCRAMBLE_PARAMS = {
+const scrambleDecorativeTextParams = {
   speed: 0.55,
   tick: 3,
   step: 1,
@@ -30,13 +29,13 @@ const AboutUs: FC = () => {
   /** @states */
   const [imageSrc, setImageSrc] = useState<string>("") // Stores the loaded image
 
-  const { ref: textRef, replay: scrambleReplay } = useScramble({
-    text: SCRAMBLE_CHARS,
+  const { ref: scrambleDecorativeTextRef, replay: scrambleReplay } = useScramble({
+    text: randomChars(charsSequence, randomCharsNumber),
     onAnimationEnd: () => {
       const timeout = randomBetween(7_500, 12_000)
       runWithTimeout(scrambleTimeoutRef, scrambleReplay, timeout)
     },
-    ...SCRAMBLE_PARAMS
+    ...scrambleDecorativeTextParams
   })
 
   const { ref: lowerSquareRef, replay: lowerSquareReplay } = useRotator({
@@ -133,7 +132,7 @@ const AboutUs: FC = () => {
         <Typed strings={["About Us"]} typeSpeed={50} cursorChar='_' showCursor={true} startWhenVisible />
       </h2>
       <div className='about-us__description-wrapper'>
-        <p ref={textRef}></p>
+        <p ref={scrambleDecorativeTextRef}></p>
         <p className='about-us__description'>
           <span className='about-us__description-bracket'>{"["}</span> Not everybody has an experienced frontend
           developer on their team. By joining our Discord server you can pick my brain with any frontend related

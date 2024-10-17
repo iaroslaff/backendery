@@ -1,5 +1,5 @@
 import { Field, Form, Formik, FormikHelpers } from "formik"
-import React, { FC } from "react"
+import { FC, useEffect } from "react"
 import { ReactTyped as Typed } from "react-typed"
 import * as Yup from "yup"
 
@@ -9,8 +9,8 @@ import { SvgIcon } from "../../../components/elements/Icon"
 import "./LetsStart.scss"
 
 /* prettier-ignore */
-const BUDGET_MIN =  1_000 as number
-const BUDGET_MAX = 50_000 as number
+const budgetMin =  1_000 as number
+const budgetMax = 50_000 as number
 
 interface ILetsStartFormValues {
   name: string
@@ -20,17 +20,61 @@ interface ILetsStartFormValues {
   budgetMax: number
 }
 
-const LetsStart: FC = () => {
-  /**
-   * Event handler to prevent form submission when the "Enter" key is pressed.
-   * @function
-   */
-  const handleKeyDown = (event: React.KeyboardEvent): void => {
-    if (event.key === "Enter") {
-      event.preventDefault() // Prevent default form submit behavior when Enter is pressed
+/**
+ * Toggles the body's scroll behavior by setting or removing the 'fixed' position style.
+ * This is used to disable or enable scrolling when an input field gains or loses focus.
+ *
+ * @param {boolean} shouldDisable - If true, the body's position is set to 'fixed', disabling scrolling.
+ * If false, the position is reset to allow scrolling.
+ * @function
+ */
+const toggleBodyScroll = (shouldDisable: boolean) => {
+  if (shouldDisable && document.body.style.position !== "fixed") {
+    document.body.style.position = "fixed"
+  } else if (!shouldDisable && document.body.style.position === "fixed") {
+    document.body.style.position = ""
+  }
+}
+
+/**
+ * Handles the 'focus' and 'blur' events on input fields.
+ * When an input field is focused, scrolling is disabled, and when it loses focus, scrolling is re-enabled.
+ *
+ * @param {Event} event - The event triggered (focus or blur). It is checked if it's a FocusEvent to handle accordingly.
+ * @function
+ */
+const handleInputFocusEvent = (event: Event) => {
+  if (event instanceof FocusEvent) {
+    switch (event.type) {
+      case "focus":
+        toggleBodyScroll(true)
+        return
+
+      case "blur":
+        toggleBodyScroll(false)
+        return
+
+      default:
+        return
     }
   }
+}
 
+/**
+ * Event handler to prevent form submission when the "Enter" key is pressed.
+ * It checks if the event is a keyboard event targeting the "Enter" key,
+ * preventing the default form submission behavior.
+ *
+ * @param {React.KeyboardEvent<HTMLFormElement>} event - The keyboard event triggered on a form.
+ * @function
+ */
+const handleKeyDownEvent = (event: React.KeyboardEvent<HTMLFormElement>) => {
+  if (event.key === "Enter") {
+    event.preventDefault() // Prevent default form submit behavior when Enter is pressed
+  }
+}
+
+const LetsStart: FC = () => {
   /**
    * Handler for form submission.
    * Resets the form after sending the message (or performing the desired action). This method
@@ -57,18 +101,23 @@ const LetsStart: FC = () => {
     budgetMin: Yup.number()
       .required("min is required")
       .min(
-        BUDGET_MIN,
-        `min can't be less than ${BUDGET_MIN}`
+        budgetMin,
+        `min can't be less than ${budgetMin}`
       )
       .lessThan(
-        BUDGET_MAX,
+        budgetMax,
         `min can't be more than max`
+      )
+      .test(
+        "less than the max", "min can't be more than max", function (inputedBudgetMin, ctx) {
+          return inputedBudgetMin <= ctx.parent.budgetMax
+        }
       ),
     budgetMax: Yup.number()
       .required("max is required")
       .max(
-        BUDGET_MAX,
-        `max can't be more then ${BUDGET_MAX}`
+        budgetMax,
+        `max can't be more then ${budgetMax}`
       ),
   })
 
@@ -80,9 +129,28 @@ const LetsStart: FC = () => {
     name: "",
     email: "",
     projectDescription: "",
-    budgetMin: BUDGET_MIN, // Default minimum budget value
-    budgetMax: BUDGET_MAX, // Default maximum budget value
+    budgetMin: budgetMin, // Default minimum budget value
+    budgetMax: budgetMax, // Default maximum budget value
   }
+
+  useEffect(() => {
+    // Find all `input` and `textarea` elements on page
+    const inputs = document.querySelectorAll("input, textarea")
+
+    // Add event listeners for focus and blur
+    inputs.forEach(input => {
+      input.addEventListener("focus", handleInputFocusEvent)
+      input.addEventListener("blur", handleInputFocusEvent)
+    })
+
+    return () => {
+      // Clean up event listeners on component unmount
+      inputs.forEach(input => {
+        input.removeEventListener("focus", handleInputFocusEvent)
+        input.removeEventListener("blur", handleInputFocusEvent)
+      })
+    }
+  }, [])
 
   return (
     <div className='lets-start'>
@@ -112,9 +180,9 @@ const LetsStart: FC = () => {
         validateOnBlur={false}
         validateOnChange={false}
       >
-        {({ values, errors, submitCount }) => (
+        {({ values, errors, submitCount, setFieldValue }) => (
           <div className='lets-start__form-wrapper'>
-            <Form onKeyDown={handleKeyDown}>
+            <Form onKeyDown={handleKeyDownEvent}>
               <div className='lets-start__form'>
                 <div className='lets-start__inputs-wrapper'>
                   <div className='lets-start-input'>
@@ -131,7 +199,6 @@ const LetsStart: FC = () => {
                     </label>
                     {submitCount > 0 && errors.email && <div className='lets-start-input__error'>{errors.email}</div>}
                   </div>
-
                   <div className='lets-start-input lets-start__project-description'>
                     <Field name='projectDescription' id='projectDescription' className='lets-start-input__field' />
                     <label
@@ -144,32 +211,55 @@ const LetsStart: FC = () => {
                       <div className='lets-start-input__error'>{errors.projectDescription}</div>
                     )}
                   </div>
-
                   <div className='lets-start__budget'>
                     <p className='lets-start__budget-title'>What is the budget range for your project?</p>
-
                     <div className='lets-start-input'>
-                      <Field name='budgetMin' id='budgetMin' className='lets-start-input__field' />
-                      <label htmlFor='budgetMin' className={`lets-start-input__label ${values.budgetMin && "label-top"}`}>
+                      <Field
+                        name='budgetMin'
+                        id='budgetMin'
+                        className='lets-start-input__field'
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                          const { value } = event.target
+                          if (/^\d*$/.test(value)) {
+                            // Allow only numbers
+                            setFieldValue("budgetMin", value)
+                          }
+                        }}
+                      />
+                      <label
+                        htmlFor='budgetMin'
+                        className={`lets-start-input__label ${values.budgetMin && "label-top"}`}
+                      >
                         $ Min
                       </label>
                       {submitCount > 0 && errors.budgetMin && (
                         <div className='lets-start-input__error'>{errors.budgetMin}</div>
                       )}
                     </div>
-                  
                     <div className='lets-start-input'>
-                      <Field name='budgetMax' id='budgetMax' className='lets-start-input__field' />
-                      <label htmlFor='budgetMax' className={`lets-start-input__label ${values.budgetMax && "label-top"}`}>
+                      <Field
+                        name='budgetMax'
+                        id='budgetMax'
+                        className='lets-start-input__field'
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                          const { value } = event.target
+                          if (/^\d*$/.test(value)) {
+                            // Allow only numbers
+                            setFieldValue("budgetMax", value)
+                          }
+                        }}
+                      />
+                      <label
+                        htmlFor='budgetMax'
+                        className={`lets-start-input__label ${values.budgetMax && "label-top"}`}
+                      >
                         $ Max
                       </label>
                       {submitCount > 0 && errors.budgetMax && (
                         <div className='lets-start-input__error'>{errors.budgetMax}</div>
                       )}
                     </div>
-                    
                   </div>
-                  
                 </div>
                 <button className='lets-start__send-message-btn' type='submit'>
                   <span>Send Message</span>

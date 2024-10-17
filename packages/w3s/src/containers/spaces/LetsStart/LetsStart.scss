@@ -219,7 +219,7 @@
   &__error {
     position: absolute;
     top: 40px;
-    color: rgb(216, 61, 47);
+    color: $error-color;
     font-size: 12px;
     user-select: none;
   }

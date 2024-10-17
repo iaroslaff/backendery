@@ -205,7 +205,7 @@ const LetsStart: FC = () => {
                       htmlFor='projectDescription'
                       className={`lets-start-input__label ${values.projectDescription && "label-top"}`}
                     >
-                      Tell us a little about the project
+                      Tell us about the project
                     </label>
                     {submitCount > 0 && errors.projectDescription && (
                       <div className='lets-start-input__error'>{errors.projectDescription}</div>

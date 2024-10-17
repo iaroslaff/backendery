@@ -3,6 +3,7 @@
 
 .screen-sentinel {
   user-select: none;
+  touch-action: none;
 
   &__overlay {
     position: fixed;

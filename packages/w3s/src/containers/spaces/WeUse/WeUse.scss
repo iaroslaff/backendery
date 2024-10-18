@@ -3,39 +3,21 @@
 
 .we-use {
   @include adaptive-value($property: "padding", $from: 130, $to: 50);
+
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: auto auto 1fr;
-  row-gap: 15%;
-  column-gap: 5%;
-
-  @media screen and (width <= 1400px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  @media screen and (width <= $md) {
-    grid-template-columns: 1fr 1fr auto;
-    grid-template-rows: auto 1fr auto;
-  }
-
-  @media screen and (height <= 800px) {
-    row-gap: 10%;
-  }
-
-  @media screen and (width <= 500px) {
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto 1fr auto;
-    row-gap: 5%;
-  }
-
+  grid-template-columns: repeat(5, 1fr);
   width: $width-in-dvw;
   height: $height-in-dvh;
+  column-gap: 5%;
+  row-gap: 15%;
 
   &__title {
     @include adaptive-value($property: "font-size", $from: 72, $to: 32, $trigger-at: $lg);
+
+    grid-column: 1/4;
     font-weight: 600;
     line-height: 110%;
-    grid-column: 1/4;
 
     @media screen and (width <= 1400px) {
       grid-column: 1/3;
@@ -46,16 +28,7 @@
     }
   }
 
-  &__decorative-square {
-    width: 16px;
-    height: 16px;
-    border-left: 2px solid $accent-color;
-    border-bottom: 2px solid $accent-color;
-    align-self: end;
-    justify-self: end;
-  }
-
-  &__random-symbols {
+  &__decorative-text {
     align-self: end;
 
     @media screen and (width <= 500px) {
@@ -63,45 +36,119 @@
     }
   }
 
-  &__stack {
-    border-top: 6px solid $secondary-color;
+  &__decorative-corner {
+    align-self: end;
+    justify-self: end;
+    width: 16px;
+    height: 16px;
+    border-bottom: 2px solid $accent-color;
+    border-left: 2px solid $accent-color;
+  }
+
+  &__menu {
+    margin-right: 20px;
+
+    @media screen and (width >= $md) {
+      display: none;
+    }
+
+    @media screen and (width <= 500px) {
+      grid-column: 1/-1;
+      margin-right: 0;
+    }
+  }
+
+  &__menu-item {
+    @include adaptive-value($property: "font-size", $from: 18, $to: 14, $trigger-at: $xs);
+
+    height: fit-content;
+    margin-right: 20px;
+    margin-bottom: 15px;
+    color: $secondary-color;
+    color: rgba($color: $secondary-color, $alpha: 0.3);
+    font-weight: 500;
+    text-transform: uppercase;
+    background-color: transparent;
+
+    &.active {
+      color: $accent-color;
+    }
+  }
+
+  &__toolset {
     padding-top: 20px;
+    border-top: 6px solid $secondary-color;
 
     @media screen and (width <= $md) {
       display: none;
     }
   }
 
-  &__stack-title {
+  &__shrinked-toolset {
+    width: fit-content;
+    padding-top: 20px;
+    border-top: 6px solid $secondary-color;
+
+    @media screen and (width >= $md) {
+      display: none;
+    }
+
+    @media screen and (width <= 500px) {
+      grid-row: 3;
+      grid-column: 1/-1;
+    }
+  }
+
+  &__toolset-title {
     @include adaptive-value($property: "font-size", $from: 24, $to: 18);
-    color: $accent-color;
-    text-transform: uppercase;
-    font-weight: 500;
+
     margin-bottom: 15px;
+    color: $accent-color;
+    font-weight: 500;
+    text-transform: uppercase;
     text-wrap: nowrap;
   }
 
-  &__stack-tool {
+  &__tool {
     margin-bottom: 5px;
     text-wrap: nowrap;
-    &--highlighter {
+
+    &--highlight {
       color: $accent-color;
     }
   }
 
-  &__description {
-    grid-column: 3/-1;
+  &__decorative-rectangle {
+    grid-row: 3;
+    grid-column: 1;
+    width: 6px;
+    height: 20px;
+    background-color: $secondary-color;
+
+    @media screen and (width >= $md) {
+      display: none;
+    }
+
+    @media screen and (width <= 600px) {
+      display: none;
+    }
+  }
+
+  &__decorative-abstract-phrase {
     @include adaptive-value($property: "font-size", $from: 36, $to: 16);
+
+    grid-column: 3/-1;
+    margin-top: -15px;
+    color: rgba($color: $secondary-color, $alpha: 0.3);
     font-weight: 300;
     line-height: 150%;
-    color: rgba($color: $secondary-color, $alpha: 0.3);
-    margin-top: -15px;
 
     @media screen and (width <= 1400px) {
       @include adaptive-value($property: "font-size", $from: 20, $to: 16);
-      margin-top: -5px;
-      grid-column: 4;
+
       grid-row: 3;
+      grid-column: 4;
+      margin-top: -5px;
     }
 
     @media screen and (width <= $md) {
@@ -113,63 +160,27 @@
       grid-column: 1/-1;
     }
 
-    @media screen and (width <=500px) {
+    @media screen and (width <= 500px) {
       grid-row: 4;
     }
   }
 
-  &__stack-adaptive {
-    border-top: 6px solid $secondary-color;
-    padding-top: 20px;
-    width: fit-content;
-    @media screen and (width >= $md) {
-      display: none;
-    }
-
-    @media screen and (width <=500px) {
-      grid-column: 1/-1;
-      grid-row: 3;
-    }
+  @media screen and (width <= 1400px) {
+    grid-template-columns: repeat(4, 1fr);
   }
 
-  &__tabs-group {
-    margin-right: 20px;
-
-    @media screen and (width >= $md) {
-      display: none;
-    }
-
-    @media screen and (width <=500px) {
-      grid-column: 1/-1;
-      margin-right: 0;
-    }
+  @media screen and (width <= $md) {
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr 1fr auto;
   }
 
-  &__tab {
-    height: fit-content;
-    color: $secondary-color;
-    background-color: transparent;
-    @include adaptive-value($property: "font-size", $from: 18, $to: 14, $trigger-at: $xs);
-    text-transform: uppercase;
-    color: rgba($color: $secondary-color, $alpha: 0.3);
-    font-weight: 500;
-    margin-right: 20px;
-    margin-bottom: 15px;
+  @media screen and (height <= 800px) {
+    row-gap: 10%;
   }
 
-  &__decorative-rectangle {
-    width: 6px;
-    height: 20px;
-    background-color: $secondary-color;
-    grid-column: 1;
-    grid-row: 3;
-
-    @media screen and (width >= $md) {
-      display: none;
-    }
-
-    @media screen and (width <= 600px) {
-      display: none;
-    }
+  @media screen and (width <= 500px) {
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-columns: 1fr auto;
+    row-gap: 5%;
   }
 }

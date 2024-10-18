@@ -1,191 +1,190 @@
-import { FC, ReactNode, useRef } from "react"
-
-import { useBreakpoints } from "../../../hooks/useBreakpoints"
+import { FC, useMemo, useState } from "react"
+import { ReactTyped as Typed } from "react-typed"
 
 import "./WeUse.scss"
 
-/** types */
-type CardContent = Record<string, ReactNode>
+interface IWeUseContent {
+  id: number
+  toolsetTitle: string
+  toolset: string[]
+}
+
+interface IWeUseDetailsProps {
+  content: IWeUseContent
+}
+
+/* prettier-ignore */
+const weUseContents: IWeUseContent[] = [
+  {
+    id: 1,
+    toolsetTitle: "Languages",
+    toolset: [
+      "..",
+      "Python",
+      "Rust"
+    ],
+  },
+  {
+    id: 2,
+    toolsetTitle: "Frameworks && Libs",
+    toolset: [
+      "..",
+      "Asyncio && Tokio",
+      "FastAPI",
+      "Axum",
+      "SQLAlchemy && Diesel",
+      "Celery",
+      "Pydantic",
+      "SerDe",
+      "... and much more",
+    ],
+  },
+  {
+    id: 3,
+    toolsetTitle: "Databases",
+    toolset: [
+      "..",
+      "PostgreSQL",
+      "EdgeDB",
+      "MongoDB",
+      "Redis",
+      "Elasticsearch",
+      "FirebaseRDB",
+      "InfluxDB"
+    ],
+  },
+  {
+    id: 4,
+    toolsetTitle: "Message Queues",
+    toolset: [
+      "..",
+      "Kafka",
+      "RabbitMQ",
+      "Redis Pub/Sub"
+    ],
+  },
+  {
+    id: 5,
+    toolsetTitle: "Testing",
+    toolset: [
+      "..",
+      "PyTest",
+      "Unittest",
+      "Rust Test Module"
+    ],
+  },
+  {
+    id: 6,
+    toolsetTitle: "Containerization",
+    toolset: [
+      "..",
+      "Docker",
+      "Docker Compose",
+      "Kubernetes"
+    ],
+  },
+  {
+    id: 7,
+    toolsetTitle: "Monitoring",
+    toolset: [
+      "..",
+      "Datadog",
+      "Grafana",
+      "Prometheus"
+    ],
+  },
+] as const
+
+/**
+ * The `WeUseDetails` component is responsible for displaying detailed information about a specific toolset category.
+ * It receives a `content` object through props, which contains the title of the toolset and a list of tools or
+ * technologies used in that category.
+ *
+ * @component
+ * @param {IWeUseContent} content - An object containing details of the toolset category, including its title and the
+ * list of tools.
+ *
+ * @example
+ * ```tsx
+ * const content = {
+ *   id: 1,
+ *   toolsetTitle: "Languages",
+ *   toolset: ["Python", "Rust"]
+ * };
+ *
+ * <div>
+ *   ...
+ *   <WeUseDetails key={content.id} content={content} />
+ *   ...
+ * </div>
+ * ```
+ *
+ * @remarks
+ * - The component can be reused for different toolset categories by passing various `content` objects.
+ * - Each tool in the list is displayed with a visual prefix for highlighting.
+ * - The `key` prop is assigned to each tool to ensure proper rendering in lists.
+ *
+ * @param {IWeUseContent} content - The object containing the details of the specific toolset category, including
+ * the title and the list of tools.
+ *
+ * @returns {JSX.Element} Returns JSX markup for displaying the toolset details, including the category title and a
+ * list of tools.
+ */
+const WeUseDetails: FC<IWeUseDetailsProps> = ({ content }) => {
+  return (
+    <>
+      <h3 className='we-use__toolset-title'>{content.toolsetTitle}</h3>
+      {content.toolset.map(tool => (
+        <p key={tool} className='we-use__tool'>
+          <span className='we-use__tool--highlight'>{"~/>"}</span> {tool}
+        </p>
+      ))}
+    </>
+  )
+}
+
+const initialActiveMenuItem = 1 as number
 
 const WeUse: FC = () => {
+  /** @states */
+  const [activeMenuItem, setActiveMenuItem] = useState<number>(initialActiveMenuItem)
 
-  /** hooks */
-  const { isSmartphone, isSmallDevice } = useBreakpoints()
-
-  const content: CardContent[] = [
-    {
-      html: (
-        <div className='section'>
-          <h2>Заголовок 1</h2>
-          <p>Описание для секции 1</p>
-          <ul>
-            <li>Элемент списка 1</li>
-            <li>Элемент списка 2</li>
-          </ul>
-        </div>
-      ),
-    },
-    {
-      html: (
-        <div className='section'>
-          <h2>Заголовок 2</h2>
-          <p>Описание для секции 2</p>
-        </div>
-      ),
-    },
-  ]
+  /** @memos */
+  //Memoize the active `WeUse` content for search optimization
+  const activeContent = useMemo(() => weUseContents.find(item => item.id === activeMenuItem), [activeMenuItem])
 
   return (
     <div className='we-use'>
-      <h2 className="we-use__title">We Use_</h2>
-      <div className="we-use__random-symbols">{'[*&&/]'}</div>
-      <div className="we-use__decorative-square"></div>
-
-      <div className="we-use__tabs-group">
-        <button className="we-use__tab">Languages</button>
-        <button className="we-use__tab">Frameworks</button>
-        <button className="we-use__tab">Documentation</button>
-        <button className="we-use__tab">Containerization</button>
-        <button className="we-use__tab">Database</button>
-        <button className="we-use__tab">Message queues</button>
-        <button className="we-use__tab">Testing</button>
+      <h2 className='we-use__title'>
+        <Typed strings={["We Use"]} typeSpeed={50} cursorChar='_' showCursor={true} startWhenVisible />
+      </h2>
+      <div className='we-use__decorative-text'>{"[*&&/]"}</div>
+      <div className='we-use__decorative-corner'></div>
+      <div className='we-use__menu'>
+        {weUseContents.map((content, _) => (
+          <div
+            key={content.id}
+            className={`we-use__menu-item ${activeMenuItem === content.id ? "active" : ""}`}
+            onClick={() => setActiveMenuItem(content.id)}
+          >
+            {content.toolsetTitle}
+          </div>
+        ))}
       </div>
-
-      <div className="we-use__stack-adaptive">
-        <h3 className="we-use__stack-title">Frameworks</h3>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Kubernetes
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...GitLab
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...GitKraken
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...New Relic
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Datadog
-        </p>
+      {/* Normal view of the display `WeUse` */}
+      {weUseContents.map(content => (
+        <div className='we-use__toolset'>
+          <WeUseDetails key={content.id} content={content} />
+        </div>
+      ))}
+      {/* Shrinked view of the display `WeUse` */}
+      <div className='we-use__shrinked-toolset'>
+        {activeContent && <WeUseDetails key={activeContent.id} content={activeContent} />}
       </div>
-
-      <div className="we-use__stack">
-        <h3 className="we-use__stack-title">Languages</h3>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Python
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Rust
-        </p>
-      </div>
-
-      <div className="we-use__stack">
-        <h3 className="we-use__stack-title">Frameworks</h3>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Kubernetes
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...GitLab
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...GitKraken
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...New Relic
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Datadog
-        </p>
-      </div>
-
-      <div className="we-use__stack">
-        <h3 className="we-use__stack-title">Database</h3>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Back4App 
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Stack Overflow
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Postman API
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Firebase
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Apache
-        </p>
-      </div>
-
-      <div className="we-use__stack">
-        <h3 className="we-use__stack-title">Message queues</h3>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...GitHub
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Stack Overflow
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Docker
-        </p>
-      </div>
-
-      <div className="we-use__stack">
-        <h3 className="we-use__stack-title">Documentation</h3>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Heroku
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Visual Studio
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Jira
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...GitHub
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Bitbucket
-        </p>
-      </div>
-
-      <div className="we-use__stack">
-        <h3 className="we-use__stack-title">Containerization</h3>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...NGINX
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Apache
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Back4App
-        </p>
-      </div>
-
-      <div className="we-use__stack">
-        <h3 className="we-use__stack-title">Testing</h3>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Kubernetes
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Docker
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...Pivotal Tracker
-        </p>
-        <p className="we-use__stack-tool">
-          <span className="we-use__stack-tool--highlighter">{'>'}</span> ...GitHub
-        </p>
-      </div>
-
-      <div className="we-use__decorative-rectangle"></div>
-
-      <p className="we-use__description">
-        We cover the full range of services for analysis, development
-        and support of your online business
+      <div className='we-use__decorative-rectangle'></div>
+      <p className='we-use__decorative-abstract-phrase'>
+        We cover the full range of services for analysis, development and support of your online business
       </p>
-
     </div>
   )
 }

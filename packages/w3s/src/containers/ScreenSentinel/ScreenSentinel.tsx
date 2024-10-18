@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react"
+import { FC, useEffect, useState } from "react"
 
 import { SvgIcon } from "../../components/elements/Icon"
 import { addClass, removeClass } from "../../utils/fn"
@@ -64,7 +64,7 @@ const ScreenSentinel: FC = () => {
   }, [])
 
   return (
-    <React.Fragment>
+    <>
       {isSmallHeight && (
         <div className='screen-sentinel'>
           <div className='screen-sentinel__overlay'>
@@ -75,7 +75,7 @@ const ScreenSentinel: FC = () => {
           </div>
         </div>
       )}
-    </React.Fragment>
+    </>
   )
 }
 

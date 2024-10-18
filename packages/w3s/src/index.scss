@@ -16,7 +16,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 
-  &.no-orientation {
+  &.small-height {
     overflow: hidden;
     user-select: none;
     touch-action: none;

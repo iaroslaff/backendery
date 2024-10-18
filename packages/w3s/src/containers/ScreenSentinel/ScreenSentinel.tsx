@@ -1,38 +1,40 @@
 import React, { FC, useEffect, useState } from "react"
 
 import { SvgIcon } from "../../components/elements/Icon"
-import { useBreakpoints } from "../../hooks/useBreakpoints"
 import { addClass, removeClass } from "../../utils/fn"
 
 import "./ScreenSentinel.scss"
 
+const innerHeightThreshold = 648 as number
+
 /**
- * Determines if the device is in portrait orientation.
- * @returns {boolean} True if the device is in portrait orientation, false otherwise.
+ * Inspect if the window height is below a certain threshold.
+ * @param {number} heightThreshold - The height threshold to compare with.
+ * @returns {boolean} True if the window height is less than the threshold, false otherwise.
  * @function
  */
-const isPortraitOrientation = (): boolean => {
-  return screen.orientation?.type === "portrait-primary" || screen.orientation?.type === "portrait-secondary"
+const isBelowThreshold = (heightThreshold: number): boolean => {
+  return window.innerHeight < heightThreshold
 }
 
 /**
- * Updates the body's class based on the screen orientation.
- * @param {boolean} portrait - Whether the device is in portrait mode.
+ * Updates the body's class based on screen height.
+ * @param {boolean} isBelowThreshold - Whether the height is below the threshold.
  * @function
  */
-const updateHtmlTag = (portrait: boolean): void => {
-  portrait ? removeClass(document.body, "no-orientation") : addClass(document.body, "no-orientation")
+const updateHtmlTag = (isBelowThreshold: boolean): void => {
+  isBelowThreshold ? addClass(document.body, "small-height") : removeClass(document.body, "small-height")
 }
 
 const ScreenSentinel: FC = () => {
   /**
-   * Handles the change in screen orientation and updates the `isPortrait` state.
+   * Handles the change in screen orientation/resize and updates state.
    * @function
    */
-  const handleOrientationChange = () => {
-    setIsPortrait(isPortraitOrientation())
+  const handleViewport = () => {
+    setIsSmallHeight(isBelowThreshold(innerHeightThreshold))
     // Update body class based on the orientation
-    updateHtmlTag(isPortrait)
+    updateHtmlTag(isBelowThreshold(innerHeightThreshold))
   }
 
   /**
@@ -42,18 +44,20 @@ const ScreenSentinel: FC = () => {
    */
   const manageEventListeners = (isAdd: boolean) => {
     const action = isAdd ? "addEventListener" : "removeEventListener"
-    window[action]("orientationchange", handleOrientationChange)
+
+    window[action]("orientationchange", handleViewport)
+    window[action]("resize", handleViewport)
   }
 
   /** @states */
-  const [isPortrait, setIsPortrait] = useState<boolean>(isPortraitOrientation()) // Track current screen orientation
-
-  // The useBreakpoints hook de-structurization
-  const { isSmartphone, isSmallDevice, isTablet } = useBreakpoints()
+  const [isSmallHeight, setIsSmallHeight] = useState<boolean>(isBelowThreshold(innerHeightThreshold))
 
   useEffect(() => {
     // Initial orientation check on render
     manageEventListeners(true) // Add event listeners
+
+    // Initial viewport inspection
+    handleViewport()
 
     // Clean up event listeners on component unmount
     return () => manageEventListeners(false)
@@ -61,12 +65,12 @@ const ScreenSentinel: FC = () => {
 
   return (
     <React.Fragment>
-      {!isPortrait && (isSmartphone || isSmallDevice || isTablet) && (
+      {isSmallHeight && (
         <div className='screen-sentinel'>
           <div className='screen-sentinel__overlay'>
             <div className='screen-sentinel__message'>
               <SvgIcon name='rotate-device' />
-              <p>Please, rotate your device</p>
+              <p>Uh-oh! Please increase the height of your screen</p>
             </div>
           </div>
         </div>

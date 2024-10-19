@@ -63,23 +63,23 @@ const AboutUs: FC = () => {
     hideOverflow: true,
     timing: {
       duration: 5000,
-      iterations: 10,
-      easing: "ease-in-out",
+      iterations: 1,
+      easing: "ease-out",
     },
     glitchTimeSpan: {
-      start: 0.4,
-      end: 0.7,
+      start: 0,
+      end: 0.5,
     },
     shake: {
-      velocity: 13,
-      amplitudeX: 0.02,
-      amplitudeY: 0.02,
+      velocity: 0,
+      amplitudeX: 0,
+      amplitudeY: 0,
     },
     slice: {
-      count: 5,
-      velocity: 60,
-      minHeight: 0.02,
-      maxHeight: 0.04,
+      count: 100,
+      velocity: 50,
+      minHeight: 0.001,
+      maxHeight: 0.02,
       hueRotate: true,
     },
   })
@@ -151,7 +151,7 @@ const AboutUs: FC = () => {
         </div>
         <div className='about-us__founder-bio'>
           <p className='about-us__founder-bio-name'>Jaroslav</p>
-          <p className='about-us__founder-bio-description'>Founder, Software Engineer</p>
+          <p className='about-us__founder-bio-description'>Founder,<br />Software Engineer</p>
         </div>
         <div className='about-us__founder-image-wrapper'>
           {imageSrc ? (

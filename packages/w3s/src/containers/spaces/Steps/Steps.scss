@@ -34,7 +34,7 @@
       justify-content: start;
     }
 
-    @media screen and (width <=$xs) {
+    @media screen and (width <= $xs) {
       grid-column: 1/-1;
       gap: auto;
       justify-content: space-between;
@@ -122,34 +122,17 @@
     max-width: 450px;
   }
 
-  &__decorative-stdout-wrapper {
+  &__decorative-stdout-row-wrapper {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    color: rgba($color: $secondary-color, $alpha: 0.3);
-  }
-
-  &__decorative-stdout {
-    display: flex;
     max-width: 450px;
-    text-transform: uppercase;
-    text-wrap: nowrap;
+    margin-right: 100px;
+    color: rgba($color: $secondary-color, $alpha: 0.3);
 
-    &--success {
-      color: $accent-color;
+    @media screen and (width <= $sm) {
+      margin-right: 0;
     }
-  }
-
-  &__decorative-stdout-filler-wrapper {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-  }
-
-  &__decorative-stdout-filler {
-    position: absolute;
-    top: 0;
-    left: 0;
   }
 
   &__decorative-text {
@@ -161,7 +144,7 @@
       justify-self: end;
       color: $accent-color;
 
-      @media screen and (width <=$md) {
+      @media screen and (width <= $md) {
         grid-column: 2;
       }
     }

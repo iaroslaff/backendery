@@ -150,7 +150,7 @@ const WeUse: FC = () => {
   const [activeMenuItem, setActiveMenuItem] = useState<number>(initialActiveMenuItem)
 
   /** @memos */
-  //Memoize the active `WeUse` content for search optimization
+  // Memoize the active `WeUse` content for search optimization
   const activeContent = useMemo(() => weUseContents.find(item => item.id === activeMenuItem), [activeMenuItem])
 
   return (

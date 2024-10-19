@@ -25,10 +25,12 @@ const scrambleDecorativeTextParams = {
 
 const Contacts: FC = () => {
   /** @references */
-  const scrambleTimeoutRef = useRef<number | null>(null) // Ref to animation timeout for text
-  const squareTimeoutRef = useRef<number | null>(null) // Ref to animation timeout for square
+  // Ref to animation timeout for text
+  const scrambleTimeoutRef = useRef<number | null>(null)
+  // Ref to animation timeout for square
+  const squareTimeoutRef = useRef<number | null>(null)
 
-  const { ref: scrambleDecorativeTextRef, replay: scrambleReplay } = useScramble({
+  const { ref: decorativeTextRef, replay: scrambleReplay } = useScramble({
     text: `0x${randomChars(charsSequence, randomCharsNumber)}`,
     ignore: ["0", "x"],
     range: [48, 57, 65, 70],
@@ -79,7 +81,7 @@ const Contacts: FC = () => {
       </h2>
       <div className='contacts__decorative-wrapper'>
         <div className='contacts__decorative-square' ref={decorativeSquareRef}></div>
-        <p className='contacts__decorative-text' ref={scrambleDecorativeTextRef}></p>
+        <p className='contacts__decorative-text' ref={decorativeTextRef}></p>
       </div>
       <div className='contacts__email-wrapper'>
         <p className='contacts__email-description'>Not everybody has an experienced backend developer... write to us</p>

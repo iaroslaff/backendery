@@ -1,5 +1,4 @@
 import { FC, useEffect, useRef, useState } from "react"
-import { useGlitch } from "react-powerglitch"
 import { ReactTyped as Typed } from "react-typed"
 import { useScramble } from "use-scramble"
 
@@ -21,21 +20,24 @@ const scrambleDecorativeTextParams = {
 }
 
 const AboutUs: FC = () => {
-  /** @references */
-  const scrambleTimeoutRef = useRef<number | null>(null) // Ref to animation timeout for text
-  const lowerSquareTimeoutRef = useRef<number | null>(null) // Ref to animation timeout for lower square
-  const upperSquareTimeoutRef = useRef<number | null>(null) // Ref to animation timeout for upper square
-
   /** @states */
-  const [imageSrc, setImageSrc] = useState<string>("") // Stores the loaded image
+  const [imageSrc, setImageSrc] = useState<string>("")
 
-  const { ref: scrambleDecorativeTextRef, replay: scrambleReplay } = useScramble({
+  /** @references */
+  // Ref to animation timeout for text
+  const scrambleTimeoutRef = useRef<number | null>(null)
+  // Ref to animation timeout for lower square
+  const lowerSquareTimeoutRef = useRef<number | null>(null)
+  // Ref to animation timeout for upper square
+  const upperSquareTimeoutRef = useRef<number | null>(null)
+
+  const { ref: decorativeTextRef, replay: scrambleReplay } = useScramble({
     text: randomChars(charsSequence, randomCharsNumber),
     onAnimationEnd: () => {
       const timeout = randomBetween(7_500, 12_000)
       runWithTimeout(scrambleTimeoutRef, scrambleReplay, timeout)
     },
-    ...scrambleDecorativeTextParams
+    ...scrambleDecorativeTextParams,
   })
 
   const { ref: lowerSquareRef, replay: lowerSquareReplay } = useRotator({
@@ -55,32 +57,6 @@ const AboutUs: FC = () => {
     onAnimationEnd: () => {
       const timeout = randomBetween(2_200, 5_800)
       runWithTimeout(upperSquareTimeoutRef, upperSquareReplay, timeout)
-    },
-  })
-
-  const { ref: glitchRef } = useGlitch({
-    playMode: "always",
-    hideOverflow: true,
-    timing: {
-      duration: 5000,
-      iterations: 1,
-      easing: "ease-out",
-    },
-    glitchTimeSpan: {
-      start: 0,
-      end: 0.5,
-    },
-    shake: {
-      velocity: 0,
-      amplitudeX: 0,
-      amplitudeY: 0,
-    },
-    slice: {
-      count: 100,
-      velocity: 50,
-      minHeight: 0.001,
-      maxHeight: 0.02,
-      hueRotate: true,
     },
   })
 
@@ -132,7 +108,7 @@ const AboutUs: FC = () => {
         <Typed strings={["About Us"]} typeSpeed={50} cursorChar='_' showCursor={true} startWhenVisible />
       </h2>
       <div className='about-us__description-wrapper'>
-        <p ref={scrambleDecorativeTextRef}></p>
+        <p ref={decorativeTextRef}></p>
         <p className='about-us__description'>
           <span className='about-us__description-bracket'>{"["}</span> Not everybody has an experienced frontend
           developer on their team. By joining our Discord server you can pick my brain with any frontend related
@@ -151,11 +127,15 @@ const AboutUs: FC = () => {
         </div>
         <div className='about-us__founder-bio'>
           <p className='about-us__founder-bio-name'>Jaroslav</p>
-          <p className='about-us__founder-bio-description'>Founder,<br />Software Engineer</p>
+          <p className='about-us__founder-bio-description'>
+            Founder,
+            <br />
+            Software Engineer
+          </p>
         </div>
         <div className='about-us__founder-image-wrapper'>
           {imageSrc ? (
-            <img className='about-us__founder-image' src={imageSrc} alt="It's me" ref={glitchRef} />
+            <img className='about-us__founder-image' src={imageSrc} alt="It's me" />
           ) : (
             <p>Uh, just a minute! Loading...</p>
           )}

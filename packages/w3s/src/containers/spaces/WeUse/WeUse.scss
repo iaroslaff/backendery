@@ -10,7 +10,7 @@
   width: $width-in-dvw;
   height: $height-in-dvh;
   column-gap: 5%;
-  row-gap: 15%;
+  row-gap: 10%;
 
   &__title {
     @include adaptive-value($property: "font-size", $from: 72, $to: 32, $trigger-at: $lg);
@@ -47,6 +47,9 @@
 
   &__menu {
     margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    @include adaptive-value($property: "gap", $from: 20, $to: 14, $trigger-at: $xs);
 
     @media screen and (width >= $md) {
       display: none;
@@ -55,6 +58,9 @@
     @media screen and (width <= 500px) {
       grid-column: 1/-1;
       margin-right: 0;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin-top: 20px;
     }
   }
 
@@ -62,13 +68,12 @@
     @include adaptive-value($property: "font-size", $from: 18, $to: 14, $trigger-at: $xs);
 
     height: fit-content;
-    margin-right: 20px;
-    margin-bottom: 15px;
     color: $secondary-color;
     color: rgba($color: $secondary-color, $alpha: 0.3);
     font-weight: 500;
     text-transform: uppercase;
     background-color: transparent;
+    line-height: 110%;
 
     &.active {
       color: $accent-color;
@@ -78,6 +83,8 @@
   &__toolset {
     padding-top: 20px;
     border-top: 6px solid $secondary-color;
+    font-size: 13px;
+    line-height: 150%;
 
     @media screen and (width <= $md) {
       display: none;
@@ -100,7 +107,7 @@
   }
 
   &__toolset-title {
-    @include adaptive-value($property: "font-size", $from: 24, $to: 18);
+    @include adaptive-value($property: "font-size", $from: 22, $to: 16);
 
     margin-bottom: 15px;
     color: $accent-color;
@@ -144,7 +151,7 @@
     line-height: 150%;
 
     @media screen and (width <= 1400px) {
-      @include adaptive-value($property: "font-size", $from: 20, $to: 16);
+      @include adaptive-value($property: "font-size", $from: 20, $to: 13);
 
       grid-row: 3;
       grid-column: 4;
@@ -158,6 +165,7 @@
 
     @media screen and (width <= 600px) {
       grid-column: 1/-1;
+      font-weight: 400;
     }
 
     @media screen and (width <= 500px) {
@@ -175,12 +183,12 @@
   }
 
   @media screen and (height <= 800px) {
-    row-gap: 10%;
+    row-gap: 5%;
   }
 
   @media screen and (width <= 500px) {
     grid-template-rows: auto auto 1fr auto;
     grid-template-columns: 1fr auto;
-    row-gap: 5%;
+    row-gap: 3%;
   }
 }

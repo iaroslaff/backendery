@@ -5,7 +5,7 @@ import { addClass, removeClass } from "../../utils/fn"
 
 import "./ScreenSentinel.scss"
 
-const innerHeightThreshold = 667 as number
+const innerHeightThreshold = 600 as number
 
 /**
  * Inspect if the window height is below a certain threshold.

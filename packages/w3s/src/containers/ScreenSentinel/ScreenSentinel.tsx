@@ -31,7 +31,7 @@ const ScreenSentinel: FC = () => {
    * Handles the change in screen orientation/resize and updates state.
    * @function
    */
-  const handleViewport = () => {
+  const handleResizeViewport = () => {
     setIsSmallHeight(isBelowThreshold(innerHeightThreshold))
     // Update body class based on the orientation
     updateHtmlTag(isBelowThreshold(innerHeightThreshold))
@@ -45,8 +45,8 @@ const ScreenSentinel: FC = () => {
   const manageEventListeners = (isAdd: boolean) => {
     const action = isAdd ? "addEventListener" : "removeEventListener"
 
-    window[action]("orientationchange", handleViewport)
-    window[action]("resize", handleViewport)
+    window[action]("orientationchange", handleResizeViewport)
+    window[action]("resize", handleResizeViewport)
   }
 
   /** @states */
@@ -57,7 +57,7 @@ const ScreenSentinel: FC = () => {
     manageEventListeners(true) // Add event listeners
 
     // Initial viewport inspection
-    handleViewport()
+    handleResizeViewport()
 
     // Clean up event listeners on component unmount
     return () => manageEventListeners(false)

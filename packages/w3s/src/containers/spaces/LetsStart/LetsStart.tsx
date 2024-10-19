@@ -24,8 +24,8 @@ interface ILetsStartFormValues {
  * Toggles the body's scroll behavior by setting or removing the 'fixed' position style.
  * This is used to disable or enable scrolling when an input field gains or loses focus.
  *
- * @param {boolean} shouldDisable - If true, the body's position is set to 'fixed', disabling scrolling.
- * If false, the position is reset to allow scrolling.
+ * @param {boolean} shouldDisable - If true, the body's position is set to 'fixed', disabling scrolling. If false, the
+ * position is reset to allow scrolling.
  * @function
  */
 const toggleBodyScroll = (shouldDisable: boolean) => {
@@ -61,9 +61,8 @@ const handleInputFocusEvent = (event: Event) => {
 }
 
 /**
- * Event handler to prevent form submission when the "Enter" key is pressed.
- * It checks if the event is a keyboard event targeting the "Enter" key,
- * preventing the default form submission behavior.
+ * Event handler to prevent form submission when the "Enter" key is pressed. It checks if the event is a keyboard event
+ * targeting the "Enter" key, preventing the default form submission behavior.
  *
  * @param {React.KeyboardEvent<HTMLFormElement>} event - The keyboard event triggered on a form.
  * @function
@@ -76,14 +75,12 @@ const handleKeyDownEvent = (event: React.KeyboardEvent<HTMLFormElement>) => {
 
 const LetsStart: FC = () => {
   /**
-   * Handler for form submission.
-   * Resets the form after sending the message (or performing the desired action). This method
-   * could also handle actual submission logic, like sending data to an API.
+   * Handler for form submission. Resets the form after sending the message (or performing the desired action). This
+   * method could also handle actual submission logic, like sending data to an API.
    *
    * @param {ILetsStartFormValues} values - The form values submitted by the user.
    * @param {FormikHelpers<ILetsStartFormValues>} actions - Formik helper methods to manage the
    * form state. These helpers allow you to reset, validate, or set specific form field values.
-   *
    * @function
    */
   /* prettier-ignore */
@@ -122,8 +119,8 @@ const LetsStart: FC = () => {
   })
 
   /**
-   * Initial form values with predefined structure (interface `ILetsStartFormValues`), including
-   * default values for name, email, projectDescription, and budget ranges.
+   * Initial form values with predefined structure (interface `ILetsStartFormValues`), including default values for name,
+   * email, projectDescription, and budget ranges.
    */
   const initialFormValues: ILetsStartFormValues = {
     name: "",
@@ -158,7 +155,7 @@ const LetsStart: FC = () => {
         <Typed strings={["Let's start"]} typeSpeed={50} cursorChar='_' showCursor={true} startWhenVisible />
       </h2>
       <h3 className='lets-start__description'>Fill in the blanks and we&apos;ll respond in one business day</h3>
-      <div className='lets-start__animate-signal-strip-wrapper'>
+      <div className='lets-start__decorative-animate-signal-strip-wrapper'>
         <AnimateSignalStrip
           symbol='.'
           maxNumberOfSymbols={5}

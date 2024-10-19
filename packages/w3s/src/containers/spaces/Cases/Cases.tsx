@@ -7,7 +7,7 @@ import { randomBetween, randomChars, runWithTimeout } from "../../../utils/fn"
 
 import "./Cases.scss"
 
-interface ICasesContents {
+interface ICasesContent {
   id: number
   category: string
   title: string
@@ -16,11 +16,11 @@ interface ICasesContents {
 }
 
 interface ICaseDetailsProps {
-  caseContent: ICasesContents
+  content: ICasesContent
   descriptionRef?: React.RefObject<HTMLParagraphElement>
 }
 
-const casesContents: ICasesContents[] = [
+const casesContents: ICasesContent[] = [
   {
     id: 1,
     category: "../Sport Betting",
@@ -83,19 +83,19 @@ const initialActiveNavigateItem = 1 as number
 const decorativeIndicatorsNumber = 7 as number
 
 /**
- * CaseDetails Component
- *
- * The `CaseDetails` component is responsible for displaying detailed information about a specific company case.
- * It accepts case data through props and presents it on the screen.
- * Additionally, an optional reference to the description element can be passed for manipulation (e.g., for animations).
+ * The `CaseDetails` component is responsible for displaying detailed information about a specific company case. It
+ * accepts case data through props and presents it on the screen. Additionally, an optional reference to the description
+ * element can be passed for manipulation (e.g., for animations).
  *
  * @component
- * @param {ICasesContents} caseContent - An object containing the details of the case, including its category, title, description, and technologies used.
- * @param {React.RefObject<HTMLParagraphElement>} [descriptionRef] - An optional reference to the paragraph element for the description to interact with it (e.g., for text animation).
+ * @param {ICasesContent} content - An object containing the details of the case, including its category, title,
+ * description, and technologies used.
+ * @param {React.RefObject<HTMLParagraphElement>} [descriptionRef] - An optional reference to the paragraph element for
+ * the description to interact with it (e.g., for text animation).
  *
  * @example
  * ```tsx
- * const caseContent = {
+ * const content = {
  *   id: 1,
  *   category: "../My category",
  *   title: "Title",
@@ -105,54 +105,53 @@ const decorativeIndicatorsNumber = 7 as number
  *
  * <div>
  *   ...
- *   <CaseDetails caseContent={caseContent} descriptionRef={myRef} />
+ *   <CaseDetails content={content} descriptionRef={descriptionRef} />
  *   ...
  * </div>
  *```
  *
  * @remarks
- * - The component can be reused for various cases by passing different `caseContent` objects.
+ * - The component can be reused for various cases by passing different `content` objects.
  * - The `descriptionRef` is useful for animations or other interactions with the description element.
  *
- * @param {Object} props - Props for the component.
- * @param {ICasesContents} props.caseContent - The object containing the details of the specific case.
- * @param {React.RefObject<HTMLParagraphElement>} [props.descriptionRef] - An optional reference to the paragraph element for the description.
+ * @param {ICasesContent} content - The object containing the details of the specific case.
+ * @param {React.RefObject<HTMLParagraphElement>} [descriptionRef] - An optional reference to the paragraph element for
+ * the description.
  *
- * @returns {JSX.Element} Returns JSX markup for displaying case details.
+ * @returns {JSX.Element} Returns JSX markup for displaying `Case` details.
  */
-const CaseDetails: FC<ICaseDetailsProps> = props => {
-  // Props de-structurization
-  const { caseContent, descriptionRef = null } = props
-
+const CaseDetails: FC<ICaseDetailsProps> = ({ content, descriptionRef = null }) => {
   return (
     <div className='cases__case'>
-      <p className='cases__case-category'>{caseContent.category}</p>
-      <h3 className='cases__case-title'>{caseContent.title}</h3>
+      <p className='cases__case-category'>{content.category}</p>
+      <h3 className='cases__case-title'>{content.title}</h3>
       <p className='cases__case-description' ref={descriptionRef}>
-        {caseContent.description}
+        {content.description}
       </p>
       <p className='cases__case-technologies-title'>Used technologies</p>
-      <p>{caseContent.technologies}</p>
+      <p>{content.technologies}</p>
     </div>
   )
 }
 
 const Cases: FC = () => {
-  /** @references */
-  const scrambleTimeoutRef = useRef<number | null>(null) // Ref to animation timeout for text
-
   /** @states */
-  const [activeNavigateItem, setActiveNavigateItem] = useState<number>(initialActiveNavigateItem) // Stores the active state of the `Case`
+  const [activeNavigateItem, setActiveNavigateItem] = useState<number>(initialActiveNavigateItem)
 
-  // Memoize the active `Case` for search optimization
-  const activeCase = useMemo(() => casesContents.find(cs => cs.id === activeNavigateItem), [activeNavigateItem])
+  /** @references */
+  // Ref to animation timeout for text
+  const scrambleTimeoutRef = useRef<number | null>(null)
+
+  /** @memos */
+  // Memoize the active `Case` content for search optimization
+  const activeContent = useMemo(() => casesContents.find(item => item.id === activeNavigateItem), [activeNavigateItem])
 
   const { ref: descriptionRef } = useScramble({
-    text: activeCase?.description || "",
+    text: activeContent?.description || "",
     ...scrambleDescriptionParams,
   })
 
-  const { ref: scrambleDecorativeTextRef, replay: scrambleReplay } = useScramble({
+  const { ref: decorativeTextRef, replay: scrambleReplay } = useScramble({
     text: `0x${randomChars(charsSequence, randomCharsNumber)}`,
     ignore: ["0", "x"],
     range: [48, 57, 65, 70],
@@ -176,17 +175,17 @@ const Cases: FC = () => {
         </div>
         <span className='cases__decorative-marquee-str-wrapper--brace'>{"]"}</span>
       </div>
-      {/* Normal view of the display case */}
+      {/* Normal view of the display `Case` */}
       <div className='cases__case-wrapper'>
-        {casesContents.map(caseContent => (
-          <CaseDetails key={caseContent.id} caseContent={caseContent} />
+        {casesContents.map(content => (
+          <CaseDetails key={content.id} content={content} />
         ))}
       </div>
-      {/* Shrinked view of the case display */}
+      {/* Shrinked view of the display `Case` */}
       <div className='cases__shrinked-case-wrapper'>
-        {activeCase && <CaseDetails caseContent={activeCase} descriptionRef={descriptionRef} />}
+        {activeContent && <CaseDetails key={activeContent.id} content={activeContent} descriptionRef={descriptionRef} />}
       </div>
-      {/* Navigating through the cases */}
+      {/* Navigating through the `Cases` */}
       <div className='cases__multi-wrapper'>
         <div className='cases__decorative-indicators'>
           {Array.from({ length: decorativeIndicatorsNumber }).map((_, index) => (
@@ -195,18 +194,18 @@ const Cases: FC = () => {
         </div>
         <p>Our last cases</p>
         <div className='cases__navigate'>
-          {casesContents.map((caseContent, _) => (
+          {casesContents.map((content, _) => (
             <div
-              key={caseContent.id}
-              className={`cases__navigate-btn ${activeNavigateItem === caseContent.id ? "active" : ""}`}
-              onClick={() => setActiveNavigateItem(caseContent.id)}
+              key={content.id}
+              className={`cases__navigate-btn ${activeNavigateItem === content.id ? "active" : ""}`}
+              onClick={() => setActiveNavigateItem(content.id)}
             >
-              {`0${caseContent.id}`}
+              {`0${content.id}`}
             </div>
           ))}
         </div>
       </div>
-      <div className='cases__decorative-text' ref={scrambleDecorativeTextRef}></div>
+      <div className='cases__decorative-text' ref={decorativeTextRef}></div>
     </div>
   )
 }

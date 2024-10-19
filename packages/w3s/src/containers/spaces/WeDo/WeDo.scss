@@ -1,7 +1,7 @@
 @import "@styles/variables";
 @import "@styles/mixin";
 
-.wedo {
+.we-do {
   @include adaptive-value($property: "padding", $from: 130, $to: 50);
 
   display: grid;
@@ -56,17 +56,17 @@
     color: rgba($color: $secondary-color, $alpha: 0.3);
 
     &.active {
-      color: rgba($color: $secondary-color, $alpha: 1);
+      color: $secondary-color;
     }
   }
 
-  &__menu-item-service {
+  &__menu-item-title {
     padding: 4px 6px;
     color: rgba($color: $secondary-color, $alpha: 0.3);
     cursor: pointer;
 
     &:hover {
-      color: rgba($color: $secondary-color, $alpha: 1);
+      color: $secondary-color;
     }
 
     &.active {
@@ -114,40 +114,18 @@
     color: $accent-color;
   }
 
-  &__decorative-stdout-wrapper {
+  &__decorative-stdout-row-wrapper {
     display: flex;
     flex-direction: column;
     gap: 8px;
     align-self: end;
-    color: rgba($color: $secondary-color, $alpha: 0.3);
-  }
-
-  &__decorative-stdout {
-    display: flex;
     max-width: 450px;
     margin-right: 100px;
-    text-transform: uppercase;
-    text-wrap: nowrap;
-
-    &--success {
-      color: $accent-color;
-    }
+    color: rgba($color: $secondary-color, $alpha: 0.3);
 
     @media screen and (width <= $sm) {
       margin-right: 0;
     }
-  }
-
-  &__decorative-stdout-filler-wrapper {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-  }
-
-  &__decorative-stdout-filler {
-    position: absolute;
-    top: 0;
-    left: 0;
   }
 
   &__decorative-text {

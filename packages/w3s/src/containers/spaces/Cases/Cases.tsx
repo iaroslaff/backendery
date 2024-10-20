@@ -1,8 +1,8 @@
 import { FC, useMemo, useRef, useState } from "react"
+import Marquee from "react-fast-marquee"
 import { ReactTyped as Typed } from "react-typed"
 import { useScramble } from "use-scramble"
 
-import Marquee from "../../../components/Marquee/Marquee"
 import { randomBetween, randomChars, runWithTimeout } from "../../../utils/fn"
 
 import "./Cases.scss"
@@ -12,7 +12,7 @@ interface ICasesContent {
   category: string
   title: string
   description: string
-  technologies: string
+  technologies: string[]
 }
 
 interface ICaseDetailsProps {
@@ -20,17 +20,30 @@ interface ICaseDetailsProps {
   descriptionRef?: React.RefObject<HTMLParagraphElement>
 }
 
+/* prettier-ignore */
 const casesContents: ICasesContent[] = [
   {
     id: 1,
-    category: "../Sport Betting",
-    title: "Server Apps & API",
+    category: "../Sport && Odds",
+    title: "Trading system",
     description: `
-      We develop high-performance server applications and APIs that ensure reliable interaction
-      between systems. Our solutions are tailored to meet specific business needs, enhancing operational
-      efficiency and scalability.
+      We developed a fully automated trading system for the Betfair exchange, featuring event
+      search and analysis with predefined algorithms, probability distribution, risk assessment,
+      and automatic bet placement. The system also delivers real-time notifications via messaging
+      apps, optimizing trading operations with advanced features
     `,
-    technologies: "Python, GitLab, NGINX, Docker, Stack, Bitbucket...",
+    technologies: [
+      "Python",
+      "FastAPI",
+      "SciPy",
+      "SQLAlchemy",
+      "APScheduler",
+      "Rust",
+      "Axum",
+      "SerDe",
+      "Diesel",
+      "PostgreSQL"
+    ],
   },
   {
     id: 2,
@@ -41,17 +54,29 @@ const casesContents: ICasesContent[] = [
       These solutions enhance customer experience and engagement, providing quick responses and improving
       service quality
     `,
-    technologies: "Python, GitLab, NGINX, Docker, Stack, Bitbucket...",
+    technologies: [""],
   },
   {
     id: 3,
-    category: "../Sport Betting",
-    title: "CLI & Automation Tools",
+    category: "../e-Commerce",
+    title: "Online Store",
     description: `
-      We create command-line tools and automation solutions to simplify routine tasks and boost productivity.
-      Our tools are designed to enhance user experience, allowing teams to focus on more strategic initiatives.
+      We developed the backend for a custom online store selling metal and steel products with a product
+      configurator. Customers could design cabinets, shelves, or bar station, adjusting dimensions and
+      materials with real-time price updates. This streamlined both individual and bulk orders, improving
+      engagement and management
     `,
-    technologies: "Python, GitLab, NGINX, Docker, Stack, Bitbucket...",
+    technologies: [
+      "Python",
+      "FastAPI",
+      "Ariadne",
+      "SQLAlchemy",
+      "Pydantic",
+      "PostgreSQL",
+      "Redis",
+      "Alembic",
+      "Datadog"
+    ],
   },
 ] as const
 
@@ -129,7 +154,7 @@ const CaseDetails: FC<ICaseDetailsProps> = ({ content, descriptionRef = null }) 
         {content.description}
       </p>
       <p className='cases__case-technologies-title'>Used technologies</p>
-      <p>{content.technologies}</p>
+      <p>{content.technologies.join(' • ')}</p>
     </div>
   )
 }
@@ -171,7 +196,13 @@ const Cases: FC = () => {
       <div className='cases__decorative-marquee-str-wrapper'>
         <span className='cases__decorative-marquee-str-wrapper--brace'>{"["}</span>
         <div className='cases__decorative-marquee-str'>
-          <Marquee text='scale your code width scale your code width scale your code width' speed={10} />
+          <Marquee
+            autoFill={true}
+            pauseOnHover={true}
+            speed={15}
+          >
+            {"|scale your code|maximize performance|optimize your workflow"}
+          </Marquee>
         </div>
         <span className='cases__decorative-marquee-str-wrapper--brace'>{"]"}</span>
       </div>
@@ -183,7 +214,9 @@ const Cases: FC = () => {
       </div>
       {/* Shrinked view of the display `Case` */}
       <div className='cases__shrinked-case-wrapper'>
-        {activeContent && <CaseDetails key={activeContent.id} content={activeContent} descriptionRef={descriptionRef} />}
+        {activeContent && (
+          <CaseDetails key={activeContent.id} content={activeContent} descriptionRef={descriptionRef} />
+        )}
       </div>
       {/* Navigating through the `Cases` */}
       <div className='cases__multi-wrapper'>

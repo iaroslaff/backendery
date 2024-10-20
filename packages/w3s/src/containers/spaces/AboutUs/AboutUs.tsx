@@ -109,10 +109,14 @@ const AboutUs: FC = () => {
       </h2>
       <div className='about-us__description-wrapper'>
         <p ref={decorativeTextRef}></p>
+        {/* prettier-ignore */}
         <p className='about-us__description'>
-          <span className='about-us__description-bracket'>{"["}</span> Not everybody has an experienced frontend
-          developer on their team. By joining our Discord server you can pick my brain with any frontend related
-          questions.These one-on-one sessions give you direct access to my time and knowledge{" "}
+          <span className='about-us__description-bracket'>{"["}</span>
+          {`
+            We're a small and cosy digital studio specializing in backend development. Focused on
+            creating reliable, efficient solutions, we value close collaboration with clients and
+            take pride in delivering quality results tailored to each project's unique needs
+          `}
           <span className='about-us__description-bracket'>{"]"}</span>
         </p>
       </div>

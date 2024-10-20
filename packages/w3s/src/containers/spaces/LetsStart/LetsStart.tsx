@@ -168,7 +168,7 @@ const LetsStart: FC = () => {
           }}
         />
       </div>
-      <p className='lets-start__decorative-text'>These sessions give you direct</p>
+      <p className='lets-start__decorative-abstract-phrase'>You&apos;ve got mail in /var/mail/...</p>
       <div className='lets-start__decorative-rectangle' />
       <Formik
         initialValues={initialFormValues}

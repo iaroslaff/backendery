@@ -173,7 +173,7 @@ const WeUse: FC = () => {
       </div>
       {/* Normal view of the display `WeUse` */}
       {weUseContents.map(content => (
-        <div className='we-use__toolset'>
+        <div key={content.id} className='we-use__toolset'>
           <WeUseDetails key={content.id} content={content} />
         </div>
       ))}

@@ -1,5 +1,4 @@
-import React, { FC, useEffect, useRef } from "react"
-import toast, { Toaster } from "react-hot-toast"
+import { FC, useEffect, useRef } from "react"
 import { ReactTyped as Typed } from "react-typed"
 import { useScramble } from "use-scramble"
 
@@ -85,34 +84,9 @@ const Contacts: FC = () => {
       </div>
       <div className='contacts__email-wrapper'>
         <p className='contacts__email-description'>Not everybody has an experienced backend developer... write to us</p>
-        <p
-          className='contacts__email-address'
-          onClick={(event: React.MouseEvent): void => {
-            navigator.clipboard
-              .writeText(event.currentTarget.textContent?.trim() ?? "")
-              .then(() => {
-                toast("Address copied")
-              })
-              .catch(err => {
-                toast("Address not copied :/")
-                console.log("couldn't copy to clipboard", err)
-              })
-          }}
-        >
+        <a className='contacts__email-address' href='mailto:hey@backendery.dev'>
           hey@backendery.dev
-        </p>
-        <Toaster
-          toastOptions={{
-            duration: 1_000,
-            position: "bottom-center",
-            style: {
-              backgroundColor: "#ffffff",
-              borderRadius: 0,
-              color: "#141519",
-              animation: "none",
-            },
-          }}
-        />
+        </a>
       </div>
       <div className='contacts__social-wrapper'>
         <a className='contacts__social-link' href='#'>
@@ -129,8 +103,8 @@ const Contacts: FC = () => {
           symbols={["0", "1"]}
           rows={7}
           cols={3}
-          minInterval={1_200}
-          maxInterval={2_550}
+          minInterval={350}
+          maxInterval={700}
           unreachableCells={[
             [3, 1],
             [4, 1],

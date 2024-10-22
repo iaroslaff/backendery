@@ -113,9 +113,10 @@ const AboutUs: FC = () => {
         <p className='about-us__description'>
           <span className='about-us__description-bracket'>{"["}</span>
           {`
-            We're a small and cosy digital studio specializing in backend development. Focused on
-            creating reliable, efficient solutions, we value close collaboration with clients and
-            take pride in delivering quality results tailored to each project's unique needs
+            We're a small, friendly digital studio specializing in backend development. We focus on
+            building reliable and efficient solutions, valuing close collaboration to understand each
+            client's needs. We're committed to delivering high-quality results tailored to the unique
+            goals of every project
           `}
           <span className='about-us__description-bracket'>{"]"}</span>
         </p>

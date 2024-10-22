@@ -146,7 +146,7 @@ const WeDo: FC = () => {
           />
         </div>
         <div className='we-do__description'>
-          <span className='we-do__description-highlight'>{"// description"}</span>
+          <span className='we-do__description-highlight'>{"/** dream it, build it */"}</span>
           <p ref={descriptionRef}>{activeContent && activeContent.description}</p>
         </div>
         {/* prettier-ignore */}

@@ -25,57 +25,69 @@ const casesContents: ICasesContent[] = [
   {
     id: 1,
     category: "../Sport && Odds",
-    title: "Trading system",
+    title: "Trading System",
     description: `
-      We developed a fully automated trading system for the Betfair exchange, featuring event
-      search and analysis with predefined algorithms, probability distribution, risk assessment,
-      and automatic bet placement. The system also delivers real-time notifications via messaging
-      apps, optimizing trading operations with advanced features
+      This is our internal project: a fully automated trading system integrated with the Betfair exchange.
+      It includes custom mathematical models, event search and analysis, probability distribution, risk
+      assessment, and automated betting. Real-time notifications ensure smooth trading operations and quick
+      decision-making
     `,
     technologies: [
       "Python",
+      "Rust",
       "FastAPI",
+      "Axum",
       "SciPy",
       "SQLAlchemy",
-      "APScheduler",
-      "Rust",
-      "Axum",
-      "SerDe",
       "Diesel",
+      "Rayon",
+      "SerDe",
       "PostgreSQL"
     ],
   },
   {
     id: 2,
-    category: "../Sport Betting",
-    title: "Services Integration",
+    category: "../Monitoring",
+    title: "Event Watcher",
     description: `
-      We develop bots for various platforms, including chatbots and user interaction automation.
-      These solutions enhance customer experience and engagement, providing quick responses and improving
-      service quality
+      This project involved developing a system for creating, analyzing, and executing complex logic-based
+      formulas derived from real-time metrics. Users could build custom conditions to trigger specific actions,
+      like notifications, based on the continuous evaluation of these formulas over defined time intervals
     `,
-    technologies: [""],
+    technologies: [
+      "Python",
+      "Aiohttp",
+      "Asyncio",
+      "AST",
+      "APScheduler",
+      "Pandas",
+      "Pydantic",
+      "InfluxDB",
+      "Sentry",
+      "MongoDB",
+    ],
   },
   {
     id: 3,
     category: "../e-Commerce",
     title: "Online Store",
     description: `
-      We developed the backend for a custom online store selling metal and steel products with a product
-      configurator. Customers could design cabinets, shelves, or bar station, adjusting dimensions and
-      materials with real-time price updates. This streamlined both individual and bulk orders, improving
-      engagement and management
+      The main challenge of this project was developing a robust and high-performance backend for an online
+      shop selling metal and steel products, featuring a flexible product configurator. Customers can change
+      many product properties, such as size or material, with real-time price updates. This streamlined
+      orders, improving engagement and management
     `,
     technologies: [
       "Python",
       "FastAPI",
       "Ariadne",
-      "SQLAlchemy",
-      "Pydantic",
-      "PostgreSQL",
+      "NGINX",
       "Redis",
+      "Pydantic",
+      "Peewee",
+      "PostgreSQL",
       "Alembic",
-      "Datadog"
+      "Datadog",
     ],
   },
 ] as const
@@ -154,7 +166,7 @@ const CaseDetails: FC<ICaseDetailsProps> = ({ content, descriptionRef = null }) 
         {content.description}
       </p>
       <p className='cases__case-technologies-title'>Used technologies</p>
-      <p>{content.technologies.join(' • ')}</p>
+      <p>{content.technologies.join("; ")}</p>
     </div>
   )
 }
@@ -196,12 +208,8 @@ const Cases: FC = () => {
       <div className='cases__decorative-marquee-str-wrapper'>
         <span className='cases__decorative-marquee-str-wrapper--brace'>{"["}</span>
         <div className='cases__decorative-marquee-str'>
-          <Marquee
-            autoFill={true}
-            pauseOnHover={true}
-            speed={15}
-          >
-            {"|scale your code|maximize performance|optimize your workflow"}
+          <Marquee autoFill={true} pauseOnHover={true} speed={15}>
+            {"• •scale your code• •maximize performance• •optimize your workflow"}
           </Marquee>
         </div>
         <span className='cases__decorative-marquee-str-wrapper--brace'>{"]"}</span>

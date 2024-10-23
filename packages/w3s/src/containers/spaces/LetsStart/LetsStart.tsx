@@ -1,5 +1,7 @@
+import axios from "axios"
+import axiosRetry from "axios-retry"
 import { Field, Form, Formik, FormikHelpers } from "formik"
-import { FC, useEffect } from "react"
+import { FC, useEffect, useState } from "react"
 import { ReactTyped as Typed } from "react-typed"
 import * as Yup from "yup"
 
@@ -7,10 +9,6 @@ import AnimateSignalStrip from "../../../components/AnimateSignalStrip/AnimateSi
 import { SvgIcon } from "../../../components/elements/Icon"
 
 import "./LetsStart.scss"
-
-/* prettier-ignore */
-const budgetMin =  1_000 as number
-const budgetMax = 50_000 as number
 
 interface ILetsStartFormValues {
   name: string
@@ -73,6 +71,90 @@ const handleKeyDownEvent = (event: React.KeyboardEvent<HTMLFormElement>) => {
   }
 }
 
+/**
+ * Updates the content of a modal dialog.
+ *
+ * @param {string} title - The text to be displayed as the modal's title.
+ * @param {string} description - The text to be displayed as the modal's description.
+ * @function
+ */
+const updateModalContent = (title: string, description: string): void => {
+  const modalTitle = document.querySelector(".lets-start__modal-title")
+  const modalDescription = document.querySelector(".lets-start__modal-description")
+
+  if (modalTitle) {
+    modalTitle.textContent = title
+  }
+
+  if (modalDescription) {
+    modalDescription.textContent = description
+  }
+}
+
+const budgetMin = 1_000 as number
+const budgetMax = 50_000 as number
+
+const maxRedirectsCount = 0 as number
+const requestBaseURL = "https://backendery-lets-start-form.shuttleapp.rs/" as string
+const requestTimeout = 5_000 as number
+const retryCount = 3 as number
+
+// Create an axios instance to set the interceptors
+const axiosInstance = axios.create({
+  baseURL: requestBaseURL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+  // Disable automatic redirects
+  maxRedirects: maxRedirectsCount,
+  // Send cookies with cross-origin requests
+  withCredentials: true,
+  timeout: requestTimeout,
+})
+
+// Retry up to 3 times on failed requests
+axiosRetry(axiosInstance, { retries: retryCount })
+
+// Interceptor for processing before request
+axiosInstance.interceptors.request.use(
+  config => {
+    /* prettier-ignore */
+    updateModalContent(
+      "Wait...",
+      "One moment. We're sending your message right now."
+    )
+
+    return config
+  },
+  error => {
+    return Promise.reject(error)
+  }
+)
+
+// Interceptor for processing after request
+axiosInstance.interceptors.response.use(
+  response => {
+    // Update the title and description after a successful response
+    /* prettier-ignore */
+    updateModalContent(
+      "Thank You",
+      "Your message has been successfully sent! We'll contact you ASAP."
+    )
+
+    return response
+  },
+  error => {
+    // Update title and description in case of error
+    /* prettier-ignore */
+    updateModalContent(
+      "Opps",
+      "Sorry, something went wrong. Please try again later."
+    )
+
+    return Promise.reject(error)
+  }
+)
+
 const LetsStart: FC = () => {
   /**
    * Handler for form submission. Resets the form after sending the message (or performing the desired action). This
@@ -84,11 +166,44 @@ const LetsStart: FC = () => {
    * @function
    */
   /* prettier-ignore */
-  const handleSendMessage = (
+  const handleSendMessage = async (
     values: ILetsStartFormValues, actions: FormikHelpers<ILetsStartFormValues>
-  ): void => {
-    actions.resetForm() // Reset the form fields to their initial values after submission
+  ) => {
+    openModal()
+
+    try {
+      // Sending data via axios with interceptors
+      const response = await axiosInstance.post('/api/v1/send-email', values);
+      if (response.status === axios.HttpStatusCode.Ok) {
+        // Reset the form fields to their initial values after submission
+        actions.resetForm();
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+       // Un-disabled button
+      actions.setSubmitting(false);
+    }
   }
+
+  /**
+   * Opens a modal window.
+   * @function
+   */
+  const openModal = () => {
+    setIsModalOpen(true)
+  }
+
+  /**
+   * Closes the modal window.
+   * @function
+   */
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
+
+  /** @states */
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   /* prettier-ignore */
   const Schema = Yup.object().shape({
@@ -151,15 +266,15 @@ const LetsStart: FC = () => {
 
   return (
     <div className='lets-start'>
-
-      <div className="lets-start__modal">
-        <h2 className="lets-start__modal-title">Thank You_</h2>
-        <p className="lets-start__modal-description">
-          Your message has been successfully sent! We will contact you as soon as possible.
-        </p>
-        <button className="lets-start__modal-btn">OK</button>
-      </div>
-
+      {isModalOpen && (
+        <div className='lets-start__modal'>
+          <h2 className='lets-start__modal-title'></h2>
+          <p className='lets-start__modal-description'></p>
+          <button className='lets-start__modal-close-btn' onClick={closeModal}>
+            OK
+          </button>
+        </div>
+      )}
       <h2 className='lets-start__title'>
         <Typed strings={["Let's start"]} typeSpeed={50} cursorChar='_' showCursor={true} startWhenVisible />
       </h2>
@@ -186,7 +301,7 @@ const LetsStart: FC = () => {
         validateOnBlur={false}
         validateOnChange={false}
       >
-        {({ values, errors, submitCount, setFieldValue }) => (
+        {({ values, errors, submitCount, isSubmitting, setFieldValue }) => (
           <div className='lets-start__form-wrapper'>
             <Form onKeyDown={handleKeyDownEvent}>
               <div className='lets-start__form'>
@@ -267,8 +382,8 @@ const LetsStart: FC = () => {
                     </div>
                   </div>
                 </div>
-                <button className='lets-start__send-message-btn' type='submit'>
-                  <span>Send Message</span>
+                <button className='lets-start__send-message-btn' type='submit' disabled={isSubmitting}>
+                  <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
                   <SvgIcon name='arrow-right' />
                 </button>
               </div>

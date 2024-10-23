@@ -151,6 +151,15 @@ const LetsStart: FC = () => {
 
   return (
     <div className='lets-start'>
+
+      <div className="lets-start__modal">
+        <h2 className="lets-start__modal-title">Thank You_</h2>
+        <p className="lets-start__modal-description">
+          Your message has been successfully sent! We will contact you as soon as possible.
+        </p>
+        <button className="lets-start__modal-btn">OK</button>
+      </div>
+
       <h2 className='lets-start__title'>
         <Typed strings={["Let's start"]} typeSpeed={50} cursorChar='_' showCursor={true} startWhenVisible />
       </h2>

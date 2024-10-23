@@ -36,11 +36,13 @@ type UseRotatorProps = {
 
   /**
    * @property {Function} Callback when animation starts rendering.
+   * @default null
    */
   onAnimationStart?: () => void
 
   /**
    * @property {Function} Callback for when the animation finished.
+   * @default null
    */
   onAnimationEnd?: () => void
 }

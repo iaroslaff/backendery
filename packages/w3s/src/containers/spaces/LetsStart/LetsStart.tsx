@@ -137,7 +137,7 @@ axiosInstance.interceptors.response.use(
     // Update the title and description after a successful response
     /* prettier-ignore */
     updateModalContent(
-      "Thank You",
+      "Thank You!",
       "Your message has been successfully sent! We'll contact you ASAP."
     )
 
@@ -147,7 +147,7 @@ axiosInstance.interceptors.response.use(
     // Update title and description in case of error
     /* prettier-ignore */
     updateModalContent(
-      "Opps",
+      "Opps!",
       "Sorry, something went wrong. Please try again later."
     )
 

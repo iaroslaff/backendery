@@ -1,0 +1,69 @@
+{
+  "devDependencies": {
+    "@beardeddudes/eslint-config": "~0.1.*",
+    "@beardeddudes/postcss-config": "~0.1.*",
+    "@beardeddudes/prettier-config": "~0.1.*",
+    "@beardeddudes/stylelint-config": "~0.1.*",
+    "@beardeddudes/typescript-config": "~0.1.*",
+    "husky": "~9.0.11",
+    "lint-staged": "~15.2.2",
+    "typescript": "~5.3.3"
+  },
+  "engines": {
+    "node": "~18.18.2"
+  },
+  "eslintConfig": {
+    "extends": "@beardeddudes/eslint-config",
+    "ignorePatterns": [
+      "webpack.config.ts"
+    ]
+  },
+  "license": "MIT",
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,json,sass,scss,css}": [
+      "yarn prettier --write"
+    ],
+    "**/*.{ts,tsx}": [
+      "yarn eslint --fix"
+    ],
+    "**/*.{sass,scss,css}": [
+      "yarn stylelint --fix"
+    ],
+    "yarn.lock": [
+      "yarn dedupe"
+    ]
+  },
+  "maintainers": [
+    {
+      "email": "hey@backendery.io",
+      "name": "Backendery",
+      "url": "https://github.com/backendery"
+    }
+  ],
+  "name": "backendery",
+  "packageManager": "yarn@4.3.1",
+  "prettier": "@beardeddudes/prettier-config",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iaroslaff/backendery.git"
+  },
+  "scripts": {
+    "stylelint": "npx stylelint",
+    "prettier": "npx prettier",
+    "eslint": "npx eslint",
+    "husky": "npx husky",
+    "fix": "echo \"Running Prettier...\" && yarn prettier --write packages/*/src && echo \"Running ESLint...\" && yarn eslint packages/*/src --fix && echo \"Running Stylelint...\" && yarn stylelint packages/*/src/**/*.(sass|scss|css) --fix",
+    "lint": "echo \"Running Prettier...\" && yarn prettier --check packages/*/src && echo \"Running ESLint...\" && yarn eslint packages/*/src && echo \"Running Stylelint...\" && yarn stylelint packages/*/src/**/*.(sass|scss|css)",
+    "build": "yarn workspaces foreach --all --parallel run build",
+    "test:w3s": "yarn workspace @backendery/w3s run tests",
+    "serve:w3s": "yarn workspace @backendery/w3s run serve"
+  },
+  "stylelint": {
+    "extends": "@beardeddudes/stylelint-config"
+  },
+  "version": "0.1.0",
+  "workspaces": [
+    "packages/*"
+  ]
+}

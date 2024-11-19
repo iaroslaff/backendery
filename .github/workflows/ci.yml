@@ -1,0 +1,59 @@
+---
+name: Deploy React.js app to Hostinger
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18.18.2"
+      - name: Install dependencies
+        run: |
+          yarn
+      - name: Build React.js app
+        env:
+          W3S_BACKENDERY_LETS_START_BASE_URL: "${{ vars.W3S_BACKENDERY_LETS_START_BASE_URL }}"
+          W3S_GOOGLE_TAG_MANAGER_ID: "${{ vars.W3S_GOOGLE_TAG_MANAGER_ID }}"
+        run: |
+          yarn build
+      - name: Upload [dist] folder as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: "packages/w3s/dist"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: backendery-io
+    steps:
+      - name: Download [dist] artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: "packages/w3s/dist"
+      - name: Deploy to Hostinger via FTP
+        env:
+          FTP_DEPLOY_FOLDER: "${{ secrets.FTP_DEPLOY_FOLDER }}"
+          FTP_HOST: "${{ secrets.FTP_HOST }}"
+          FTP_USERNAME: "${{ secrets.FTP_USERNAME }}"
+          FTP_PASSWORD: "${{ secrets.FTP_PASSWORD }}"
+        run: |
+          sudo apt-get install -y lftp
+          lftp -e "
+            set ftp:ssl-allow no;
+            open $FTP_HOST;
+            user $FTP_USERNAME $FTP_PASSWORD;
+            mirror -v -R --delete --exclude manifest.* packages/w3s/dist/ $FTP_DEPLOY_FOLDER;
+            bye
+          "

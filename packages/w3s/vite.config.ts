@@ -1,6 +1,40 @@
 import { configureReact as configure } from "@beardeddudes/vite-config"
 
-const [gtmId] = [process.env.W3S_GOOGLE_TAG_MANAGER_ID || ""]
+/**
+ * Retrieves the value of an environment variable.
+ *
+ * @function
+ * @template T The type of the default value (if provided).
+ * @param {keyof typeof process.env} key The name of the environment variable to retrieve.
+ * @param {T} [defaultValue] An optional default value to return if the environment variable is
+ * undefined or not set.
+ *
+ * @example
+ * ```tsx
+ * // Assuming process.env.NODE_ENV = "production"
+ * const envValue = env("NODE_ENV"); // Returns "production"
+ *```
+ *
+ * @example
+ * ```tsx
+ * // Assuming process.env.MISSING_ENV_VAR is undefined
+ * const defaultEnvValue = env("MISSING_ENV_VAR", "defaultValue"); // Returns "defaultValue"
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Assuming process.env.MISSING_ENV_VAR is undefined and no default value is provided
+ * const nullEnvValue = env("MISSING_ENV_VAR"); // Returns null
+ * ```
+ *
+ * @returns {string | T | null} The value of the environment variable, the default value if provided
+ * and the variable is not set, or `null` if neither is available.
+ */
+const env: <T>(key: keyof typeof process.env, defaultValue?: T) => string | T | null = (key, defaultValue) =>
+  process.env?.[key] ?? defaultValue ?? null
+
+const googleTagManagerId = JSON.stringify(env<string>("W3S_GOOGLE_TAG_MANAGER_ID", "GTM-********"))
+const nodeEnv = JSON.stringify(env<string>("NODE_ENV", "development"))
 
 export default configure(
   {
@@ -8,13 +42,10 @@ export default configure(
     base: "/",
     build: {
       outDir: "dist",
-      assetsInlineLimit: 1024 * 4,
-      chunkSizeWarningLimit: 512,
-      cssCodeSplit: true,
-      emptyOutDir: true,
-      manifest: false,
-      minify: "terser",
-      modulePreload: true,
+      manifest: nodeEnv !== "production",
+      modulePreload: {
+        polyfill: true,
+      },
       rollupOptions: {
         output: {
           assetFileNames: assetInfo => {
@@ -26,25 +57,18 @@ export default configure(
             }
             return "assets/[name]-[hash][extname]"
           },
-          manualChunks(id) {
-            if (id.includes("node_modules")) {
-              return "vendor"
-            }
-            return null
-          },
         },
       },
-      sourcemap: false,
-      ssr: false,
-      ssrManifest: false,
-      target: "esnext",
-      write: true,
+      sourcemap: nodeEnv !== "production",
+      target: "esnext"
     },
-    server: { hmr: { overlay: true } },
+    json: { stringify: true },
+    server: { hmr: { overlay: nodeEnv !== "production" } },
+    worker: { format: "es" },
   },
   {
-    analytics: { enableDev: false, gtm: { id: gtmId } },
-    buildInfo: { enabled: false },
+    analytics: { enableDev: nodeEnv !== "production", gtm: { id: googleTagManagerId } },
+    buildInfo: { enabled: nodeEnv !== "production" },
     lint: { enabled: true, enableBuild: true, stylelint: false },
     openGraph: { enabled: false },
     react: { swc: { enabled: true }, svg: { enabled: true } },

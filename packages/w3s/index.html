@@ -24,14 +24,17 @@
     <meta property="og:image:height" content="418" />
     <meta property="og:site_name" content="Backendery" />
     <link rel="canonical" href="https://backendery.io/" />
-    <link rel="icon" type="image/png" href="assets/images/png/favicon-16x16-dt.png" sizes="16x16" media="(prefers-color-scheme: dark)" />
-    <link rel="icon" type="image/png" href="assets/images/png/favicon-32x32-dt.png" sizes="32x32" media="(prefers-color-scheme: dark)" />
-    <link rel="icon" type="image/png" href="assets/images/png/favicon-96x96-dt.png" sizes="96x96" media="(prefers-color-scheme: dark)" />
-    <link rel="icon" type="image/png" href="assets/images/png/favicon-16x16-lt.png" sizes="16x16" media="(prefers-color-scheme: light)" />
-    <link rel="icon" type="image/png" href="assets/images/png/favicon-32x32-lt.png" sizes="32x32" media="(prefers-color-scheme: light)" />
-    <link rel="icon" type="image/png" href="assets/images/png/favicon-96x96-lt.png" sizes="96x96" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" href="/assets/images/png/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/assets/images/png/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/assets/images/png/favicon-96x96.png" sizes="96x96" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@100;200;300;400;500;600;700&display=swap" as="style" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/sanitize.css@13.0.0/sanitize.css" as="style" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/sanitize.css@13.0.0/forms.css" as="style" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/sanitize.css@13.0.0/typography.css" as="style" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@100;200;300;400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sanitize.css@13.0.0/sanitize.css" integrity="sha256-+TDNmUgHd7MxBBh2xvqREEA8YK2rBRbEeDc7Sjm3w04=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sanitize.css@13.0.0/forms.css" integrity="sha256-INHhazSANOKYTSFyBCFfc80nWtvOS3p6guarm4OJWws=" crossorigin="anonymous" />
@@ -50,11 +53,13 @@
         "url": "https://backendery.io/"
       }
     </script>
-    <title>Server Apps, API Development & Automation :: Backendery</title>
+    <title>Backendery - Server Apps, API Development & Automation</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app</noscript>
-    <div id="root"></div>
-    <script type="module" src="./src/index.tsx"></script>
+    <div id="root">
+    </div>
+    <script type="module" src="./src/index.tsx">
+    </script>
   </body>
 </html>

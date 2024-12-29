@@ -9,5 +9,11 @@ const rootElement = document.querySelector("#root") as HTMLDivElement
 const root = createRoot(rootElement)
 
 root.render(
-  import.meta.env.DEV ? (<StrictMode><App /></StrictMode>) : (<App />)
+  import.meta.env.DEV ? (
+    <StrictMode>
+      <App />
+    </StrictMode>
+  ) : (
+    <App />
+  )
 )

@@ -57,31 +57,6 @@ export default configure(
             }
             return "assets/[name]-[hash][extname]"
           },
-          /* prettier-ignore */
-          manualChunks: {
-            form: [
-              "formik",
-              "yup"
-            ],
-            net: [
-              "axios",
-              "axios-retry"
-            ],
-            react: [
-              "react",
-              "react-dom",
-              "react-error-boundary",
-              "react-fast-marquee",
-              "react-responsive",
-              "react-router",
-              "react-router-dom",
-              "react-typed",
-              "react-use"
-            ],
-            vendor: [
-              "framer-motion"
-            ]
-          },
         },
       },
       sourcemap: nodeEnv === "development",

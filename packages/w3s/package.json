@@ -15,9 +15,9 @@
     }
   ],
   "scripts": {
-    "dev": "npx vite --host",
-    "build": "npx vite build",
-    "preview": "npx vite preview"
+    "dev": "pnpm vite --host",
+    "build": "pnpm vite build",
+    "preview": "pnpm vite preview"
   },
   "browserslist": [
     "> 0.25%",

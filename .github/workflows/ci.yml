@@ -25,7 +25,7 @@ jobs:
           W3S_BACKENDERY_LETS_START_BASE_URL: "${{ vars.W3S_BACKENDERY_LETS_START_BASE_URL }}"
           W3S_GOOGLE_TAG_MANAGER_ID: "${{ vars.W3S_GOOGLE_TAG_MANAGER_ID }}"
         run: |
-          yarn build
+          yarn build:w3s
       - name: Upload [dist] folder as artifact
         uses: actions/upload-artifact@v4
         with:

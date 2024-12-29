@@ -42,7 +42,7 @@ export default configure(
     base: "/",
     build: {
       outDir: "dist",
-      manifest: nodeEnv !== "production",
+      manifest: nodeEnv === "development",
       modulePreload: {
         polyfill: true,
       },
@@ -57,18 +57,43 @@ export default configure(
             }
             return "assets/[name]-[hash][extname]"
           },
+          /* prettier-ignore */
+          manualChunks: {
+            form: [
+              "formik",
+              "yup"
+            ],
+            net: [
+              "axios",
+              "axios-retry"
+            ],
+            react: [
+              "react",
+              "react-dom",
+              "react-error-boundary",
+              "react-fast-marquee",
+              "react-responsive",
+              "react-router",
+              "react-router-dom",
+              "react-typed",
+              "react-use"
+            ],
+            vendor: [
+              "framer-motion"
+            ]
+          },
         },
       },
-      sourcemap: nodeEnv !== "production",
-      target: "esnext"
+      sourcemap: nodeEnv === "development",
+      target: "esnext",
     },
     json: { stringify: true },
-    server: { hmr: { overlay: nodeEnv !== "production" } },
+    server: { hmr: { overlay: nodeEnv === "development" } },
     worker: { format: "es" },
   },
   {
-    analytics: { enableDev: nodeEnv !== "production", gtm: { id: googleTagManagerId } },
-    buildInfo: { enabled: nodeEnv !== "production" },
+    analytics: { enableDev: nodeEnv === "development", gtm: { id: googleTagManagerId } },
+    buildInfo: { enabled: nodeEnv === "development" },
     lint: { enabled: true, enableBuild: true, stylelint: false },
     openGraph: { enabled: false },
     react: { swc: { enabled: true }, svg: { enabled: true } },

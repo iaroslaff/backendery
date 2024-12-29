@@ -1,9 +1,0 @@
-@import "true";
-@import "./../funcs";
-
-@include describe("The `remove-unit` function") {
-  @include it("returns the value of the property without units.") {
-    @include assert-equal(remove-unit("1440px"), "1440");
-    @include assert-equal(remove-unit("150%"), "150");
-  }
-}

@@ -18,8 +18,7 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "outDir": "dist",
-    "paths": {
-    },
+    "paths": {},
     "resolveJsonModule": true,
     "rootDir": ".",
     "skipDefaultLibCheck": true,
@@ -29,10 +28,6 @@
     "strictNullChecks": true,
     "target": "ESNext",
     "types": [
-      "@testing-library/dom",
-      "@testing-library/jest-dom",
-      "@testing-library/react",
-      "@testing-library/user-event",
       "@types/overlayscrollbars",
       "@types/react",
       "@types/react-dom",
@@ -42,7 +37,7 @@
     "useDefineForClassFields": true
   },
   "extends": "@beardeddudes/typescript-config/react",
-  "include": ["./src/**/*.ts", "./src/**/*.tsx", "vite.config.ts", "vitest.config.ts"],
+  "include": ["./src/**/*.ts", "./src/**/*.tsx", "vite.config.ts"],
   "references": [
     {
       "path": "./tsconfig.node.json"

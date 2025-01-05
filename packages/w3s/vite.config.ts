@@ -33,7 +33,6 @@ import { configureReact as configure } from "@beardeddudes/vite-config"
 const env: <T>(key: keyof typeof process.env, defaultValue?: T) => string | T | null = (key, defaultValue) =>
   process.env?.[key] ?? defaultValue ?? null
 
-const googleTagManagerId = JSON.stringify(env<string>("W3S_GOOGLE_TAG_MANAGER_ID", "GTM-********"))
 const nodeEnv = JSON.stringify(env<string>("NODE_ENV", "development"))
 
 export default configure(
@@ -67,7 +66,7 @@ export default configure(
     worker: { format: "es" },
   },
   {
-    analytics: { enableDev: nodeEnv === "development", gtm: { id: googleTagManagerId } },
+    analytics: { enableDev: nodeEnv === "development" },
     buildInfo: { enabled: nodeEnv === "development" },
     lint: { enabled: true, enableBuild: true, stylelint: false },
     openGraph: { enabled: false },

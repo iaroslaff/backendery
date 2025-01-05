@@ -5,7 +5,7 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"@adobe/css-tools@npm:^4.3.3":
+"@adobe/css-tools@npm:^4.4.0":
   version: 4.4.1
   resolution: "@adobe/css-tools@npm:4.4.1"
   checksum: 10c0/1a68ad9af490f45fce7b6e50dd2d8ac0c546d74431649c0d42ee4ceb1a9fa057fae0a7ef1e148effa12d84ec00ed71869ebfe0fb1dcdcc80bfcb6048c12abcc0
@@ -1337,7 +1337,7 @@ __metadata:
     react-typed: "npm:~2.0.12"
     react-use: "npm:~17.5.1"
     sanitize.css: "npm:~13.0.0"
-    sass-true: "npm:~8.0.0"
+    sass-true: "npm:~8.1.0"
     use-scramble: "npm:~2.2.15"
     yup: "npm:~1.4.0"
   languageName: unknown
@@ -13683,14 +13683,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass-true@npm:~8.0.0":
-  version: 8.0.0
-  resolution: "sass-true@npm:8.0.0"
+"sass-true@npm:~8.1.0":
+  version: 8.1.0
+  resolution: "sass-true@npm:8.1.0"
   dependencies:
-    "@adobe/css-tools": "npm:^4.3.3"
+    "@adobe/css-tools": "npm:^4.4.0"
     jest-diff: "npm:^29.7.0"
     lodash: "npm:^4.17.21"
-  checksum: 10c0/8b2588a569454e98380bc87c172e0b00c3cbc03c6de993edf75befa1d56cc8bab5d818d708fe14b5e51219e9f05ffafcfc6b185d0d7e7147f25b6f1a39976a09
+  peerDependencies:
+    sass: ">=1.45.0"
+    sass-embedded: ">=1.45.0"
+  peerDependenciesMeta:
+    sass:
+      optional: true
+    sass-embedded:
+      optional: true
+  checksum: 10c0/93c54693b354fd6e4bf243711e2e9acb6638400f3b03f3f61c4fd8db6a2e2bb677a12f278907a6194d187cfed1a5a2adca314ddc560a824b06cd209accdfb949
   languageName: node
   linkType: hard
 

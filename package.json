@@ -25,8 +25,7 @@
     "fix": "echo \"Running Prettier...\" && yarn prettier --write packages/*/src && echo \"Running ESLint...\" && yarn eslint packages/*/src --fix && echo \"Running Stylelint...\" && yarn stylelint packages/*/src/**/*.(sass|scss|css) --fix",
     "lint": "echo \"Running Prettier...\" && yarn prettier --check packages/*/src && echo \"Running ESLint...\" && yarn eslint packages/*/src && echo \"Running Stylelint...\" && yarn stylelint packages/*/src/**/*.(sass|scss|css)",
     "dev:w3s": "yarn workspace @backendery/w3s run dev",
-    "build:w3s": "yarn workspaces foreach --all --parallel run build",
-    "preview:w3s": "yarn workspace @backendery/w3s run preview"
+    "build:w3s": "yarn workspaces foreach --all --parallel run build"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,json,sass,scss,css}": [

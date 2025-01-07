@@ -26,7 +26,6 @@ jobs:
       - name: Build React.js app
         env:
           W3S_BACKENDERY_LETS_START_BASE_URL: "${{ vars.W3S_BACKENDERY_LETS_START_BASE_URL }}"
-          W3S_GOOGLE_TAG_MANAGER_ID: "${{ vars.W3S_GOOGLE_TAG_MANAGER_ID }}"
         run: |
           yarn build:w3s
       - name: Upload [dist] folder as artifact
@@ -57,6 +56,9 @@ jobs:
             set ftp:ssl-allow no;
             open $FTP_HOST;
             user $FTP_USERNAME $FTP_PASSWORD;
-            mirror -v -R --only-newer --exclude manifest.* packages/w3s/dist/ $FTP_DEPLOY_FOLDER;
+
+            # Upload newer files and delete old files, but exclude manifest.* and .htaccess
+            mirror -v -R --only-newer --delete --exclude manifest.* --exclude .htaccess packages/w3s/dist/ $FTP_DEPLOY_FOLDER;
+
             bye
           "

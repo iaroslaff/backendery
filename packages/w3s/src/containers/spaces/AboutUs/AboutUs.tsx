@@ -55,34 +55,37 @@ const AboutUs: FC = () => {
   })
 
   useEffect(() => {
+    const timeoutId = scrambleTimeoutRef.current
     runWithTimeout(scrambleTimeoutRef, scrambleReplay)
 
     return () => {
-      if (scrambleTimeoutRef.current) {
-        clearTimeout(scrambleTimeoutRef.current)
+      if (timeoutId) {
+        clearTimeout(timeoutId)
       }
     }
-  }, [])
+  }, [scrambleReplay])
 
   useEffect(() => {
+    const timeoutId = lowerSquareTimeoutRef.current
     runWithTimeout(lowerSquareTimeoutRef, lowerSquareReplay)
 
     return () => {
-      if (lowerSquareTimeoutRef.current) {
-        clearTimeout(lowerSquareTimeoutRef.current)
+      if (timeoutId) {
+        clearTimeout(timeoutId)
       }
     }
-  }, [])
+  }, [lowerSquareReplay])
 
   useEffect(() => {
+    const timeoutId = upperSquareTimeoutRef.current
     runWithTimeout(upperSquareTimeoutRef, upperSquareReplay)
 
     return () => {
-      if (upperSquareTimeoutRef.current) {
-        clearTimeout(upperSquareTimeoutRef.current)
+      if (timeoutId) {
+        clearTimeout(timeoutId)
       }
     }
-  }, [])
+  }, [upperSquareReplay])
 
   return (
     <div className={"about-us"}>
@@ -127,7 +130,12 @@ const AboutUs: FC = () => {
           <picture>
             <source className={"about-us__founder-image"} srcSet={"/assets/images/founder.webp"} type={"image/webp"} />
             <source className={"about-us__founder-image"} srcSet={"/assets/images/founder.avif"} type={"image/avif"} />
-            <img className={"about-us__founder-image"} src={"/assets/images/founder.jpg"} alt={"It's me"} />
+            <img
+              className={"about-us__founder-image"}
+              src={"/assets/images/founder.jpg"}
+              alt={"It's me"}
+              loading={"lazy"}
+            />
           </picture>
         </div>
       </div>

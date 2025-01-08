@@ -41,7 +41,7 @@ export default configure(
     base: "/",
     build: {
       outDir: "dist",
-      manifest: nodeEnv === "development",
+      manifest: false,
       modulePreload: {
         polyfill: true,
       },

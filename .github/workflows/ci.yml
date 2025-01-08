@@ -58,7 +58,7 @@ jobs:
             user $FTP_USERNAME $FTP_PASSWORD;
 
             # Upload newer files and delete old files, but exclude manifest.* and .htaccess
-            mirror -v -R --only-newer --delete --exclude manifest.* --exclude .htaccess packages/w3s/dist/ $FTP_DEPLOY_FOLDER;
+            mirror -v -R --only-newer --delete --exclude .htaccess packages/w3s/dist/ $FTP_DEPLOY_FOLDER;
 
             bye
           "

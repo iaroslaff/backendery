@@ -134,7 +134,7 @@ const WeDo: FC = () => {
             minInterval={1250}
             maxInterval={2500}
             initialSymbols='.....'
-            style={{ color: "#67df8f" }}
+            style={{ color: "#00df82" }}
           />
           <AnimateSignalStrip
             symbol='.'
@@ -142,7 +142,7 @@ const WeDo: FC = () => {
             minInterval={1000}
             maxInterval={2500}
             initialSymbols='..'
-            style={{ color: "#ffffff" }}
+            style={{ color: "#f1f7f7" }}
           />
         </div>
         <div className='we-do__description'>

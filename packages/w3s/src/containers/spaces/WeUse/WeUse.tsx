@@ -91,7 +91,7 @@ const weUseContents: IWeUseContent[] = [
     toolsetTitle: "Monitoring",
     toolset: [
       "..",
-      "Datadog",
+      "Sentry",
       "Grafana",
       "Prometheus"
     ],

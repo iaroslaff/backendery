@@ -31,7 +31,7 @@ const InternalServerError: FC<FallbackProps> = ({ error, resetErrorBoundary }: F
           minInterval={1_000}
           maxInterval={2_500}
           initialSymbols='..'
-          style={{ color: "#ffffff" }}
+          style={{ color: "#f1f7f7" }}
         />
         <AnimateSignalStrip
           symbol='.'
@@ -39,7 +39,7 @@ const InternalServerError: FC<FallbackProps> = ({ error, resetErrorBoundary }: F
           minInterval={1_250}
           maxInterval={2_500}
           initialSymbols='.....'
-          style={{ color: "#67df8f" }}
+          style={{ color: "#00df82" }}
         />
       </div>
     </div>

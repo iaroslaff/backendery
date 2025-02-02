@@ -188,12 +188,6 @@
         transform: translate(0%, 0%);
       }
     }
-
-    &--scramble {
-      @media screen and (width <= $xs) {
-        display: none;
-      }
-    }
   }
 
   @media screen and (width <= $lg) {

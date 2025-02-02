@@ -1,38 +1,15 @@
 import { FC, useEffect, useRef } from "react"
 import { ReactTyped as Typed } from "react-typed"
-import { useScramble } from "use-scramble"
 
 import { useRotator } from "../../../hooks/useRotator"
-import { randomBetween, randomChars, runWithTimeout } from "../../../utils/fn"
+import { randomBetween, runWithTimeout } from "../../../utils/fn"
 
 import "./AboutUs.scss"
 
-const charsSequence = "1234567890ABCDEF!@#$%^&*_+[]{}<>?/~" as string
-const randomCharsNumber = (24 >> 1) as number
-
-const scrambleDecorativeTextParams = {
-  speed: 0.55,
-  tick: 3,
-  step: 1,
-  scramble: 10,
-  overflow: true,
-  overdrive: false,
-}
-
 const AboutUs: FC = () => {
   /** @references */
-  const scrambleTimeoutRef = useRef<number | null>(null)
   const lowerSquareTimeoutRef = useRef<number | null>(null)
   const upperSquareTimeoutRef = useRef<number | null>(null)
-
-  const { ref: scrambleDecorativeTextRef, replay: scrambleReplay } = useScramble({
-    text: randomChars(charsSequence, randomCharsNumber),
-    onAnimationEnd: () => {
-      const timeout = randomBetween(7_500, 12_000)
-      runWithTimeout(scrambleTimeoutRef, scrambleReplay, timeout)
-    },
-    ...scrambleDecorativeTextParams,
-  })
 
   const { ref: lowerSquareRef, replay: lowerSquareReplay } = useRotator({
     angle: 90,
@@ -55,17 +32,6 @@ const AboutUs: FC = () => {
   })
 
   useEffect(() => {
-    const timeoutId = scrambleTimeoutRef.current
-    runWithTimeout(scrambleTimeoutRef, scrambleReplay)
-
-    return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId)
-      }
-    }
-  }, [scrambleReplay])
-
-  useEffect(() => {
     const timeoutId = lowerSquareTimeoutRef.current
     runWithTimeout(lowerSquareTimeoutRef, lowerSquareReplay)
 
@@ -74,7 +40,7 @@ const AboutUs: FC = () => {
         clearTimeout(timeoutId)
       }
     }
-  }, [lowerSquareReplay])
+  }, [])
 
   useEffect(() => {
     const timeoutId = upperSquareTimeoutRef.current
@@ -85,7 +51,7 @@ const AboutUs: FC = () => {
         clearTimeout(timeoutId)
       }
     }
-  }, [upperSquareReplay])
+  }, [])
 
   return (
     <div className={"about-us"}>
@@ -93,7 +59,6 @@ const AboutUs: FC = () => {
         <Typed strings={["About Us"]} typeSpeed={50} cursorChar={"_"} showCursor={true} startWhenVisible />
       </h2>
       <div className={"about-us__description-wrapper"}>
-        <p className={"about-us__decorative-text--scramble"} ref={scrambleDecorativeTextRef}></p>
         {/* prettier-ignore */}
         <p className={"about-us__description"}>
           <span className={"about-us__description-bracket"}>{"["}</span>

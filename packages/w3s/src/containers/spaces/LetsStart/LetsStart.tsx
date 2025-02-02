@@ -447,7 +447,7 @@ const LetsStart: FC = () => {
           maxInterval={2_500}
           initialSymbols='.....'
           style={{
-            color: "#67df8f",
+            color: "#00df82",
             width: "50px",
           }}
         />

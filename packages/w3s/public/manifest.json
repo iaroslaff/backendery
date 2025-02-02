@@ -1,5 +1,5 @@
 {
-  "background_color": "#141519",
+  "background_color": "#030f0f",
   "description": "Reliable Server-Side Apps & High-Performance APIs",
   "display": "standalone",
   "handle_links": "preferred",
@@ -32,5 +32,5 @@
   "scope": "/",
   "short_name": "Backendery",
   "start_url": "/",
-  "theme_color": "#141519"
+  "theme_color": "#030f0f"
 }

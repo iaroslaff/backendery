@@ -48,7 +48,7 @@ const Contacts: FC = () => {
       </div>
       <div className={"contacts__social-wrapper"}>
         <a className={"contacts__social-link"} href={"#"}>
-          {"Telegram"}
+          {"LinkedIn"}
           <SvgIcon name={"arrow-up"} />
         </a>
         <a

@@ -1,6 +1,6 @@
 @import "../../styles/variables";
 
-.screen-sentinel {
+.preloader {
   user-select: none;
   touch-action: none;
 
@@ -25,6 +25,7 @@
     align-items: center;
     justify-content: center;
     margin: 0 20px;
+    color: $accent-color;
     text-align: center;
   }
 }

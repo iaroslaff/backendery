@@ -35,7 +35,7 @@
   }
 
   &__title {
-    @include adaptive-value($property: "font-size", $from: 96, $to: 24);
+    @include adaptive-value($property: "font-size", $from: 110, $to: 24);
 
     color: $secondary-color;
     line-height: 110%;
@@ -46,31 +46,23 @@
     position: relative;
     z-index: 10;
     display: flex;
+    gap: 8px;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    color: $accent-color;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.2;
+    text-transform: uppercase;
     cursor: pointer;
-  }
 
-  &__show-all-items {
-    display: grid;
-    grid-template-rows: repeat(3, auto);
-    grid-template-columns: repeat(3, auto);
-    gap: 4px;
-    transition: gap 0.08s linear;
+    svg {
+      width: 0.7em;
+      height: 0.7em;
 
-    &:hover {
-      @media (hover: hover) and (pointer: fine) {
-        gap: 8px;
+      path {
+        fill: $accent-color;
       }
     }
-  }
-
-  &__show-all-item {
-    @include adaptive-value($property: "width", $from: 6, $to: 8);
-    @include adaptive-value($property: "height", $from: 6, $to: 8);
-
-    background-color: $accent-color;
   }
 }
